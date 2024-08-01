@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lx02918.github.io/img/hash%20blog%20cover.jpg">
 <meta property="article:published_time" content="2024-08-01T03:37:46.000Z">
-<meta property="article:modified_time" content="2024-08-01T08:48:17.639Z">
+<meta property="article:modified_time" content="2024-08-01T08:49:10.027Z">
 <meta property="article:author" content="Seth">
 <meta property="article:tag" content="Leetcode">
 <meta property="article:tag" content="刷题">
@@ -574,7 +574,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">longestConsecutive</span>(<span class="hljs-params">self, nums: <span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>]</span>) -&gt; <span class="hljs-built_in">int</span>:<br>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> nums:<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span><br>        res = <span class="hljs-number">0</span><br>        num_count = <span class="hljs-built_in">set</span>(nums)<br>        <span class="hljs-keyword">for</span> num <span class="hljs-keyword">in</span> num_count:<br>            <span class="hljs-keyword">if</span> (num - <span class="hljs-number">1</span>) <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> num_count:<br>                num_len = <span class="hljs-number">1</span><br>                <span class="hljs-keyword">while</span> (num + <span class="hljs-number">1</span>) <span class="hljs-keyword">in</span> num_count:<br>                    num_len += <span class="hljs-number">1</span><br>                    num += <span class="hljs-number">1</span><br>                res = <span class="hljs-built_in">max</span>(res, num_len)<br>        <span class="hljs-keyword">return</span> res<br></code></pre></td></tr></table></figure>
 <h2 id="时间复杂度-8"><a href="#时间复杂度-8" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>时间复杂度O(n)，执行时间104ms，消耗内存32.6MB</p>
 <p>根据这个集合给出的题目来看，hash这部分的题目已简单题或中等题考察居多，核心逻辑都是一个——利用hash特有的键值对去进行匹配等操作，所以把握好本质就比较简单了。不过真的不想遇到hash，脑子一转不过来就完犊子。</p>
-<p>最后附上封面的猫猫图片（在这里还是要夸一下iPhone的微距，拍出来真的不错）<br><img src="/../img/hash%20blog%20cover.jpg" srcset="/img/loading.gif" lazyload alt="alt text"></p>
+<p>最后附上封面的猫猫图片（在这里还是要夸一下iPhone的微距，拍出来真的不错  ）<br><img src="/../img/hash%20blog%20cover.jpg" srcset="/img/loading.gif" lazyload alt="hash cover"></p>
 
                 
               </div>
