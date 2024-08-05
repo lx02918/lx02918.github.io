@@ -1,0 +1,1004 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Seth">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="今天准备继续学PG的高级操作，至于为什么过了一个周末才有开始学，那当然是因为上班时间拿来学习周末时间拿来玩啦~ 今天差不多就是约束、JOIN、UNION、别名、索引、触发器、事务、锁这些，gogogo。 约束在观感上感觉和MySQL的差不多，但是在查询相关资料后发现还是有些许区别。 和MySQL区别首先明确一点，他们都支持五大约束（不知道的拖出去乱棍打死！面试经常考的都不知道！）。 PG自带了一个">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PostgreSQL学习记录——第二天">
+<meta property="og:url" content="https://lx02918.github.io/2024/08/05/postgresql-study-second-day/index.html">
+<meta property="og:site_name" content="Seth的小站">
+<meta property="og:description" content="今天准备继续学PG的高级操作，至于为什么过了一个周末才有开始学，那当然是因为上班时间拿来学习周末时间拿来玩啦~ 今天差不多就是约束、JOIN、UNION、别名、索引、触发器、事务、锁这些，gogogo。 约束在观感上感觉和MySQL的差不多，但是在查询相关资料后发现还是有些许区别。 和MySQL区别首先明确一点，他们都支持五大约束（不知道的拖出去乱棍打死！面试经常考的都不知道！）。 PG自带了一个">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-08-05T07:41:15.000Z">
+<meta property="article:modified_time" content="2024-08-05T07:41:39.626Z">
+<meta property="article:author" content="Seth">
+<meta property="article:tag" content="学习记录">
+<meta property="article:tag" content="PostgreSQL">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>PostgreSQL学习记录——第二天 - Seth的小站</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"lx02918.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"pAyQlcbEY6nkOIh5fveIBxLA-gzGzoHsz","app_key":"DjSrQhO4p64SG8qV28lz5J0H","server_url":"https://payqlcbe.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Seth的小站" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Seth的小站</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="PostgreSQL学习记录——第二天"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-08-05 15:41" pubdate>
+          星期一, 八月 5日 2024, 3:41 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          17 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="学习记录"
+        id="heading-7f2ecb9c4d10981cd40468b79a104150" role="tab" data-toggle="collapse" href="#collapse-7f2ecb9c4d10981cd40468b79a104150"
+        aria-expanded="true"
+      >
+        学习记录
+        <span class="list-group-count">(3)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-7f2ecb9c4d10981cd40468b79a104150"
+           role="tabpanel" aria-labelledby="heading-7f2ecb9c4d10981cd40468b79a104150">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="PostgreSQL"
+        id="heading-399bd1ee587245ecac6f39beaa99886f" role="tab" data-toggle="collapse" href="#collapse-399bd1ee587245ecac6f39beaa99886f"
+        aria-expanded="true"
+      >
+        PostgreSQL
+        <span class="list-group-count">(3)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-399bd1ee587245ecac6f39beaa99886f"
+           role="tabpanel" aria-labelledby="heading-399bd1ee587245ecac6f39beaa99886f">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/08/02/postgresql-study-first-day/" title="PostgreSQL学习记录——第一天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">PostgreSQL学习记录——第一天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/05/postgresql-study-second-day/" title="PostgreSQL学习记录——第二天"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">PostgreSQL学习记录——第二天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/01/install-postgreSQL/" title="PostgreSQL安装记录及集群初始化失败问题解决"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">PostgreSQL安装记录及集群初始化失败问题解决</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">PostgreSQL学习记录——第二天</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>今天准备继续学PG的高级操作，至于为什么过了一个周末才有开始学，那当然是因为上班时间拿来学习周末时间拿来玩啦~</p>
+<p>今天差不多就是约束、JOIN、UNION、别名、索引、触发器、事务、锁这些，gogogo。</p>
+<h1 id="约束"><a href="#约束" class="headerlink" title="约束"></a>约束</h1><p>在观感上感觉和MySQL的差不多，但是在查询相关资料后发现还是有些许区别。</p>
+<h2 id="和MySQL区别"><a href="#和MySQL区别" class="headerlink" title="和MySQL区别"></a>和MySQL区别</h2><p>首先明确一点，他们都支持五大约束（不知道的拖出去乱棍打死！面试经常考的都不知道！）。</p>
+<p>PG自带了一个MySQL中没有的约束——排他约束（EXCLUDE）。同时在检查约束（CHECK）上会更加完善，能够支持更复杂的约束条件。</p>
+<p>PG可以给约束别名，而MySQL只能使用原本的名称，这点上如果按照实际操作来看其实没什么差别，一个就是按照原本的英文去写一个就是按照自己的习惯去修改名称。直接用英文的话感觉上会更习惯日常操作。</p>
+<p>PG支持部分约束和表达式约束（部分约束好像我之前面试的时候有被考到过，太久远了忘记了。），能够实现更复杂的操作。</p>
+<h2 id="PG常见约束"><a href="#PG常见约束" class="headerlink" title="PG常见约束"></a>PG常见约束</h2><ul>
+<li>NOT NULL 非空约束</li>
+<li>UNIQUE 唯一约束</li>
+<li>PREMARY key 主键约束</li>
+<li>FOREIGH key 外键约束</li>
+<li>CHECK 检查约束</li>
+<li>EXCLUSION 排他约束</li>
+</ul>
+<h2 id="NOT-NULL"><a href="#NOT-NULL" class="headerlink" title="NOT NULL"></a>NOT NULL</h2><p>默认情况下，列可以为NULL，但如果不让这列为NULL就可以设置此约束。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> COMPANY1(<br>   ID <span class="hljs-type">INT</span> <span class="hljs-keyword">PRIMARY</span> KEY     <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<br>   NAME           TEXT    <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<br>   AGE            <span class="hljs-type">INT</span>     <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<br>   ADDRESS        <span class="hljs-type">CHAR</span>(<span class="hljs-number">50</span>),<br>   SALARY         <span class="hljs-type">REAL</span><br>);<br></code></pre></td></tr></table></figure>
+<p>命令中就给几个列附了非空约束    </p>
+<h2 id="UNIQUE"><a href="#UNIQUE" class="headerlink" title="UNIQUE"></a>UNIQUE</h2><p>唯一性约束可以使该列是唯一的，不存在其他列和该列相同</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> COMPANY3(<br>   ID <span class="hljs-type">INT</span> <span class="hljs-keyword">PRIMARY</span> KEY     <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<br>   NAME           TEXT    <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<br>   AGE            <span class="hljs-type">INT</span>     <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span> <span class="hljs-keyword">UNIQUE</span>,<br>   ADDRESS        <span class="hljs-type">CHAR</span>(<span class="hljs-number">50</span>),<br>   SALARY         <span class="hljs-type">REAL</span>    <span class="hljs-keyword">DEFAULT</span> <span class="hljs-number">50000.00</span><br>);<br></code></pre></td></tr></table></figure>
+
+<h2 id="PRIMARY-KEY"><a href="#PRIMARY-KEY" class="headerlink" title="PRIMARY KEY"></a>PRIMARY KEY</h2><p>主键约束用于数据库中每条记录的唯一表标识，在设置时UNIQUE可以为多个，但PRIMARY KEY只能有一个，同时可以使用主键来引用表中的行，也可以通过将主键设置为其他表的外键来创建表之间的关联。</p>
+<p>在前两个例子中，ID都是被设置为主键的。</p>
+<h2 id="FOREIGN-KEY"><a href="#FOREIGN-KEY" class="headerlink" title="FOREIGN KEY"></a>FOREIGN KEY</h2><p>外键约束就是该表的制定列中的值必须匹配到另一个表的某一行中出现的值。通常用来建立两个表中的连接。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> DEPARTMENT1(<br>   ID <span class="hljs-type">INT</span> <span class="hljs-keyword">PRIMARY</span> KEY      <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<br>   DEPT           <span class="hljs-type">CHAR</span>(<span class="hljs-number">50</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<br>   EMP_ID         <span class="hljs-type">INT</span>      <span class="hljs-keyword">references</span> COMPANY2(ID)<br>);<br></code></pre></td></tr></table></figure>
+<p>这里是在建立好COMPANY2的基础上建立的DEPARTMENT1，也就是说EMP_ID依托于COMPANY2的ID，EMP_ID就是外键。</p>
+<h2 id="CHECK"><a href="#CHECK" class="headerlink" title="CHECK"></a>CHECK</h2><p>检查约束就是用来限制该列中的值的，在给列添加值时，符合条件的就会被添加，如果为false（不符合条件）就无法输入。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> COMPANY4(<br>   ID <span class="hljs-type">INT</span> <span class="hljs-keyword">PRIMARY</span> KEY     <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<br>   NAME           TEXT    <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<br>   AGE            <span class="hljs-type">INT</span>     <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<br>   ADDRESS        <span class="hljs-type">CHAR</span>(<span class="hljs-number">50</span>),<br>   SALARY         <span class="hljs-type">REAL</span>    <span class="hljs-keyword">CHECK</span>(SALARY <span class="hljs-operator">&gt;</span> <span class="hljs-number">0</span>)<br>);<br></code></pre></td></tr></table></figure>
+
+<p>我们这里建立的COMPANY4中给SALARY一个检查约束，条件是值大于0，也就是说只有大于0的值会被输入，反之不会。</p>
+<h2 id="EXCLUSION"><a href="#EXCLUSION" class="headerlink" title="EXCLUSION"></a>EXCLUSION</h2><p>排他约束确保如果使用指定的运算符在指定列或表达式上比较任意两行，至少其中一个运算符比较将返回false或null。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> COMPANY5(<br>   ID <span class="hljs-type">INT</span> <span class="hljs-keyword">PRIMARY</span> KEY     <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<br>   NAME           TEXT,<br>   AGE            <span class="hljs-type">INT</span>,<br>   ADDRESS        <span class="hljs-type">CHAR</span>(<span class="hljs-number">50</span>),<br>   SALARY         <span class="hljs-type">REAL</span>,<br>   EXCLUDE <span class="hljs-keyword">USING</span> gist<br>   (NAME <span class="hljs-keyword">WITH</span> <span class="hljs-operator">=</span>,  <span class="hljs-comment">-- 如果满足 NAME 相同，AGE 不相同则不允许插入，否则允许插入</span><br>   AGE <span class="hljs-keyword">WITH</span> <span class="hljs-operator">&lt;&gt;</span>)   <span class="hljs-comment">-- 其比较的结果是如果整个表达式返回 true，则不允许插入，否则允许</span><br>);<br></code></pre></td></tr></table></figure>
+
+<p>USING gist 是用于构建和执行的索引一种类型。</p>
+<p>这里需要注意的是，在使用这个SQL语句前记得用<code>CREATE EXTENSION IF NOT EXISTS btree_gist;</code>来开启扩展，不然会无法创建。</p>
+<p>然后插入数据</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> COMPANY5 <span class="hljs-keyword">VALUES</span>(<span class="hljs-number">1</span>, <span class="hljs-string">&#x27;Paul&#x27;</span>, <span class="hljs-number">32</span>, <span class="hljs-string">&#x27;California&#x27;</span>, <span class="hljs-number">20000.00</span> );<br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> COMPANY5 <span class="hljs-keyword">VALUES</span>(<span class="hljs-number">2</span>, <span class="hljs-string">&#x27;Paul&#x27;</span>, <span class="hljs-number">32</span>, <span class="hljs-string">&#x27;Texas&#x27;</span>, <span class="hljs-number">20000.00</span> );<br><span class="hljs-comment">-- 此条数据的 NAME 与第一条相同，且 AGE 与第一条也相同，故满足插入条件</span><br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> COMPANY5 <span class="hljs-keyword">VALUES</span>(<span class="hljs-number">3</span>, <span class="hljs-string">&#x27;Allen&#x27;</span>, <span class="hljs-number">42</span>, <span class="hljs-string">&#x27;California&#x27;</span>, <span class="hljs-number">20000.00</span> );<br><span class="hljs-comment">-- 此数据与上面数据的 NAME 相同，但 AGE 不相同，故不允许插入</span><br></code></pre></td></tr></table></figure>
+<p>结果：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sql">ERROR:  conflicting key <span class="hljs-keyword">value</span> violates exclusion <span class="hljs-keyword">constraint</span> &quot;company7_name_age_excl&quot;<br>DETAIL:  Key (name, age)<span class="hljs-operator">=</span>(Paul, <span class="hljs-number">42</span>) conflicts <span class="hljs-keyword">with</span> existing key (name, age)<span class="hljs-operator">=</span>(Paul, <span class="hljs-number">32</span>).<br></code></pre></td></tr></table></figure>
+
+<h2 id="删除约束"><a href="#删除约束" class="headerlink" title="删除约束"></a>删除约束</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> table_name <span class="hljs-keyword">DROP</span> <span class="hljs-keyword">CONSTRAINT</span> some_name;<br></code></pre></td></tr></table></figure>
+<p>如果不知道名称可以使用\d + table_name来查询</p>
+<h1 id="JOIN"><a href="#JOIN" class="headerlink" title="JOIN"></a>JOIN</h1><h2 id="常见JOIN类型"><a href="#常见JOIN类型" class="headerlink" title="常见JOIN类型"></a>常见JOIN类型</h2><ul>
+<li>CROSS JOIN </li>
+<li>INNER JOIN</li>
+<li>LEFT OUTER JOIN</li>
+<li>RIGHT OUTER JOIN</li>
+<li>FULL OUTER JOIN</li>
+</ul>
+<h2 id="预先准备"><a href="#预先准备" class="headerlink" title="预先准备"></a>预先准备</h2><p>导入数据库</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> COMPANY(<br>   ID <span class="hljs-type">INT</span> <span class="hljs-keyword">PRIMARY</span> KEY     <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<br>   NAME           TEXT    <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<br>   AGE            <span class="hljs-type">INT</span>     <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<br>   ADDRESS        <span class="hljs-type">CHAR</span>(<span class="hljs-number">50</span>),<br>   SALARY         <span class="hljs-type">REAL</span><br>);<br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> COMPANY (ID,NAME,AGE,ADDRESS,SALARY)<br><span class="hljs-keyword">VALUES</span> (<span class="hljs-number">1</span>, <span class="hljs-string">&#x27;Paul&#x27;</span>, <span class="hljs-number">32</span>, <span class="hljs-string">&#x27;California&#x27;</span>, <span class="hljs-number">20000.00</span> );<br><br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> COMPANY (ID,NAME,AGE,ADDRESS,SALARY)<br><span class="hljs-keyword">VALUES</span> (<span class="hljs-number">2</span>, <span class="hljs-string">&#x27;Allen&#x27;</span>, <span class="hljs-number">25</span>, <span class="hljs-string">&#x27;Texas&#x27;</span>, <span class="hljs-number">15000.00</span> );<br><br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> COMPANY (ID,NAME,AGE,ADDRESS,SALARY)<br><span class="hljs-keyword">VALUES</span> (<span class="hljs-number">3</span>, <span class="hljs-string">&#x27;Teddy&#x27;</span>, <span class="hljs-number">23</span>, <span class="hljs-string">&#x27;Norway&#x27;</span>, <span class="hljs-number">20000.00</span> );<br><br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> COMPANY (ID,NAME,AGE,ADDRESS,SALARY)<br><span class="hljs-keyword">VALUES</span> (<span class="hljs-number">4</span>, <span class="hljs-string">&#x27;Mark&#x27;</span>, <span class="hljs-number">25</span>, <span class="hljs-string">&#x27;Rich-Mond &#x27;</span>, <span class="hljs-number">65000.00</span> );<br><br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> COMPANY (ID,NAME,AGE,ADDRESS,SALARY)<br><span class="hljs-keyword">VALUES</span> (<span class="hljs-number">5</span>, <span class="hljs-string">&#x27;David&#x27;</span>, <span class="hljs-number">27</span>, <span class="hljs-string">&#x27;Texas&#x27;</span>, <span class="hljs-number">85000.00</span> );<br><br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> COMPANY (ID,NAME,AGE,ADDRESS,SALARY)<br><span class="hljs-keyword">VALUES</span> (<span class="hljs-number">6</span>, <span class="hljs-string">&#x27;Kim&#x27;</span>, <span class="hljs-number">22</span>, <span class="hljs-string">&#x27;South-Hall&#x27;</span>, <span class="hljs-number">45000.00</span> );<br><br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> COMPANY <span class="hljs-keyword">VALUES</span> (<span class="hljs-number">7</span>, <span class="hljs-string">&#x27;James&#x27;</span>, <span class="hljs-number">24</span>, <span class="hljs-string">&#x27;Houston&#x27;</span>, <span class="hljs-number">10000.00</span> );<br></code></pre></td></tr></table></figure>
+<p>然后用SELECT查看一下是否建立成功，结果如下</p>
+<figure class="highlight coq"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs coq"> id | <span class="hljs-type">name</span>  | <span class="hljs-type">age</span> | <span class="hljs-type">address</span>   | <span class="hljs-type">salary</span><br>----+-------+-----+-----------+--------<br>  <span class="hljs-number">1</span> | <span class="hljs-type">Paul</span>  |  <span class="hljs-type">32</span> | <span class="hljs-type">California</span>|  <span class="hljs-type">20000</span><br>  <span class="hljs-number">2</span> | <span class="hljs-type">Allen</span> |  <span class="hljs-type">25</span> | <span class="hljs-type">Texas</span>     |  <span class="hljs-type">15000</span><br>  <span class="hljs-number">3</span> | <span class="hljs-type">Teddy</span> |  <span class="hljs-type">23</span> | <span class="hljs-type">Norway</span>    |  <span class="hljs-type">20000</span><br>  <span class="hljs-number">4</span> | <span class="hljs-type">Mark</span>  |  <span class="hljs-type">25</span> | <span class="hljs-type">Rich</span>-Mond |  <span class="hljs-type">65000</span><br>  <span class="hljs-number">5</span> | <span class="hljs-type">David</span> |  <span class="hljs-type">27</span> | <span class="hljs-type">Texas</span>     |  <span class="hljs-type">85000</span><br>  <span class="hljs-number">6</span> | <span class="hljs-type">Kim</span>   |  <span class="hljs-type">22</span> | <span class="hljs-type">South</span>-Hall|  <span class="hljs-type">45000</span><br>  <span class="hljs-number">7</span> | <span class="hljs-type">James</span> |  <span class="hljs-type">24</span> | <span class="hljs-type">Houston</span>   |  <span class="hljs-type">10000</span><br>(<span class="hljs-number">7</span> rows)<br></code></pre></td></tr></table></figure>
+
+<p>接下来插入几条记录</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> COMPANY <span class="hljs-keyword">VALUES</span> (<span class="hljs-number">8</span>, <span class="hljs-string">&#x27;Paul&#x27;</span>, <span class="hljs-number">24</span>, <span class="hljs-string">&#x27;Houston&#x27;</span>, <span class="hljs-number">20000.00</span>);<br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> COMPANY <span class="hljs-keyword">VALUES</span> (<span class="hljs-number">9</span>, <span class="hljs-string">&#x27;James&#x27;</span>, <span class="hljs-number">44</span>, <span class="hljs-string">&#x27;Norway&#x27;</span>, <span class="hljs-number">5000.00</span>);<br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> COMPANY <span class="hljs-keyword">VALUES</span> (<span class="hljs-number">10</span>, <span class="hljs-string">&#x27;James&#x27;</span>, <span class="hljs-number">45</span>, <span class="hljs-string">&#x27;Texas&#x27;</span>, <span class="hljs-number">5000.00</span>);<br></code></pre></td></tr></table></figure>
+<p>这时的结果为</p>
+<figure class="highlight coq"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs coq"> id | <span class="hljs-type">name</span>  | <span class="hljs-type">age</span> | <span class="hljs-type">address</span>      | <span class="hljs-type">salary</span><br> ----+-------+-----+--------------+--------<br>   <span class="hljs-number">1</span> | <span class="hljs-type">Paul</span>  |  <span class="hljs-type">32</span> | <span class="hljs-type">California</span>   |  <span class="hljs-type">20000</span><br>   <span class="hljs-number">2</span> | <span class="hljs-type">Allen</span> |  <span class="hljs-type">25</span> | <span class="hljs-type">Texas</span>        |  <span class="hljs-type">15000</span><br>   <span class="hljs-number">3</span> | <span class="hljs-type">Teddy</span> |  <span class="hljs-type">23</span> | <span class="hljs-type">Norway</span>       |  <span class="hljs-type">20000</span><br>   <span class="hljs-number">4</span> | <span class="hljs-type">Mark</span>  |  <span class="hljs-type">25</span> | <span class="hljs-type">Rich</span>-Mond    |  <span class="hljs-type">65000</span><br>   <span class="hljs-number">5</span> | <span class="hljs-type">David</span> |  <span class="hljs-type">27</span> | <span class="hljs-type">Texas</span>        |  <span class="hljs-type">85000</span><br>   <span class="hljs-number">6</span> | <span class="hljs-type">Kim</span>   |  <span class="hljs-type">22</span> | <span class="hljs-type">South</span>-Hall   |  <span class="hljs-type">45000</span><br>   <span class="hljs-number">7</span> | <span class="hljs-type">James</span> |  <span class="hljs-type">24</span> | <span class="hljs-type">Houston</span>      |  <span class="hljs-type">10000</span><br>   <span class="hljs-number">8</span> | <span class="hljs-type">Paul</span>  |  <span class="hljs-type">24</span> | <span class="hljs-type">Houston</span>      |  <span class="hljs-type">20000</span><br>   <span class="hljs-number">9</span> | <span class="hljs-type">James</span> |  <span class="hljs-type">44</span> | <span class="hljs-type">Norway</span>       |   <span class="hljs-type">5000</span><br>  <span class="hljs-number">10</span> | <span class="hljs-type">James</span> |  <span class="hljs-type">45</span> | <span class="hljs-type">Texas</span>        |   <span class="hljs-type">5000</span><br>(<span class="hljs-number">10</span> rows)<br></code></pre></td></tr></table></figure>
+<p>然后创建表DEPARTMENT</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> DEPARTMENT(<br>   ID <span class="hljs-type">INT</span> <span class="hljs-keyword">PRIMARY</span> KEY      <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<br>   DEPT           <span class="hljs-type">CHAR</span>(<span class="hljs-number">50</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<br>   EMP_ID         <span class="hljs-type">INT</span>      <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span><br>);<br></code></pre></td></tr></table></figure>
+<p>插入三条记录</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> DEPARTMENT (ID, DEPT, EMP_ID) <span class="hljs-keyword">VALUES</span> (<span class="hljs-number">1</span>, <span class="hljs-string">&#x27;IT Billing&#x27;</span>, <span class="hljs-number">1</span> );<br><br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> DEPARTMENT (ID, DEPT, EMP_ID) <span class="hljs-keyword">VALUES</span> (<span class="hljs-number">2</span>, <span class="hljs-string">&#x27;Engineering&#x27;</span>, <span class="hljs-number">2</span> );<br><br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> DEPARTMENT (ID, DEPT, EMP_ID) <span class="hljs-keyword">VALUES</span> (<span class="hljs-number">3</span>, <span class="hljs-string">&#x27;Finance&#x27;</span>, <span class="hljs-number">7</span> );<br></code></pre></td></tr></table></figure>
+<p>这时DEPARTMENT表中的记录为</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc"><span class="hljs-section"> id | dept        | emp_id</span><br><span class="hljs-section">----+-------------+--------</span><br><span class="hljs-code">  1 | IT Billing  |  1</span><br><span class="hljs-code">  2 | Engineering |  2</span><br><span class="hljs-code">  3 | Finance     |  7</span><br></code></pre></td></tr></table></figure>
+<h2 id="CROSS-JOIN"><a href="#CROSS-JOIN" class="headerlink" title="CROSS JOIN"></a>CROSS JOIN</h2><p>交叉连接（CROSS JOIN），把第一个表中的每一行和第二个表中的每一行进行匹配，如果两个输入表分别有x和有行，则结果有x*y行。</p>
+<p>提示：由于CROSS JOIN可能会产生很大的表，为安全起见还是需要在合适的时候去使用。</p>
+<p>基础语法如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> ... <span class="hljs-keyword">FROM</span> table1 <span class="hljs-keyword">CROSS</span> <span class="hljs-keyword">JOIN</span> table2 ...<br></code></pre></td></tr></table></figure>
+
+<p>基于上面的两个表可以写下面的连接</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> EMP_ID, NAME, DEPT <span class="hljs-keyword">FROM</span> COMPANY <span class="hljs-keyword">CROSS</span> <span class="hljs-keyword">JOIN</span> DEPARTMENT;<br></code></pre></td></tr></table></figure>
+<p>退出的时候按<code>q</code>就可以。</p>
+<h2 id="INNER-JOIN"><a href="#INNER-JOIN" class="headerlink" title="INNER JOIN"></a>INNER JOIN</h2><p>内连接（INNER JOIN）根据连接谓词结合两个表（table1、table2）的列值来创建一个新的结果表。查询结果把table1的每一行和table2的每一行进行比较，找到满足条件的行进行匹配。</p>
+<p>同时INNER JOIN也是默认的连接类型。</p>
+<p>基本语法如下：</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs n1ql"><span class="hljs-keyword">SELECT</span> table1.column1, table2.column2...<br><span class="hljs-keyword">FROM</span> table1<br><span class="hljs-keyword">INNER</span> <span class="hljs-keyword">JOIN</span> table2<br><span class="hljs-keyword">ON</span> table1.common_filed = table2.common_field;<br></code></pre></td></tr></table></figure>
+
+<p>基于上面的表可以写下面的连接</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> EMP_ID, NAME, DEPT <span class="hljs-keyword">FROM</span> COMPANY <span class="hljs-keyword">INNER</span> <span class="hljs-keyword">JOIN</span> DEPARTMENT <span class="hljs-keyword">ON</span> COMPANY.ID <span class="hljs-operator">=</span> DEPARTMENT.EMP_ID;<br></code></pre></td></tr></table></figure>
+
+<h2 id="LEFT-RIGHT-OUTER-JOIN"><a href="#LEFT-RIGHT-OUTER-JOIN" class="headerlink" title="LEFT&#x2F;RIGHT OUTER JOIN"></a>LEFT&#x2F;RIGHT OUTER JOIN</h2><p>这里熟悉MySQL中JOIN的一般会有一个疑问，通常我们会直接使用LEFT&#x2F;RIGHT JOIN来表示左右连接，这里为什么会有一个OUTER。都是SQL类型的命令为什么还会有差别？</p>
+<p>实际上，通过查询相关资料发现，OUTER在这里添加是为了体现语句的可读性，因为从翻译角度看，左右连接是并不是官方名称。官方称作左右外连接，这个外就是用OUTER在语句中体现。</p>
+<p>所以在使用过程中，我们可以直接忽略OUTER，熟悉MySQL的应该会直接忽略这个，毕竟操作没有任何影响，只是可读性的问题。</p>
+<p>基本语法如下：</p>
+<ul>
+<li>左连接<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> ... <span class="hljs-keyword">FROM</span> table1 <span class="hljs-keyword">LEFT</span> <span class="hljs-keyword">OUTER</span> <span class="hljs-keyword">JOIN</span> table2 <span class="hljs-keyword">ON</span> conditional_expression ...<br></code></pre></td></tr></table></figure></li>
+<li>右连接<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> ... <span class="hljs-keyword">FROM</span> table1 <span class="hljs-keyword">RIGHT</span> <span class="hljs-keyword">OUTER</span> <span class="hljs-keyword">JOIN</span> table2 <span class="hljs-keyword">ON</span> conditional_expression ...<br></code></pre></td></tr></table></figure>
+基于上面的表可以写下面的两个连接<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> EMP_ID, NAME, DEPT <span class="hljs-keyword">FROM</span> COMPANY <span class="hljs-keyword">LEFT</span>  <span class="hljs-keyword">JOIN</span> DEPARTMENT <span class="hljs-keyword">ON</span> COMPANY.ID <span class="hljs-operator">=</span> DEPARTMENT.EMP_ID;<br><span class="hljs-keyword">SELECT</span> EMP_ID, NAME, DEPT <span class="hljs-keyword">FROM</span> COMPANY <span class="hljs-keyword">RIGHT</span>  <span class="hljs-keyword">JOIN</span> DEPARTMENT <span class="hljs-keyword">ON</span> COMPANY.ID <span class="hljs-operator">=</span> DEPARTMENT.EMP_ID;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="OUTER-JOIN"><a href="#OUTER-JOIN" class="headerlink" title="OUTER JOIN"></a>OUTER JOIN</h2><p>返回table1和table2中所有行，如果任意一表中没有匹配的行，对应的列将返回NULL。</p>
+<p>基本语法如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> ... <span class="hljs-keyword">FROM</span> table1 <span class="hljs-keyword">FULL</span> <span class="hljs-keyword">OUTER</span> <span class="hljs-keyword">JOIN</span> table2 <span class="hljs-keyword">ON</span> conditional_expression ...<br></code></pre></td></tr></table></figure>
+
+<p>基于上面的表可以写下面的连接</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> EMP_ID, NAME, DEPT <span class="hljs-keyword">FROM</span> COMPANY <span class="hljs-keyword">FULL</span> <span class="hljs-keyword">OUTER</span> <span class="hljs-keyword">JOIN</span> DEPARTMENT <span class="hljs-keyword">ON</span> COMPANY.ID <span class="hljs-operator">=</span> DEPARTMENT.EMP_ID;<br></code></pre></td></tr></table></figure>
+
+<h1 id="UNION"><a href="#UNION" class="headerlink" title="UNION"></a>UNION</h1><p>UNION用于将两个或多个SELECT语句进行连接，合并输出其结果</p>
+<p>UNION需要注意的是每个SELECT语句都必须有相同的列，列必须是相同的数据类型，每个SELECT语句的列顺序必须相同。</p>
+<p>基本语法如下</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> column1 [, column2 ]<br><span class="hljs-keyword">FROM</span> table1 [, table2 ]<br>[<span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">condition</span>]<br><br><span class="hljs-keyword">UNION</span><br><br><span class="hljs-keyword">SELECT</span> column1 [, column2 ]<br><span class="hljs-keyword">FROM</span> table1 [, table2 ]<br>[<span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">condition</span>]<br></code></pre></td></tr></table></figure>
+
+<h2 id="UNION-ALL"><a href="#UNION-ALL" class="headerlink" title="UNION ALL"></a>UNION ALL</h2><p>如果需要取重复值的话，可以使用<code>UNION ALL</code>语句</p>
+<p>基本语法如下</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> column1 [, column2 ]<br><span class="hljs-keyword">FROM</span> table1 [, table2 ]<br>[<span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">condition</span>]<br><br><span class="hljs-keyword">UNION</span> <span class="hljs-keyword">ALL</span><br><br><span class="hljs-keyword">SELECT</span> column1 [, column2 ]<br><span class="hljs-keyword">FROM</span> table1 [, table2 ]<br>[<span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">condition</span>]<br></code></pre></td></tr></table></figure>
+
+<p>好咯，今天就先学到这里吧~该去刷leetcode了，万恶的leetcode😒</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" class="category-chain-item">学习记录</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/PostgreSQL/" class="category-chain-item">PostgreSQL</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" class="print-no-link">#学习记录</a>
+      
+        <a href="/tags/PostgreSQL/" class="print-no-link">#PostgreSQL</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>PostgreSQL学习记录——第二天</div>
+      <div>https://lx02918.github.io/2024/08/05/postgresql-study-second-day/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Seth</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年8月5日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/08/02/postgresql-study-first-day/" title="PostgreSQL学习记录——第一天">
+                        <span class="hidden-mobile">PostgreSQL学习记录——第一天</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"pAyQlcbEY6nkOIh5fveIBxLA-gzGzoHsz","appKey":"DjSrQhO4p64SG8qV28lz5J0H","path":"window.location.pathname","placeholder":"Just go go","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
