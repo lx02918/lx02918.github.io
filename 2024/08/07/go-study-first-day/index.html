@@ -16,25 +16,25 @@
   <meta name="author" content="Seth">
   <meta name="keywords" content="">
   
-    <meta name="description" content="viewview是PostgreSQL中非常重要的概念，它可以将多个表的关系组合在一起，并提供一个统一的视图，使得用户可以访问到所需要的数据。 view并不是一个真正的表，只是一个通过查询语句定义的虚拟表，因此，它并不占用磁盘空间，也不存储数据。 可以包含一个表中的所有行也可以是指定的一个或多个表选定行 view可以允许用户实现以下几点  用户或用户组认为更自然的更直观的查找结构数据的方式 限制数">
+    <meta name="description" content="go的基本组成部分 包声明 引入包 函数 变量 语句 &amp; 表达式 注释  go变量声明go中用var来声明变量，语法如下： 1var variableName dataType 其中，variableName为变量名，dataType为变量的数据类型。 一次声明多个变量 12345var (    variable1 dataType1    variable2 dataType2">
 <meta property="og:type" content="article">
-<meta property="og:title" content="PostgreSQL学习记录——第四天">
-<meta property="og:url" content="https://lx02918.github.io/2024/08/07/postgresql-study-fourth-day/index.html">
+<meta property="og:title" content="go学习记录——第一天">
+<meta property="og:url" content="https://lx02918.github.io/2024/08/07/go-study-first-day/index.html">
 <meta property="og:site_name" content="Seth的小站">
-<meta property="og:description" content="viewview是PostgreSQL中非常重要的概念，它可以将多个表的关系组合在一起，并提供一个统一的视图，使得用户可以访问到所需要的数据。 view并不是一个真正的表，只是一个通过查询语句定义的虚拟表，因此，它并不占用磁盘空间，也不存储数据。 可以包含一个表中的所有行也可以是指定的一个或多个表选定行 view可以允许用户实现以下几点  用户或用户组认为更自然的更直观的查找结构数据的方式 限制数">
+<meta property="og:description" content="go的基本组成部分 包声明 引入包 函数 变量 语句 &amp; 表达式 注释  go变量声明go中用var来声明变量，语法如下： 1var variableName dataType 其中，variableName为变量名，dataType为变量的数据类型。 一次声明多个变量 12345var (    variable1 dataType1    variable2 dataType2">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-08-07T01:22:46.000Z">
-<meta property="article:modified_time" content="2024-08-07T02:14:09.440Z">
+<meta property="article:published_time" content="2024-08-07T02:49:32.000Z">
+<meta property="article:modified_time" content="2024-08-07T07:46:26.317Z">
 <meta property="article:author" content="Seth">
 <meta property="article:tag" content="学习记录">
-<meta property="article:tag" content="PostgreSQL">
+<meta property="article:tag" content="go">
 <meta name="twitter:card" content="summary_large_image">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>PostgreSQL学习记录——第四天 - Seth的小站</title>
+  <title>go学习记录——第一天 - Seth的小站</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -230,7 +230,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="PostgreSQL学习记录——第四天"></span>
+            <span id="subtitle" data-typed-text="go学习记录——第一天"></span>
           
         </div>
 
@@ -241,8 +241,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-08-07 09:22" pubdate>
-          星期三, 八月 7日 2024, 9:22 上午
+        <time datetime="2024-08-07 10:49" pubdate>
+          星期三, 八月 7日 2024, 10:49 上午
         </time>
       </span>
     
@@ -343,17 +343,17 @@
     
     
     <div class="category-sub row nomargin-x">
-      <a class="category-subitem 
+      <a class="category-subitem collapsed
           list-group-item category-item-action col-10 col-md-11 col-xm-11" title="PostgreSQL"
         id="heading-399bd1ee587245ecac6f39beaa99886f" role="tab" data-toggle="collapse" href="#collapse-399bd1ee587245ecac6f39beaa99886f"
-        aria-expanded="true"
+        aria-expanded="false"
       >
         PostgreSQL
         <span class="list-group-count">(5)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
-      <div class="category-collapse collapse show" id="collapse-399bd1ee587245ecac6f39beaa99886f"
+      <div class="category-collapse collapse " id="collapse-399bd1ee587245ecac6f39beaa99886f"
            role="tabpanel" aria-labelledby="heading-399bd1ee587245ecac6f39beaa99886f">
         
         
@@ -392,7 +392,7 @@
       
         <a href="/2024/08/07/postgresql-study-fourth-day/" title="PostgreSQL学习记录——第四天"
            class="list-group-item list-group-item-action
-           active">
+           ">
           <span class="category-post">PostgreSQL学习记录——第四天</span>
         </a>
       
@@ -416,17 +416,17 @@
     
     
     <div class="category-sub row nomargin-x">
-      <a class="category-subitem collapsed
+      <a class="category-subitem 
           list-group-item category-item-action col-10 col-md-11 col-xm-11" title="go"
         id="heading-34d1f91fb2e514b8576fab1a75a89a6b" role="tab" data-toggle="collapse" href="#collapse-34d1f91fb2e514b8576fab1a75a89a6b"
-        aria-expanded="false"
+        aria-expanded="true"
       >
         go
         <span class="list-group-count">(1)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
-      <div class="category-collapse collapse " id="collapse-34d1f91fb2e514b8576fab1a75a89a6b"
+      <div class="category-collapse collapse show" id="collapse-34d1f91fb2e514b8576fab1a75a89a6b"
            role="tabpanel" aria-labelledby="heading-34d1f91fb2e514b8576fab1a75a89a6b">
         
         
@@ -438,7 +438,7 @@
       
         <a href="/2024/08/07/go-study-first-day/" title="go学习记录——第一天"
            class="list-group-item list-group-item-action
-           ">
+           active">
           <span class="category-post">go学习记录——第一天</span>
         </a>
       
@@ -465,133 +465,160 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">PostgreSQL学习记录——第四天</h1>
+            <h1 id="seo-header">go学习记录——第一天</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="view"><a href="#view" class="headerlink" title="view"></a>view</h1><p>view是PostgreSQL中非常重要的概念，它可以将多个表的关系组合在一起，并提供一个统一的视图，使得用户可以访问到所需要的数据。</p>
-<p>view并不是一个真正的表，只是一个通过查询语句定义的虚拟表，因此，它并不占用磁盘空间，也不存储数据。</p>
-<p>可以包含一个表中的所有行也可以是指定的一个或多个表选定行</p>
-<p>view可以允许用户实现以下几点</p>
-<ul>
-<li>用户或用户组认为更自然的更直观的查找结构数据的方式</li>
-<li>限制数据访问，用户只能访问到被允许的优先数据而不是完整的表</li>
-<li>汇总数据，将多个表的数据汇总到一个视图中，方便用户查看</li>
-<li>简化复杂的查询，通过view可以简化复杂的查询，使得查询更加简单</li>
+                <h1 id="go的基本组成部分"><a href="#go的基本组成部分" class="headerlink" title="go的基本组成部分"></a>go的基本组成部分</h1><ul>
+<li>包声明</li>
+<li>引入包</li>
+<li>函数</li>
+<li>变量</li>
+<li>语句 &amp; 表达式</li>
+<li>注释</li>
 </ul>
-<p>PG的视图是只读，无法进行任何修改操作的，只能查询。</p>
-<h2 id="创建view"><a href="#创建view" class="headerlink" title="创建view"></a>创建view</h2><p>基本语法如下：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">CREATE</span> [TEMP <span class="hljs-operator">|</span> TEMPORARY] <span class="hljs-keyword">VIEW</span> view_name <span class="hljs-keyword">AS</span><br><span class="hljs-keyword">SELECT</span> column1, column2.....<br><span class="hljs-keyword">FROM</span> table_name<br><span class="hljs-keyword">WHERE</span> [<span class="hljs-keyword">condition</span>];<br></code></pre></td></tr></table></figure>
+<h1 id="go变量声明"><a href="#go变量声明" class="headerlink" title="go变量声明"></a>go变量声明</h1><p>go中用var来声明变量，语法如下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> variableName dataType<br></code></pre></td></tr></table></figure>
+<p>其中，variableName为变量名，dataType为变量的数据类型。</p>
+<p>一次声明多个变量</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> (<br>    variable1 dataType1<br>    variable2 dataType2<br>    variable3 dataType3<br>)<br></code></pre></td></tr></table></figure>
 
-<p>可以在SELECT语句中包含多个表，与正常SQL的查询语句一样。</p>
-<p>导入表的操作和前文一样</p>
-<p>然后进行如下操作</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">VIEW</span> COMPANY_VIEW <span class="hljs-keyword">AS</span><br><span class="hljs-keyword">SELECT</span> ID, NAME, AGE<br><span class="hljs-keyword">FROM</span>  COMPANY;<br></code></pre></td></tr></table></figure>
+<p>第一种，指定变量类型，如果没有初始化则默认为0</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> v_name v_type<br>v_name = value<br>或<br><span class="hljs-keyword">var</span> v_name v_type = value<br></code></pre></td></tr></table></figure>
 
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> COMPANY_VIEW;<br></code></pre></td></tr></table></figure>
-<p>最后结果如下</p>
-<figure class="highlight coq"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs coq">id | <span class="hljs-type">name</span>  | <span class="hljs-type">age</span><br>----+-------+-----<br>  <span class="hljs-number">1</span> | <span class="hljs-type">Paul</span>  |  <span class="hljs-type">32</span><br>  <span class="hljs-number">2</span> | <span class="hljs-type">Allen</span> |  <span class="hljs-type">25</span><br>  <span class="hljs-number">3</span> | <span class="hljs-type">Teddy</span> |  <span class="hljs-type">23</span><br>  <span class="hljs-number">4</span> | <span class="hljs-type">Mark</span>  |  <span class="hljs-type">25</span><br>  <span class="hljs-number">5</span> | <span class="hljs-type">David</span> |  <span class="hljs-type">27</span><br>  <span class="hljs-number">6</span> | <span class="hljs-type">Kim</span>   |  <span class="hljs-type">22</span><br>  <span class="hljs-number">7</span> | <span class="hljs-type">James</span> |  <span class="hljs-type">24</span><br>(<span class="hljs-number">7</span> rows)<br></code></pre></td></tr></table></figure>
+<p>第二种，不指定类型，由编译器自动推导</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> v_name = value<br></code></pre></td></tr></table></figure>
 
-<h2 id="删除view"><a href="#删除view" class="headerlink" title="删除view"></a>删除view</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">DROP</span> <span class="hljs-keyword">VIEW</span> view_name;    <br></code></pre></td></tr></table></figure>
+<p>第三种，短变量声明，在函数内使用，注意当已经进行了变量声明再使用短声明会报错。短声明只适用于函数内使用，不能在全局作用域使用。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">v_name := value<br></code></pre></td></tr></table></figure>
 
-<h1 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h1><p>终于来到了面试必考环节之一（真的被ACID弄得很烦了，时不时就会被拉出来鞭尸）</p>
-<p>基本概念这里就不说了，和MySQL一样。</p>
-<p>只说几点不同的</p>
-<ul>
-<li>PG完全支持ACID，而MySQL只支持部分ACID特性</li>
-<li>PG的事务默认是关闭自动提交，而MySQL默认是开启自动提交</li>
-<li>PG的事务支持回滚，而MySQL不支持</li>
-<li>PG的隔离等级默认为提交读，而MySQL的隔离等级默认为可重复读</li>
-<li>PG的锁机制更加细致，而MySQL的锁机制更加粗糙</li>
-</ul>
-<p>事务的控制是通过下面几个命令完成的</p>
-<p><code>BEGIN TRANSACTION</code>开始事务</p>
-<p><code>COMMIT</code>提交事务</p>
-<p><code>ROLLBACK</code>回滚事务</p>
-<p>事务控制命令只与 INSERT、UPDATE 和 DELETE 一起使用，他们不能在创建表或删除表时使用。</p>
-<h2 id="BEGIN-TRANSACTION"><a href="#BEGIN-TRANSACTION" class="headerlink" title="BEGIN TRANSACTION"></a>BEGIN TRANSACTION</h2><p>事务可以通过命令开始事务并持续下去，直到遇到下一个<code>COMMIT</code>或<code>ROLLBACK</code>命令。</p>
-<p>下面是一个简单的语法</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">BEGIN</span>;<br><br>或者<br><br><span class="hljs-keyword">BEGIN</span> TRANSACTION;<br></code></pre></td></tr></table></figure>
+<p>第四种，多变量声明</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> (<br>    v1, v2, v3 = <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-string">&quot;hello&quot;</span><br>)<br>或<br><span class="hljs-keyword">var</span> v1, v2, v3 = <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-string">&quot;hello&quot;</span> <span class="hljs-comment">// 这个为主使用，和python类似，迁移起来较快</span><br>或<br>v1, v2, v3 := <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-string">&quot;hello&quot;</span><br></code></pre></td></tr></table></figure>
 
-<h2 id="COMMIT"><a href="#COMMIT" class="headerlink" title="COMMIT"></a>COMMIT</h2><p>将事务更改的内容提交到数据库。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">COMMIT</span>;<br><br>或者<br><br><span class="hljs-keyword">END</span> TRANSACTION;<br></code></pre></td></tr></table></figure>
+<h1 id="go常量声明"><a href="#go常量声明" class="headerlink" title="go常量声明"></a>go常量声明</h1><p>只能使用布尔型、数字型（int, float, 复数）和字符串型</p>
+<p>常量定义格式</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">const</span> constantName  [<span class="hljs-keyword">type</span>]= value<br></code></pre></td></tr></table></figure>
 
-<h2 id="ROLLBACK"><a href="#ROLLBACK" class="headerlink" title="ROLLBACK"></a>ROLLBACK</h2><p>撤销还 <strong>未保存</strong> 的事务，即回滚</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">ROLLBACK</span>;<br></code></pre></td></tr></table></figure>
+<p>多个常量声明</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">const</span> constantName1, constantName2 = value1, value2<br></code></pre></td></tr></table></figure>
 
-<p>然后是例子，还是用前面的表</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">BEGIN</span>;<br><span class="hljs-keyword">DELETE</span> <span class="hljs-keyword">FROM</span> COMPANY <span class="hljs-keyword">WHERE</span> AGE <span class="hljs-operator">=</span> <span class="hljs-number">25</span>;<br><span class="hljs-keyword">ROLLBACK</span>;<br></code></pre></td></tr></table></figure>
-
-
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">BEGIN</span>;<br><span class="hljs-keyword">DELETE</span> <span class="hljs-keyword">FROM</span> COMPANY <span class="hljs-keyword">WHERE</span> AGE <span class="hljs-operator">=</span> <span class="hljs-number">25</span>;<br><span class="hljs-keyword">COMMIT</span>;<br></code></pre></td></tr></table></figure>
-
-<h1 id="锁"><a href="#锁" class="headerlink" title="锁"></a>锁</h1><p>关于这部分我都不想说了，S锁X锁，不是考锁和隔离级别的关系就是考锁的类型不然就是考死锁。还有悲观锁乐观锁，这个就遇到过一次，不过看面经好像考察次数确实不是很多。</p>
-<p>概念部分太熟悉了直接跳过</p>
-<p>基本语法如下</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sql">LOCK [ <span class="hljs-keyword">TABLE</span> ]<br>name<br> <span class="hljs-keyword">IN</span><br>lock_mode<br></code></pre></td></tr></table></figure>
-<p>name是当前要锁定表的名称，如果在表名前指定就是锁当前表，如果为指定则锁表及其子表</p>
-<p>lock_name锁定模式指定和哪个锁冲突，不指定的话会使用限制最大的访问独占模式。</p>
-<p>下面是PG支持的锁定模式</p>
-<ol>
-<li>ACCESS SHARE (AccessShareLock)<ul>
-<li>用于SELECT查询，防止表被删除或结构被修改。</li>
-<li>仅与ACCESS EXCLUSIVE冲突。</li>
-</ul>
+<p>常量中可以使用内置函数进行运算，如len(), cap(), unsafe.Sizeof()等。</p>
+<h2 id="inta"><a href="#inta" class="headerlink" title="inta"></a>inta</h2><p>inta是go中的特殊常量，可以当作一个可以被编译成功的常量</p>
+<p>inta在const关键词出现时将被重置为0，const中每加一行都将使inta加1。</p>
+<p>inta可以做枚举值</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">const</span> (<br>    a = inta<br>    b = inta<br>    c = inta<br></code></pre></td></tr></table></figure>
+<p>inta也可以做一个类似行索引的功能</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">const</span> (<br>    a = inta<br>    b<br>    c<br>)<br></code></pre></td></tr></table></figure>
+<p>输出的结果就是<code>a=0, b=1, c=2</code>。</p>
+<p>inta用法</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-keyword">const</span> (<br>		a = <span class="hljs-literal">iota</span><br>		b<br>		c<br>		d = <span class="hljs-string">&quot;ha&quot;</span><br>		e<br>		f = <span class="hljs-number">100</span><br>		g<br>		h = <span class="hljs-literal">iota</span><br>		i<br>	)<br><br>	fmt.Println(a, b, c, d, e, f, g, h, i)<br>&#125;<br><span class="hljs-comment">// output：</span><br><span class="hljs-comment">// 0 1 2 ha 4 100 6 7 8</span><br></code></pre></td></tr></table></figure>
+<h1 id="go的运算符"><a href="#go的运算符" class="headerlink" title="go的运算符"></a>go的运算符</h1><h2 id="算数运算符"><a href="#算数运算符" class="headerlink" title="算数运算符"></a>算数运算符</h2><ol>
+<li><p>++ 自增，和+&#x3D;1类似</p>
 </li>
-<li>ROW SHARE (RowShareLock)<ul>
-<li>用于SELECT … FOR UPDATE和SELECT … FOR SHARE，允许读取和共享行级锁。</li>
-<li>与EXCLUSIVE和ACCESS EXCLUSIVE冲突。</li>
-</ul>
-</li>
-<li>ROW EXCLUSIVE (RowExclusiveLock)<ul>
-<li>用于INSERT、UPDATE、DELETE操作，允许行级修改。</li>
-<li>与SHARE、SHARE ROW EXCLUSIVE、EXCLUSIVE和ACCESS EXCLUSIVE冲突。</li>
-</ul>
-</li>
-<li>SHARE UPDATE EXCLUSIVE (ShareUpdateExclusiveLock)<ul>
-<li>用于VACUUM操作，允许更新但不允许删除。</li>
-<li>与SHARE UPDATE EXCLUSIVE、SHARE、SHARE ROW EXCLUSIVE、5 EXCLUSIVE和ACCESS EXCLUSIVE冲突。</li>
-</ul>
-</li>
-<li>SHARE (ShareLock)<ul>
-<li>用于CREATE INDEX操作，允许共享读取但不允许写入。</li>
-<li>与ROW EXCLUSIVE、EXCLUSIVE和ACCESS EXCLUSIVE冲突。</li>
-</ul>
-</li>
-<li>SHARE ROW EXCLUSIVE (ShareRowExclusiveLock)<ul>
-<li>用于某些DDL操作，允许共享读取但限制写入。</li>
-<li>与ROW EXCLUSIVE、SHARE、SHARE ROW EXCLUSIVE、EXCLUSIVE和ACCESS EXCLUSIVE冲突。</li>
-</ul>
-</li>
-<li>EXCLUSIVE (ExclusiveLock)<ul>
-<li>用于某些DDL操作，允许独占访问。</li>
-<li>与ROW SHARE、ROW EXCLUSIVE、SHARE UPDATE EXCLUSIVE、SHARE、SHARE ROW EXCLUSIVE、EXCLUSIVE和ACCESS EXCLUSIVE冲突。</li>
-</ul>
-</li>
-<li>ACCESS EXCLUSIVE (AccessExclusiveLock)<ul>
-<li>用于ALTER TABLE、DROP TABLE等操作，完全独占访问。</li>
-<li>与所有其他锁定模式冲突。</li>
-</ul>
+<li><p>– 自减，和-&#x3D;1类似</p>
 </li>
 </ol>
-<p>PG中LOCK语句只在事务模式下才能使用</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs SQL"><span class="hljs-keyword">BEGIN</span>;<br>LOCK <span class="hljs-keyword">TABLE</span> company1 <span class="hljs-keyword">IN</span> ACCESS EXCLUSIVE MODE;<br></code></pre></td></tr></table></figure>
-<p>语句的结果是</p>
-<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><span class="hljs-keyword">LOCK</span> <span class="hljs-keyword">TABLE</span><br></code></pre></td></tr></table></figure>
+<p>别的和python一样</p>
+<h2 id="关系运算符"><a href="#关系运算符" class="headerlink" title="关系运算符"></a>关系运算符</h2><p>和python一样，直接忽略</p>
+<h2 id="逻辑运算符"><a href="#逻辑运算符" class="headerlink" title="逻辑运算符"></a>逻辑运算符</h2><ol>
+<li><p>&amp;&amp; -&gt; and</p>
+</li>
+<li><p>|| -&gt; or</p>
+</li>
+<li><p>!  -&gt; not</p>
+</li>
+</ol>
+<p>从字母换成了符号，其他没区别</p>
+<h2 id="位运算符"><a href="#位运算符" class="headerlink" title="位运算符"></a>位运算符</h2><ol>
+<li><p>&amp;  -&gt; 按位与</p>
+</li>
+<li><p>|  -&gt; 按位或</p>
+</li>
+<li><p>^  -&gt; 按位异或</p>
+</li>
+<li><p>&lt;&lt; -&gt; 左移</p>
+</li>
+<li><blockquote>
+<blockquote>
+<p>-&gt; 右移</p>
+</blockquote>
+</blockquote>
+</li>
+<li><p>~  -&gt; 按位取反</p>
+</li>
+</ol>
+<h2 id="赋值运算符"><a href="#赋值运算符" class="headerlink" title="赋值运算符"></a>赋值运算符</h2><ol>
+<li>&lt;&lt;&#x3D; -&gt; 左移后赋值</li>
+<li><blockquote>
+<blockquote>
+<p>&#x3D; -&gt; 右移后赋值</p>
+</blockquote>
+</blockquote>
+</li>
+<li>&amp;&#x3D;  -&gt; 按位与后赋值</li>
+<li>|&#x3D;  -&gt; 按位或后赋值</li>
+<li>^&#x3D;  -&gt; 按位异或后赋值</li>
+</ol>
+<p>其他和python一样</p>
+<h2 id="其他运算符"><a href="#其他运算符" class="headerlink" title="其他运算符"></a>其他运算符</h2><ol>
+<li>&amp; -&gt; 返回实际地址</li>
+<li>‘*’  -&gt; 指针变量</li>
+</ol>
+<h2 id="运算优先级"><a href="#运算优先级" class="headerlink" title="运算优先级"></a>运算优先级</h2><table>
+<thead>
+<tr>
+<th>优先级</th>
+<th>运算符</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1 一元运算符</td>
+<td>*   &amp;（取地址） +（正号） -（负号）! ~（按位异或）</td>
+</tr>
+<tr>
+<td>2 乘除类运算符</td>
+<td>*  &#x2F;  %  &lt;&lt;  &gt;&gt; &amp;（按位与） &amp;^（按位清除）</td>
+</tr>
+<tr>
+<td>3 加减类运算符</td>
+<td>+  - ‘</td>
+</tr>
+<tr>
+<td>4 关系运算符</td>
+<td>&#x3D;&#x3D; !&#x3D;  &lt;  &lt;&#x3D;  &gt;  &gt;&#x3D;</td>
+</tr>
+<tr>
+<td>5 逻辑运算符</td>
+<td>&amp;&amp;  逻辑或（符号markdown无法显示就用文字代替了）</td>
+</tr>
+</tbody></table>
+<h1 id="条件语句"><a href="#条件语句" class="headerlink" title="条件语句"></a>条件语句</h1><p>和python一样，但编写方式有些不同</p>
+<h2 id="if"><a href="#if" class="headerlink" title="if"></a>if</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">if</span> 布尔表达式 &#123;<br>   <span class="hljs-comment">/* 在布尔表达式为 true 时执行 */</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="if…else"><a href="#if…else" class="headerlink" title="if…else"></a>if…else</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">if</span> 布尔表达式 &#123;<br>   <span class="hljs-comment">/* 在布尔表达式为 true 时执行 */</span><br>&#125; <span class="hljs-keyword">else</span> &#123;<br>  <span class="hljs-comment">/* 在布尔表达式为 false 时执行 */</span><br>&#125;<br></code></pre></td></tr></table></figure>
 
-<h1 id="子查询"><a href="#子查询" class="headerlink" title="子查询"></a>子查询</h1><p>基本一样，不再多说</p>
-<h1 id="权限"><a href="#权限" class="headerlink" title="权限"></a>权限</h1><p>除了root用户，其他用户在创建数据库、表、视图等对象时，需要有相应的权限。</p>
-<p>权限的控制是通过GRANT和REVOKE命令完成的。</p>
-<h2 id="GRANT"><a href="#GRANT" class="headerlink" title="GRANT"></a>GRANT</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">GRANT</span> privilege [, ...]<br><span class="hljs-keyword">ON</span> object [, ...]<br><span class="hljs-keyword">TO</span> &#123; PUBLIC <span class="hljs-operator">|</span> <span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">group</span> <span class="hljs-operator">|</span> username &#125;<br></code></pre></td></tr></table></figure>
 
-<p>privilege是权限类型，包括SELECT、INSERT、UPDATE、DELETE、TRUNCATE、REFERENCES、TRIGGER、CREATE、CONNECT、TEMPORARY、EXECUTE、USAGE等。</p>
-<p>object是要授予权限的对象，包括数据库、表、视图等。</p>
-<p>PUBLIC是所有用户的公共权限，GROUP是用户组的权限，username是具体的用户名。</p>
-<h2 id="REVOKE"><a href="#REVOKE" class="headerlink" title="REVOKE"></a>REVOKE</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">REVOKE</span> privilege [, ...]<br><span class="hljs-keyword">ON</span> object [, ...]<br><span class="hljs-keyword">FROM</span> &#123; PUBLIC <span class="hljs-operator">|</span> <span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">group</span> <span class="hljs-operator">|</span> username &#125;<br></code></pre></td></tr></table></figure>
+<h2 id="if…else-if…else"><a href="#if…else-if…else" class="headerlink" title="if…else if…else"></a>if…else if…else</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">if</span> 布尔表达式<span class="hljs-number">1</span> &#123;<br>   <span class="hljs-comment">/* 在布尔表达式1为 true 时执行 */</span><br>&#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> 布尔表达式<span class="hljs-number">2</span> &#123;<br>   <span class="hljs-comment">/* 在布尔表达式2为 true 时执行 */</span><br>&#125; <span class="hljs-keyword">else</span> &#123;<br>  <span class="hljs-comment">/* 在布尔表达式1和表达式2都为 false 时执行 */</span><br>&#125;<br></code></pre></td></tr></table></figure>
 
-<p>REVOKE命令的语法和GRANT命令的语法基本相同，只不过是将GRANT命令变成了REVOKE命令。</p>
-<p>好咯，到这里基本的和稍微进阶一点的操作就都学完了。接下来准备开始学习GO语言和前端三件套了💖。</p>
+<h2 id="switch"><a href="#switch" class="headerlink" title="switch"></a>switch</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">switch</span> 表达式 &#123;<br>   <span class="hljs-keyword">case</span> 值<span class="hljs-number">1</span>:<br>      <span class="hljs-comment">/* 当表达式的值等于值1时执行 */</span><br>      <span class="hljs-keyword">break</span><br>   <span class="hljs-keyword">case</span> 值<span class="hljs-number">2</span>:<br>      <span class="hljs-comment">/* 当表达式的值等于值2时执行 */</span><br>      <span class="hljs-keyword">break</span><br>   <span class="hljs-keyword">default</span>:<br>      <span class="hljs-comment">/* 当以上都不满足时执行 */</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="Type-Swith"><a href="#Type-Swith" class="headerlink" title="Type Swith"></a>Type Swith</h3><p>用于判断某个interface变量的实际类型</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">switch</span> x.(<span class="hljs-keyword">type</span>)&#123;<br>    <span class="hljs-keyword">case</span> <span class="hljs-keyword">type</span>:<br>       statement(s);      <br>    <span class="hljs-keyword">case</span> <span class="hljs-keyword">type</span>:<br>       statement(s); <br>    <span class="hljs-comment">/* 你可以定义任意个数的case */</span><br>    <span class="hljs-keyword">default</span>: <span class="hljs-comment">/* 可选 */</span><br>       statement(s);<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>例子如下</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>   <span class="hljs-keyword">var</span> x <span class="hljs-keyword">interface</span>&#123;&#125;<br>     <br>   <span class="hljs-keyword">switch</span> i := x.(<span class="hljs-keyword">type</span>) &#123;<br>      <span class="hljs-keyword">case</span> <span class="hljs-literal">nil</span>:   <br>         fmt.Printf(<span class="hljs-string">&quot; x 的类型 :%T&quot;</span>,i)                <br>      <span class="hljs-keyword">case</span> <span class="hljs-type">int</span>:   <br>         fmt.Printf(<span class="hljs-string">&quot;x 是 int 型&quot;</span>)                       <br>      <span class="hljs-keyword">case</span> <span class="hljs-type">float64</span>:<br>         fmt.Printf(<span class="hljs-string">&quot;x 是 float64 型&quot;</span>)           <br>      <span class="hljs-keyword">case</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(<span class="hljs-type">int</span>)</span></span> <span class="hljs-type">float64</span>:<br>         fmt.Printf(<span class="hljs-string">&quot;x 是 func(int) 型&quot;</span>)                      <br>      <span class="hljs-keyword">case</span> <span class="hljs-type">bool</span>, <span class="hljs-type">string</span>:<br>         fmt.Printf(<span class="hljs-string">&quot;x 是 bool 或 string 型&quot;</span> )       <br>      <span class="hljs-keyword">default</span>:<br>         fmt.Printf(<span class="hljs-string">&quot;未知型&quot;</span>)     <br>   &#125;   <br>&#125;<br><br>output:<br>x 的类型 : &lt;<span class="hljs-literal">nil</span>&gt;<br></code></pre></td></tr></table></figure>
+<h3 id="fullthrough"><a href="#fullthrough" class="headerlink" title="fullthrough"></a>fullthrough</h3><p>强制执行case后语句，不会判断是否为true<br>即使用了fullthrough，也可以直接用break跳出switch</p>
+<h2 id="select"><a href="#select" class="headerlink" title="select"></a>select</h2><p>此select非彼select。不是SQL中的那个查看</p>
+<p>这里的select虽然类似switch，但只能作用于通道，一个case只能进行接受或发送</p>
+<p>select会监听每个通道，只要有一个case准备好了就立马执行。如果多个准备好就随机挑选一个。如果一个都没准备好执行default。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">select</span> &#123;<br>  <span class="hljs-keyword">case</span> &lt;- channel1:<br>    <span class="hljs-comment">// 执行的代码</span><br>  <span class="hljs-keyword">case</span> value := &lt;- channel2:<br>    <span class="hljs-comment">// 执行的代码</span><br>  <span class="hljs-keyword">case</span> channel3 &lt;- value:<br>    <span class="hljs-comment">// 执行的代码</span><br><br>    <span class="hljs-comment">// 你可以定义任意数量的 case</span><br><br>  <span class="hljs-keyword">default</span>:<br>    <span class="hljs-comment">// 所有通道都没有准备好，执行的代码</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>注意</p>
+<ul>
+<li>每一个case都必须对应一个通道</li>
+<li>所有channel表达式都会被求值</li>
+<li>所有被发送的表达式都会被求值</li>
+<li>如果有default则会在case均未准备好时执行。如果没有则会阻塞，直到有通道可以运行。Go不会重新对channel或值进行求值</li>
+</ul>
+<p>今儿的就学到这里吧，感觉上在语句写法上和C类似。不过可能是我一直用Python所以还有点不习惯用花括号来作为代码块的感觉。慢慢习惯吧，今儿没啥心情，感觉学不下去了，休息咯~</p>
 
                 
               </div>
@@ -615,7 +642,7 @@
   
     <span>></span>
     
-  <a href="/categories/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/PostgreSQL/" class="category-chain-item">PostgreSQL</a>
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/go/" class="category-chain-item">go</a>
   
   
 
@@ -634,7 +661,7 @@
       
         <a href="/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" class="print-no-link">#学习记录</a>
       
-        <a href="/tags/PostgreSQL/" class="print-no-link">#PostgreSQL</a>
+        <a href="/tags/go/" class="print-no-link">#go</a>
       
     </div>
   
@@ -646,8 +673,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>PostgreSQL学习记录——第四天</div>
-      <div>https://lx02918.github.io/2024/08/07/postgresql-study-fourth-day/</div>
+      <div>go学习记录——第一天</div>
+      <div>https://lx02918.github.io/2024/08/07/go-study-first-day/</div>
     </div>
     <div class="license-meta">
       
@@ -691,18 +718,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/08/07/go-study-first-day/" title="go学习记录——第一天">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">go学习记录——第一天</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/08/06/postgresql-study-third-day/" title="PostgreSQL学习记录——第三天">
-                        <span class="hidden-mobile">PostgreSQL学习记录——第三天</span>
+                      <a href="/2024/08/07/postgresql-study-fourth-day/" title="PostgreSQL学习记录——第四天">
+                        <span class="hidden-mobile">PostgreSQL学习记录——第四天</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
