@@ -16,27 +16,25 @@
   <meta name="author" content="Seth">
   <meta name="keywords" content="">
   
-    <meta name="description" content="组件Windows 11 PostgreSQL 16.3 下载下载PostgreSQL可以直接通过官网https:&#x2F;&#x2F;www.postgresql.org&#x2F; 进入官网后点击图片中的Download，也可以通过Navbar中的Download直接进入对应页面。由于网络不稳定图片中的链接可能会不稳定，所以可以通过第二种方法进入对应页面，两种方法所到达的是同一页面。 ![Download Page](&amp;">
+    <meta name="description" content="viewview是PostgreSQL中非常重要的概念，它可以将多个表的关系组合在一起，并提供一个统一的视图，使得用户可以访问到所需要的数据。 view并不是一个真正的表，只是一个通过查询语句定义的虚拟表，因此，它并不占用磁盘空间，也不存储数据。 可以包含一个表中的所有行也可以是指定的一个或多个表选定行 view可以允许用户实现以下几点  用户或用户组认为更自然的更直观的查找结构数据的方式 限制数">
 <meta property="og:type" content="article">
-<meta property="og:title" content="PostgreSQL安装记录及集群初始化失败问题解决">
-<meta property="og:url" content="https://lx02918.github.io/2024/08/01/install-postgreSQL/index.html">
+<meta property="og:title" content="PostgreSQL学习记录——第四天">
+<meta property="og:url" content="https://lx02918.github.io/2024/08/07/postgresql-study-fourth-day/index.html">
 <meta property="og:site_name" content="Seth的小站">
-<meta property="og:description" content="组件Windows 11 PostgreSQL 16.3 下载下载PostgreSQL可以直接通过官网https:&#x2F;&#x2F;www.postgresql.org&#x2F; 进入官网后点击图片中的Download，也可以通过Navbar中的Download直接进入对应页面。由于网络不稳定图片中的链接可能会不稳定，所以可以通过第二种方法进入对应页面，两种方法所到达的是同一页面。 ![Download Page](&amp;">
+<meta property="og:description" content="viewview是PostgreSQL中非常重要的概念，它可以将多个表的关系组合在一起，并提供一个统一的视图，使得用户可以访问到所需要的数据。 view并不是一个真正的表，只是一个通过查询语句定义的虚拟表，因此，它并不占用磁盘空间，也不存储数据。 可以包含一个表中的所有行也可以是指定的一个或多个表选定行 view可以允许用户实现以下几点  用户或用户组认为更自然的更直观的查找结构数据的方式 限制数">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lx02918.github.io/img/install-postgreSQL%20cover.jpg">
-<meta property="article:published_time" content="2024-08-01T15:50:36.000Z">
-<meta property="article:modified_time" content="2024-08-05T01:22:10.696Z">
+<meta property="article:published_time" content="2024-08-07T01:22:46.000Z">
+<meta property="article:modified_time" content="2024-08-07T02:14:09.440Z">
 <meta property="article:author" content="Seth">
 <meta property="article:tag" content="学习记录">
 <meta property="article:tag" content="PostgreSQL">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lx02918.github.io/img/install-postgreSQL%20cover.jpg">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>PostgreSQL安装记录及集群初始化失败问题解决 - Seth的小站</title>
+  <title>PostgreSQL学习记录——第四天 - Seth的小站</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -232,7 +230,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="PostgreSQL安装记录及集群初始化失败问题解决"></span>
+            <span id="subtitle" data-typed-text="PostgreSQL学习记录——第四天"></span>
           
         </div>
 
@@ -243,8 +241,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-08-01 23:50" pubdate>
-          星期四, 八月 1日 2024, 11:50 晚上
+        <time datetime="2024-08-07 09:22" pubdate>
+          星期三, 八月 7日 2024, 9:22 上午
         </time>
       </span>
     
@@ -255,7 +253,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.1k 字
+          1.3k 字
         
       </span>
     
@@ -266,7 +264,7 @@
         
         
         
-          10 分钟
+          11 分钟
         
       </span>
     
@@ -394,7 +392,7 @@
       
         <a href="/2024/08/07/postgresql-study-fourth-day/" title="PostgreSQL学习记录——第四天"
            class="list-group-item list-group-item-action
-           ">
+           active">
           <span class="category-post">PostgreSQL学习记录——第四天</span>
         </a>
       
@@ -403,7 +401,7 @@
       
         <a href="/2024/08/01/install-postgreSQL/" title="PostgreSQL安装记录及集群初始化失败问题解决"
            class="list-group-item list-group-item-action
-           active">
+           ">
           <span class="category-post">PostgreSQL安装记录及集群初始化失败问题解决</span>
         </a>
       
@@ -430,72 +428,133 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">PostgreSQL安装记录及集群初始化失败问题解决</h1>
+            <h1 id="seo-header">PostgreSQL学习记录——第四天</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="组件"><a href="#组件" class="headerlink" title="组件"></a>组件</h1><p>Windows 11</p>
-<p>PostgreSQL 16.3</p>
-<h1 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h1><p>下载PostgreSQL可以直接通过官网<a target="_blank" rel="noopener" href="https://www.postgresql.org/">https://www.postgresql.org/</a></p>
-<p>进入官网后点击图片中的Download，也可以通过Navbar中的Download直接进入对应页面。由于网络不稳定图片中的链接可能会不稳定，所以可以通过第二种方法进入对应页面，两种方法所到达的是同一页面。</p>
-<p>![Download Page](&#x2F;img&#x2F;Download Page.png)</p>
-<p>选择对应的系统进行下载，我这边选择的是Windows，所以直接进入Windows的页面。</p>
-<p>进入后直接点击Download the Installer，进去后再次选择对应的系统和你想要的版本。</p>
-<p><img src="/../img/System%20choice.png" srcset="/img/loading.gif" lazyload alt="Choice your System"></p>
-<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>这里必须要注意一个事情，如果说遇到了在快要完成的时候出现<br>Problem running post-install step. Installation may not complete correctly. The database cluster initialisation failed.<br>这时切记去看后面的说明，我会把我这么解决的说清楚。</p>
-<p>打开下载好的exe文件后就是这个页面</p>
-<p><img src="/../img/postSQL%20first%20setup.png" srcset="/img/loading.gif" lazyload alt="First Pic"><br>在这一步记得改一下安装地址，最好别放在C盘（当然只有C盘的话当我没说）</p>
-<p><img src="/../img/PostSQL%20second%20page.png" srcset="/img/loading.gif" lazyload alt="Second Pic"></p>
-<p><img src="/../img/Select%20Components.png" srcset="/img/loading.gif" lazyload alt="Third Pic"><br>该图中四个模块我们一一来介绍一下：</p>
-<ol>
-<li><p>PostgreSQL Server</p>
-<p> 该部分属于数据库系统的核心部分，负责处理数据库的存储、检索和管理操作。所有操作都是通过这个部分来进行的（谁不选头拧下来当球踢）。</p>
-</li>
-<li><p>pgAdmin 4</p>
-<p> 一个功能强大的开源管理工具，提供了一个GUI来辅助用户进行各种操作。</p>
-</li>
-<li><p>Stack Builder</p>
-<p> 这部分属于附加组件，为用户外提供了一些可以安装的模块，如PostGIS（地理信息系统扩展）、pgAgent（调度工具）、pgBouncer（连接池管理器）。</p>
-</li>
-<li><p>Command Line Tools</p>
-<p> 这个是PostgreSQL提供的命令行工具，有多个工具组成</p>
+                <h1 id="view"><a href="#view" class="headerlink" title="view"></a>view</h1><p>view是PostgreSQL中非常重要的概念，它可以将多个表的关系组合在一起，并提供一个统一的视图，使得用户可以访问到所需要的数据。</p>
+<p>view并不是一个真正的表，只是一个通过查询语句定义的虚拟表，因此，它并不占用磁盘空间，也不存储数据。</p>
+<p>可以包含一个表中的所有行也可以是指定的一个或多个表选定行</p>
+<p>view可以允许用户实现以下几点</p>
 <ul>
-<li>psql：交互式SQL命令行工具，允许用户执行SQL查询和脚本。</li>
-<li>pg_dump：用于备份数据库。</li>
-<li>pg_restore：用于恢复数据库。</li>
-<li>pg_ctl：用于启动、停止和重启PostgreSQL服务器。</li>
+<li>用户或用户组认为更自然的更直观的查找结构数据的方式</li>
+<li>限制数据访问，用户只能访问到被允许的优先数据而不是完整的表</li>
+<li>汇总数据，将多个表的数据汇总到一个视图中，方便用户查看</li>
+<li>简化复杂的查询，通过view可以简化复杂的查询，使得查询更加简单</li>
 </ul>
-<p> 这些工具适用于脚本化和自动化数据库管理任务，特别是在没有图形界面的环境中。</p>
+<p>PG的视图是只读，无法进行任何修改操作的，只能查询。</p>
+<h2 id="创建view"><a href="#创建view" class="headerlink" title="创建view"></a>创建view</h2><p>基本语法如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">CREATE</span> [TEMP <span class="hljs-operator">|</span> TEMPORARY] <span class="hljs-keyword">VIEW</span> view_name <span class="hljs-keyword">AS</span><br><span class="hljs-keyword">SELECT</span> column1, column2.....<br><span class="hljs-keyword">FROM</span> table_name<br><span class="hljs-keyword">WHERE</span> [<span class="hljs-keyword">condition</span>];<br></code></pre></td></tr></table></figure>
+
+<p>可以在SELECT语句中包含多个表，与正常SQL的查询语句一样。</p>
+<p>导入表的操作和前文一样</p>
+<p>然后进行如下操作</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">VIEW</span> COMPANY_VIEW <span class="hljs-keyword">AS</span><br><span class="hljs-keyword">SELECT</span> ID, NAME, AGE<br><span class="hljs-keyword">FROM</span>  COMPANY;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> COMPANY_VIEW;<br></code></pre></td></tr></table></figure>
+<p>最后结果如下</p>
+<figure class="highlight coq"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs coq">id | <span class="hljs-type">name</span>  | <span class="hljs-type">age</span><br>----+-------+-----<br>  <span class="hljs-number">1</span> | <span class="hljs-type">Paul</span>  |  <span class="hljs-type">32</span><br>  <span class="hljs-number">2</span> | <span class="hljs-type">Allen</span> |  <span class="hljs-type">25</span><br>  <span class="hljs-number">3</span> | <span class="hljs-type">Teddy</span> |  <span class="hljs-type">23</span><br>  <span class="hljs-number">4</span> | <span class="hljs-type">Mark</span>  |  <span class="hljs-type">25</span><br>  <span class="hljs-number">5</span> | <span class="hljs-type">David</span> |  <span class="hljs-type">27</span><br>  <span class="hljs-number">6</span> | <span class="hljs-type">Kim</span>   |  <span class="hljs-type">22</span><br>  <span class="hljs-number">7</span> | <span class="hljs-type">James</span> |  <span class="hljs-type">24</span><br>(<span class="hljs-number">7</span> rows)<br></code></pre></td></tr></table></figure>
+
+<h2 id="删除view"><a href="#删除view" class="headerlink" title="删除view"></a>删除view</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">DROP</span> <span class="hljs-keyword">VIEW</span> view_name;    <br></code></pre></td></tr></table></figure>
+
+<h1 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h1><p>终于来到了面试必考环节之一（真的被ACID弄得很烦了，时不时就会被拉出来鞭尸）</p>
+<p>基本概念这里就不说了，和MySQL一样。</p>
+<p>只说几点不同的</p>
+<ul>
+<li>PG完全支持ACID，而MySQL只支持部分ACID特性</li>
+<li>PG的事务默认是关闭自动提交，而MySQL默认是开启自动提交</li>
+<li>PG的事务支持回滚，而MySQL不支持</li>
+<li>PG的隔离等级默认为提交读，而MySQL的隔离等级默认为可重复读</li>
+<li>PG的锁机制更加细致，而MySQL的锁机制更加粗糙</li>
+</ul>
+<p>事务的控制是通过下面几个命令完成的</p>
+<p><code>BEGIN TRANSACTION</code>开始事务</p>
+<p><code>COMMIT</code>提交事务</p>
+<p><code>ROLLBACK</code>回滚事务</p>
+<p>事务控制命令只与 INSERT、UPDATE 和 DELETE 一起使用，他们不能在创建表或删除表时使用。</p>
+<h2 id="BEGIN-TRANSACTION"><a href="#BEGIN-TRANSACTION" class="headerlink" title="BEGIN TRANSACTION"></a>BEGIN TRANSACTION</h2><p>事务可以通过命令开始事务并持续下去，直到遇到下一个<code>COMMIT</code>或<code>ROLLBACK</code>命令。</p>
+<p>下面是一个简单的语法</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">BEGIN</span>;<br><br>或者<br><br><span class="hljs-keyword">BEGIN</span> TRANSACTION;<br></code></pre></td></tr></table></figure>
+
+<h2 id="COMMIT"><a href="#COMMIT" class="headerlink" title="COMMIT"></a>COMMIT</h2><p>将事务更改的内容提交到数据库。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">COMMIT</span>;<br><br>或者<br><br><span class="hljs-keyword">END</span> TRANSACTION;<br></code></pre></td></tr></table></figure>
+
+<h2 id="ROLLBACK"><a href="#ROLLBACK" class="headerlink" title="ROLLBACK"></a>ROLLBACK</h2><p>撤销还 <strong>未保存</strong> 的事务，即回滚</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">ROLLBACK</span>;<br></code></pre></td></tr></table></figure>
+
+<p>然后是例子，还是用前面的表</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">BEGIN</span>;<br><span class="hljs-keyword">DELETE</span> <span class="hljs-keyword">FROM</span> COMPANY <span class="hljs-keyword">WHERE</span> AGE <span class="hljs-operator">=</span> <span class="hljs-number">25</span>;<br><span class="hljs-keyword">ROLLBACK</span>;<br></code></pre></td></tr></table></figure>
+
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">BEGIN</span>;<br><span class="hljs-keyword">DELETE</span> <span class="hljs-keyword">FROM</span> COMPANY <span class="hljs-keyword">WHERE</span> AGE <span class="hljs-operator">=</span> <span class="hljs-number">25</span>;<br><span class="hljs-keyword">COMMIT</span>;<br></code></pre></td></tr></table></figure>
+
+<h1 id="锁"><a href="#锁" class="headerlink" title="锁"></a>锁</h1><p>关于这部分我都不想说了，S锁X锁，不是考锁和隔离级别的关系就是考锁的类型不然就是考死锁。还有悲观锁乐观锁，这个就遇到过一次，不过看面经好像考察次数确实不是很多。</p>
+<p>概念部分太熟悉了直接跳过</p>
+<p>基本语法如下</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sql">LOCK [ <span class="hljs-keyword">TABLE</span> ]<br>name<br> <span class="hljs-keyword">IN</span><br>lock_mode<br></code></pre></td></tr></table></figure>
+<p>name是当前要锁定表的名称，如果在表名前指定就是锁当前表，如果为指定则锁表及其子表</p>
+<p>lock_name锁定模式指定和哪个锁冲突，不指定的话会使用限制最大的访问独占模式。</p>
+<p>下面是PG支持的锁定模式</p>
+<ol>
+<li>ACCESS SHARE (AccessShareLock)<ul>
+<li>用于SELECT查询，防止表被删除或结构被修改。</li>
+<li>仅与ACCESS EXCLUSIVE冲突。</li>
+</ul>
+</li>
+<li>ROW SHARE (RowShareLock)<ul>
+<li>用于SELECT … FOR UPDATE和SELECT … FOR SHARE，允许读取和共享行级锁。</li>
+<li>与EXCLUSIVE和ACCESS EXCLUSIVE冲突。</li>
+</ul>
+</li>
+<li>ROW EXCLUSIVE (RowExclusiveLock)<ul>
+<li>用于INSERT、UPDATE、DELETE操作，允许行级修改。</li>
+<li>与SHARE、SHARE ROW EXCLUSIVE、EXCLUSIVE和ACCESS EXCLUSIVE冲突。</li>
+</ul>
+</li>
+<li>SHARE UPDATE EXCLUSIVE (ShareUpdateExclusiveLock)<ul>
+<li>用于VACUUM操作，允许更新但不允许删除。</li>
+<li>与SHARE UPDATE EXCLUSIVE、SHARE、SHARE ROW EXCLUSIVE、5 EXCLUSIVE和ACCESS EXCLUSIVE冲突。</li>
+</ul>
+</li>
+<li>SHARE (ShareLock)<ul>
+<li>用于CREATE INDEX操作，允许共享读取但不允许写入。</li>
+<li>与ROW EXCLUSIVE、EXCLUSIVE和ACCESS EXCLUSIVE冲突。</li>
+</ul>
+</li>
+<li>SHARE ROW EXCLUSIVE (ShareRowExclusiveLock)<ul>
+<li>用于某些DDL操作，允许共享读取但限制写入。</li>
+<li>与ROW EXCLUSIVE、SHARE、SHARE ROW EXCLUSIVE、EXCLUSIVE和ACCESS EXCLUSIVE冲突。</li>
+</ul>
+</li>
+<li>EXCLUSIVE (ExclusiveLock)<ul>
+<li>用于某些DDL操作，允许独占访问。</li>
+<li>与ROW SHARE、ROW EXCLUSIVE、SHARE UPDATE EXCLUSIVE、SHARE、SHARE ROW EXCLUSIVE、EXCLUSIVE和ACCESS EXCLUSIVE冲突。</li>
+</ul>
+</li>
+<li>ACCESS EXCLUSIVE (AccessExclusiveLock)<ul>
+<li>用于ALTER TABLE、DROP TABLE等操作，完全独占访问。</li>
+<li>与所有其他锁定模式冲突。</li>
+</ul>
 </li>
 </ol>
-<p>这里的Data Directory是和我们前面设置的安装地址是捆绑的，如果改为其他盘会直接被修改。不过为了保险起见先查看一下再点Next。</p>
-<p><img src="/../img/Data%20Directory.png" srcset="/img/loading.gif" lazyload alt="alt text"><br>在这里我们需要注意的是这个密码是我们数据库管理员的密码，也有就是root用户密码。</p>
-<p><img src="/img/Password.png" srcset="/img/loading.gif" lazyload alt="Fifth Pic"></p>
-<p>这里的端口直接默认然后继续。</p>
-<p><img src="/img/Port.png" srcset="/img/loading.gif" lazyload alt="Sixth Pic"></p>
-<p>这里选好自己需要的语言</p>
-<p><img src="/../img/Advanced%20Options.png" srcset="/img/loading.gif" lazyload alt="Seventh Pic"><br>最后确定好安装信息就可以开始安装了。</p>
-<p>这个如果不需要可以不打勾</p>
-<p><img src="/../img/Stack%20Builder.png" srcset="/img/loading.gif" lazyload alt="Eight Pic"></p>
-<h1 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h1><p>用<code>Win</code> + <code>s</code>打开搜索找到这个软件。</p>
-<p><img src="/../img/Open%20PgAdmin4.png" srcset="/img/loading.gif" lazyload alt="First Pic"></p>
-<p>成功安装的话这里会弹出让我们去填写密码的弹窗，如果没有点一下侧边栏的Servers。这里推荐重新创建一个密码，如果实在懒也可以使用我们root用户的</p>
-<p><img src="/../img/Connect%20to%20Server.png" srcset="/img/loading.gif" lazyload alt="Second Pic"></p>
-<p>最后成功安装并检验成功就会得到这个页面</p>
-<p><img src="/img/Finish.png" srcset="/img/loading.gif" lazyload alt="Finish"></p>
-<h1 id="后记——解决问题"><a href="#后记——解决问题" class="headerlink" title="后记——解决问题"></a>后记——解决问题</h1><p>在我查找资料过程中发现，国内外无数人在安装过程中都遇到了集群初始化失败的问题。这里我们需要明白一个事情，单纯的卸载重装没有用处（我重装两次都一样！气死我了！）</p>
-<p>接下来我们就需要来完整的说明我们需要怎么去做。</p>
-<ol>
-<li>首先在我们卸载后需要清除我们的注册表win+r ，输入regedit.exe 回车，编辑&gt;查找&gt;输入postgresql&gt;删除相关内容（应该是两个）</li>
-<li>关闭防火墙，如果用的火绒开启免打扰</li>
-<li>输入<code>win</code>+<code>R</code>然后输入cmd，使用<code>Ctrl</code>+<code>Shift</code>+<code>Enter</code>通过管理员打开命令窗口</li>
-<li>使用<code>net user postgres /delete</code>来删除可能已经存在的postgres</li>
-<li>使用<code>net user /add postgres &lt;password&gt;</code>来建立用户，这里记得换成自己的password</li>
-<li>使用<code>net localgroup administrators postgres /add</code>将 postgres 用户添加到管理员组</li>
-<li>用<code>net localgroup &quot;power users&quot; postgres /add</code>将 postgres 用户添加到 Power Users 组</li>
-<li>接下来直接找到我们前面下载的exe文件，右键然后选择<em><strong>以管理员身份运行</strong></em>。这里必须再次强调一点，使用这个方法的原因是因为直接使用命令行去运行exe文件依旧存在问题，所以选择跳出命令行去执行。这样理论上是可以完成安装，后续可以按照正常安装顺序去安装。</li>
-</ol>
+<p>PG中LOCK语句只在事务模式下才能使用</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs SQL"><span class="hljs-keyword">BEGIN</span>;<br>LOCK <span class="hljs-keyword">TABLE</span> company1 <span class="hljs-keyword">IN</span> ACCESS EXCLUSIVE MODE;<br></code></pre></td></tr></table></figure>
+<p>语句的结果是</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><span class="hljs-keyword">LOCK</span> <span class="hljs-keyword">TABLE</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="子查询"><a href="#子查询" class="headerlink" title="子查询"></a>子查询</h1><p>基本一样，不再多说</p>
+<h1 id="权限"><a href="#权限" class="headerlink" title="权限"></a>权限</h1><p>除了root用户，其他用户在创建数据库、表、视图等对象时，需要有相应的权限。</p>
+<p>权限的控制是通过GRANT和REVOKE命令完成的。</p>
+<h2 id="GRANT"><a href="#GRANT" class="headerlink" title="GRANT"></a>GRANT</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">GRANT</span> privilege [, ...]<br><span class="hljs-keyword">ON</span> object [, ...]<br><span class="hljs-keyword">TO</span> &#123; PUBLIC <span class="hljs-operator">|</span> <span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">group</span> <span class="hljs-operator">|</span> username &#125;<br></code></pre></td></tr></table></figure>
+
+<p>privilege是权限类型，包括SELECT、INSERT、UPDATE、DELETE、TRUNCATE、REFERENCES、TRIGGER、CREATE、CONNECT、TEMPORARY、EXECUTE、USAGE等。</p>
+<p>object是要授予权限的对象，包括数据库、表、视图等。</p>
+<p>PUBLIC是所有用户的公共权限，GROUP是用户组的权限，username是具体的用户名。</p>
+<h2 id="REVOKE"><a href="#REVOKE" class="headerlink" title="REVOKE"></a>REVOKE</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">REVOKE</span> privilege [, ...]<br><span class="hljs-keyword">ON</span> object [, ...]<br><span class="hljs-keyword">FROM</span> &#123; PUBLIC <span class="hljs-operator">|</span> <span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">group</span> <span class="hljs-operator">|</span> username &#125;<br></code></pre></td></tr></table></figure>
+
+<p>REVOKE命令的语法和GRANT命令的语法基本相同，只不过是将GRANT命令变成了REVOKE命令。</p>
+<p>好咯，到这里基本的和稍微进阶一点的操作就都学完了。接下来准备开始学习GO语言和前端三件套了💖。</p>
 
                 
               </div>
@@ -550,8 +609,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>PostgreSQL安装记录及集群初始化失败问题解决</div>
-      <div>https://lx02918.github.io/2024/08/01/install-postgreSQL/</div>
+      <div>PostgreSQL学习记录——第四天</div>
+      <div>https://lx02918.github.io/2024/08/07/postgresql-study-fourth-day/</div>
     </div>
     <div class="license-meta">
       
@@ -563,7 +622,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年8月1日</div>
+          <div>2024年8月7日</div>
         </div>
       
       
@@ -595,18 +654,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/08/02/postgresql-study-first-day/" title="PostgreSQL学习记录——第一天">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">PostgreSQL学习记录——第一天</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/08/01/Hash/" title="leetcode刷题记录——Hash">
-                        <span class="hidden-mobile">leetcode刷题记录——Hash</span>
+                      <a href="/2024/08/06/postgresql-study-third-day/" title="PostgreSQL学习记录——第三天">
+                        <span class="hidden-mobile">PostgreSQL学习记录——第三天</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
