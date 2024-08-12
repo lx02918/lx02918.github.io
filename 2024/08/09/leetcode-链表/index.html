@@ -1,0 +1,1236 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Seth">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="141 环形链表给你一个链表的头节点 head ，判断链表中是否有环。 如果链表中有某个节点，可以通过连续跟踪 next 指针再次到达，则链表中存在环。 为了表示给定链表中的环，评测系统内部使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。注意：pos 不作为参数进行传递 。仅仅是为了标识链表的实际情况。 如果链表中存在环 ，则返回 true 。 否则，返回 false 。示例">
+<meta property="og:type" content="article">
+<meta property="og:title" content="leetcode刷题记录——链表">
+<meta property="og:url" content="https://lx02918.github.io/2024/08/09/leetcode-%E9%93%BE%E8%A1%A8/index.html">
+<meta property="og:site_name" content="Seth的小站">
+<meta property="og:description" content="141 环形链表给你一个链表的头节点 head ，判断链表中是否有环。 如果链表中有某个节点，可以通过连续跟踪 next 指针再次到达，则链表中存在环。 为了表示给定链表中的环，评测系统内部使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。注意：pos 不作为参数进行传递 。仅仅是为了标识链表的实际情况。 如果链表中存在环 ，则返回 true 。 否则，返回 false 。示例">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lx02918.github.io/2024/08/09/leetcode-%E9%93%BE%E8%A1%A8/141.1.png">
+<meta property="og:image" content="https://lx02918.github.io/2024/08/09/leetcode-%E9%93%BE%E8%A1%A8/141.2.png">
+<meta property="og:image" content="https://lx02918.github.io/2024/08/09/leetcode-%E9%93%BE%E8%A1%A8/141.3.png">
+<meta property="og:image" content="https://lx02918.github.io/2024/08/09/leetcode-%E9%93%BE%E8%A1%A8/2.1.png">
+<meta property="og:image" content="https://lx02918.github.io/2024/08/09/leetcode-%E9%93%BE%E8%A1%A8/21.1.jpg">
+<meta property="og:image" content="https://lx02918.github.io/img/138_1.png">
+<meta property="og:image" content="https://lx02918.github.io/img/138_2.png">
+<meta property="og:image" content="https://lx02918.github.io/img/138_3.png">
+<meta property="og:image" content="https://lx02918.github.io/2024/08/09/leetcode-%E9%93%BE%E8%A1%A8/25_1.jpg">
+<meta property="og:image" content="https://lx02918.github.io/2024/08/09/leetcode-%E9%93%BE%E8%A1%A8/25_2.jpg">
+<meta property="og:image" content="https://lx02918.github.io/2024/08/09/leetcode-%E9%93%BE%E8%A1%A8/82_2.jpg">
+<meta property="og:image" content="https://lx02918.github.io/2024/08/09/leetcode-%E9%93%BE%E8%A1%A8/61_1.jpg">
+<meta property="og:image" content="https://lx02918.github.io/2024/08/09/leetcode-%E9%93%BE%E8%A1%A8/61_2.jpg">
+<meta property="og:image" content="https://lx02918.github.io/2024/08/09/leetcode-%E9%93%BE%E8%A1%A8/86_1.jpg">
+<meta property="article:published_time" content="2024-08-09T08:20:39.000Z">
+<meta property="article:modified_time" content="2024-08-12T03:56:24.214Z">
+<meta property="article:author" content="Seth">
+<meta property="article:tag" content="Leetcode">
+<meta property="article:tag" content="刷题">
+<meta property="article:tag" content="区间">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://lx02918.github.io/2024/08/09/leetcode-%E9%93%BE%E8%A1%A8/141.1.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>leetcode刷题记录——链表 - Seth的小站</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"lx02918.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"pAyQlcbEY6nkOIh5fveIBxLA-gzGzoHsz","app_key":"DjSrQhO4p64SG8qV28lz5J0H","server_url":"https://payqlcbe.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Seth的小站" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Seth的小站</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="leetcode刷题记录——链表"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-08-09 16:20" pubdate>
+          星期五, 八月 9日 2024, 4:20 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          39 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="刷题记录"
+        id="heading-909ea5d72d27ab9e042108431b0dc4d0" role="tab" data-toggle="collapse" href="#collapse-909ea5d72d27ab9e042108431b0dc4d0"
+        aria-expanded="true"
+      >
+        刷题记录
+        <span class="list-group-count">(6)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-909ea5d72d27ab9e042108431b0dc4d0"
+           role="tabpanel" aria-labelledby="heading-909ea5d72d27ab9e042108431b0dc4d0">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/07/21/my-third-post/" title="Leetcode刷题——滑动窗口"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Leetcode刷题——滑动窗口</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/01/Hash/" title="leetcode刷题记录——Hash"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">leetcode刷题记录——Hash</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/05/leetcode_%E5%8C%BA%E9%97%B4/" title="leetcode刷题记录——区间"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">leetcode刷题记录——区间</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/08/leetcode-%E6%A0%88/" title="leetcode刷题记录——栈"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">leetcode刷题记录——栈</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/07/30/my-fourth-blog/" title="leetcode刷题记录——矩阵"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">leetcode刷题记录——矩阵</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/09/leetcode-%E9%93%BE%E8%A1%A8/" title="leetcode刷题记录——链表"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">leetcode刷题记录——链表</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">leetcode刷题记录——链表</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="141-环形链表"><a href="#141-环形链表" class="headerlink" title="141 环形链表"></a>141 环形链表</h1><p>给你一个链表的头节点 <code>head</code> ，判断链表中是否有环。</p>
+<p>如果链表中有某个节点，可以通过连续跟踪 <code>next</code> 指针再次到达，则链表中存在环。 为了表示给定链表中的环，评测系统内部使用整数 <code>pos</code> 来表示链表尾连接到链表中的位置（索引从 0 开始）。注意：<code>pos</code> <strong>不作为参数进行传递</strong> 。仅仅是为了标识链表的实际情况。</p>
+<p>如果链表中存在环 ，则返回 <code>true</code> 。 否则，返回 <code>false</code> 。<br>示例 1：</p>
+<figure>
+  <img src="/2024/08/09/leetcode-%E9%93%BE%E8%A1%A8/141.1.png" srcset="/img/loading.gif" lazyload class="" title="示例1">
+  <figcaption>示例1</figcaption>
+</figure>
+
+<pre><code class="hljs">输入：head = [3,2,0,-4], pos = 1
+输出：true
+解释：链表中有一个环，其尾部连接到第二个节点。
+</code></pre>
+<p>示例 2：</p>
+<figure>
+  <img src="/2024/08/09/leetcode-%E9%93%BE%E8%A1%A8/141.2.png" srcset="/img/loading.gif" lazyload class="" title="示例2">
+  <figcaption>示例2</figcaption>
+</figure>
+
+<pre><code class="hljs">输入：head = [1,2], pos = 0
+输出：true
+解释：链表中有一个环，其尾部连接到第一个节点。
+</code></pre>
+<p>示例 3：</p>
+<figure>
+  <img src="/2024/08/09/leetcode-%E9%93%BE%E8%A1%A8/141.3.png" srcset="/img/loading.gif" lazyload class="" title="示例3">
+  <figcaption>示例3</figcaption>
+</figure>
+
+<pre><code class="hljs">输入：head = [1], pos = -1
+输出：false
+解释：链表中没有环。
+</code></pre>
+<p>提示：</p>
+<p>链表中节点的数目范围是 <code>[0, 104]</code><br><code>-105 &lt;= Node.val &lt;= 105</code><br><code>pos</code> 为 <code>-1</code> 或者链表中的一个 <strong>有效索引</strong> 。</p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>环形链表顾名思义就是链表中存在一个环，当节点遍历到能够连接到环的位置能够回到前面。</p>
+<p>所以我们可以用快慢指针，快指针一次走两步慢指针一次走一步，只要这两个能够相遇则为有环，如果不能就表示无环。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">hasCycle</span>(<span class="hljs-params">self, head: <span class="hljs-type">Optional</span>[ListNode]</span>) -&gt; <span class="hljs-built_in">bool</span>:<br>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> head:<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br>        slow = fast = head<br>        <span class="hljs-keyword">while</span> fast <span class="hljs-keyword">and</span> fast.<span class="hljs-built_in">next</span>:<br>            slow = slow.<span class="hljs-built_in">next</span><br>            fast = fast.<span class="hljs-built_in">next</span>.<span class="hljs-built_in">next</span><br>            <span class="hljs-keyword">if</span> slow == fast:<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br></code></pre></td></tr></table></figure>
+<h2 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>时间复杂度O(n)，执行时间76ms，消耗内存18.8MB</p>
+<p>这里提交后发现这个的执行时间还是太慢了，所以我们对这个进行优化。</p>
+<h2 id="优化思路"><a href="#优化思路" class="headerlink" title="优化思路"></a>优化思路</h2><p>既然我们用两个指针会导致整个代码的速度变慢，把我们就只用一个指针，用一个集合去记录已经走过的位置，只要能够回来就表示这里有环，如果不能就表示无环。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">hasCycle</span>(<span class="hljs-params">self, head: <span class="hljs-type">Optional</span>[ListNode]</span>) -&gt; <span class="hljs-built_in">bool</span>:<br>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> head:<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br>        visited = <span class="hljs-built_in">set</span>()<br>        <span class="hljs-keyword">while</span> head:<br>            <span class="hljs-keyword">if</span> head <span class="hljs-keyword">in</span> visited:<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span><br>            visited.add(head)<br>            head = head.<span class="hljs-built_in">next</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br></code></pre></td></tr></table></figure>
+<h2 id="时间复杂度-1"><a href="#时间复杂度-1" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>时间复杂度O(n)，执行时间46ms，消耗内存19.1MB</p>
+<h1 id="2-两数相加"><a href="#2-两数相加" class="headerlink" title="2 两数相加"></a>2 两数相加</h1><p>给你两个 <strong>非空</strong> 的链表，表示两个非负的整数。它们每位数字都是按照 <strong>逆序</strong> 的方式存储的，并且每个节点只能存储 <strong>一位</strong> 数字。</p>
+<p>请你将两个数相加，并以相同形式返回一个表示和的链表。</p>
+<p>你可以假设除了数字 0 之外，这两个数都不会以 0 开头。</p>
+<p>示例 1：</p>
+<figure>
+  <img src="/2024/08/09/leetcode-%E9%93%BE%E8%A1%A8/2.1.png" srcset="/img/loading.gif" lazyload class="" title="示例1">
+  <figcaption>示例1</figcaption>
+</figure>
+
+<pre><code class="hljs">输入：l1 = [2,4,3], l2 = [5,6,4]
+输出：[7,0,8]
+解释：342 + 465 = 807.
+</code></pre>
+<p>示例 2：</p>
+<pre><code class="hljs">输入：l1 = [0], l2 = [0]
+输出：[0]
+</code></pre>
+<p>示例 3：</p>
+<pre><code class="hljs">输入：l1 = [9,9,9,9,9,9,9], l2 = [9,9,9,9]
+输出：[8,9,9,9,0,0,0,1]
+</code></pre>
+<p>提示：</p>
+<p>每个链表中的节点数在范围 <code>[1, 100]</code> 内</p>
+<p><code>0 &lt;= Node.val &lt;= 9</code></p>
+<p>题目数据保证列表表示的数字不含前导零</p>
+<h2 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h2><p>这里需要提前知道题目没给的条件，这个是在实例中有体现，我们遇到加和为两位数后，我们需要进位，所以我们需要一个进位的变量。</p>
+<p>这里我们需要用到一个divmod函数来解决这个问题，函数输入为两个数，返回值为一个元组，第一个元素为商，第二个元素为余数。</p>
+<p>其余的就是取数、加和、下一个的问题了</p>
+<h2 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">addTwoNumbers</span>(<span class="hljs-params">self, l1: <span class="hljs-type">Optional</span>[ListNode], l2: <span class="hljs-type">Optional</span>[ListNode]</span>) -&gt; <span class="hljs-type">Optional</span>[ListNode]:<br>        dummy = ListNode(<span class="hljs-number">0</span>)<br>        curr = dummy<br>        carry = <span class="hljs-number">0</span><br>        <span class="hljs-keyword">while</span> l1 <span class="hljs-keyword">or</span> l2 <span class="hljs-keyword">or</span> carry:<br>            val1 = val2 = <span class="hljs-number">0</span><br>            <span class="hljs-keyword">if</span> l1:<br>                val1 = l1.val<br>                l1 = l1.<span class="hljs-built_in">next</span><br>            <span class="hljs-keyword">if</span> l2:<br>                val2 = l2.val<br>                l2 = l2.<span class="hljs-built_in">next</span><br>            carry, val = <span class="hljs-built_in">divmod</span>(val1 + val2 + carry, <span class="hljs-number">10</span>)<br>            curr.<span class="hljs-built_in">next</span> = ListNode(val)<br>            curr = curr.<span class="hljs-built_in">next</span><br>        <span class="hljs-keyword">return</span> dummy.<span class="hljs-built_in">next</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="时间复杂度-2"><a href="#时间复杂度-2" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>时间复杂度O(n)，执行时间61ms，消耗内存16.4MB</p>
+<h1 id="21-合并两个有序链表"><a href="#21-合并两个有序链表" class="headerlink" title="21 合并两个有序链表"></a>21 合并两个有序链表</h1><p>将两个升序链表合并为一个新的 <strong>升序</strong> 链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。 </p>
+<p>示例 1：</p>
+<figure>
+  <img src="/2024/08/09/leetcode-%E9%93%BE%E8%A1%A8/21.1.jpg" srcset="/img/loading.gif" lazyload class="" title="示例1">
+  <figcaption>示例1</figcaption>
+</figure>
+
+<pre><code class="hljs">输入：l1 = [1,2,4], l2 = [1,3,4]
+输出：[1,1,2,3,4,4]
+</code></pre>
+<p>示例 2：</p>
+<pre><code class="hljs">输入：l1 = [], l2 = []
+输出：[]
+</code></pre>
+<p>示例 3：</p>
+<pre><code class="hljs">输入：l1 = [], l2 = [0]
+输出：[0]
+</code></pre>
+<p>提示：</p>
+<p>两个链表的节点数目范围是 <code>[0, 50]</code></p>
+<p><code>-100 &lt;= Node.val &lt;= 100</code></p>
+<p>l1 和 l2 均按 <strong>非递减顺序</strong> 排列</p>
+<h2 id="思路-2"><a href="#思路-2" class="headerlink" title="思路"></a>思路</h2><p>这里我们就还是设置两个节点，均为头结点的前一位，然后设置一个辅助节点，用来存储合并后的链表。</p>
+<p>然后我们比较两个链表的头结点，谁小就把谁的头结点放到辅助节点的后面，然后把这个节点的指针指向下一个节点，然后继续比较，直到两个链表都为空。</p>
+<p>最后把辅助节点的下一个节点作为合并后的链表的头结点。</p>
+<h2 id="代码-2"><a href="#代码-2" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">mergeTwoLists</span>(<span class="hljs-params">self, list1: <span class="hljs-type">Optional</span>[ListNode], list2: <span class="hljs-type">Optional</span>[ListNode]</span>) -&gt; <span class="hljs-type">Optional</span>[ListNode]:<br>        dummy = ListNode(<span class="hljs-number">0</span>)<br>        curr = dummy<br>        <span class="hljs-keyword">while</span> list1 <span class="hljs-keyword">and</span> list2:<br>            <span class="hljs-keyword">if</span> list1.val &lt; list2.val:<br>                curr.<span class="hljs-built_in">next</span> = list1<br>                list1 = list1.<span class="hljs-built_in">next</span><br>            <span class="hljs-keyword">else</span>:<br>                curr.<span class="hljs-built_in">next</span> = list2<br>                list2 = list2.<span class="hljs-built_in">next</span><br>            curr = curr.<span class="hljs-built_in">next</span><br>        curr.<span class="hljs-built_in">next</span> = list1 <span class="hljs-keyword">or</span> list2<br>        <span class="hljs-keyword">return</span> dummy.<span class="hljs-built_in">next</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="时间复杂度-3"><a href="#时间复杂度-3" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>时间复杂度O(n)，执行时间40ms，消耗内存16.4MB</p>
+<h1 id="138-随机链表的复制"><a href="#138-随机链表的复制" class="headerlink" title="138 随机链表的复制"></a>138 随机链表的复制</h1><p>给你一个长度为 <code>n</code> 的链表，每个节点包含一个额外增加的随机指针 <code>random</code> ，该指针可以指向链表中的任何节点或空节点。</p>
+<p>构造这个链表的 <a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%B7%B1%E6%8B%B7%E8%B4%9D/22785317?fr=aladdin">深拷贝</a>。 深拷贝应该正好由 <code>n</code> 个 全新 节点组成，其中每个新节点的值都设为其对应的原节点的值。新节点的 <code>next</code> 指针和 <code>random</code> 指针也都应指向复制链表中的新节点，并使原链表和复制链表中的这些指针能够表示相同的链表状态。<strong>复制链表中的指针都不应指向原链表中的节点</strong> 。</p>
+<p>例如，如果原链表中有 <code>X</code> 和 <code>Y</code> 两个节点，其中 <code>X.random --&gt; Y</code> 。那么在复制链表中对应的两个节点 <code>x</code> 和 <code>y</code> ，同样有 <code>x.random --&gt; y</code> 。</p>
+<p>返回复制链表的头节点。</p>
+<p>用一个由 <code>n</code> 个节点组成的链表来表示输入&#x2F;输出中的链表。每个节点用一个 <code>[val, random_index]</code> 表示：</p>
+<p><code>val</code>：一个表示 <code>Node.val</code> 的整数。<br><code>random_index</code>：随机指针指向的节点索引（范围从 <code>0</code> 到 <code>n-1</code>）；如果不指向任何节点，则为  <code>null</code> 。<br>你的代码 <strong>只</strong> 接受原链表的头节点 <code>head</code> 作为传入参数。</p>
+<p>示例 1：<br><img src="/../img/138_1.png" srcset="/img/loading.gif" lazyload alt="示例1"></p>
+<pre><code class="hljs">输入：head = [[7,null],[13,0],[11,4],[10,2],[1,0]]
+输出：[[7,null],[13,0],[11,4],[10,2],[1,0]]
+</code></pre>
+<p>示例 2：<br><img src="/../img/138_2.png" srcset="/img/loading.gif" lazyload alt="示例2"></p>
+<pre><code class="hljs">输入：head = [[1,1],[2,1]]
+输出：[[1,1],[2,1]]
+</code></pre>
+<p>示例 3：<br><img src="/../img/138_3.png" srcset="/img/loading.gif" lazyload alt="示例3"></p>
+<pre><code class="hljs">输入：head = [[3,null],[3,0],[3,null]]
+输出：[[3,null],[3,0],[3,null]]
+</code></pre>
+<p>提示：</p>
+<p><code>0 &lt;= n &lt;= 1000</code></p>
+<p><code>-104 &lt;= Node.val &lt;= 104</code></p>
+<p><code>Node.random</code> 为 <code>null</code> 或指向链表中的节点。</p>
+<h2 id="思路-3"><a href="#思路-3" class="headerlink" title="思路"></a>思路</h2><p>这里我们可以借助字典来实现。</p>
+<p>首先明确一点，我们可以采用两次循环来完成，一次获取val，一次获取next和random</p>
+<p>最后直接返回第一个节点即可。</p>
+<h2 id="代码-3"><a href="#代码-3" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">copyRandomList</span>(<span class="hljs-params">self, head: <span class="hljs-string">&#x27;Optional[Node]&#x27;</span></span>) -&gt; <span class="hljs-string">&#x27;Optional[Node]&#x27;</span>:<br>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> head:<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span><br>        curr = head<br>        dic = &#123;&#125;<br>        <span class="hljs-keyword">while</span> curr:<br>            dic[curr] = Node(curr.val)<br>            curr = curr.<span class="hljs-built_in">next</span><br>            <br>        curr = head<br>        <span class="hljs-keyword">while</span> curr:<br>            dic[curr].<span class="hljs-built_in">next</span> = dic.get(curr.<span class="hljs-built_in">next</span>)<br>            dic[curr].random = dic.get(curr.random)<br>            curr = curr.<span class="hljs-built_in">next</span><br>        <span class="hljs-keyword">return</span> dic.get(head)<br></code></pre></td></tr></table></figure>
+<h2 id="时间复杂度-4"><a href="#时间复杂度-4" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>时间复杂度O(n)，执行时间48ms，消耗内存17.2MB</p>
+<h1 id="92-反转链表-II"><a href="#92-反转链表-II" class="headerlink" title="92 反转链表 II"></a>92 反转链表 II</h1><p>给你单链表的头指针 <code>head</code> 和两个整数 <code>left</code> 和 <code>right</code> ，其中 <code>left &lt;= right</code> 。请你反转从位置 <code>left</code> 到位置 <code>right</code> 的链表节点，返回 反转后的链表 。</p>
+<p>示例 1：</p>
+<pre><code class="hljs">输入：head = [1,2,3,4,5], left = 2, right = 4
+输出：[1,4,3,2,5]
+</code></pre>
+<p>示例 2：</p>
+<pre><code class="hljs">输入：head = [5], left = 1, right = 1
+输出：[5]
+</code></pre>
+<p>提示：</p>
+<p>链表中节点数目为 <code>n</code></p>
+<p><code>1 &lt;= n &lt;= 500</code></p>
+<p><code>-500 &lt;= Node.val &lt;= 500</code></p>
+<p><code>1 &lt;= left &lt;= right &lt;= n</code></p>
+<h2 id="思路-4"><a href="#思路-4" class="headerlink" title="思路"></a>思路</h2><p>首先需要知道一点，我们在设置头结点前面一个虚拟节点的时候，需要用一个类似pre的字符去表示，直接使用头结点<code>dummy</code>会导致后续出现异常导致无法完全测试。</p>
+<p>然后反转部分我的思路是直接原地操作，不进行拆开后后续拼接，所以时间复杂度上会相对来说高一些。之前反转链表中使用过拆开后拼接，这种情况下时间复杂度会降低，但是也会由于思路的混乱导致最后测试失败。</p>
+<p>这里需要注意的另外一点是，我们这里只使用两个节点进行直接操作。刚开始我也使用了添加一个tail进行操作，但是会导致后续反转逻辑写起来比较复杂。</p>
+<h2 id="代码-4"><a href="#代码-4" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">reverseBetween</span>(<span class="hljs-params">self, head: <span class="hljs-type">Optional</span>[ListNode], m: <span class="hljs-built_in">int</span>, n: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-type">Optional</span>[ListNode]:<br>        dummy = ListNode(<span class="hljs-number">0</span>)<br>        dummy.<span class="hljs-built_in">next</span> = head<br>        pre = dummy<br>        <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(m - <span class="hljs-number">1</span>):<br>            pre = pre.<span class="hljs-built_in">next</span><br>        start = pre.<span class="hljs-built_in">next</span><br>        then = start.<span class="hljs-built_in">next</span><br>        <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n - m):<br>            start.<span class="hljs-built_in">next</span> = then.<span class="hljs-built_in">next</span><br>            then.<span class="hljs-built_in">next</span> = pre.<span class="hljs-built_in">next</span><br>            pre.<span class="hljs-built_in">next</span> = then<br>            then = start.<span class="hljs-built_in">next</span><br>        <span class="hljs-keyword">return</span> dummy.<span class="hljs-built_in">next</span> <br></code></pre></td></tr></table></figure>
+
+<h2 id="时间复杂度-5"><a href="#时间复杂度-5" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>时间复杂度O(n)，执行时间46ms，消耗内存16.3MB</p>
+<h1 id="25-K-个一组翻转链表"><a href="#25-K-个一组翻转链表" class="headerlink" title="25 K 个一组翻转链表"></a>25 K 个一组翻转链表</h1><p>给你链表的头节点 <code>head</code> ，每 <code>k</code> 个节点一组进行翻转，请你返回修改后的链表。</p>
+<p><code>k</code> 是一个正整数，它的值小于或等于链表的长度。如果节点总数不是 <code>k</code> 的整数倍，那么请将最后剩余的节点保持原有顺序。</p>
+<p>你不能只是单纯的改变节点内部的值，而是需要实际进行节点交换。</p>
+<p>示例 1：</p>
+<figure>
+  <img src="/2024/08/09/leetcode-%E9%93%BE%E8%A1%A8/25_1.jpg" srcset="/img/loading.gif" lazyload class="" title="示例1">
+  <figcaption>示例1</figcaption>
+</figure>
+
+<pre><code class="hljs">输入：head = [1,2,3,4,5], k = 2
+输出：[2,1,4,3,5]
+</code></pre>
+<p>示例 2：</p>
+<figure>
+  <img src="/2024/08/09/leetcode-%E9%93%BE%E8%A1%A8/25_2.jpg" srcset="/img/loading.gif" lazyload class="" title="示例2">
+  <figcaption>示例2</figcaption>
+</figure>
+
+<pre><code class="hljs">输入：head = [1,2,3,4,5], k = 3
+输出：[3,2,1,4,5]
+</code></pre>
+<p>提示：</p>
+<p>链表中的节点数目为 <code>n</code></p>
+<p><code>1 &lt;= k &lt;= n &lt;= 5000</code></p>
+<p><code>0 &lt;= Node.val &lt;= 1000</code></p>
+<h2 id="思路-5"><a href="#思路-5" class="headerlink" title="思路"></a>思路</h2><p>这里其实反转思路和前一道题一模一样。</p>
+<p>需要注意的是我这里没用一个额外的数去累加计数，而是将整个需要反转的进行递归。</p>
+<h2 id="代码-5"><a href="#代码-5" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">reverseKGroup</span>(<span class="hljs-params">self, head: <span class="hljs-type">Optional</span>[ListNode], k: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-type">Optional</span>[ListNode]:<br>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> head:<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span><br>        a = b = head<br>        <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(k):<br>            <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> b:<br>                <span class="hljs-keyword">return</span> head<br>            b = b.<span class="hljs-built_in">next</span>  <br>        newHead = <span class="hljs-variable language_">self</span>.reverse(a, b)<br>        a.<span class="hljs-built_in">next</span> = <span class="hljs-variable language_">self</span>.reverseKGroup(b, k)<br>        <span class="hljs-keyword">return</span> newHead<br>    <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">reverse</span>(<span class="hljs-params">self, a, b</span>):<br>        prev = <span class="hljs-literal">None</span><br>        curr = a<br>        <span class="hljs-keyword">while</span> curr != b:<br>            <span class="hljs-built_in">next</span> = curr.<span class="hljs-built_in">next</span><br>            curr.<span class="hljs-built_in">next</span> = prev<br>            prev = curr<br>            curr = <span class="hljs-built_in">next</span><br>        <span class="hljs-keyword">return</span> prev<br></code></pre></td></tr></table></figure>
+
+<h2 id="时间复杂度-6"><a href="#时间复杂度-6" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>时间复杂度O(n)，执行时间37ms，消耗内存17.1MB</p>
+<h1 id="19-删除链表的倒数第-N-个节点"><a href="#19-删除链表的倒数第-N-个节点" class="headerlink" title="19 删除链表的倒数第 N 个节点"></a>19 删除链表的倒数第 N 个节点</h1><p>给你一个链表，删除链表的倒数第 <code>n</code> 个结点，并且返回链表的头结点。</p>
+<p>示例 1：</p>
+<pre><code class="hljs">输入：head = [1,2,3,4,5], n = 2
+输出：[1,2,3,5]
+</code></pre>
+<p>示例 2：</p>
+<pre><code class="hljs">输入：head = [1], n = 1
+输出：[]
+</code></pre>
+<p>示例 3：</p>
+<pre><code class="hljs">输入：head = [1,2], n = 1
+输出：[1]
+</code></pre>
+<p>提示：</p>
+<p>链表中结点的数目为 <code>sz</code></p>
+<p><code>1 &lt;= sz &lt;= 30</code></p>
+<p><code>0 &lt;= Node.val &lt;= 100</code></p>
+<p><code>1 &lt;= n &lt;= sz</code></p>
+<h2 id="思路-6"><a href="#思路-6" class="headerlink" title="思路"></a>思路</h2><p>首先按照数组字符串的思路直接倒序遍历找到节点删除就可以，但链表是不能进行倒序遍历和直接获取长度的。所以我们就需要自己去通过循环得到相关的内容。</p>
+<h2 id="代码-6"><a href="#代码-6" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">removeNthFromEnd</span>(<span class="hljs-params">self, head: <span class="hljs-type">Optional</span>[ListNode], n: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-type">Optional</span>[ListNode]:<br>        dummy = ListNode(<span class="hljs-number">0</span>)<br>        dummy.<span class="hljs-built_in">next</span> = head<br>        cur, length = head, <span class="hljs-number">0</span><br>        <span class="hljs-comment"># 获取长度</span><br>        <span class="hljs-keyword">while</span> cur:<br>            length += <span class="hljs-number">1</span><br>            cur = cur.<span class="hljs-built_in">next</span><br>        cur = dummy<br>        <span class="hljs-comment"># 找到倒数第 n 个节点</span><br>        <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(length - n):<br>            cur = cur.<span class="hljs-built_in">next</span><br>        <span class="hljs-comment"># 删除节点</span><br>        cur.<span class="hljs-built_in">next</span> = cur.<span class="hljs-built_in">next</span>.<span class="hljs-built_in">next</span><br>        <span class="hljs-keyword">return</span> dummy.<span class="hljs-built_in">next</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="时间复杂度-7"><a href="#时间复杂度-7" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>时间复杂度O(n)，执行时间39ms，消耗内存16.3MB</p>
+<h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><p>这里我用了快慢指针去，思路上都差不多</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">removeNthFromEnd</span>(<span class="hljs-params">self, head: <span class="hljs-type">Optional</span>[ListNode], n: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-type">Optional</span>[ListNode]:<br>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> head <span class="hljs-keyword">or</span> n &lt;= <span class="hljs-number">0</span>:  <span class="hljs-comment"># 增加对n的合理性检查</span><br>            <span class="hljs-keyword">return</span> head<br>        <br>        dummy = ListNode(<span class="hljs-number">0</span>)<br>        dummy.<span class="hljs-built_in">next</span> = head<br>        first = second = dummy<br>        <br>        <span class="hljs-comment"># 先将first指针移动n+1步</span><br>        <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n + <span class="hljs-number">1</span>):<br>            <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> first:  <span class="hljs-comment"># 如果n大于链表长度，直接返回</span><br>                <span class="hljs-keyword">return</span> head<br>            first = first.<span class="hljs-built_in">next</span><br>        <br>        <span class="hljs-comment"># 同时移动first和second指针，直到first到达链表末尾</span><br>        <span class="hljs-keyword">while</span> first:<br>            first = first.<span class="hljs-built_in">next</span><br>            second = second.<span class="hljs-built_in">next</span><br>        <br>        <span class="hljs-comment"># 删除节点</span><br>        second.<span class="hljs-built_in">next</span> = second.<span class="hljs-built_in">next</span>.<span class="hljs-built_in">next</span><br>        <br>        <span class="hljs-keyword">return</span> dummy.<span class="hljs-built_in">next</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="82-删除排序链表中的重复元素-II"><a href="#82-删除排序链表中的重复元素-II" class="headerlink" title="82 删除排序链表中的重复元素 II"></a>82 删除排序链表中的重复元素 II</h1><p>给定一个已排序的链表的头 <code>head</code> ， 删除原始链表中所有重复数字的节点，只留下不同的数字 。返回 已排序的链表 。</p>
+<p>示例 1：</p>
+<pre><code class="hljs">输入：head = [1,2,3,3,4,4,5]
+输出：[1,2,5]
+</code></pre>
+<p>示例 2：</p>
+<figure>
+  <img src="/2024/08/09/leetcode-%E9%93%BE%E8%A1%A8/82_2.jpg" srcset="/img/loading.gif" lazyload class="" title="示例2">
+  <figcaption>示例2</figcaption>
+</figure>
+    输入：head = [1,1,1,2,3]
+    输出：[2,3]
+ 
+<p>提示：</p>
+<p>链表中节点数目在范围 <code>[0, 300]</code> 内</p>
+<p><code>-100 &lt;= Node.val &lt;= 100</code></p>
+<p>题目数据保证链表已经按升序 <strong>排列</strong></p>
+<h2 id="思路-7"><a href="#思路-7" class="headerlink" title="思路"></a>思路</h2><p>这里首先要注意一点也是我之前做了好几次一直过不去的原因。当我们发现两个节点值相同时，应该用一个变量去存储值，而不是直接进行后续的循环操作，直接进行操作将一直持续不断的遍历两个节点而非继续往后走。</p>
+<h2 id="代码-7"><a href="#代码-7" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">deleteDuplicates</span>(<span class="hljs-params">self, head: <span class="hljs-type">Optional</span>[ListNode]</span>) -&gt; <span class="hljs-type">Optional</span>[ListNode]:<br>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> head:<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span><br>        dummy = ListNode(<span class="hljs-number">0</span>)<br>        dummy.<span class="hljs-built_in">next</span> = head<br>        curr = dummy<br>        <span class="hljs-keyword">while</span> curr.<span class="hljs-built_in">next</span> <span class="hljs-keyword">and</span> curr.<span class="hljs-built_in">next</span>.<span class="hljs-built_in">next</span>:<br>            <span class="hljs-keyword">if</span> curr.<span class="hljs-built_in">next</span>.val == curr.<span class="hljs-built_in">next</span>.<span class="hljs-built_in">next</span>.val:<br>                duplicate_val = curr.<span class="hljs-built_in">next</span>.val<br>                <span class="hljs-keyword">while</span> curr.<span class="hljs-built_in">next</span> <span class="hljs-keyword">and</span> curr.<span class="hljs-built_in">next</span>.val == duplicate_val:<br>                    curr.<span class="hljs-built_in">next</span> = curr.<span class="hljs-built_in">next</span>.<span class="hljs-built_in">next</span><br>            <span class="hljs-keyword">else</span>:<br>                curr = curr.<span class="hljs-built_in">next</span><br>        <span class="hljs-keyword">return</span> dummy.<span class="hljs-built_in">next</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="时间复杂度-8"><a href="#时间复杂度-8" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>时间复杂度O(n)，执行时间45ms，消耗内存16.3MB</p>
+<h1 id="61-旋转链表"><a href="#61-旋转链表" class="headerlink" title="61 旋转链表"></a>61 旋转链表</h1><p>给你一个链表的头节点 <code>head</code> ，旋转链表，将链表每个节点向右移动 k 个位置。</p>
+<p>示例 1：</p>
+<figure>
+  <img src="/2024/08/09/leetcode-%E9%93%BE%E8%A1%A8/61_1.jpg" srcset="/img/loading.gif" lazyload class="" title="示例1">
+  <figcaption>示例1</figcaption>
+</figure>
+
+<pre><code class="hljs">输入：head = [1,2,3,4,5], k = 2
+输出：[4,5,1,2,3]
+</code></pre>
+<p>示例 2：</p>
+<figure>
+  <img src="/2024/08/09/leetcode-%E9%93%BE%E8%A1%A8/61_2.jpg" srcset="/img/loading.gif" lazyload class="" title="示例2">
+  <figcaption>示例2</figcaption>
+</figure>
+
+<pre><code class="hljs">输入：head = [0,1,2], k = 4
+输出：[2,0,1]
+</code></pre>
+<p>提示：</p>
+<p>链表中节点的数目在范围 <code>[0, 500]</code> 内</p>
+<p><code>-100 &lt;= Node.val &lt;= 100</code></p>
+<p><code>0 &lt;= k &lt;= 2 * 109</code></p>
+<h2 id="思路-8"><a href="#思路-8" class="headerlink" title="思路"></a>思路</h2><p>首先知道我们每个节点往前移k个就相当于倒数第k个节点之后的节点移到头结点前。</p>
+<p>其次我们计算长度后，我们对k进行操作，k就相当于k对长度取余，因为k大于长度时我们进行后续操作就相当于走了一圈又继续走。</p>
+<h2 id="代码-8"><a href="#代码-8" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">rotateRight</span>(<span class="hljs-params">self, head: <span class="hljs-type">Optional</span>[ListNode], k: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-type">Optional</span>[ListNode]:<br>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> head:<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span><br>        curr = head<br>        count = <span class="hljs-number">0</span><br>        <span class="hljs-keyword">while</span> curr:<br>            count += <span class="hljs-number">1</span><br>            curr = curr.<span class="hljs-built_in">next</span><br>        k = k % count<br>        <span class="hljs-keyword">if</span> k == <span class="hljs-number">0</span>:<br>            <span class="hljs-keyword">return</span> head<br>        fast = slow = head<br>        <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(k):<br>            fast = fast.<span class="hljs-built_in">next</span><br>        <span class="hljs-keyword">while</span> fast.<span class="hljs-built_in">next</span>:<br>            slow = slow.<span class="hljs-built_in">next</span><br>            fast = fast.<span class="hljs-built_in">next</span><br>        new_head = slow.<span class="hljs-built_in">next</span><br>        slow.<span class="hljs-built_in">next</span> = <span class="hljs-literal">None</span><br>        fast.<span class="hljs-built_in">next</span> = head<br>        <span class="hljs-keyword">return</span> new_head<br></code></pre></td></tr></table></figure>
+
+<h2 id="时间复杂度-9"><a href="#时间复杂度-9" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>时间复杂度O(n)，执行时间40ms，消耗内存16.4MB</p>
+<h1 id="86-分割链表"><a href="#86-分割链表" class="headerlink" title="86 分割链表"></a>86 分割链表</h1><p>给你一个链表的头节点 <code>head</code> 和一个特定值 <code>x</code> ，请你对链表进行分隔，使得所有 <strong>小于</strong> <code>x</code> 的节点都出现在 <strong>大于或等于</strong> <code>x</code> 的节点之前。</p>
+<p>你应当 <strong>保留</strong> 两个分区中每个节点的初始相对位置。</p>
+<p>示例 1：</p>
+<figure>
+  <img src="/2024/08/09/leetcode-%E9%93%BE%E8%A1%A8/86_1.jpg" srcset="/img/loading.gif" lazyload class="" title="示例1">
+  <figcaption>示例1</figcaption>
+</figure>
+
+<pre><code class="hljs">输入：head = [1,4,3,2,5,2], x = 3
+输出：[1,2,2,4,3,5]
+</code></pre>
+<p>示例 2：</p>
+<pre><code class="hljs">输入：head = [2,1], x = 2
+输出：[1,2]
+</code></pre>
+<p>提示：</p>
+<p>链表中节点的数目在范围 <code>[0, 200]</code> 内</p>
+<p><code>-100 &lt;= Node.val &lt;= 100</code></p>
+<p><code>-200 &lt;= x &lt;= 200</code></p>
+<h2 id="思路-9"><a href="#思路-9" class="headerlink" title="思路"></a>思路</h2><p>看到题目第一反应是二分法，大于k的在右边，小于的在左边。</p>
+<p>然后我们就可以用相似的思路去做。我们建立两个表用来存储大于和小于的节点，其次我们在遍历后直接将两个表一拼接就直接完成了。</p>
+<p>切记我们需要在最后将大于的那个表的尾节点指向None，不然就会形成环。</p>
+<h2 id="代码-9"><a href="#代码-9" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">partition</span>(<span class="hljs-params">self, head: <span class="hljs-type">Optional</span>[ListNode], x: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-type">Optional</span>[ListNode]:<br>        smaller = ListNode(<span class="hljs-number">0</span>)<br>        bigger = ListNode(<span class="hljs-number">0</span>)<br>        small, big = smaller, bigger<br>        <span class="hljs-keyword">while</span> head:<br>            <span class="hljs-keyword">if</span> head.val &lt; x:<br>                small.<span class="hljs-built_in">next</span> = head<br>                small = small.<span class="hljs-built_in">next</span><br>            <span class="hljs-keyword">else</span>:<br>                big.<span class="hljs-built_in">next</span> = head<br>                big = big.<span class="hljs-built_in">next</span>  <br>            head = head.<span class="hljs-built_in">next</span><br>        small.<span class="hljs-built_in">next</span> = bigger.<span class="hljs-built_in">next</span><br>        big.<span class="hljs-built_in">next</span> = <span class="hljs-literal">None</span><br>        <span class="hljs-keyword">return</span> smaller.<span class="hljs-built_in">next</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="时间复杂度-10"><a href="#时间复杂度-10" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>时间复杂度O(n)，执行时间38ms，消耗内存16.3MB</p>
+<h1 id="146-LRU-缓存"><a href="#146-LRU-缓存" class="headerlink" title="146 LRU 缓存"></a>146 LRU 缓存</h1><p>请你设计并实现一个满足  <a target="_blank" rel="noopener" href="https://baike.baidu.com/item/LRU">LRU (最近最少使用) 缓存</a> 约束的数据结构。<br>实现 <code>LRUCache</code> 类：<br><code>LRUCache(int capacity)</code> 以 正整数 作为容量 <code>capacity</code> 初始化 LRU 缓存<br><code>int get(int key)</code> 如果关键字 <code>key</code> 存在于缓存中，则返回关键字的值，否则返回 <code>-1</code> 。<br><code>void put(int key, int value)</code> 如果关键字 <code>key</code> 已经存在，则变更其数据值 <code>value</code> ；如果不存在，则向缓存中插入该组 <code>key-value</code> 。如果插入操作导致关键字数量超过 <code>capacity</code> ，则应该 逐出 最久未使用的关键字。<br>函数 <code>get</code> 和 <code>put</code> 必须以 <code>O(1)</code> 的平均时间复杂度运行。</p>
+<p>示例：</p>
+<pre><code class="hljs">输入
+[&quot;LRUCache&quot;, &quot;put&quot;, &quot;put&quot;, &quot;get&quot;, &quot;put&quot;, &quot;get&quot;, &quot;put&quot;, &quot;get&quot;, &quot;get&quot;, &quot;get&quot;]
+[[2], [1, 1], [2, 2], [1], [3, 3], [2], [4, 4], [1], [3], [4]]
+输出
+[null, null, null, 1, null, -1, null, -1, 3, 4]
+
+解释
+LRUCache lRUCache = new LRUCache(2);
+lRUCache.put(1, 1); // 缓存是 &#123;1=1&#125;
+lRUCache.put(2, 2); // 缓存是 &#123;1=1, 2=2&#125;
+lRUCache.get(1);    // 返回 1
+lRUCache.put(3, 3); // 该操作会使得关键字 2 作废，缓存是 &#123;1=1, 3=3&#125;
+lRUCache.get(2);    // 返回 -1 (未找到)
+lRUCache.put(4, 4); // 该操作会使得关键字 1 作废，缓存是 &#123;4=4, 3=3&#125;
+lRUCache.get(1);    // 返回 -1 (未找到)
+lRUCache.get(3);    // 返回 3
+lRUCache.get(4);    // 返回 4
+</code></pre>
+<p>提示：</p>
+<p><code>1 &lt;= capacity &lt;= 3000</code></p>
+<p><code>0 &lt;= key &lt;= 10000</code></p>
+<p><code>0 &lt;= value &lt;= 105</code></p>
+<p>最多调用 <code>2 * 105</code> 次 <code>get</code> 和 <code>put</code></p>
+<h2 id="思路-10"><a href="#思路-10" class="headerlink" title="思路"></a>思路</h2><p>这道题有那么亿点点绕，所以思路上写的比较详细</p>
+<p>首先我们需要完成两个操作</p>
+<ul>
+<li><code>get(key)</code>: 如果key存在于缓存中，则返回对应的值，否则返回-1。</li>
+<li><code>put(key, value)</code>: 将key-value对插入缓存中。如果key已经存在，更新其值；如果key不存在并且缓存已满，则移除最近最少使用的项。</li>
+</ul>
+<p>然后我们来说明如何实现</p>
+<ol>
+<li>初始化：构建一个空哈希表和一个带有哨兵头尾节点的双向链表</li>
+<li><code>get(key)</code>：<ul>
+<li>如果不存在，直接返回-1</li>
+<li>如果存在，找到对应节点，将其从链表中移除并添加到链表末尾，以表示它是最近使用的元素</li>
+</ul>
+</li>
+<li><code>put(key, value)</code>：<ul>
+<li>如果key已经在缓存中，更新其值，并将该节点移动到链表的末尾。</li>
+<li>如果key不存在，创建一个新节点并插入到链表末尾。</li>
+<li>如果插入后缓存超出了容量，移除链表头部的节点（即最近最少使用的节点），并从哈希表中删除对应的键。</li>
+</ul>
+</li>
+<li>操作解释<ul>
+<li><code>_add</code>：将节点添加到双向链表的末尾，这表示该节点是最新被访问的。</li>
+<li><code>_remove</code>：将节点从双向链表中删除，这个操作主要用于在<code>get</code>或<code>put</code>操作时调整节点的位置，以及在缓存容量超出限制时移除最老的节点。</li>
+</ul>
+</li>
+</ol>
+<h2 id="代码-10"><a href="#代码-10" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">CreatNode</span>:<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, key = <span class="hljs-number">0</span>, value = <span class="hljs-number">0</span></span>):<br>        <span class="hljs-variable language_">self</span>.key = key<br>        <span class="hljs-variable language_">self</span>.value = value<br>        <span class="hljs-variable language_">self</span>.prev = <span class="hljs-literal">None</span><br>        <span class="hljs-variable language_">self</span>.<span class="hljs-built_in">next</span> = <span class="hljs-literal">None</span><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">LRUCache</span>:<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, capacity: <span class="hljs-built_in">int</span></span>):<br>        <span class="hljs-variable language_">self</span>.<span class="hljs-built_in">hash</span> = &#123;&#125;<br>        <span class="hljs-variable language_">self</span>.head = CreatNode()<br>        <span class="hljs-variable language_">self</span>.tail = CreatNode()<br>        <span class="hljs-variable language_">self</span>.head.<span class="hljs-built_in">next</span> = <span class="hljs-variable language_">self</span>.tail<br>        <span class="hljs-variable language_">self</span>.tail.prev = <span class="hljs-variable language_">self</span>.head<br>        <span class="hljs-variable language_">self</span>.capacity = capacity<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">get</span>(<span class="hljs-params">self, key: <span class="hljs-built_in">int</span></span>):<br>        <span class="hljs-keyword">if</span> key <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> <span class="hljs-variable language_">self</span>.<span class="hljs-built_in">hash</span>:<br>            <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span><br>        node = <span class="hljs-variable language_">self</span>.<span class="hljs-built_in">hash</span>[key]<br>        <span class="hljs-variable language_">self</span>._remove(node)<br>        <span class="hljs-variable language_">self</span>._add(node)<br>        <span class="hljs-keyword">return</span> node.value<br>    <br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">put</span>(<span class="hljs-params">self, key: <span class="hljs-built_in">int</span>, value: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-literal">None</span>:<br>        <span class="hljs-keyword">if</span> key <span class="hljs-keyword">in</span> <span class="hljs-variable language_">self</span>.<span class="hljs-built_in">hash</span>:<br>            node = <span class="hljs-variable language_">self</span>.<span class="hljs-built_in">hash</span>[key]<br>            node.value = value<br>            <span class="hljs-variable language_">self</span>._remove(node)<br>            <span class="hljs-variable language_">self</span>._add(node)<br>        <span class="hljs-keyword">else</span>:<br>            node = CreatNode(key, value)<br>            <span class="hljs-variable language_">self</span>._add(node)<br>            <span class="hljs-variable language_">self</span>.<span class="hljs-built_in">hash</span>[key] = node<br>            <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(<span class="hljs-variable language_">self</span>.<span class="hljs-built_in">hash</span>) &gt; <span class="hljs-variable language_">self</span>.capacity:<br>                <span class="hljs-keyword">del</span> <span class="hljs-variable language_">self</span>.<span class="hljs-built_in">hash</span>[<span class="hljs-variable language_">self</span>.head.<span class="hljs-built_in">next</span>.key]<br>                <span class="hljs-variable language_">self</span>._remove(<span class="hljs-variable language_">self</span>.head.<span class="hljs-built_in">next</span>)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">_remove</span>(<span class="hljs-params">self, node</span>):<br>        prev = node.prev<br>        <span class="hljs-built_in">next</span> = node.<span class="hljs-built_in">next</span><br>        prev.<span class="hljs-built_in">next</span> = <span class="hljs-built_in">next</span><br>        <span class="hljs-built_in">next</span>.prev = prev<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">_add</span>(<span class="hljs-params">self, node</span>):<br>        prev = <span class="hljs-variable language_">self</span>.tail.prev<br>        prev.<span class="hljs-built_in">next</span> = node<br>        node.prev = prev<br>        node.<span class="hljs-built_in">next</span> = <span class="hljs-variable language_">self</span>.tail<br>        <span class="hljs-variable language_">self</span>.tail.prev = node<br></code></pre></td></tr></table></figure>
+
+<h2 id="时间复杂度-11"><a href="#时间复杂度-11" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>时间复杂度O(1)，执行时间457ms，消耗内存75.6MB</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/" class="category-chain-item">刷题记录</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Leetcode/" class="print-no-link">#Leetcode</a>
+      
+        <a href="/tags/%E5%88%B7%E9%A2%98/" class="print-no-link">#刷题</a>
+      
+        <a href="/tags/%E5%8C%BA%E9%97%B4/" class="print-no-link">#区间</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>leetcode刷题记录——链表</div>
+      <div>https://lx02918.github.io/2024/08/09/leetcode-链表/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Seth</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年8月9日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/08/09/go-study-third-day/" title="go学习记录——第三天">
+                        <span class="hidden-mobile">go学习记录——第三天</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"pAyQlcbEY6nkOIh5fveIBxLA-gzGzoHsz","appKey":"DjSrQhO4p64SG8qV28lz5J0H","path":"window.location.pathname","placeholder":"Just go go","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
