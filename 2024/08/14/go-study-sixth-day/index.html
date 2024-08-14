@@ -1,0 +1,1075 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Seth">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="For-range结构这种构建方法可以应用于数组和切片： 123for ix, value :&#x3D; range slice1 &#123;	...&#125; 第一个参数ix是数组或切片的索引，第二个参数value是该索引位置的值。他们均是仅在for循环内的局部变量，value只是slice1某个索引位置的值的一个拷贝，不能用来修改slice1该索引位置的值。 1234567891011121314">
+<meta property="og:type" content="article">
+<meta property="og:title" content="go学习记录——第六天">
+<meta property="og:url" content="https://lx02918.github.io/2024/08/14/go-study-sixth-day/index.html">
+<meta property="og:site_name" content="Seth的小站">
+<meta property="og:description" content="For-range结构这种构建方法可以应用于数组和切片： 123for ix, value :&#x3D; range slice1 &#123;	...&#125; 第一个参数ix是数组或切片的索引，第二个参数value是该索引位置的值。他们均是仅在for循环内的局部变量，value只是slice1某个索引位置的值的一个拷贝，不能用来修改slice1该索引位置的值。 1234567891011121314">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lx02918.github.io/2024/08/14/go-study-sixth-day/7_6_1.png">
+<meta property="article:published_time" content="2024-08-14T02:58:39.000Z">
+<meta property="article:modified_time" content="2024-08-14T09:12:34.731Z">
+<meta property="article:author" content="Seth">
+<meta property="article:tag" content="学习记录">
+<meta property="article:tag" content="go">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://lx02918.github.io/2024/08/14/go-study-sixth-day/7_6_1.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>go学习记录——第六天 - Seth的小站</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"lx02918.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"pAyQlcbEY6nkOIh5fveIBxLA-gzGzoHsz","app_key":"DjSrQhO4p64SG8qV28lz5J0H","server_url":"https://payqlcbe.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Seth的小站" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Seth的小站</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="go学习记录——第六天"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-08-14 10:58" pubdate>
+          星期三, 八月 14日 2024, 10:58 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          19 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="学习记录"
+        id="heading-7f2ecb9c4d10981cd40468b79a104150" role="tab" data-toggle="collapse" href="#collapse-7f2ecb9c4d10981cd40468b79a104150"
+        aria-expanded="true"
+      >
+        学习记录
+        <span class="list-group-count">(11)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-7f2ecb9c4d10981cd40468b79a104150"
+           role="tabpanel" aria-labelledby="heading-7f2ecb9c4d10981cd40468b79a104150">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="PostgreSQL"
+        id="heading-399bd1ee587245ecac6f39beaa99886f" role="tab" data-toggle="collapse" href="#collapse-399bd1ee587245ecac6f39beaa99886f"
+        aria-expanded="false"
+      >
+        PostgreSQL
+        <span class="list-group-count">(5)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-399bd1ee587245ecac6f39beaa99886f"
+           role="tabpanel" aria-labelledby="heading-399bd1ee587245ecac6f39beaa99886f">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/08/02/postgresql-study-first-day/" title="PostgreSQL学习记录——第一天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">PostgreSQL学习记录——第一天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/06/postgresql-study-third-day/" title="PostgreSQL学习记录——第三天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">PostgreSQL学习记录——第三天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/05/postgresql-study-second-day/" title="PostgreSQL学习记录——第二天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">PostgreSQL学习记录——第二天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/07/postgresql-study-fourth-day/" title="PostgreSQL学习记录——第四天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">PostgreSQL学习记录——第四天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/01/install-postgreSQL/" title="PostgreSQL安装记录及集群初始化失败问题解决"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">PostgreSQL安装记录及集群初始化失败问题解决</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="go"
+        id="heading-34d1f91fb2e514b8576fab1a75a89a6b" role="tab" data-toggle="collapse" href="#collapse-34d1f91fb2e514b8576fab1a75a89a6b"
+        aria-expanded="true"
+      >
+        go
+        <span class="list-group-count">(6)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-34d1f91fb2e514b8576fab1a75a89a6b"
+           role="tabpanel" aria-labelledby="heading-34d1f91fb2e514b8576fab1a75a89a6b">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/08/12/go-study-fourth-day/" title="go-study-fourth-day"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go-study-fourth-day</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/07/go-study-first-day/" title="go学习记录——第一天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go学习记录——第一天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/09/go-study-third-day/" title="go学习记录——第三天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go学习记录——第三天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/08/go-study-second-day/" title="go学习记录——第二天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go学习记录——第二天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/13/go-study-fifth-day/" title="go学习记录——第五天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go学习记录——第五天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/14/go-study-sixth-day/" title="go学习记录——第六天"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">go学习记录——第六天</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">go学习记录——第六天</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="For-range结构"><a href="#For-range结构" class="headerlink" title="For-range结构"></a>For-range结构</h1><p>这种构建方法可以应用于数组和切片：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">for</span> ix, value := <span class="hljs-keyword">range</span> slice1 &#123;<br>	...<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>第一个参数<code>ix</code>是数组或切片的索引，第二个参数<code>value</code>是该索引位置的值。他们均是仅在<code>for</code>循环内的局部变量，<code>value</code>只是<code>slice1</code>某个索引位置的值的一个拷贝，不能用来修改<code>slice1</code>该索引位置的值。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-keyword">var</span> slice1 []<span class="hljs-type">int</span> = <span class="hljs-built_in">make</span>([]<span class="hljs-type">int</span>, <span class="hljs-number">4</span>)<br><br>	slice1[<span class="hljs-number">0</span>] = <span class="hljs-number">1</span><br>	slice1[<span class="hljs-number">1</span>] = <span class="hljs-number">2</span><br>	slice1[<span class="hljs-number">2</span>] = <span class="hljs-number">3</span><br>	slice1[<span class="hljs-number">3</span>] = <span class="hljs-number">4</span><br><br>	<span class="hljs-keyword">for</span> ix, value := <span class="hljs-keyword">range</span> slice1 &#123;<br>		fmt.Printf(<span class="hljs-string">&quot;Slice at %d is: %d\n&quot;</span>, ix, value)<br>	&#125;<br>&#125;<br><br><span class="hljs-comment">/*output</span><br><span class="hljs-comment">Slice at 0 is: 1</span><br><span class="hljs-comment">Slice at 1 is: 2</span><br><span class="hljs-comment">Slice at 2 is: 3</span><br><span class="hljs-comment">Slice at 3 is: 4</span><br><span class="hljs-comment">*/</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	seasons := []<span class="hljs-type">string</span>&#123;<span class="hljs-string">&quot;Spring&quot;</span>, <span class="hljs-string">&quot;Summer&quot;</span>, <span class="hljs-string">&quot;Autumn&quot;</span>, <span class="hljs-string">&quot;Winter&quot;</span>&#125;<br><br>	<span class="hljs-keyword">for</span> ix, season := <span class="hljs-keyword">range</span> seasons &#123;<br>		fmt.Printf(<span class="hljs-string">&quot;Season %d is: %s\n&quot;</span>, ix, season)<br>	&#125;<br><br>	<span class="hljs-keyword">var</span> season <span class="hljs-type">string</span><br>	<span class="hljs-keyword">for</span> _, season = <span class="hljs-keyword">range</span> seasons &#123;<br>		fmt.Printf(<span class="hljs-string">&quot;%s\n&quot;</span>, season)<br>	&#125;<br><br>	<span class="hljs-keyword">for</span> ix := <span class="hljs-keyword">range</span> seasons &#123;<br>		fmt.Printf(<span class="hljs-string">&quot;%d &quot;</span>, ix)<br>	&#125;<br>&#125;<br><br><span class="hljs-comment">/* output</span><br><span class="hljs-comment">Season 0 is: Spring</span><br><span class="hljs-comment">Season 1 is: Summer</span><br><span class="hljs-comment">Season 2 is: Autumn</span><br><span class="hljs-comment">Season 3 is: Winter</span><br><span class="hljs-comment">Spring</span><br><span class="hljs-comment">Summer</span><br><span class="hljs-comment">Autumn</span><br><span class="hljs-comment">Winter</span><br><span class="hljs-comment">0 1 2 3</span><br><span class="hljs-comment">*/</span><br></code></pre></td></tr></table></figure>
+<p>第二个例子中可以看到，使用<code>_</code>可以忽略索引。</p>
+<p>如果只需要索引，也可以忽略第二个变量。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">for</span> ix := <span class="hljs-keyword">range</span> seasons &#123;<br>	fmt.Printf(<span class="hljs-string">&quot;%d&quot;</span>, ix)<br>&#125;<br><span class="hljs-comment">// Output: 0 1 2 3</span><br></code></pre></td></tr></table></figure>
+<p>如果只需要修改<code>seasons[ix]</code>的值，也可以忽略第二个变量。</p>
+<h2 id="多维切片下的for-range"><a href="#多维切片下的for-range" class="headerlink" title="多维切片下的for-range"></a>多维切片下的for-range</h2><p>通过计算行数和列数就可以对矩阵进行操作，和python的类似，和前面提到的多维数组一样。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">for</span> row := <span class="hljs-keyword">range</span> screen &#123;<br>	<span class="hljs-keyword">for</span> column := <span class="hljs-keyword">range</span> screen[row] &#123;<br>		screen[row][column] = <span class="hljs-number">1</span><br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h1 id="切片重组（reslice）"><a href="#切片重组（reslice）" class="headerlink" title="切片重组（reslice）"></a>切片重组（reslice）</h1><p>我们首先创建一个普通的切片（比相关数组小）</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">slice1 := <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">type</span>, start_length, capacity)<br></code></pre></td></tr></table></figure>
+
+<p><code>start_length</code>作为初始长度，<code>capacity</code>作为切片的容量。</p>
+<p>然后我们就可以在切片达到容量上限后扩容，过程就是reslicing。做法就是<code>slice1 = slice1[0 : end]</code>，<code>end</code>就是新的切片的末尾索引。</p>
+<p>将切片扩展1位可以这样做</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">sl = sl[<span class="hljs-number">0</span>:<span class="hljs-built_in">len</span>(sl)+<span class="hljs-number">1</span>]<br></code></pre></td></tr></table></figure>
+
+<p>切片可以反复扩容操作直到占据整个数组。</p>
+<p>实例</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	slice1 := <span class="hljs-built_in">make</span>([]<span class="hljs-type">int</span>, <span class="hljs-number">0</span>, <span class="hljs-number">10</span>)<br>	<span class="hljs-comment">// load the slice, cap(slice1) is 10:</span><br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-built_in">cap</span>(slice1); i++ &#123;<br>		slice1 = slice1[<span class="hljs-number">0</span>:i+<span class="hljs-number">1</span>]<br>		slice1[i] = i<br>		fmt.Printf(<span class="hljs-string">&quot;The length of slice is %d\n&quot;</span>, <span class="hljs-built_in">len</span>(slice1))<br>	&#125;<br><br>	<span class="hljs-comment">// print the slice:</span><br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-built_in">len</span>(slice1); i++ &#123;<br>		fmt.Printf(<span class="hljs-string">&quot;Slice at %d is %d\n&quot;</span>, i, slice1[i])<br>	&#125;<br>&#125;<br><span class="hljs-comment">/*output</span><br><span class="hljs-comment">The length of slice is 1</span><br><span class="hljs-comment">The length of slice is 2</span><br><span class="hljs-comment">The length of slice is 3</span><br><span class="hljs-comment">The length of slice is 4</span><br><span class="hljs-comment">The length of slice is 5</span><br><span class="hljs-comment">The length of slice is 6</span><br><span class="hljs-comment">The length of slice is 7</span><br><span class="hljs-comment">The length of slice is 8</span><br><span class="hljs-comment">The length of slice is 9</span><br><span class="hljs-comment">The length of slice is 10</span><br><span class="hljs-comment">Slice at 0 is 0</span><br><span class="hljs-comment">Slice at 1 is 1</span><br><span class="hljs-comment">Slice at 2 is 2</span><br><span class="hljs-comment">Slice at 3 is 3</span><br><span class="hljs-comment">Slice at 4 is 4</span><br><span class="hljs-comment">Slice at 5 is 5</span><br><span class="hljs-comment">Slice at 6 is 6</span><br><span class="hljs-comment">Slice at 7 is 7</span><br><span class="hljs-comment">Slice at 8 is 8</span><br><span class="hljs-comment">Slice at 9 is 9</span><br><span class="hljs-comment">*/</span><br></code></pre></td></tr></table></figure>
+
+<p>再举一个例子</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> ar = [<span class="hljs-number">10</span>]<span class="hljs-type">int</span>&#123;<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>,<span class="hljs-number">7</span>,<span class="hljs-number">8</span>,<span class="hljs-number">9</span>&#125;<br><span class="hljs-keyword">var</span> a = ar[<span class="hljs-number">5</span>:<span class="hljs-number">7</span>] <span class="hljs-comment">// reference to subarray &#123;5,6&#125; - len(a) is 2 and cap(a) is 5</span><br></code></pre></td></tr></table></figure>
+<p>我们将<code>a</code>重新分片</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">a = a[<span class="hljs-number">0</span>:<span class="hljs-number">4</span>] <span class="hljs-comment">// ref of subarray &#123;5,6,7,8&#125; - len(a) is now 4 but cap(a) is still 5</span><br></code></pre></td></tr></table></figure>
+
+<p>总结一下，我们对切片进行重组扩容，实际上就是重新创建一个切片，如果是用类似<code>a = a[0 :end]</code>的方式，那就是把a的引用指向了一个新的切片，原本的切片地址就被替换成了现在的切片。也就是说把原来的删了换成新的。</p>
+<h1 id="切片的复制与追加"><a href="#切片的复制与追加" class="headerlink" title="切片的复制与追加"></a>切片的复制与追加</h1><p>如果想增加切片的容量，我们可以创建一个新的更大的切片并把原来的分片内容都拷贝过来。</p>
+<p>实例</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	slFrom := []<span class="hljs-type">int</span>&#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>&#125;<br>	slTo := <span class="hljs-built_in">make</span>([]<span class="hljs-type">int</span>, <span class="hljs-number">10</span>)<br><br>	n := <span class="hljs-built_in">copy</span>(slTo, slFrom)<br>	fmt.Println(slTo)                    <span class="hljs-comment">// output: [1 2 3 0 0 0 0 0 0 0]</span><br>	fmt.Printf(<span class="hljs-string">&quot;Copied %d elements\n&quot;</span>, n) <span class="hljs-comment">// n == 3</span><br><br>	sl3 := []<span class="hljs-type">int</span>&#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>&#125;<br>	sl3 = <span class="hljs-built_in">append</span>(sl3, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>)<br>	fmt.Println(sl3) <span class="hljs-comment">// output: [1 2 3 4 5 6]</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>这个实例中我们使用了<code>copy</code>来拷贝切片，用<code>append</code>来向切片追加新的元素。</p>
+<p><code>func append(s[]T, x ...T)[]T</code>，其中<code>append()</code>方法将0个或多个具有相同类型的<code>s</code>的元素追加到切片后面并返回新的切片；追加的元素必须和原本切片的元素类型相同。如果<code>s</code>的容量不足以存储新增元素，<code>append()</code>会分配新的切片来保证已有切片元素和新增元素的存储。在分配后切片的指针、长度和容量都会被更新。</p>
+<p>如果向追加切片<code>y</code>到切片<code>x</code>的后面，我们只需要将第二个参数扩展为一个列表即可。</p>
+<p>通常情况下<code>append()</code>是很好用的，但我们如果想掌握整个追加过程，我们就可以使用<code>AppendByte()</code>方法。</p>
+<p>实例</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">AppendByte</span><span class="hljs-params">(slice []<span class="hljs-type">byte</span>, data ...<span class="hljs-type">byte</span>)</span></span> []<span class="hljs-type">byte</span> &#123;<br>	m := <span class="hljs-built_in">len</span>(slice)<br>	n := m + <span class="hljs-built_in">len</span>(data)<br>	<span class="hljs-keyword">if</span> n &gt; <span class="hljs-built_in">cap</span>(slice) &#123; <span class="hljs-comment">// if necessary, reallocate</span><br>		<span class="hljs-comment">// allocate double what&#x27;s needed, for future growth.</span><br>		newSlice := <span class="hljs-built_in">make</span>([]<span class="hljs-type">byte</span>, (n+<span class="hljs-number">1</span>)*<span class="hljs-number">2</span>)<br>		<span class="hljs-built_in">copy</span>(newSlice, slice)<br>		slice = newSlice<br>	&#125;<br>	slice = slice[<span class="hljs-number">0</span>:n]<br>	<span class="hljs-built_in">copy</span>(slice[m:n], data)<br>	<span class="hljs-keyword">return</span> slice<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><code>func copy(dst, src []T) int</code>方法将类型为<code>T</code>的切片源地址<code>src</code>拷贝到目标地址<code>dst</code>，覆盖<code>dst</code>的相关元素，并返回拷贝元素的个数。源地址可能和目标地址有重叠，拷贝个数就是<code>src</code>和<code>dst</code>长度的最小值。如果<code>src</code>是字符串类型，那么元素类型就是<code>byte</code>。如果想继续使用<code>src</code>就可以在拷贝执行后再使用<code>src = dst</code>。</p>
+<p>由于这部分内容用的多，写几个练习（我自己写完后对照了一下，然后直接把答案贴上来了）。</p>
+<p>练习1：<br>给定一个切片 <code>s []int</code> 和一个 <code>int</code> 类型的因子 <code>factor</code>，扩展 <code>s</code> 使其长度为 <code>len(s) * factor</code>。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span><br><br><span class="hljs-keyword">var</span> s []<span class="hljs-type">int</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	s = []<span class="hljs-type">int</span>&#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>&#125;<br>	fmt.Println(<span class="hljs-string">&quot;The length of s before enlarging is:&quot;</span>, <span class="hljs-built_in">len</span>(s))<br>	fmt.Println(s)<br>	s = enlarge(s, <span class="hljs-number">5</span>)<br>	fmt.Println(<span class="hljs-string">&quot;The length of s after enlarging is:&quot;</span>, <span class="hljs-built_in">len</span>(s))<br>	fmt.Println(s)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">enlarge</span><span class="hljs-params">(s []<span class="hljs-type">int</span>, factor <span class="hljs-type">int</span>)</span></span> []<span class="hljs-type">int</span> &#123;<br>	ns := <span class="hljs-built_in">make</span>([]<span class="hljs-type">int</span>, <span class="hljs-built_in">len</span>(s)*factor)<br>	<span class="hljs-comment">// fmt.Println(&quot;The length of ns  is:&quot;, len(ns))</span><br>	<span class="hljs-built_in">copy</span>(ns, s)<br>	<span class="hljs-comment">//fmt.Println(ns)</span><br>	s = ns<br>	<span class="hljs-comment">//fmt.Println(s)</span><br>	<span class="hljs-comment">//fmt.Println(&quot;The length of s after enlarging is:&quot;, len(s))</span><br>	<span class="hljs-keyword">return</span> s<br>&#125;<br><span class="hljs-comment">/*output</span><br><span class="hljs-comment">The length of s before enlarging is: 3</span><br><span class="hljs-comment">[1 2 3]</span><br><span class="hljs-comment">The length of s after enlarging is: 15</span><br><span class="hljs-comment">[1 2 3 0 0 0 0 0 0]</span><br><span class="hljs-comment">*/</span><br></code></pre></td></tr></table></figure>
+<p>练习2：<br>用顺序函数过滤容器：<code>s</code> 是前 10 个整型的切片。构造一个函数 <code>Filter</code>，第一个参数是 <code>s</code>，第二个参数是一个 <code>fn func(int) bool</code>，返回满足函数 <code>fn</code> 的元素切片。通过 <code>fn</code> 测试方法测试当整型值是偶数时的情况。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// filter_slice.go</span><br><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	s := []<span class="hljs-type">int</span>&#123;<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>&#125;<br>	s = Filter(s, even)<br>	fmt.Println(s)<br>&#125;<br><br><span class="hljs-comment">// Filter returns a new slice holding only</span><br><span class="hljs-comment">// the elements of s that satisfy f()</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Filter</span><span class="hljs-params">(s []<span class="hljs-type">int</span>, fn <span class="hljs-keyword">func</span>(<span class="hljs-type">int</span>)</span></span> <span class="hljs-type">bool</span>) []<span class="hljs-type">int</span> &#123;<br>	<span class="hljs-keyword">var</span> p []<span class="hljs-type">int</span> <span class="hljs-comment">// == nil</span><br>	<span class="hljs-keyword">for</span> _, i := <span class="hljs-keyword">range</span> s &#123;<br>		<span class="hljs-keyword">if</span> fn(i) &#123;<br>			p = <span class="hljs-built_in">append</span>(p, i)<br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">return</span> p<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">even</span><span class="hljs-params">(n <span class="hljs-type">int</span>)</span></span> <span class="hljs-type">bool</span> &#123;<br>	<span class="hljs-keyword">if</span> n%<span class="hljs-number">2</span> == <span class="hljs-number">0</span> &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span><br>	&#125;<br>	<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>&#125;<br><span class="hljs-comment">/* [0 2 4 6 8] */</span><br></code></pre></td></tr></table></figure>
+<p>练习3：<br>写一个函数 <code>InsertStringSlice()</code> 将切片插入到另一个切片的指定位置。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// insert_slice.go</span><br><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	s := []<span class="hljs-type">string</span>&#123;<span class="hljs-string">&quot;M&quot;</span>, <span class="hljs-string">&quot;N&quot;</span>, <span class="hljs-string">&quot;O&quot;</span>, <span class="hljs-string">&quot;P&quot;</span>, <span class="hljs-string">&quot;Q&quot;</span>, <span class="hljs-string">&quot;R&quot;</span>&#125;<br>	in := []<span class="hljs-type">string</span>&#123;<span class="hljs-string">&quot;A&quot;</span>, <span class="hljs-string">&quot;B&quot;</span>, <span class="hljs-string">&quot;C&quot;</span>&#125;<br>	res := InsertStringSlice(s, in, <span class="hljs-number">0</span>) <span class="hljs-comment">// at the front</span><br>	fmt.Println(res)                   <span class="hljs-comment">// [A B C M N O P Q R]</span><br>	res = InsertStringSlice(s, in, <span class="hljs-number">3</span>)  <br>	fmt.Println(res)                   <span class="hljs-comment">// [M N O A B C P Q R]</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">InsertStringSlice</span><span class="hljs-params">(slice, insertion []<span class="hljs-type">string</span>, index <span class="hljs-type">int</span>)</span></span> []<span class="hljs-type">string</span> &#123;<br>	result := <span class="hljs-built_in">make</span>([]<span class="hljs-type">string</span>, <span class="hljs-built_in">len</span>(slice)+<span class="hljs-built_in">len</span>(insertion))<br>	at := <span class="hljs-built_in">copy</span>(result, slice[:index])<br>	at += <span class="hljs-built_in">copy</span>(result[at:], insertion)<br>	<span class="hljs-built_in">copy</span>(result[at:], slice[index:])<br>	<span class="hljs-keyword">return</span> result<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>练习4：<br>写一个函数 <code>RemoveStringSlice()</code> 将从 <code>start</code> 到 <code>end</code> 索引的元素从切片中移除。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// remove_slice.go</span><br><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	s := []<span class="hljs-type">string</span>&#123;<span class="hljs-string">&quot;M&quot;</span>, <span class="hljs-string">&quot;N&quot;</span>, <span class="hljs-string">&quot;O&quot;</span>, <span class="hljs-string">&quot;P&quot;</span>, <span class="hljs-string">&quot;Q&quot;</span>, <span class="hljs-string">&quot;R&quot;</span>&#125;<br>	res := RemoveStringSlice(s, <span class="hljs-number">2</span>, <span class="hljs-number">4</span>)<br>	fmt.Println(res) <span class="hljs-comment">// [M N Q R]</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">RemoveStringSlice</span><span class="hljs-params">(slice []<span class="hljs-type">string</span>, start, end <span class="hljs-type">int</span>)</span></span> []<span class="hljs-type">string</span> &#123;<br>	result := <span class="hljs-built_in">make</span>([]<span class="hljs-type">string</span>, <span class="hljs-built_in">len</span>(slice)-(end-start))<br>	at := <span class="hljs-built_in">copy</span>(result, slice[:start])<br>	<span class="hljs-built_in">copy</span>(result[at:], slice[end:])<br>	<span class="hljs-keyword">return</span> result<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h1 id="字符串、数组和切片的应用"><a href="#字符串、数组和切片的应用" class="headerlink" title="字符串、数组和切片的应用"></a>字符串、数组和切片的应用</h1><h2 id="从字符串生成字节切片"><a href="#从字符串生成字节切片" class="headerlink" title="从字符串生成字节切片"></a>从字符串生成字节切片</h2><p>假设<code>s</code>是一个字符串（本质上是一个不可变的字节数组），那么可以直接通过<code>c := []byte(s)</code>来获取一个字节的切片。另外还可以通过<code>copy()</code>函数来达到相同的目的<code>copy(dst []byte, src string)</code></p>
+<p>同样也可以使用for-range来获取每个元素</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>    s := <span class="hljs-string">&quot;\u00ff\u754c&quot;</span><br>    <span class="hljs-keyword">for</span> i, c := <span class="hljs-keyword">range</span> s &#123;<br>        fmt.Printf(<span class="hljs-string">&quot;%d:%c &quot;</span>, i, c)<br>    &#125;<br>&#125;<br><span class="hljs-comment">/*output</span><br><span class="hljs-comment">0:ÿ 2:界</span><br><span class="hljs-comment">*/</span><br></code></pre></td></tr></table></figure>
+<p>这里涉及到了Unicode字符，Unicode字符会占两个字节甚至3个或4个字节。如果发现错误的UTF8字符，将会被设置为<code>U+FFFD</code>并且索引会前移一位。和字符串转换一样，可以用<code>c := []int32(s)</code>语法，这样切片中每个<code>int</code>都会包含在对应的Unicode字符中，因为字符中的每个字符都对应一个整数，所以我们也可以将字符串转换为元素类型为<code>rune</code>的切片 <code>r := []rune(s)</code>。</p>
+<p>可以通过<code>len([]int32(s))</code>来获取字符串字符的数量，但使用<code>utf8.RunCountInString(s)</code>效率会更高</p>
+<p>实例</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;unicode/utf8&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-comment">// count number of characters:</span><br>	str1 := <span class="hljs-string">&quot;asSASA ddd dsjkdsjs dk&quot;</span><br>	fmt.Printf(<span class="hljs-string">&quot;The number of bytes in string str1 is %d\n&quot;</span>, <span class="hljs-built_in">len</span>(str1))<br>	fmt.Printf(<span class="hljs-string">&quot;The number of characters in string str1 is %d\n&quot;</span>, utf8.RuneCountInString(str1))<br>	str2 := <span class="hljs-string">&quot;asSASA ddd dsjkdsjsこん dk&quot;</span><br>	fmt.Printf(<span class="hljs-string">&quot;The number of bytes in string str2 is %d\n&quot;</span>, <span class="hljs-built_in">len</span>(str2))<br>	fmt.Printf(<span class="hljs-string">&quot;The number of characters in string str2 is %d&quot;</span>, utf8.RuneCountInString(str2))<br>&#125;<br><br><span class="hljs-comment">/* Output:</span><br><span class="hljs-comment">The number of bytes in string str1 is 22</span><br><span class="hljs-comment">The number of characters in string str1 is 22</span><br><span class="hljs-comment">The number of bytes in string str2 is 28</span><br><span class="hljs-comment">The number of characters in string str2 is 24</span><br><span class="hljs-comment">*/</span><br></code></pre></td></tr></table></figure>
+
+<p>还可以将一个字符串追加到某个字节切片的后面</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> b []<span class="hljs-type">byte</span><br><span class="hljs-keyword">var</span> s <span class="hljs-type">string</span><br>b = <span class="hljs-built_in">append</span>(b, s...)<br></code></pre></td></tr></table></figure>
+
+<h2 id="获取字符串的某一部分"><a href="#获取字符串的某一部分" class="headerlink" title="获取字符串的某一部分"></a>获取字符串的某一部分</h2><p>使用<code>substr := str[start : end]</code>可以从字符串<code>str</code>获取从索引<code>start</code>到<code>end - 1</code>的子字符串。</p>
+<h2 id="字符串和切片的内存结构"><a href="#字符串和切片的内存结构" class="headerlink" title="字符串和切片的内存结构"></a>字符串和切片的内存结构</h2><p>在内存中，一个字符串实际上是双字结构，即一个指向实际数据的指针一个记录字符串长度的整数。因为指针对用户来说不可见，所以依旧可以把字符串看作一个值类型。</p>
+<figure>
+
+  <img src="/2024/08/14/go-study-sixth-day/7_6_1.png" srcset="/img/loading.gif" lazyload class="" title="7.6.1">
+  <figcaption>7.6.1</figcaption>
+  
+</figure>
+
+<h2 id="修改字符串中的某个字符"><a href="#修改字符串中的某个字符" class="headerlink" title="修改字符串中的某个字符"></a>修改字符串中的某个字符</h2><p>Go中字符串是不可变的，也就是说<code>str[index]</code>这样的表达式是不可以被放在等号左侧的。如果尝试运行会直接报错<code>cannot assign to str[i]</code></p>
+<p>因此我们需要将字符串换成字节数组，然后再去修改数组中的元素值，最后再将数组转换为字符串。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go">s := <span class="hljs-string">&quot;hello&quot;</span><br>c := []<span class="hljs-type">byte</span>(s)<br>c[<span class="hljs-number">0</span>] = <span class="hljs-string">&#x27;c&#x27;</span><br>s2 := <span class="hljs-type">string</span>(c) <span class="hljs-comment">// s2 == &quot;cello&quot;</span><br></code></pre></td></tr></table></figure>
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" class="category-chain-item">学习记录</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/go/" class="category-chain-item">go</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" class="print-no-link">#学习记录</a>
+      
+        <a href="/tags/go/" class="print-no-link">#go</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>go学习记录——第六天</div>
+      <div>https://lx02918.github.io/2024/08/14/go-study-sixth-day/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Seth</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年8月14日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/08/13/go-study-fifth-day/" title="go学习记录——第五天">
+                        <span class="hidden-mobile">go学习记录——第五天</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"pAyQlcbEY6nkOIh5fveIBxLA-gzGzoHsz","appKey":"DjSrQhO4p64SG8qV28lz5J0H","path":"window.location.pathname","placeholder":"Just go go","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
