@@ -25,10 +25,12 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lx02918.github.io/2024/08/14/go-study-sixth-day/7_6_1.png">
 <meta property="article:published_time" content="2024-08-14T02:58:39.000Z">
-<meta property="article:modified_time" content="2024-08-14T09:12:34.731Z">
+<meta property="article:modified_time" content="2024-08-15T07:53:02.245Z">
 <meta property="article:author" content="Seth">
 <meta property="article:tag" content="学习记录">
 <meta property="article:tag" content="go">
+<meta property="article:tag" content="切片">
+<meta property="article:tag" content="For-range结构">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://lx02918.github.io/2024/08/14/go-study-sixth-day/7_6_1.png">
   
@@ -255,7 +257,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.3k 字
+          3.2k 字
         
       </span>
     
@@ -266,7 +268,7 @@
         
         
         
-          19 分钟
+          27 分钟
         
       </span>
     
@@ -324,7 +326,7 @@
         aria-expanded="true"
       >
         学习记录
-        <span class="list-group-count">(11)</span>
+        <span class="list-group-count">(12)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -424,7 +426,7 @@
         aria-expanded="true"
       >
         go
-        <span class="list-group-count">(6)</span>
+        <span class="list-group-count">(7)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -438,19 +440,19 @@
     
       
       
-        <a href="/2024/08/12/go-study-fourth-day/" title="go-study-fourth-day"
+        <a href="/2024/08/07/go-study-first-day/" title="go学习记录——第一天"
            class="list-group-item list-group-item-action
            ">
-          <span class="category-post">go-study-fourth-day</span>
+          <span class="category-post">go学习记录——第一天</span>
         </a>
       
     
       
       
-        <a href="/2024/08/07/go-study-first-day/" title="go学习记录——第一天"
+        <a href="/2024/08/15/go-study-seventh-day/" title="go学习记录——第七天"
            class="list-group-item list-group-item-action
            ">
-          <span class="category-post">go学习记录——第一天</span>
+          <span class="category-post">go学习记录——第七天</span>
         </a>
       
     
@@ -487,6 +489,15 @@
            class="list-group-item list-group-item-action
            active">
           <span class="category-post">go学习记录——第六天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/12/go-study-fourth-day/" title="go学习记录——第四天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go学习记录——第四天</span>
         </a>
       
     
@@ -592,6 +603,109 @@
 <p>因此我们需要将字符串换成字节数组，然后再去修改数组中的元素值，最后再将数组转换为字符串。</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go">s := <span class="hljs-string">&quot;hello&quot;</span><br>c := []<span class="hljs-type">byte</span>(s)<br>c[<span class="hljs-number">0</span>] = <span class="hljs-string">&#x27;c&#x27;</span><br>s2 := <span class="hljs-type">string</span>(c) <span class="hljs-comment">// s2 == &quot;cello&quot;</span><br></code></pre></td></tr></table></figure>
 
+<h2 id="字节数组对比函数"><a href="#字节数组对比函数" class="headerlink" title="字节数组对比函数"></a>字节数组对比函数</h2><p><code>Compare()</code> 函数会返回两个字节数组字典顺序的整数对比结果，即<br><code>0 if a == b, -1 if a &lt; b, 1 if a &gt; b</code></p>
+<p>实例</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Compare</span><span class="hljs-params">(a, b[]<span class="hljs-type">byte</span>)</span></span> <span class="hljs-type">int</span> &#123;<br>    <span class="hljs-keyword">for</span> i:=<span class="hljs-number">0</span>; i &lt; <span class="hljs-built_in">len</span>(a) &amp;&amp; i &lt; <span class="hljs-built_in">len</span>(b); i++ &#123;<br>        <span class="hljs-keyword">switch</span> &#123;<br>        <span class="hljs-keyword">case</span> a[i] &gt; b[i]:<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">1</span><br>        <span class="hljs-keyword">case</span> a[i] &lt; b[i]:<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span><br>        &#125;<br>    &#125;<br>    <span class="hljs-comment">// 数组的长度可能不同</span><br>    <span class="hljs-keyword">switch</span> &#123;<br>    <span class="hljs-keyword">case</span> <span class="hljs-built_in">len</span>(a) &lt; <span class="hljs-built_in">len</span>(b):<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span><br>    <span class="hljs-keyword">case</span> <span class="hljs-built_in">len</span>(a) &gt; <span class="hljs-built_in">len</span>(b):<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span><br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span> <span class="hljs-comment">// 数组相等</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="搜索及排序切片和数组"><a href="#搜索及排序切片和数组" class="headerlink" title="搜索及排序切片和数组"></a>搜索及排序切片和数组</h2><p>标准库中提供了 <code>sort</code> 包来实现常见的搜索和排序操作。（python中sorted万能函数🤣，leetcode只要遇到需要排序的写了就完事，根本不用自己去写排序算法）</p>
+<table>
+<thead>
+<tr>
+<th>sort&#x2F;search</th>
+<th>example</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>func Ints(a []int)</td>
+<td>sort.Ints(arri)</td>
+</tr>
+<tr>
+<td>func Float64s(a []float64)</td>
+<td>sort.Float64s(arrf)</td>
+</tr>
+<tr>
+<td>func Strings(a []string)</td>
+<td>sort.Strings(arrs)</td>
+</tr>
+<tr>
+<td>func Slice(slice interface{}, less func(i, j int) bool)</td>
+<td>sort.Slice(arr, func(i, j int) bool { return arr[i] &lt; arr[j] })</td>
+</tr>
+<tr>
+<td>func SearchInts(a []int, x int)</td>
+<td>sort.SearchInts(arr, x)</td>
+</tr>
+<tr>
+<td>func SearchFloat64s(a []float64, x float64)</td>
+<td>sort.SearchFloat64s(arr, x)</td>
+</tr>
+<tr>
+<td>func SearchStrings(a []string, x string)</td>
+<td>sort.SearchStrings(arr, x)</td>
+</tr>
+</tbody></table>
+<p>这里我们需要注意，想要搜索一个元素，数组或切片必须先进行排序（标准库中默认为二分排序）</p>
+<h2 id="append-函数常见操作"><a href="#append-函数常见操作" class="headerlink" title="append()函数常见操作"></a>append()函数常见操作</h2><table>
+<thead>
+<tr>
+<th>append()函数常见操作</th>
+<th>example</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>切片b追加到切片a的后面</td>
+<td>a &#x3D; append(a, b…)</td>
+</tr>
+<tr>
+<td>复制切片a的元素到新的切片b上</td>
+<td>b &#x3D; make([]T, len(a)); copy(b, a)</td>
+</tr>
+<tr>
+<td>删除位于索引i位置的元素</td>
+<td>a &#x3D; append(a[:i], a[i+1:]…)</td>
+</tr>
+<tr>
+<td>切除切片 a 中从索引 i 至 j 位置的元素</td>
+<td>a &#x3D; append(a[:i], a[j:]…)</td>
+</tr>
+<tr>
+<td>为切片 a 扩展 j 个元素长度</td>
+<td>a &#x3D; append(a, make([]T, j)…)</td>
+</tr>
+<tr>
+<td>在索引 i 的位置插入元素 x</td>
+<td>a &#x3D; append(a[:i], append([]T{x}, a[i:]…)…)</td>
+</tr>
+<tr>
+<td>在索引 i 的位置插入长度为 j 的新切片</td>
+<td>a &#x3D; append(a[:i], append(make([]T, j), a[i:]…)…)</td>
+</tr>
+<tr>
+<td>在索引 i 的位置插入切片 b 的所有元素</td>
+<td>a &#x3D; append(a[:i], append(b, a[i:]…)…)</td>
+</tr>
+<tr>
+<td>取出位于切片 a 最末尾的元素 x</td>
+<td>x, a &#x3D; a[len(a)-1], a[:len(a)-1]</td>
+</tr>
+<tr>
+<td>将元素 x 追加到切片 a</td>
+<td>a &#x3D; append(a, x)</td>
+</tr>
+</tbody></table>
+<p>这边书上推荐了三个能够实现更完整的操作的三个包，我也附上链接（也方便我自己后续去学）<a target="_blank" rel="noopener" href="http://github.com/feyeleanor/slices">Slices</a>, <a target="_blank" rel="noopener" href="http://github.com/feyeleanor/chain">chain</a>, <a target="_blank" rel="noopener" href="http://github.com/feyeleanor/lists">lists</a></p>
+<p>这里再次感谢原书作者 Ivo Balbaert 和中译本的各位老师，以及三个包的开发者 Eleanor McHugh。</p>
+<h2 id="切片和垃圾回收"><a href="#切片和垃圾回收" class="headerlink" title="切片和垃圾回收"></a>切片和垃圾回收</h2><p>切片的底层指向一个数组，该数组的实际容量可能要大于切片所定义的容量，只有在没有任何切片指向的时候，底层的数组内存才会被释放，这种特性会导致程序产生多余的内存消耗。</p>
+<p>实例（函数FindDigits将一个文件加载到内存，然后搜索其中的数字并返回一个切片）</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> digitRegexp = regexp.MustCompile(<span class="hljs-string">&quot;[0-9]+&quot;</span>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">FindDigits</span><span class="hljs-params">(filename <span class="hljs-type">string</span>)</span></span> []<span class="hljs-type">byte</span> &#123;<br>    b, _ := ioutil.ReadFile(filename)<br>    <span class="hljs-keyword">return</span> digitRegexp.Find(b)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>代码可以正常运行，但返回的 <code>[]byte</code> 指向的底层是整个文件的数据。只要该返回的切片不被释放，垃圾回收就不能释放整个文件占据的内存。（这句话看到就想到了之前在不知道哪个论坛看到的一个例子，那个例子中程序运行过程中内存会被完全使用，也就是说即使只调用一个功能也会将整个内存拉取，造成大量的内存浪费，大致内容是这样。但我自己感觉和这个有点类似，都会造成内存浪费，拖慢运行速度。）</p>
+<p>避免这个问题可以通过将需要的部分拷贝到一个新的切片再调用</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">FindDigits</span><span class="hljs-params">(filename <span class="hljs-type">string</span>)</span></span> []<span class="hljs-type">byte</span> &#123;<br>   b, _ := ioutil.ReadFile(filename)<br>   b = digitRegexp.Find(b)<br>   c := <span class="hljs-built_in">make</span>([]<span class="hljs-type">byte</span>, <span class="hljs-built_in">len</span>(b))<br>   <span class="hljs-built_in">copy</span>(c, b)<br>   <span class="hljs-keyword">return</span> c<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>上面这个只找到了第一个匹配正则表达式的字符串，要找到全部的用下面这个</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">FindFileDigits</span><span class="hljs-params">(filename <span class="hljs-type">string</span>)</span></span> []<span class="hljs-type">byte</span> &#123;<br>   fileBytes, _ := ioutil.ReadFile(filename)<br>   b := digitRegexp.FindAll(fileBytes, <span class="hljs-built_in">len</span>(fileBytes))<br>   c := <span class="hljs-built_in">make</span>([]<span class="hljs-type">byte</span>, <span class="hljs-number">0</span>)<br>   <span class="hljs-keyword">for</span> _, bytes := <span class="hljs-keyword">range</span> b &#123;<br>      c = <span class="hljs-built_in">append</span>(c, bytes...)<br>   &#125;<br>   <span class="hljs-keyword">return</span> c<br>&#125;<br></code></pre></td></tr></table></figure>
+
 
                 
               </div>
@@ -635,6 +749,10 @@
         <a href="/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" class="print-no-link">#学习记录</a>
       
         <a href="/tags/go/" class="print-no-link">#go</a>
+      
+        <a href="/tags/%E5%88%87%E7%89%87/" class="print-no-link">#切片</a>
+      
+        <a href="/tags/For-range%E7%BB%93%E6%9E%84/" class="print-no-link">#For-range结构</a>
       
     </div>
   
@@ -690,6 +808,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2024/08/15/go-study-seventh-day/" title="go学习记录——第七天">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">go学习记录——第七天</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
