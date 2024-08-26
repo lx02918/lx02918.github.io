@@ -1,0 +1,1142 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Seth">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="200 岛屿数量给你一个由 &#39;1&#39;（陆地）和 &#39;0&#39;（水）组成的的二维网格，请你计算网格中岛屿的数量。 岛屿总是被水包围，并且每座岛屿只能由水平方向和&#x2F;或竖直方向上相邻的陆地连接形成。 此外，你可以假设该网格的四条边均被水包围。 示例 1： 输入：grid &#x3D; [ [&quot;1&quot;,&quot;1&quot;,&quot;1&quot;,&amp;qu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="leetcode-图">
+<meta property="og:url" content="https://lx02918.github.io/2024/08/22/leetcode-%E5%9B%BE/index.html">
+<meta property="og:site_name" content="Seth的小站">
+<meta property="og:description" content="200 岛屿数量给你一个由 &#39;1&#39;（陆地）和 &#39;0&#39;（水）组成的的二维网格，请你计算网格中岛屿的数量。 岛屿总是被水包围，并且每座岛屿只能由水平方向和&#x2F;或竖直方向上相邻的陆地连接形成。 此外，你可以假设该网格的四条边均被水包围。 示例 1： 输入：grid &#x3D; [ [&quot;1&quot;,&quot;1&quot;,&quot;1&quot;,&amp;qu">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lx02918.github.io/2024/08/22/leetcode-%E5%9B%BE/130_1.png">
+<meta property="og:image" content="https://lx02918.github.io/2024/08/22/leetcode-%E5%9B%BE/133_1.png">
+<meta property="og:image" content="https://lx02918.github.io/2024/08/22/leetcode-%E5%9B%BE/133_2.png">
+<meta property="article:published_time" content="2024-08-22T01:59:38.000Z">
+<meta property="article:modified_time" content="2024-08-26T10:00:24.800Z">
+<meta property="article:author" content="Seth">
+<meta property="article:tag" content="Leetcode">
+<meta property="article:tag" content="刷题">
+<meta property="article:tag" content="二叉树">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://lx02918.github.io/2024/08/22/leetcode-%E5%9B%BE/130_1.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>leetcode-图 - Seth的小站</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"lx02918.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"pAyQlcbEY6nkOIh5fveIBxLA-gzGzoHsz","app_key":"DjSrQhO4p64SG8qV28lz5J0H","server_url":"https://payqlcbe.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Seth的小站" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Seth的小站</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="leetcode-图"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-08-22 09:59" pubdate>
+          星期四, 八月 22日 2024, 9:59 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.7k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          31 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="刷题记录"
+        id="heading-909ea5d72d27ab9e042108431b0dc4d0" role="tab" data-toggle="collapse" href="#collapse-909ea5d72d27ab9e042108431b0dc4d0"
+        aria-expanded="true"
+      >
+        刷题记录
+        <span class="list-group-count">(10)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-909ea5d72d27ab9e042108431b0dc4d0"
+           role="tabpanel" aria-labelledby="heading-909ea5d72d27ab9e042108431b0dc4d0">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/07/21/my-third-post/" title="Leetcode刷题——滑动窗口"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Leetcode刷题——滑动窗口</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/22/leetcode-%E5%9B%BE/" title="leetcode-图"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">leetcode-图</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/01/Hash/" title="leetcode刷题记录——Hash"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">leetcode刷题记录——Hash</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/21/leetcode-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/" title="leetcode刷题记录——二叉搜索树"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">leetcode刷题记录——二叉搜索树</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/20/leetcode-%E4%BA%8C%E5%8F%89%E6%A0%91/" title="leetcode刷题记录——二叉树"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">leetcode刷题记录——二叉树</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/20/leetcode-%E4%BA%8C%E5%8F%89%E6%A0%91%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86/" title="leetcode刷题记录——二叉树层次遍历"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">leetcode刷题记录——二叉树层次遍历</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/05/leetcode_%E5%8C%BA%E9%97%B4/" title="leetcode刷题记录——区间"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">leetcode刷题记录——区间</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/08/leetcode-%E6%A0%88/" title="leetcode刷题记录——栈"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">leetcode刷题记录——栈</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/07/30/my-fourth-blog/" title="leetcode刷题记录——矩阵"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">leetcode刷题记录——矩阵</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/09/leetcode-%E9%93%BE%E8%A1%A8/" title="leetcode刷题记录——链表"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">leetcode刷题记录——链表</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">leetcode-图</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="200-岛屿数量"><a href="#200-岛屿数量" class="headerlink" title="200 岛屿数量"></a>200 岛屿数量</h1><p>给你一个由 <code>&#39;1&#39;</code>（陆地）和 <code>&#39;0&#39;</code>（水）组成的的二维网格，请你计算网格中岛屿的数量。</p>
+<p>岛屿总是被水包围，并且每座岛屿只能由水平方向和&#x2F;或竖直方向上相邻的陆地连接形成。</p>
+<p>此外，你可以假设该网格的四条边均被水包围。</p>
+<p>示例 1：</p>
+<pre><code class="hljs">输入：grid = [
+[&quot;1&quot;,&quot;1&quot;,&quot;1&quot;,&quot;1&quot;,&quot;0&quot;],
+[&quot;1&quot;,&quot;1&quot;,&quot;0&quot;,&quot;1&quot;,&quot;0&quot;],
+[&quot;1&quot;,&quot;1&quot;,&quot;0&quot;,&quot;0&quot;,&quot;0&quot;],
+[&quot;0&quot;,&quot;0&quot;,&quot;0&quot;,&quot;0&quot;,&quot;0&quot;]
+]
+输出：1
+</code></pre>
+<p>示例 2：</p>
+<pre><code class="hljs">输入：grid = [
+[&quot;1&quot;,&quot;1&quot;,&quot;0&quot;,&quot;0&quot;,&quot;0&quot;],
+[&quot;1&quot;,&quot;1&quot;,&quot;0&quot;,&quot;0&quot;,&quot;0&quot;],
+[&quot;0&quot;,&quot;0&quot;,&quot;1&quot;,&quot;0&quot;,&quot;0&quot;],
+[&quot;0&quot;,&quot;0&quot;,&quot;0&quot;,&quot;1&quot;,&quot;1&quot;]
+]
+输出：3
+</code></pre>
+<p>提示：</p>
+<p><code>m == grid.length</code></p>
+<p><code>n == grid[i].length</code></p>
+<p><code>1 &lt;= m, n &lt;= 300</code></p>
+<p><code>grid[i][j]</code> 的值为 <code>&#39;0&#39;</code> 或 <code>&#39;1&#39;</code></p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>解决矩阵搜索问题通常直接使用DFS去做。</p>
+<p>这道题的通用思路就是对整个矩阵进行遍历，当遇到 <code>grid[i][j]</code> 的时候开始DFS，将周围所有的 <code>1</code> 都置为 <code>0</code>，这样就能找到所有的岛屿。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> typing <span class="hljs-keyword">import</span> <span class="hljs-type">List</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">numIslands</span>(<span class="hljs-params">self, grid: <span class="hljs-type">List</span>[<span class="hljs-type">List</span>[<span class="hljs-built_in">str</span>]]</span>) -&gt; <span class="hljs-built_in">int</span>:<br>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> grid: <span class="hljs-keyword">return</span> <span class="hljs-number">0</span><br>        m, n = <span class="hljs-built_in">len</span>(grid), <span class="hljs-built_in">len</span>(grid[<span class="hljs-number">0</span>])<br>        res = <span class="hljs-number">0</span><br>        <span class="hljs-keyword">def</span> <span class="hljs-title function_">dfs</span>(<span class="hljs-params">i, j</span>):<br>            <span class="hljs-keyword">if</span> i &lt; <span class="hljs-number">0</span> <span class="hljs-keyword">or</span> j &lt; <span class="hljs-number">0</span> <span class="hljs-keyword">or</span> i &gt;= m <span class="hljs-keyword">or</span> j &gt;= n <span class="hljs-keyword">or</span> grid[i][j] == <span class="hljs-string">&#x27;0&#x27;</span>:<br>                <span class="hljs-keyword">return</span> <br>            grid[i][j] = <span class="hljs-string">&#x27;0&#x27;</span><br>            <span class="hljs-keyword">for</span> x, y <span class="hljs-keyword">in</span> (i+<span class="hljs-number">1</span>,j),(i-<span class="hljs-number">1</span>,j),(i,j+<span class="hljs-number">1</span>),(i,j-<span class="hljs-number">1</span>):<br>                dfs(x, y)<br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(m):<br>            <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n):<br>                <span class="hljs-keyword">if</span> grid[i][j] == <span class="hljs-string">&#x27;1&#x27;</span>:<br>                    dfs(i, j)<br>                    res += <span class="hljs-number">1</span><br>        <span class="hljs-keyword">return</span> res<br></code></pre></td></tr></table></figure>
+
+<h2 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>时间复杂度O(m * n)，空间复杂度O(m * n)，执行时间248ms，消耗内存18.6MB</p>
+<h1 id="130-被围绕的区域"><a href="#130-被围绕的区域" class="headerlink" title="130 被围绕的区域"></a>130 被围绕的区域</h1><p>给你一个 <code>m x n</code> 的矩阵 <code>board</code> ，由若干字符 <code>&#39;X&#39;</code> 和 <code>&#39;O&#39;</code> 组成，捕获 <strong>所有</strong> 被围绕的区域：</p>
+<p><strong>连接</strong>：一个单元格与水平或垂直方向上相邻的单元格连接。</p>
+<p><strong>区域</strong>：连接所有 <code>&#39;O&#39;</code> 的单元格来形成一个区域。</p>
+<p><strong>围绕</strong>：如果您可以用 <code>&#39;X&#39;</code> 单元格 连接这个区域，并且区域中没有任何单元格位于 board<br>边缘，则该区域被 <code>&#39;X&#39;</code> 单元格围绕。</p>
+<p>通过将输入矩阵 <code>board</code> 中的所有 <code>&#39;O&#39;</code> 替换为 <code>&#39;X&#39;</code> 来 捕获被围绕的区域。</p>
+<p>示例 1：</p>
+<pre><code class="hljs">输入：board = [[&quot;X&quot;,&quot;X&quot;,&quot;X&quot;,&quot;X&quot;],[&quot;X&quot;,&quot;O&quot;,&quot;O&quot;,&quot;X&quot;],[&quot;X&quot;,&quot;X&quot;,&quot;O&quot;,&quot;X&quot;],[&quot;X&quot;,&quot;O&quot;,&quot;X&quot;,&quot;X&quot;]]
+
+输出：[[&quot;X&quot;,&quot;X&quot;,&quot;X&quot;,&quot;X&quot;],[&quot;X&quot;,&quot;X&quot;,&quot;X&quot;,&quot;X&quot;],[&quot;X&quot;,&quot;X&quot;,&quot;X&quot;,&quot;X&quot;],[&quot;X&quot;,&quot;O&quot;,&quot;X&quot;,&quot;X&quot;]]
+</code></pre>
+<p>解释：</p>
+<figure>
+  <img src="/2024/08/22/leetcode-%E5%9B%BE/130_1.png" srcset="/img/loading.gif" lazyload class="" title="130.1">
+  <figcaption>130.1</figcaption>
+</figure>
+
+<p>在上图中，底部的区域没有被捕获，因为它在 board 的边缘并且不能被围绕。</p>
+<p>示例 2：</p>
+<pre><code class="hljs">输入：board = [[&quot;X&quot;]]
+
+输出：[[&quot;X&quot;]]
+</code></pre>
+<p>提示：</p>
+<p><code>m == board.length</code></p>
+<p><code>n == board[i].length</code></p>
+<p><code>1 &lt;= m, n &lt;= 200</code></p>
+<p><code>board[i][j]</code> 为 <code>&#39;X&#39;</code> 或 <code>&#39;O&#39;</code>   </p>
+<h2 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h2><p>核心思路和前一题一样，都是先对整个矩阵进行遍历，遇到我们符合条件的先将其进行标记。</p>
+<p>这里需要注意的是，我们是将周围没有 <code>O</code> 的标记为 <code>?</code>，而后面将剩余的<code>O</code>全部标记为 <code>X</code>。同时也要注意我们是先标记为 <code>X</code> 后将 <code>?</code> 还原为 <code>O</code>，不然会导致结果错误。</p>
+<h2 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h2><p>这里给出两个版本的代码，思路是一样的，一个是我之前写的，一个是我现在写的。</p>
+<p>第一版</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">solve</span>(<span class="hljs-params">self, board: <span class="hljs-type">List</span>[<span class="hljs-type">List</span>[<span class="hljs-built_in">str</span>]]</span>) -&gt; <span class="hljs-literal">None</span>:<br>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> board:<span class="hljs-keyword">return</span> <span class="hljs-literal">None</span><br>        m, n = <span class="hljs-built_in">len</span>(board), <span class="hljs-built_in">len</span>(board[<span class="hljs-number">0</span>])<br>        <span class="hljs-keyword">def</span> <span class="hljs-title function_">dfs</span>(<span class="hljs-params">i, j</span>):<br>            <span class="hljs-keyword">if</span> i &lt; <span class="hljs-number">0</span> <span class="hljs-keyword">or</span> j &lt; <span class="hljs-number">0</span> <span class="hljs-keyword">or</span> i &gt;= m <span class="hljs-keyword">or</span> j &gt;= n <span class="hljs-keyword">or</span> board[i][j] != <span class="hljs-string">&#x27;O&#x27;</span>:<br>                <span class="hljs-keyword">return</span> <br>            board[i][j] = <span class="hljs-string">&#x27;B&#x27;</span><br>            <span class="hljs-keyword">for</span> x, y <span class="hljs-keyword">in</span> (i + <span class="hljs-number">1</span>), (i - <span class="hljs-number">1</span>), (i, j + <span class="hljs-number">1</span>), (i, j - <span class="hljs-number">1</span>):<br>                dfs(x, y)<br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(m):<br>            <span class="hljs-keyword">if</span> board[i][<span class="hljs-number">0</span>] == <span class="hljs-string">&#x27;O&#x27;</span>:<br>                dfs(i, <span class="hljs-number">0</span>)<br>            <span class="hljs-keyword">if</span> board[i][n - <span class="hljs-number">1</span>] == <span class="hljs-string">&#x27;O&#x27;</span>:<br>                dfs(i, n - <span class="hljs-number">1</span>)<br>        <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n):<br>            <span class="hljs-keyword">if</span> board[<span class="hljs-number">0</span>][j] == <span class="hljs-string">&#x27;O&#x27;</span>:<br>                dfs(<span class="hljs-number">0</span>, j)<br>            <span class="hljs-keyword">if</span> board[m - <span class="hljs-number">1</span>][j] == <span class="hljs-string">&#x27;O&#x27;</span>:<br>                dfs(m - <span class="hljs-number">1</span>, j)<br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(m):<br>            <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n):<br>                <span class="hljs-keyword">if</span> board[i][j] == <span class="hljs-string">&#x27;O&#x27;</span>:<br>                    board[i][j] = <span class="hljs-string">&#x27;X&#x27;</span><br>                <span class="hljs-keyword">if</span> board[i][j] == <span class="hljs-string">&#x27;B&#x27;</span>:<br>                    board[i][j] = <span class="hljs-string">&#x27;O&#x27;</span><br></code></pre></td></tr></table></figure>
+<p>第二版</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">solve</span>(<span class="hljs-params">self, board: <span class="hljs-type">List</span>[<span class="hljs-type">List</span>[<span class="hljs-built_in">str</span>]]</span>) -&gt; <span class="hljs-literal">None</span>:<br>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> board: <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span><br>        m, n = <span class="hljs-built_in">len</span>(board), <span class="hljs-built_in">len</span>(board[<span class="hljs-number">0</span>])<br>        <span class="hljs-keyword">def</span> <span class="hljs-title function_">dfs</span>(<span class="hljs-params">board, i, j</span>):<br>            <span class="hljs-keyword">if</span> i &lt; <span class="hljs-number">0</span> <span class="hljs-keyword">or</span> j &lt; <span class="hljs-number">0</span> <span class="hljs-keyword">or</span> i &gt;= m <span class="hljs-keyword">or</span> j &gt;= n <span class="hljs-keyword">or</span> board[i][j] != <span class="hljs-string">&#x27;O&#x27;</span>:<br>                <span class="hljs-keyword">return</span><br>            board[i][j] = <span class="hljs-string">&#x27;?&#x27;</span><br>            dfs(board, i + <span class="hljs-number">1</span>, j)<br>            dfs(board, i - <span class="hljs-number">1</span>, j)<br>            dfs(board, i, j + <span class="hljs-number">1</span>)<br>            dfs(board, i, j - <span class="hljs-number">1</span>)<br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(m):<br>            <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n):<br>                <span class="hljs-keyword">if</span> i == <span class="hljs-number">0</span> <span class="hljs-keyword">or</span> j == <span class="hljs-number">0</span> <span class="hljs-keyword">or</span> i == m - <span class="hljs-number">1</span> <span class="hljs-keyword">or</span> j == n - <span class="hljs-number">1</span>:<br>                    <span class="hljs-keyword">if</span> board[i][j] == <span class="hljs-string">&#x27;O&#x27;</span>:<br>                        dfs(board, i, j)<br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(m):<br>            <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n):<br>                <span class="hljs-keyword">if</span> board[i][j] == <span class="hljs-string">&#x27;O&#x27;</span>:<br>                    board[i][j] = <span class="hljs-string">&#x27;X&#x27;</span><br>                <span class="hljs-keyword">if</span> board[i][j] == <span class="hljs-string">&#x27;?&#x27;</span>:<br>                    board[i][j] = <span class="hljs-string">&#x27;O&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="时间复杂度-1"><a href="#时间复杂度-1" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>第一版时间复杂度O(m * n)，空间复杂度O(min(m, n))，执行时间40ms，消耗内存20.3MB<br>第二版时间复杂度O(m * n)，空间复杂度O(min(m, n))，执行时间54ms，消耗内存20.3MB</p>
+<h1 id="133-克隆图"><a href="#133-克隆图" class="headerlink" title="133 克隆图"></a>133 克隆图</h1><p>给你无向 <a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E8%BF%9E%E9%80%9A%E5%9B%BE/6460995?fr=aladdin">连通</a> 图中一个节点的引用，请你返回该图的 <a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%B7%B1%E6%8B%B7%E8%B4%9D/22785317?fr=aladdin">深拷贝</a>（克隆）。</p>
+<p>图中的每个节点都包含它的值 <code>val</code>（<code>int</code>） 和其邻居的列表（<code>list[Node]</code>）。</p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs perl"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Node</span> </span>&#123;<br>    public <span class="hljs-keyword">int</span> val;<br>    public List&lt;Node&gt; neighbors;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>测试用例格式：</p>
+<p>简单起见，每个节点的值都和它的索引相同。例如，第一个节点值为 1（<code>val = 1</code>），第二个节点值为 2（<code>val = 2</code>），以此类推。该图在测试用例中使用邻接列表表示。</p>
+<p>邻接列表 是用于表示有限图的无序列表的集合。每个列表都描述了图中节点的邻居集。</p>
+<p>给定节点将始终是图中的第一个节点（值为 1）。你必须将 给定节点的拷贝 作为对克隆图的引用返回。</p>
+<p>示例 1：</p>
+<figure>
+  <img src="/2024/08/22/leetcode-%E5%9B%BE/133_1.png" srcset="/img/loading.gif" lazyload class="" title="133.1">
+  <figcaption>133.1</figcaption>
+</figure>
+
+<pre><code class="hljs">输入：adjList = [[2,4],[1,3],[2,4],[1,3]]
+输出：[[2,4],[1,3],[2,4],[1,3]]
+解释：
+图中有 4 个节点。
+节点 1 的值是 1，它有两个邻居：节点 2 和 4 。
+节点 2 的值是 2，它有两个邻居：节点 1 和 3 。
+节点 3 的值是 3，它有两个邻居：节点 2 和 4 。
+节点 4 的值是 4，它有两个邻居：节点 1 和 3 。
+</code></pre>
+<p>示例 2：</p>
+<figure>
+  <img src="/2024/08/22/leetcode-%E5%9B%BE/133_2.png" srcset="/img/loading.gif" lazyload class="" title="133.2">
+  <figcaption>133.2</figcaption>
+</figure>
+
+<pre><code class="hljs">输入：adjList = [[]]
+输出：[[]]
+解释：输入包含一个空列表。该图仅仅只有一个值为 1 的节点，它没有任何邻居。
+</code></pre>
+<p>示例 3：</p>
+<pre><code class="hljs">输入：adjList = []
+输出：[]
+解释：这个图是空的，它不含任何节点。
+</code></pre>
+<p>提示：</p>
+<p>这张图中的节点数在 <code>[0, 100]</code> 之间。</p>
+<p><code>1 &lt;= Node.val &lt;= 100</code></p>
+<p>每个节点值 <code>Node.val</code> 都是唯一的，</p>
+<p>图中没有重复的边，也没有自环。</p>
+<p>图是连通图，你可以从给定节点访问到所有节点。</p>
+<h2 id="思路-2"><a href="#思路-2" class="headerlink" title="思路"></a>思路</h2><p>简单来说就是使用一个 <code>DFS</code> 去遍历每个节点，然后将每个节点的值都拷贝过来。</p>
+<h2 id="代码-2"><a href="#代码-2" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> typing <span class="hljs-keyword">import</span> <span class="hljs-type">Optional</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">cloneGraph</span>(<span class="hljs-params">self, node: <span class="hljs-type">Optional</span>[<span class="hljs-string">&#x27;Node&#x27;</span>]</span>) -&gt; <span class="hljs-type">Optional</span>[<span class="hljs-string">&#x27;Node&#x27;</span>]:<br>        oldToNew = &#123;<span class="hljs-literal">None</span>: <span class="hljs-literal">None</span>&#125;<br>        <span class="hljs-keyword">def</span> <span class="hljs-title function_">dfs</span>(<span class="hljs-params">node</span>):<br>            <span class="hljs-keyword">if</span> node <span class="hljs-keyword">in</span> oldToNew:<br>                <span class="hljs-keyword">return</span> oldToNew[node]<br>            copy = Node(node.val)<br>            oldToNew[node] = copy<br>            <span class="hljs-keyword">for</span> nei <span class="hljs-keyword">in</span> node.neighbors:<br>                copy.neighbors.append(dfs(nei))<br>            <span class="hljs-keyword">return</span> copy<br>        <span class="hljs-keyword">return</span> dfs(node) <span class="hljs-keyword">if</span> node <span class="hljs-keyword">else</span> <span class="hljs-literal">None</span><br></code></pre></td></tr></table></figure>
+<h2 id="时间复杂度-2"><a href="#时间复杂度-2" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>时间复杂度O(V + E)，空间复杂度O(E)，执行时间44ms，消耗内存16.5MB</p>
+<h1 id="399-除法求值"><a href="#399-除法求值" class="headerlink" title="399 除法求值"></a>399 除法求值</h1><p>给你一个变量对数组 <code>equations</code> 和一个实数值数组 <code>values</code> 作为已知条件，其中 <code>equations[i] = [Ai, Bi]</code> 和 <code>values[i]</code> 共同表示等式 <code>Ai / Bi = values[i]</code> 。每个 <code>Ai</code> 或 <code>Bi</code> 是一个表示单个变量的字符串。</p>
+<p>另有一些以数组 <code>queries</code> 表示的问题，其中 <code>queries[j] = [Cj, Dj]</code> 表示第 <code>j</code> 个问题，请你根据已知条件找出 <code>Cj / Dj = ?</code> 的结果作为答案。</p>
+<p>返回 所有问题的答案 。如果存在某个无法确定的答案，则用 <code>-1.0</code> 替代这个答案。如果问题中出现了给定的已知条件中没有出现的字符串，也需要用 <code>-1.0</code> 替代这个答案。</p>
+<p>注意：输入总是有效的。你可以假设除法运算中不会出现除数为 <code>0</code> 的情况，且不存在任何矛盾的结果。</p>
+<p>注意：未在等式列表中出现的变量是未定义的，因此无法确定它们的答案。</p>
+<p>示例 1：</p>
+<pre><code class="hljs">输入：equations = [[&quot;a&quot;,&quot;b&quot;],[&quot;b&quot;,&quot;c&quot;]], values = [2.0,3.0], queries = [[&quot;a&quot;,&quot;c&quot;],[&quot;b&quot;,&quot;a&quot;],[&quot;a&quot;,&quot;e&quot;],[&quot;a&quot;,&quot;a&quot;],[&quot;x&quot;,&quot;x&quot;]]
+输出：[6.00000,0.50000,-1.00000,1.00000,-1.00000]
+解释：
+条件：a / b = 2.0, b / c = 3.0
+问题：a / c = ?, b / a = ?, a / e = ?, a / a = ?, x / x = ?
+结果：[6.0, 0.5, -1.0, 1.0, -1.0 ]
+注意：x 是未定义的 =&gt; -1.0
+</code></pre>
+<p>示例 2：</p>
+<pre><code class="hljs">输入：equations = [[&quot;a&quot;,&quot;b&quot;],[&quot;b&quot;,&quot;c&quot;],[&quot;bc&quot;,&quot;cd&quot;]], values = [1.5,2.5,5.0], queries = [[&quot;a&quot;,&quot;c&quot;],[&quot;c&quot;,&quot;b&quot;],[&quot;bc&quot;,&quot;cd&quot;],[&quot;cd&quot;,&quot;bc&quot;]]
+输出：[3.75000,0.40000,5.00000,0.20000]
+示例 3：
+
+输入：equations = [[&quot;a&quot;,&quot;b&quot;]], values = [0.5], queries = [[&quot;a&quot;,&quot;b&quot;],[&quot;b&quot;,&quot;a&quot;],[&quot;a&quot;,&quot;c&quot;],[&quot;x&quot;,&quot;y&quot;]]
+输出：[0.50000,2.00000,-1.00000,-1.00000]
+</code></pre>
+<p>提示：</p>
+<p><code>1 &lt;= equations.length &lt;= 20</code></p>
+<p><code>equations[i].length == 2</code></p>
+<p><code>1 &lt;= Ai.length, Bi.length &lt;= 5</code></p>
+<p><code>values.length == equations.length</code></p>
+<p><code>0.0 &lt; values[i] &lt;= 20.0</code></p>
+<p><code>1 &lt;= queries.length &lt;= 20</code></p>
+<p><code>queries[i].length == 2</code></p>
+<p><code>1 &lt;= Cj.length, Dj.length &lt;= 5</code></p>
+<p><code>Ai, Bi, Cj, Dj</code> 由小写英文字母与数字组成</p>
+<h2 id="思路-3"><a href="#思路-3" class="headerlink" title="思路"></a>思路</h2><p>这题首先需要搞明白两个节点之间我们要怎么去算，按照数学逻辑来看我们已知 <code>a:b</code> <code>b:c</code>，我们相乘就可以得到 <code>a:c</code>。并且要得到自身到自身的值，也就是1.0。同时还需要得到当 <code>x</code> 不在我们输入的 <code>equations</code> 中的情况，所以我们的结果需要用 <code>-1.0</code> 直接填充。</p>
+<p>明白了数理逻辑就可以直接开写，这里我们将直接转换为一个有向图，然后用BFS去做。构建图的部分直接看代码，我们重点说一下处理查询的部分。</p>
+<p>对于我们的查询我们可以使用 <code>qx</code> and <code>qy</code> 去辅助完成，即找到 <code>qx</code> 到 <code>qy</code> 的路径并计算得到权值，如果找到了就会被添加到ans表中。</p>
+<h2 id="代码-3"><a href="#代码-3" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">calcEquation</span>(<span class="hljs-params">self, equations: <span class="hljs-type">List</span>[<span class="hljs-type">List</span>[<span class="hljs-built_in">str</span>]], values: <span class="hljs-type">List</span>[<span class="hljs-built_in">float</span>], queries: <span class="hljs-type">List</span>[<span class="hljs-type">List</span>[<span class="hljs-built_in">str</span>]]</span>) -&gt; <span class="hljs-type">List</span>[<span class="hljs-built_in">float</span>]:<br>        <span class="hljs-comment"># 图结构构建</span><br>        graph = &#123;&#125;<br>        <span class="hljs-keyword">for</span> (s, e), v <span class="hljs-keyword">in</span> <span class="hljs-built_in">zip</span>(equations, values):<br>            <span class="hljs-keyword">if</span> s <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> graph:<br>                graph[s] = &#123;&#125; <span class="hljs-comment"># 存储neighbor的hash</span><br>            graph[s][e] = v<br>            <span class="hljs-keyword">if</span> e <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> graph:<br>                graph[e] = &#123;&#125;<br>            graph[e][s] = <span class="hljs-number">1</span> / v<br>            graph[s][s] = <span class="hljs-number">1.0</span><br>            graph[e][e] = <span class="hljs-number">1.0</span><br>        queue = [] <span class="hljs-comment"># BFS的队列</span><br>        n = <span class="hljs-built_in">len</span>(queries)<br>        ans = [-<span class="hljs-number">1.0</span>] * n<br>        <br>        <span class="hljs-comment"># 找最短路径</span><br>        <span class="hljs-keyword">for</span> i, (qx, qy) <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(queries):<br>            <span class="hljs-keyword">if</span> qx <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> graph <span class="hljs-keyword">or</span> qy <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> graph: <span class="hljs-keyword">continue</span> <span class="hljs-comment"># x不在graph里面就跳过</span><br>            queue = [[qx, <span class="hljs-number">1.0</span>]] <span class="hljs-comment"># start</span><br>            visited = <span class="hljs-built_in">set</span>([qx]) <span class="hljs-comment"># 存储已经处理过的</span><br>            <span class="hljs-keyword">while</span> queue:<br>                node, mul = queue.pop(<span class="hljs-number">0</span>)<br>                <span class="hljs-comment"># 枚举并处理节点</span><br>                <span class="hljs-keyword">for</span> neighbor, weight <span class="hljs-keyword">in</span> graph[node].items():<br>                    <span class="hljs-keyword">if</span> neighbor == qy:<br>                        ans[i] = mul * weight<br>                        <span class="hljs-keyword">break</span><br>                    <span class="hljs-keyword">if</span> neighbor <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> visited:<br>                        visited.add(neighbor)<br>                        queue.append([neighbor, mul * weight])<br>        <span class="hljs-keyword">return</span> ans<br></code></pre></td></tr></table></figure>
+
+<h2 id="时间复杂度-3"><a href="#时间复杂度-3" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>时间复杂度O(V + E + Q)，空间复杂度O(V + E + Q)，执行时间42ms，消耗内存16.53</p>
+<p>其中 <code>V</code> 表示节点数量， <code>E</code> 表示边的数量， <code>Q</code> 表示查询的数量。</p>
+<h1 id="207-课程表"><a href="#207-课程表" class="headerlink" title="207 课程表"></a>207 课程表</h1><p>你这个学期必须选修 <code>numCourses</code> 门课程，记为 <code>0</code> 到 <code>numCourses - 1</code> 。</p>
+<p>在选修某些课程之前需要一些先修课程。 先修课程按数组 <code>prerequisites</code> 给出，其中 <code>prerequisites[i] = [ai, bi]</code> ，表示如果要学习课程 <code>ai</code> 则 <strong>必须</strong> 先学习课程 <code>bi</code> 。</p>
+<p>例如，先修课程对 <code>[0, 1]</code> 表示：想要学习课程 <code>0</code> ，你需要先完成课程 <code>1</code> 。<br>请你判断是否可能完成所有课程的学习？如果可以，返回 <code>true</code> ；否则，返回 <code>false</code> 。</p>
+<p>示例 1：</p>
+<pre><code class="hljs">输入：numCourses = 2, prerequisites = [[1,0]]
+输出：true
+解释：总共有 2 门课程。学习课程 1 之前，你需要完成课程 0 。这是可能的。
+</code></pre>
+<p>示例 2：</p>
+<pre><code class="hljs">输入：numCourses = 2, prerequisites = [[1,0],[0,1]]
+输出：false
+解释：总共有 2 门课程。学习课程 1 之前，你需要先完成​课程 0 ；并且学习课程 0 之前，你还应先完成课程 1 。这是不可能的。
+</code></pre>
+<p>提示：</p>
+<p><code>1 &lt;= numCourses &lt;= 2000</code></p>
+<p><code>0 &lt;= prerequisites.length &lt;= 5000</code></p>
+<p><code>prerequisites[i].length == 2</code></p>
+<p><code>0 &lt;= ai, bi &lt; numCourses</code></p>
+<p><code>prerequisites[i]</code> 中的所有课程对 <strong>互不相同</strong></p>
+<h2 id="思路-4"><a href="#思路-4" class="headerlink" title="思路"></a>思路</h2><p>我们使用一个入度数组和一个邻接表来完成这个题目。</p>
+<p>首先完成入度数组和邻接表的遍历。接下来使用拓扑排序去完成排序，借助一个队列。</p>
+<p>这里需要注意，我们的入度为0的时候就需要将其加入队列，最终如果没有数了，就表示我们这个图是没有环的，也就是课程表能够完成学习。</p>
+<h2 id="代码-4"><a href="#代码-4" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> collections <span class="hljs-keyword">import</span> deque<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">canFinish</span>(<span class="hljs-params">self, numCourses: <span class="hljs-built_in">int</span>, prerequisites: <span class="hljs-type">List</span>[<span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>]]</span>) -&gt; <span class="hljs-built_in">bool</span>:<br>        <span class="hljs-comment"># 初始化入度数组和邻接表</span><br>        in_degree = [<span class="hljs-number">0</span>] * numCourses<br>        adjacency = [[] <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(numCourses)]<br>        <br>        <span class="hljs-comment"># 构建邻接表和入度数组</span><br>        <span class="hljs-keyword">for</span> cur, pre <span class="hljs-keyword">in</span> prerequisites:<br>            adjacency[pre].append(cur)<br>            in_degree[cur] += <span class="hljs-number">1</span><br>        <br>        <span class="hljs-comment"># 初始化队列，将所有入度为0的节点加入队列</span><br>        queue = deque()<br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(numCourses):<br>            <span class="hljs-keyword">if</span> in_degree[i] == <span class="hljs-number">0</span>:<br>                queue.append(i)<br>        <br>        <span class="hljs-comment"># 拓扑排序</span><br>        <span class="hljs-keyword">while</span> queue:<br>            node = queue.popleft()<br>            numCourses -= <span class="hljs-number">1</span><br>            <span class="hljs-keyword">for</span> neighbor <span class="hljs-keyword">in</span> adjacency[node]:<br>                in_degree[neighbor] -= <span class="hljs-number">1</span><br>                <span class="hljs-keyword">if</span> in_degree[neighbor] == <span class="hljs-number">0</span>:<br>                    queue.append(neighbor)<br>        <br>        <span class="hljs-comment"># 如果所有节点都被访问过，说明没有环，可以完成所有课程</span><br>        <span class="hljs-keyword">return</span> numCourses == <span class="hljs-number">0</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="时间复杂度-4"><a href="#时间复杂度-4" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>时间复杂度O(V + E)，空间复杂度O(V + E)，执行时间42ms，消耗内存17.5MB</p>
+<h1 id="210-课程表-II"><a href="#210-课程表-II" class="headerlink" title="210 课程表 II"></a>210 课程表 II</h1><p>现在你总共有 <code>numCourses</code> 门课需要选，记为 <code>0</code> 到 <code>numCourses - 1</code>。给你一个数组 <code>prerequisites</code> ，其中 <code>prerequisites[i] = [ai, bi]</code> ，表示在选修课程 <code>ai</code> 前 <strong>必须</strong> 先选修 <code>bi</code> 。</p>
+<p>例如，想要学习课程 <code>0</code> ，你需要先完成课程 <code>1</code> ，我们用一个匹配来表示：<code>[0,1]</code> 。<br>返回你为了学完所有课程所安排的学习顺序。可能会有多个正确的顺序，你只要返回 <strong>任意一种</strong> 就可以了。如果不可能完成所有课程，返回 <strong>一个空数组</strong> 。</p>
+<p>示例 1：</p>
+<pre><code class="hljs">输入：numCourses = 2, prerequisites = [[1,0]]
+输出：[0,1]
+解释：总共有 2 门课程。要学习课程 1，你需要先完成课程 0。因此，正确的课程顺序为 [0,1] 。
+</code></pre>
+<p>示例 2：</p>
+<pre><code class="hljs">输入：numCourses = 4, prerequisites = [[1,0],[2,0],[3,1],[3,2]]
+输出：[0,2,1,3]
+解释：总共有 4 门课程。要学习课程 3，你应该先完成课程 1 和课程 2。并且课程 1 和课程 2 都应该排在课程 0 之后。
+因此，一个正确的课程顺序是 [0,1,2,3] 。另一个正确的排序是 [0,2,1,3] 。
+</code></pre>
+<p>示例 3：</p>
+<pre><code class="hljs">输入：numCourses = 1, prerequisites = []
+输出：[0]
+</code></pre>
+<p>提示：</p>
+<p><code>1 &lt;= numCourses &lt;= 2000</code></p>
+<p><code>0 &lt;= prerequisites.length &lt;= numCourses * (numCourses - 1)</code></p>
+<p><code>prerequisites[i].length == 2</code></p>
+<p><code>0 &lt;= ai, bi &lt; numCourses</code></p>
+<p><code>ai != bi</code></p>
+<p>所有<code>[ai, bi]</code> <strong>互不相同</strong></p>
+<h2 id="思路-5"><a href="#思路-5" class="headerlink" title="思路"></a>思路</h2><p>整体上和前一道题几乎一模一样，唯独需要一个 <code>res</code> 来装我们从 <code>queue</code> 里 <code>pop</code> 出来的变量。</p>
+<h2 id="代码-5"><a href="#代码-5" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">findOrder</span>(<span class="hljs-params">self, numCourses: <span class="hljs-built_in">int</span>, prerequisites: <span class="hljs-type">List</span>[<span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>]]</span>) -&gt; <span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>]:<br>        in_degree = [<span class="hljs-number">0</span>] * numCourses<br>        adjacency = [[] <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(numCourses)]<br>        <br>        <span class="hljs-keyword">for</span> cur, pre <span class="hljs-keyword">in</span> prerequisites:<br>            adjacency[pre].append(cur)<br>            in_degree[cur] += <span class="hljs-number">1</span><br>            <br>        queue = deque()<br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(numCourses):<br>            <span class="hljs-keyword">if</span> in_degree[i] == <span class="hljs-number">0</span>:<br>                queue.append(i)<br>        res = []<br>        <span class="hljs-keyword">while</span> queue:<br>            node = queue.popleft()<br>            res.append(node)<br>            <span class="hljs-keyword">for</span> neighbor <span class="hljs-keyword">in</span> adjacency[node]:<br>                in_degree[neighbor] -= <span class="hljs-number">1</span><br>                <span class="hljs-keyword">if</span> in_degree[neighbor] == <span class="hljs-number">0</span>:<br>                    queue.append(neighbor)<br>        <span class="hljs-keyword">return</span> res <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(res) == numCourses <span class="hljs-keyword">else</span> []<br></code></pre></td></tr></table></figure>
+
+<h2 id="时间复杂度-5"><a href="#时间复杂度-5" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>时间复杂度O(V + E)，空间复杂度O(V + E)，执行时间38ms，消耗内存17.6MB</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/" class="category-chain-item">刷题记录</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Leetcode/" class="print-no-link">#Leetcode</a>
+      
+        <a href="/tags/%E5%88%B7%E9%A2%98/" class="print-no-link">#刷题</a>
+      
+        <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" class="print-no-link">#二叉树</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>leetcode-图</div>
+      <div>https://lx02918.github.io/2024/08/22/leetcode-图/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Seth</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年8月22日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/08/26/%E4%BA%AC%E4%B8%9C%E7%AC%94%E8%AF%95/" title="京东笔试——算法工程师第三批">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">京东笔试——算法工程师第三批</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/08/21/leetcode-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/" title="leetcode刷题记录——二叉搜索树">
+                        <span class="hidden-mobile">leetcode刷题记录——二叉搜索树</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"pAyQlcbEY6nkOIh5fveIBxLA-gzGzoHsz","appKey":"DjSrQhO4p64SG8qV28lz5J0H","path":"window.location.pathname","placeholder":"Just go go","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
