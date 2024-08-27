@@ -16,26 +16,28 @@
   <meta name="author" content="Seth">
   <meta name="keywords" content="">
   
-    <meta name="description" content="530 二叉搜索树的最小绝对差思路这道题我们需要使用到二叉搜索树（BST）的一个特性：在二叉搜索树中，任意一个节点其左子树所有节点的值都小于该节点的值，其右子树所有节点的值都大于该结点的值。利用这个特性可以使得中序遍历按照从小到大的顺序访问树中所有的节点。 代码1234567891011121314class Solution:    def getMinimumDifference(self,">
+    <meta name="description" content="909 蛇形棋给你一个大小为 n x n 的整数矩阵 board ，方格按从 1 到 n2 编号，编号遵循 转行交替方式 ，从左下角开始 （即，从 board[n - 1][0] 开始）每一行交替方向。 玩家从棋盘上的方格 1 （总是在最后一行、第一列）开始出发。 每一回合，玩家需要从当前方格 curr 开始出发，按下述要求前进： 选定目标方格 next ，目标方格的编号符合范围 [curr +">
 <meta property="og:type" content="article">
-<meta property="og:title" content="leetcode刷题记录——二叉搜索树">
-<meta property="og:url" content="https://lx02918.github.io/2024/08/21/leetcode-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/index.html">
+<meta property="og:title" content="leetcode刷题记录——图的广度优先遍历">
+<meta property="og:url" content="https://lx02918.github.io/2024/08/27/leetcode-%E5%9B%BE-BFS/index.html">
 <meta property="og:site_name" content="Seth的小站">
-<meta property="og:description" content="530 二叉搜索树的最小绝对差思路这道题我们需要使用到二叉搜索树（BST）的一个特性：在二叉搜索树中，任意一个节点其左子树所有节点的值都小于该节点的值，其右子树所有节点的值都大于该结点的值。利用这个特性可以使得中序遍历按照从小到大的顺序访问树中所有的节点。 代码1234567891011121314class Solution:    def getMinimumDifference(self,">
+<meta property="og:description" content="909 蛇形棋给你一个大小为 n x n 的整数矩阵 board ，方格按从 1 到 n2 编号，编号遵循 转行交替方式 ，从左下角开始 （即，从 board[n - 1][0] 开始）每一行交替方向。 玩家从棋盘上的方格 1 （总是在最后一行、第一列）开始出发。 每一回合，玩家需要从当前方格 curr 开始出发，按下述要求前进： 选定目标方格 next ，目标方格的编号符合范围 [curr +">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-08-21T07:47:07.000Z">
-<meta property="article:modified_time" content="2024-08-21T10:19:12.808Z">
+<meta property="og:image" content="https://assets.leetcode.com/uploads/2018/09/23/snakes.png">
+<meta property="article:published_time" content="2024-08-27T02:17:49.000Z">
+<meta property="article:modified_time" content="2024-08-27T09:04:19.248Z">
 <meta property="article:author" content="Seth">
 <meta property="article:tag" content="Leetcode">
 <meta property="article:tag" content="刷题">
-<meta property="article:tag" content="二叉树">
+<meta property="article:tag" content="图">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://assets.leetcode.com/uploads/2018/09/23/snakes.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>leetcode刷题记录——二叉搜索树 - Seth的小站</title>
+  <title>leetcode刷题记录——图的广度优先遍历 - Seth的小站</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -231,7 +233,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="leetcode刷题记录——二叉搜索树"></span>
+            <span id="subtitle" data-typed-text="leetcode刷题记录——图的广度优先遍历"></span>
           
         </div>
 
@@ -242,8 +244,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-08-21 15:47" pubdate>
-          星期三, 八月 21日 2024, 3:47 下午
+        <time datetime="2024-08-27 10:17" pubdate>
+          星期二, 八月 27日 2024, 10:17 上午
         </time>
       </span>
     
@@ -254,7 +256,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          755 字
+          1.8k 字
         
       </span>
     
@@ -265,7 +267,7 @@
         
         
         
-          7 分钟
+          16 分钟
         
       </span>
     
@@ -366,7 +368,7 @@
       
         <a href="/2024/08/21/leetcode-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/" title="leetcode刷题记录——二叉搜索树"
            class="list-group-item list-group-item-action
-           active">
+           ">
           <span class="category-post">leetcode刷题记录——二叉搜索树</span>
         </a>
       
@@ -402,7 +404,7 @@
       
         <a href="/2024/08/27/leetcode-%E5%9B%BE-BFS/" title="leetcode刷题记录——图的广度优先遍历"
            class="list-group-item list-group-item-action
-           ">
+           active">
           <span class="category-post">leetcode刷题记录——图的广度优先遍历</span>
         </a>
       
@@ -452,41 +454,102 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">leetcode刷题记录——二叉搜索树</h1>
+            <h1 id="seo-header">leetcode刷题记录——图的广度优先遍历</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="530-二叉搜索树的最小绝对差"><a href="#530-二叉搜索树的最小绝对差" class="headerlink" title="530 二叉搜索树的最小绝对差"></a>530 二叉搜索树的最小绝对差</h1><h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>这道题我们需要使用到二叉搜索树（BST）的一个特性：在二叉搜索树中，任意一个节点其左子树所有节点的值都小于该节点的值，其右子树所有节点的值都大于该结点的值。利用这个特性可以使得中序遍历按照从小到大的顺序访问树中所有的节点。</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">getMinimumDifference</span>(<span class="hljs-params">self, root: <span class="hljs-type">Optional</span>[TreeNode]</span>) -&gt; <span class="hljs-built_in">int</span>:<br>        <span class="hljs-keyword">def</span> <span class="hljs-title function_">dfs</span>(<span class="hljs-params">node</span>):<br>            <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> node:<br>                <span class="hljs-keyword">return</span><br>            dfs(node.left)<br>            <span class="hljs-variable language_">self</span>.res = <span class="hljs-built_in">min</span>(<span class="hljs-variable language_">self</span>.res, node.val - <span class="hljs-variable language_">self</span>.pre)<br>            <span class="hljs-variable language_">self</span>.pre = node.val<br>            dfs(node.right)<br><br>        <span class="hljs-variable language_">self</span>.res = <span class="hljs-built_in">float</span>(<span class="hljs-string">&#x27;inf&#x27;</span>)<br>        <span class="hljs-variable language_">self</span>.pre = <span class="hljs-built_in">float</span>(<span class="hljs-string">&#x27;-inf&#x27;</span>)<br>        dfs(root)<br>        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">self</span>.res<br></code></pre></td></tr></table></figure>
+                <h1 id="909-蛇形棋"><a href="#909-蛇形棋" class="headerlink" title="909 蛇形棋"></a>909 蛇形棋</h1><p>给你一个大小为 <code>n x n</code> 的整数矩阵 <code>board</code> ，方格按从 <code>1</code> 到 <code>n2</code> 编号，编号遵循 <a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E7%89%9B%E8%80%95%E5%BC%8F%E8%BD%AC%E8%A1%8C%E4%B9%A6%E5%86%99%E6%B3%95/**17195786**">转行交替方式</a> ，从左下角开始 （即，从 <code>board[n - 1][0]</code> 开始）每一行交替方向。</p>
+<p>玩家从棋盘上的方格 <code>1</code> （总是在最后一行、第一列）开始出发。</p>
+<p>每一回合，玩家需要从当前方格 <code>curr</code> 开始出发，按下述要求前进：</p>
+<p>选定目标方格 <code>next</code> ，目标方格的编号符合范围 <code>[curr + 1, min(curr + 6, n_2)]</code> 。</p>
+<p>该选择模拟了掷 <strong>六面体骰子</strong> 的情景，无论棋盘大小如何，玩家最多只能有 <code>6</code> 个目的地。</p>
+<p>传送玩家：如果目标方格 <code>next</code> 处存在蛇或梯子，那么玩家会传送到蛇或梯子的目的地。否则，玩家传送到目标方格 <code>next</code> 。 </p>
+<p>当玩家到达编号 $n_2$ 的方格时，游戏结束。</p>
+<p><code>r</code> 行 <code>c</code> 列的棋盘，按前述方法编号，棋盘格中可能存在 “蛇” 或 “梯子”；如果 <code>board[r][c] != -1</code>，那个蛇或梯子的目的地将会是 <code>board[r][c]</code>。编号为 <code>1</code> 和 $n_2$ 的方格不是任何蛇或梯子的起点。</p>
+<p>注意，玩家在每回合的前进过程中最多只能爬过蛇或梯子一次：就算目的地是另一条蛇或梯子的起点，玩家也 <strong>不能</strong> 继续移动。</p>
+<p>举个例子，假设棋盘是 <code>[[-1,4],[-1,3]]</code> ，第一次移动，玩家的目标方格是 <code>2</code> 。那么这个玩家将会顺着梯子到达方格 <code>3</code> ，但 <strong>不能</strong> 顺着方格 3 上的梯子前往方格 <code>4</code> 。<br>返回达到编号为 $n_2$ 的方格所需的最少移动次数，如果不可能，则返回 <code>-1</code>。</p>
+<p>示例 1：</p>
+<p><img src="https://assets.leetcode.com/uploads/2018/09/23/snakes.png" srcset="/img/loading.gif" lazyload alt="909.1"></p>
+<pre><code class="hljs">输入：board = [[-1,-1,-1,-1,-1,-1],[-1,-1,-1,-1,-1,-1],[-1,-1,-1,-1,-1,-1],[-1,35,-1,-1,13,-1],[-1,-1,-1,-1,-1,-1],[-1,15,-1,-1,-1,-1]]
+输出：4
+解释：
+首先，从方格 1 [第 5 行，第 0 列] 开始。 
+先决定移动到方格 2 ，并必须爬过梯子移动到到方格 15 。
+然后决定移动到方格 17 [第 3 行，第 4 列]，必须爬过蛇到方格 13 。
+接着决定移动到方格 14 ，且必须通过梯子移动到方格 35 。 
+最后决定移动到方格 36 , 游戏结束。 
+可以证明需要至少 4 次移动才能到达最后一个方格，所以答案是 4 。 
+</code></pre>
+<p>示例 2：</p>
+<pre><code class="hljs">输入：board = [[-1,-1],[-1,3]]
+输出：1
+</code></pre>
+<p>提示：</p>
+<p><code>n == board.length == board[i].length</code></p>
+<p><code>2 &lt;= n &lt;= 20</code></p>
+<p><code>board[i][j]</code> 的值是 <code>-1</code> 或在范围 <code>[1, n2]</code> 内</p>
+<p>编号为 <code>1</code> 和 $n_2$ 的方格上没有蛇或梯子</p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>这里我的想法是先对棋盘进行处理，后续就不用管奇偶行怎么变化了。</p>
+<p>然后用一个 <code>snake</code> 参数来存储棋盘中有效位置和其映射，这个主要是用于对梯子和蛇进行标记。</p>
+<p>循环部分符合BFS的模板就不多说了，直接看代码</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">snakesAndLadders</span>(<span class="hljs-params">self, board: <span class="hljs-type">List</span>[<span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>]]</span>) -&gt; <span class="hljs-built_in">int</span>:<br>        snt = []<br>        <span class="hljs-keyword">for</span> j, bd <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(board[::-<span class="hljs-number">1</span>]):<br>            snt.append(bd <span class="hljs-keyword">if</span> j % <span class="hljs-number">2</span> == <span class="hljs-number">0</span> <span class="hljs-keyword">else</span> bd[::-<span class="hljs-number">1</span>])<br>        snake = &#123;&#125;<br>        n = <span class="hljs-built_in">len</span>(board)<br>        <br>        <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n):<br>            <span class="hljs-keyword">for</span> y <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n):<br>                cur = n * x + y + <span class="hljs-number">1</span><br>                <span class="hljs-keyword">if</span> snt[x][y] != -<span class="hljs-number">1</span>:<br>                    snake[cur] = snt[x][y]<br>        start = &#123;<span class="hljs-number">1</span>&#125;<br>        visited = &#123;<span class="hljs-number">1</span>&#125;<br>        step = <span class="hljs-number">1</span><br>        <span class="hljs-keyword">while</span> start:<br>            <span class="hljs-built_in">next</span> = <span class="hljs-built_in">set</span>()<br>            <span class="hljs-keyword">for</span> num <span class="hljs-keyword">in</span> start:<br>                <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, <span class="hljs-number">7</span>):<br>                    newnum = num + j<br>                    <span class="hljs-keyword">if</span> newnum <span class="hljs-keyword">in</span> snake:<br>                        newnum = snake[newnum]<br>                    <span class="hljs-keyword">if</span> newnum == n * n:<br>                        <span class="hljs-keyword">return</span> step<br>                    <span class="hljs-keyword">if</span> newnum <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> visited:<br>                        <span class="hljs-built_in">next</span>.add(newnum)<br>                        visited.add(newnum)<br>            step += <span class="hljs-number">1</span><br>            start = <span class="hljs-built_in">next</span><br>        <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
 
-<h2 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>时间复杂度O(n)，空间复杂度O(n)，执行时间48ms，消耗内存18.4MB</p>
-<h1 id="230-二叉搜索树中第K小的元素"><a href="#230-二叉搜索树中第K小的元素" class="headerlink" title="230 二叉搜索树中第K小的元素"></a>230 二叉搜索树中第K小的元素</h1><h2 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h2><p>和前一题一样，直接利用BST的特性去做，这题会更直观的展示BST的特性的用法。</p>
-<p>这题我自己写的和我看到的解法我都写在下面，本质上都是一样的。</p>
-<h2 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">kthSmallest</span>(<span class="hljs-params">self, root: <span class="hljs-type">Optional</span>[TreeNode], k: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-built_in">int</span>:<br>        stack = []<br>        <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>            <span class="hljs-keyword">while</span> root:<br>                stack.append(root)<br>                root = root.left<br>            root = stack.pop()<br>            k -= <span class="hljs-number">1</span><br>            <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> k:<br>                <span class="hljs-keyword">return</span> root.val<br>            root = root.right<br></code></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">kthSmallest</span>(<span class="hljs-params">self, root: <span class="hljs-type">Optional</span>[TreeNode], k: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-built_in">int</span>:<br>        <span class="hljs-keyword">def</span> <span class="hljs-title function_">dfs</span>(<span class="hljs-params">node</span>):<br>            <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> node <span class="hljs-keyword">or</span> <span class="hljs-variable language_">self</span>.k == <span class="hljs-number">0</span>:<br>                <span class="hljs-keyword">return</span><br>            dfs(node.left)<br>            <span class="hljs-variable language_">self</span>.k -= <span class="hljs-number">1</span><br>            <span class="hljs-keyword">if</span> <span class="hljs-variable language_">self</span>.k == <span class="hljs-number">0</span>:<br>                <span class="hljs-variable language_">self</span>.ans = node.val<br>                <span class="hljs-keyword">return</span><br>            dfs(node.right)<br>        <span class="hljs-variable language_">self</span>.k = k<br>        dfs(root)<br>        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">self</span>.ans<br></code></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">kthSmallest</span>(<span class="hljs-params">self, root: <span class="hljs-type">Optional</span>[TreeNode], k: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-built_in">int</span>:<br>        <span class="hljs-keyword">def</span> <span class="hljs-title function_">dfs</span>(<span class="hljs-params">root</span>):<br>            <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> root: <span class="hljs-keyword">return</span><br>            dfs(root.left)<br>            <span class="hljs-keyword">if</span> <span class="hljs-variable language_">self</span>.k == <span class="hljs-number">0</span>: <span class="hljs-keyword">return</span><br>            <span class="hljs-variable language_">self</span>.k -= <span class="hljs-number">1</span><br>            <span class="hljs-keyword">if</span> <span class="hljs-variable language_">self</span>.k == <span class="hljs-number">0</span>: <span class="hljs-variable language_">self</span>.res = root.val<br>            dfs(root.right)<br>            <br>        <span class="hljs-variable language_">self</span>.k = k<br>        dfs(root)<br>        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">self</span>.res<br></code></pre></td></tr></table></figure>
+<h2 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>时间复杂度O(n²)，空间复杂度O(n²)，执行时间65ms，消耗内存16.6MB</p>
+<h1 id="433-最小基因变化"><a href="#433-最小基因变化" class="headerlink" title="433 最小基因变化"></a>433 最小基因变化</h1><p>基因序列可以表示为一条由 <code>8</code> 个字符组成的字符串，其中每个字符都是 <code>&#39;A&#39;</code>、<code>&#39;C&#39;</code>、<code>&#39;G&#39;</code> 和 <code>&#39;T&#39;</code> 之一。</p>
+<p>假设我们需要调查从基因序列 <code>start</code> 变为 <code>end</code> 所发生的基因变化。一次基因变化就意味着这个基因序列中的一个字符发生了变化。</p>
+<p>例如，<code>&quot;AACCGGTT&quot; --&gt; &quot;AACCGGTA&quot;</code> 就是一次基因变化。<br>另有一个基因库 <code>bank</code> 记录了所有有效的基因变化，只有基因库中的基因才是有效的基因序列。（变化后的基因必须位于基因库 <code>bank</code> 中）</p>
+<p>给你两个基因序列 <code>start</code> 和 <code>end</code> ，以及一个基因库 <code>bank</code> ，请你找出并返回能够使 <code>start</code> 变化为 <code>end</code> 所需的最少变化次数。如果无法完成此基因变化，返回 <code>-1</code> 。</p>
+<p>注意：起始基因序列 <code>start</code> 默认是有效的，但是它并不一定会出现在基因库中。</p>
+<p>示例 1：</p>
+<pre><code class="hljs">输入：start = &quot;AACCGGTT&quot;, end = &quot;AACCGGTA&quot;, bank = [&quot;AACCGGTA&quot;]
+输出：1
+</code></pre>
+<p>示例 2：</p>
+<pre><code class="hljs">输入：start = &quot;AACCGGTT&quot;, end = &quot;AAACGGTA&quot;, bank = [&quot;AACCGGTA&quot;,&quot;AACCGCTA&quot;,&quot;AAACGGTA&quot;]
+输出：2
+</code></pre>
+<p>示例 3：</p>
+<pre><code class="hljs">输入：start = &quot;AAAAACCC&quot;, end = &quot;AACCCCCC&quot;, bank = [&quot;AAAACCCC&quot;,&quot;AAACCCCC&quot;,&quot;AACCCCCC&quot;]
+输出：3
+</code></pre>
+<p>提示：</p>
+<p><code>start.length == 8</code></p>
+<p><code>end.length == 8</code></p>
+<p><code>0 &lt;= bank.length &lt;= 10</code></p>
+<p><code>bank[i].length == 8</code></p>
+<p><code>start</code>、<code>end</code> 和 <code>bank[i]</code> 仅由字符 <code>[&#39;A&#39;, &#39;C&#39;, &#39;G&#39;, &#39;T&#39;]</code> 组成</p>
+<h2 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h2><p>首先排除我们 <code>end</code> 和 <code>bank</code> 不匹配的情况。然后后续我们进行匹配，只需要ACGT里面匹配到就可以构建新的 <code>gene</code> 同时我们需要判断 <code>gene</code> 是否在 <code>bank</code> 中，只要在里面就一个添加一个删除。</p>
+<h2 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">minMutation</span>(<span class="hljs-params">self, startGene: <span class="hljs-built_in">str</span>, endGene: <span class="hljs-built_in">str</span>, bank: <span class="hljs-type">List</span>[<span class="hljs-built_in">str</span>]</span>) -&gt; <span class="hljs-built_in">int</span>:<br>        <span class="hljs-keyword">if</span> endGene <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> bank:<br>            <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span><br>        bank = <span class="hljs-built_in">set</span>(bank)<br>        queue = deque([startGene])<br>        step = <span class="hljs-number">0</span><br>        <span class="hljs-keyword">while</span> queue:<br>            <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(queue)):<br>                gene = queue.popleft()<br>                <span class="hljs-keyword">if</span> gene == endGene:<br>                    <span class="hljs-keyword">return</span> step<br>                <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(gene)):<br>                    <span class="hljs-keyword">for</span> c <span class="hljs-keyword">in</span> <span class="hljs-string">&#x27;ACGT&#x27;</span>:<br>                        <span class="hljs-keyword">if</span> c == gene[i]:<br>                            <span class="hljs-keyword">continue</span><br>                        new_gene = gene[ : i] + c + gene[i + <span class="hljs-number">1</span>:]<br>                        <span class="hljs-keyword">if</span> new_gene <span class="hljs-keyword">in</span> bank:<br>                            queue.append(new_gene)<br>                            bank.remove(new_gene)<br>            step += <span class="hljs-number">1</span><br>        <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
 
-<h2 id="时间复杂度-1"><a href="#时间复杂度-1" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>时间复杂度O(n)，空间复杂度O(n)，执行时间52ms，消耗内存19.8MB</p>
-<p>时间复杂度O(n)，空间复杂度O(n)，执行时间67ms，消耗内存19.8MB</p>
-<p>时间复杂度O(n)，空间复杂度O(n)，执行时间44ms，消耗内存19.8MB</p>
-<h1 id="98-验证二叉搜索树"><a href="#98-验证二叉搜索树" class="headerlink" title="98 验证二叉搜索树"></a>98 验证二叉搜索树</h1><h2 id="思路-2"><a href="#思路-2" class="headerlink" title="思路"></a>思路</h2><p>这道题需要引入两个边界，用于检验当前节点是否满足二叉搜索树的定义，其余和前面的思路一样</p>
-<h2 id="代码-2"><a href="#代码-2" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">isValidBST</span>(<span class="hljs-params">self, root: <span class="hljs-type">Optional</span>[TreeNode]</span>) -&gt; <span class="hljs-built_in">bool</span>:<br>        <span class="hljs-keyword">def</span> <span class="hljs-title function_">dfs</span>(<span class="hljs-params">node, l = <span class="hljs-built_in">float</span>(<span class="hljs-params"><span class="hljs-string">&#x27;-inf&#x27;</span></span>), r = <span class="hljs-built_in">float</span>(<span class="hljs-params"><span class="hljs-string">&#x27;inf&#x27;</span></span>)</span>) -&gt; <span class="hljs-built_in">bool</span>:<br>            <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> node:<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span><br>            pre = node.val<br>            <span class="hljs-keyword">if</span> pre &lt;= l <span class="hljs-keyword">or</span> pre &gt;= r:<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br>            <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> dfs(node.left, l, pre):<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br>            <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> dfs(node.right, pre, r):<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span><br>        <span class="hljs-keyword">return</span> dfs(root)<br></code></pre></td></tr></table></figure>
+<h2 id="时间复杂度-1"><a href="#时间复杂度-1" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>时间复杂度O(n²)，空间复杂度O(n²)，执行时间41ms，消耗内存16.5MB</p>
+<h1 id="127-单词接龙"><a href="#127-单词接龙" class="headerlink" title="127 单词接龙"></a>127 单词接龙</h1><p>字典 <code>wordList</code> 中从单词 <code>beginWord</code> 到 <code>endWord</code> 的 <strong>转换序列</strong> 是一个按下述规格形成的序列 <code>beginWord -&gt; s1 -&gt; s2 -&gt; ... -&gt; sk</code>：</p>
+<p>每一对相邻的单词只差一个字母。</p>
+<p> 对于 <code>1 &lt;= i &lt;= k</code> 时，每个 <code>si</code> 都在 <code>wordList</code> 中。注意， <code>beginWord</code> 不需要在 <code>wordList</code> 中。</p>
+<p><code>sk == endWord</code></p>
+<p>给你两个单词 <code>beginWord</code> 和 <code>endWord</code> 和一个字典 <code>wordList</code> ，返回 从 <code>beginWord</code> 到 endWord 的 <em><strong>最短转换序列</strong></em> 中的 <em><strong>单词数目</strong></em> 。如果不存在这样的转换序列，返回 <code>0</code> 。</p>
+<p>示例 1：</p>
+<pre><code class="hljs">输入：beginWord = &quot;hit&quot;, endWord = &quot;cog&quot;, wordList = [&quot;hot&quot;,&quot;dot&quot;,&quot;dog&quot;,&quot;lot&quot;,&quot;log&quot;,&quot;cog&quot;]
+输出：5
+解释：一个最短转换序列是 &quot;hit&quot; -&gt; &quot;hot&quot; -&gt; &quot;dot&quot; -&gt; &quot;dog&quot; -&gt; &quot;cog&quot;, 返回它的长度 5。
+</code></pre>
+<p>示例 2：</p>
+<pre><code class="hljs">输入：beginWord = &quot;hit&quot;, endWord = &quot;cog&quot;, wordList = [&quot;hot&quot;,&quot;dot&quot;,&quot;dog&quot;,&quot;lot&quot;,&quot;log&quot;]
+输出：0
+解释：endWord &quot;cog&quot; 不在字典中，所以无法进行转换。
+</code></pre>
+<p>提示：</p>
+<p><code>1 &lt;= beginWord.length &lt;= 10</code></p>
+<p><code>endWord.length == beginWord.length</code></p>
+<p><code>1 &lt;= wordList.length &lt;= 5000</code></p>
+<p><code>wordList[i].length == beginWord.length</code></p>
+<p><code>beginWord</code>、<code>endWord</code> 和 <code>wordList[i]</code> 由小写英文字母组成</p>
+<p><code>beginWord != endWord</code></p>
+<p><code>wordList</code> 中的所有字符串 <strong>互不相同</strong></p>
+<h2 id="思路-2"><a href="#思路-2" class="headerlink" title="思路"></a>思路</h2><p>和上一题几乎一模一样，把元素从ACGT改为26个字母，step初始化为1（因为步数在计算的时候是不包括最开始的变量本身，所以初始化为1）。最后把没匹配到的从-1改为0，搞定。</p>
+<h2 id="代码-2"><a href="#代码-2" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">ladderLength</span>(<span class="hljs-params">self, beginWord: <span class="hljs-built_in">str</span>, endWord: <span class="hljs-built_in">str</span>, wordList: <span class="hljs-type">List</span>[<span class="hljs-built_in">str</span>]</span>) -&gt; <span class="hljs-built_in">int</span>:<br>        <span class="hljs-keyword">if</span> endWord <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> wordList:<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span><br>        word = <span class="hljs-built_in">set</span>(wordList)<br>        queue = deque([beginWord])<br>        step = <span class="hljs-number">1</span><br>        <span class="hljs-keyword">while</span> queue:<br>            <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(queue)):<br>                gene = queue.popleft()<br>                <span class="hljs-keyword">if</span> gene == endWord:<br>                    <span class="hljs-keyword">return</span> step<br>                <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(gene)):<br>                    <span class="hljs-keyword">for</span> c <span class="hljs-keyword">in</span> <span class="hljs-string">&#x27;abcdefghijklmnopqrstuvwxyz&#x27;</span>:<br>                        <span class="hljs-keyword">if</span> c == gene[i]:<br>                            <span class="hljs-keyword">continue</span><br>                        new_gene = gene[ : i] + c + gene[i + <span class="hljs-number">1</span>:]<br>                        <span class="hljs-keyword">if</span> new_gene <span class="hljs-keyword">in</span> word:<br>                            queue.append(new_gene)<br>                            word.remove(new_gene)<br>            step += <span class="hljs-number">1</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span><br></code></pre></td></tr></table></figure>
 
-<h2 id="时间复杂度-2"><a href="#时间复杂度-2" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>时间复杂度O(n)，空间复杂度O(n)，执行时间44ms，消耗内存18.5MB</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>这几道题都涉及到了二叉搜索树的特性，利用BST的特性可以更好的解决问题。</p>
-<p>所以和前一篇一样，我们针对这类题型也总结了模板</p>
-<ol>
-<li><p>中序遍历，适用于解决第k小，最小差值的问题</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">dfs</span>(<span class="hljs-params">node</span>):<br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> node:<br>        <span class="hljs-keyword">return</span><br>    dfs(node.left)<br>    <span class="hljs-comment"># 处理当前节点</span><br>    dfs(node.right)<br></code></pre></td></tr></table></figure>
-</li>
-<li><p>递归，适用于判断是否为BST</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">dfs</span>(<span class="hljs-params">node, l, r</span>):<br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> node:<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span><br>    <span class="hljs-keyword">if</span> node.val &lt;= l <span class="hljs-keyword">or</span> node.val &gt;= r:<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br>    <span class="hljs-keyword">return</span> dfs(node.left, l, node.val) <span class="hljs-keyword">and</span> dfs(node.right, node.val, r)<br></code></pre></td></tr></table></figure>
-</li>
-<li><p>栈，用于通过栈模拟中序遍历</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">kthSmallest</span>(<span class="hljs-params">root, k</span>):<br>    stack = []<br>    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>        <span class="hljs-keyword">while</span> root:<br>            stack.append(root)<br>            root = root.left<br>        root = stack.pop()<br>        k -= <span class="hljs-number">1</span><br>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> k:<br>            <span class="hljs-keyword">return</span> root.val<br>        root = root.right<br></code></pre></td></tr></table></figure></li>
-</ol>
-<p>不管怎么变，实际上都需要借助二叉搜索树的特性，借助特性就可以直接解决问题了。</p>
+<h2 id="时间复杂度-2"><a href="#时间复杂度-2" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>时间复杂度O(n²)，空间复杂度O(n²)，执行时间373ms，消耗内存17.1MB</p>
 
                 
               </div>
@@ -524,7 +587,7 @@
       
         <a href="/tags/%E5%88%B7%E9%A2%98/" class="print-no-link">#刷题</a>
       
-        <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" class="print-no-link">#二叉树</a>
+        <a href="/tags/%E5%9B%BE/" class="print-no-link">#图</a>
       
     </div>
   
@@ -536,8 +599,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>leetcode刷题记录——二叉搜索树</div>
-      <div>https://lx02918.github.io/2024/08/21/leetcode-二叉搜索树/</div>
+      <div>leetcode刷题记录——图的广度优先遍历</div>
+      <div>https://lx02918.github.io/2024/08/27/leetcode-图-BFS/</div>
     </div>
     <div class="license-meta">
       
@@ -549,7 +612,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年8月21日</div>
+          <div>2024年8月27日</div>
         </div>
       
       
@@ -581,18 +644,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/08/22/leetcode-%E5%9B%BE/" title="leetcode-图">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">leetcode-图</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/08/20/leetcode-%E4%BA%8C%E5%8F%89%E6%A0%91%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86/" title="leetcode刷题记录——二叉树层次遍历">
-                        <span class="hidden-mobile">leetcode刷题记录——二叉树层次遍历</span>
+                      <a href="/2024/08/26/%E4%BA%AC%E4%B8%9C%E7%AC%94%E8%AF%95/" title="京东笔试——算法工程师第三批">
+                        <span class="hidden-mobile">京东笔试——算法工程师第三批</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
