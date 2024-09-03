@@ -16,16 +16,16 @@
   <meta name="author" content="Seth">
   <meta name="keywords" content="">
   
-    <meta name="description" content="909 蛇形棋给你一个大小为 n x n 的整数矩阵 board ，方格按从 1 到 n2 编号，编号遵循 转行交替方式 ，从左下角开始 （即，从 board[n - 1][0] 开始）每一行交替方向。 玩家从棋盘上的方格 1 （总是在最后一行、第一列）开始出发。 每一回合，玩家需要从当前方格 curr 开始出发，按下述要求前进： 选定目标方格 next ，目标方格的编号符合范围 [curr +">
+    <meta name="description" content="909 蛇形棋 Medium给你一个大小为 n x n 的整数矩阵 board ，方格按从 1 到 n2 编号，编号遵循 转行交替方式 ，从左下角开始 （即，从 board[n - 1][0] 开始）每一行交替方向。 玩家从棋盘上的方格 1 （总是在最后一行、第一列）开始出发。 每一回合，玩家需要从当前方格 curr 开始出发，按下述要求前进： 选定目标方格 next ，目标方格的编号符合范围 [">
 <meta property="og:type" content="article">
 <meta property="og:title" content="leetcode刷题记录——图的广度优先遍历">
 <meta property="og:url" content="https://lx02918.github.io/2024/08/27/leetcode-%E5%9B%BE-BFS/index.html">
 <meta property="og:site_name" content="Seth的小站">
-<meta property="og:description" content="909 蛇形棋给你一个大小为 n x n 的整数矩阵 board ，方格按从 1 到 n2 编号，编号遵循 转行交替方式 ，从左下角开始 （即，从 board[n - 1][0] 开始）每一行交替方向。 玩家从棋盘上的方格 1 （总是在最后一行、第一列）开始出发。 每一回合，玩家需要从当前方格 curr 开始出发，按下述要求前进： 选定目标方格 next ，目标方格的编号符合范围 [curr +">
+<meta property="og:description" content="909 蛇形棋 Medium给你一个大小为 n x n 的整数矩阵 board ，方格按从 1 到 n2 编号，编号遵循 转行交替方式 ，从左下角开始 （即，从 board[n - 1][0] 开始）每一行交替方向。 玩家从棋盘上的方格 1 （总是在最后一行、第一列）开始出发。 每一回合，玩家需要从当前方格 curr 开始出发，按下述要求前进： 选定目标方格 next ，目标方格的编号符合范围 [">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://assets.leetcode.com/uploads/2018/09/23/snakes.png">
 <meta property="article:published_time" content="2024-08-27T02:17:49.000Z">
-<meta property="article:modified_time" content="2024-08-27T09:04:19.248Z">
+<meta property="article:modified_time" content="2024-08-29T06:49:22.018Z">
 <meta property="article:author" content="Seth">
 <meta property="article:tag" content="Leetcode">
 <meta property="article:tag" content="刷题">
@@ -325,7 +325,7 @@
         aria-expanded="true"
       >
         刷题记录
-        <span class="list-group-count">(11)</span>
+        <span class="list-group-count">(13)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -348,10 +348,10 @@
     
       
       
-        <a href="/2024/08/22/leetcode-%E5%9B%BE/" title="leetcode-图"
+        <a href="/2024/08/29/leetcode-%E5%9B%9E%E6%BA%AF/" title="leetcode-回溯"
            class="list-group-item list-group-item-action
            ">
-          <span class="category-post">leetcode-图</span>
+          <span class="category-post">leetcode-回溯</span>
         </a>
       
     
@@ -402,10 +402,28 @@
     
       
       
+        <a href="/2024/08/22/leetcode-%E5%9B%BE/" title="leetcode刷题记录——图"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">leetcode刷题记录——图</span>
+        </a>
+      
+    
+      
+      
         <a href="/2024/08/27/leetcode-%E5%9B%BE-BFS/" title="leetcode刷题记录——图的广度优先遍历"
            class="list-group-item list-group-item-action
            active">
           <span class="category-post">leetcode刷题记录——图的广度优先遍历</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/28/leetcode-%E5%AD%97%E5%85%B8%E6%A0%91/" title="leetcode刷题记录——字典树"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">leetcode刷题记录——字典树</span>
         </a>
       
     
@@ -459,7 +477,7 @@
             
               <div class="markdown-body">
                 
-                <h1 id="909-蛇形棋"><a href="#909-蛇形棋" class="headerlink" title="909 蛇形棋"></a>909 蛇形棋</h1><p>给你一个大小为 <code>n x n</code> 的整数矩阵 <code>board</code> ，方格按从 <code>1</code> 到 <code>n2</code> 编号，编号遵循 <a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E7%89%9B%E8%80%95%E5%BC%8F%E8%BD%AC%E8%A1%8C%E4%B9%A6%E5%86%99%E6%B3%95/**17195786**">转行交替方式</a> ，从左下角开始 （即，从 <code>board[n - 1][0]</code> 开始）每一行交替方向。</p>
+                <h1 id="909-蛇形棋-Medium"><a href="#909-蛇形棋-Medium" class="headerlink" title="909 蛇形棋 Medium"></a>909 蛇形棋 <font color=#ff7f50 size=4>Medium</font></h1><p>给你一个大小为 <code>n x n</code> 的整数矩阵 <code>board</code> ，方格按从 <code>1</code> 到 <code>n2</code> 编号，编号遵循 <a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E7%89%9B%E8%80%95%E5%BC%8F%E8%BD%AC%E8%A1%8C%E4%B9%A6%E5%86%99%E6%B3%95/**17195786**">转行交替方式</a> ，从左下角开始 （即，从 <code>board[n - 1][0]</code> 开始）每一行交替方向。</p>
 <p>玩家从棋盘上的方格 <code>1</code> （总是在最后一行、第一列）开始出发。</p>
 <p>每一回合，玩家需要从当前方格 <code>curr</code> 开始出发，按下述要求前进：</p>
 <p>选定目标方格 <code>next</code> ，目标方格的编号符合范围 <code>[curr + 1, min(curr + 6, n_2)]</code> 。</p>
@@ -496,7 +514,7 @@
 <h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">snakesAndLadders</span>(<span class="hljs-params">self, board: <span class="hljs-type">List</span>[<span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>]]</span>) -&gt; <span class="hljs-built_in">int</span>:<br>        snt = []<br>        <span class="hljs-keyword">for</span> j, bd <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(board[::-<span class="hljs-number">1</span>]):<br>            snt.append(bd <span class="hljs-keyword">if</span> j % <span class="hljs-number">2</span> == <span class="hljs-number">0</span> <span class="hljs-keyword">else</span> bd[::-<span class="hljs-number">1</span>])<br>        snake = &#123;&#125;<br>        n = <span class="hljs-built_in">len</span>(board)<br>        <br>        <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n):<br>            <span class="hljs-keyword">for</span> y <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n):<br>                cur = n * x + y + <span class="hljs-number">1</span><br>                <span class="hljs-keyword">if</span> snt[x][y] != -<span class="hljs-number">1</span>:<br>                    snake[cur] = snt[x][y]<br>        start = &#123;<span class="hljs-number">1</span>&#125;<br>        visited = &#123;<span class="hljs-number">1</span>&#125;<br>        step = <span class="hljs-number">1</span><br>        <span class="hljs-keyword">while</span> start:<br>            <span class="hljs-built_in">next</span> = <span class="hljs-built_in">set</span>()<br>            <span class="hljs-keyword">for</span> num <span class="hljs-keyword">in</span> start:<br>                <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, <span class="hljs-number">7</span>):<br>                    newnum = num + j<br>                    <span class="hljs-keyword">if</span> newnum <span class="hljs-keyword">in</span> snake:<br>                        newnum = snake[newnum]<br>                    <span class="hljs-keyword">if</span> newnum == n * n:<br>                        <span class="hljs-keyword">return</span> step<br>                    <span class="hljs-keyword">if</span> newnum <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> visited:<br>                        <span class="hljs-built_in">next</span>.add(newnum)<br>                        visited.add(newnum)<br>            step += <span class="hljs-number">1</span><br>            start = <span class="hljs-built_in">next</span><br>        <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
 
 <h2 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>时间复杂度O(n²)，空间复杂度O(n²)，执行时间65ms，消耗内存16.6MB</p>
-<h1 id="433-最小基因变化"><a href="#433-最小基因变化" class="headerlink" title="433 最小基因变化"></a>433 最小基因变化</h1><p>基因序列可以表示为一条由 <code>8</code> 个字符组成的字符串，其中每个字符都是 <code>&#39;A&#39;</code>、<code>&#39;C&#39;</code>、<code>&#39;G&#39;</code> 和 <code>&#39;T&#39;</code> 之一。</p>
+<h1 id="433-最小基因变化-Medium"><a href="#433-最小基因变化-Medium" class="headerlink" title="433 最小基因变化 Medium"></a>433 最小基因变化 <font color=#ff7f50 size=4>Medium</font></h1><p>基因序列可以表示为一条由 <code>8</code> 个字符组成的字符串，其中每个字符都是 <code>&#39;A&#39;</code>、<code>&#39;C&#39;</code>、<code>&#39;G&#39;</code> 和 <code>&#39;T&#39;</code> 之一。</p>
 <p>假设我们需要调查从基因序列 <code>start</code> 变为 <code>end</code> 所发生的基因变化。一次基因变化就意味着这个基因序列中的一个字符发生了变化。</p>
 <p>例如，<code>&quot;AACCGGTT&quot; --&gt; &quot;AACCGGTA&quot;</code> 就是一次基因变化。<br>另有一个基因库 <code>bank</code> 记录了所有有效的基因变化，只有基因库中的基因才是有效的基因序列。（变化后的基因必须位于基因库 <code>bank</code> 中）</p>
 <p>给你两个基因序列 <code>start</code> 和 <code>end</code> ，以及一个基因库 <code>bank</code> ，请你找出并返回能够使 <code>start</code> 变化为 <code>end</code> 所需的最少变化次数。如果无法完成此基因变化，返回 <code>-1</code> 。</p>
@@ -523,7 +541,7 @@
 <h2 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">minMutation</span>(<span class="hljs-params">self, startGene: <span class="hljs-built_in">str</span>, endGene: <span class="hljs-built_in">str</span>, bank: <span class="hljs-type">List</span>[<span class="hljs-built_in">str</span>]</span>) -&gt; <span class="hljs-built_in">int</span>:<br>        <span class="hljs-keyword">if</span> endGene <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> bank:<br>            <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span><br>        bank = <span class="hljs-built_in">set</span>(bank)<br>        queue = deque([startGene])<br>        step = <span class="hljs-number">0</span><br>        <span class="hljs-keyword">while</span> queue:<br>            <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(queue)):<br>                gene = queue.popleft()<br>                <span class="hljs-keyword">if</span> gene == endGene:<br>                    <span class="hljs-keyword">return</span> step<br>                <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(gene)):<br>                    <span class="hljs-keyword">for</span> c <span class="hljs-keyword">in</span> <span class="hljs-string">&#x27;ACGT&#x27;</span>:<br>                        <span class="hljs-keyword">if</span> c == gene[i]:<br>                            <span class="hljs-keyword">continue</span><br>                        new_gene = gene[ : i] + c + gene[i + <span class="hljs-number">1</span>:]<br>                        <span class="hljs-keyword">if</span> new_gene <span class="hljs-keyword">in</span> bank:<br>                            queue.append(new_gene)<br>                            bank.remove(new_gene)<br>            step += <span class="hljs-number">1</span><br>        <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
 
 <h2 id="时间复杂度-1"><a href="#时间复杂度-1" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>时间复杂度O(n²)，空间复杂度O(n²)，执行时间41ms，消耗内存16.5MB</p>
-<h1 id="127-单词接龙"><a href="#127-单词接龙" class="headerlink" title="127 单词接龙"></a>127 单词接龙</h1><p>字典 <code>wordList</code> 中从单词 <code>beginWord</code> 到 <code>endWord</code> 的 <strong>转换序列</strong> 是一个按下述规格形成的序列 <code>beginWord -&gt; s1 -&gt; s2 -&gt; ... -&gt; sk</code>：</p>
+<h1 id="127-单词接龙-Hard"><a href="#127-单词接龙-Hard" class="headerlink" title="127 单词接龙 Hard"></a>127 单词接龙 <font color=#ff0000 size=4>Hard</font></h1><p>字典 <code>wordList</code> 中从单词 <code>beginWord</code> 到 <code>endWord</code> 的 <strong>转换序列</strong> 是一个按下述规格形成的序列 <code>beginWord -&gt; s1 -&gt; s2 -&gt; ... -&gt; sk</code>：</p>
 <p>每一对相邻的单词只差一个字母。</p>
 <p> 对于 <code>1 &lt;= i &lt;= k</code> 时，每个 <code>si</code> 都在 <code>wordList</code> 中。注意， <code>beginWord</code> 不需要在 <code>wordList</code> 中。</p>
 <p><code>sk == endWord</code></p>
@@ -643,6 +661,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2024/08/28/leetcode-%E5%AD%97%E5%85%B8%E6%A0%91/" title="leetcode刷题记录——字典树">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">leetcode刷题记录——字典树</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">

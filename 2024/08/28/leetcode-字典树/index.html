@@ -1,0 +1,1064 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Seth">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="208 实现 Tire（前缀树） Medium**Trie**（发音类似 “try”）或者说 前缀树 是一种树形数据结构，用于高效地存储和检索字符串数据集中的键。这一数据结构有相当多的应用情景，例如自动补全和拼写检查。 请你实现 Trie 类：  Trie() 初始化前缀树对象。 void insert(String word) 向前缀树中插入字符串 word 。 boolean search(S">
+<meta property="og:type" content="article">
+<meta property="og:title" content="leetcode刷题记录——字典树">
+<meta property="og:url" content="https://lx02918.github.io/2024/08/28/leetcode-%E5%AD%97%E5%85%B8%E6%A0%91/index.html">
+<meta property="og:site_name" content="Seth的小站">
+<meta property="og:description" content="208 实现 Tire（前缀树） Medium**Trie**（发音类似 “try”）或者说 前缀树 是一种树形数据结构，用于高效地存储和检索字符串数据集中的键。这一数据结构有相当多的应用情景，例如自动补全和拼写检查。 请你实现 Trie 类：  Trie() 初始化前缀树对象。 void insert(String word) 向前缀树中插入字符串 word 。 boolean search(S">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://assets.leetcode.com/uploads/2020/11/07/search1.jpg">
+<meta property="og:image" content="https://assets.leetcode.com/uploads/2020/11/07/search2.jpg">
+<meta property="article:published_time" content="2024-08-28T08:58:13.000Z">
+<meta property="article:modified_time" content="2024-08-29T08:31:51.807Z">
+<meta property="article:author" content="Seth">
+<meta property="article:tag" content="Leetcode">
+<meta property="article:tag" content="刷题">
+<meta property="article:tag" content="字典树">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://assets.leetcode.com/uploads/2020/11/07/search1.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>leetcode刷题记录——字典树 - Seth的小站</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"lx02918.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"pAyQlcbEY6nkOIh5fveIBxLA-gzGzoHsz","app_key":"DjSrQhO4p64SG8qV28lz5J0H","server_url":"https://payqlcbe.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Seth的小站" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Seth的小站</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="leetcode刷题记录——字典树"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-08-28 16:58" pubdate>
+          星期三, 八月 28日 2024, 4:58 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          20 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="刷题记录"
+        id="heading-909ea5d72d27ab9e042108431b0dc4d0" role="tab" data-toggle="collapse" href="#collapse-909ea5d72d27ab9e042108431b0dc4d0"
+        aria-expanded="true"
+      >
+        刷题记录
+        <span class="list-group-count">(13)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-909ea5d72d27ab9e042108431b0dc4d0"
+           role="tabpanel" aria-labelledby="heading-909ea5d72d27ab9e042108431b0dc4d0">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/07/21/my-third-post/" title="Leetcode刷题——滑动窗口"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Leetcode刷题——滑动窗口</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/29/leetcode-%E5%9B%9E%E6%BA%AF/" title="leetcode-回溯"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">leetcode-回溯</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/01/Hash/" title="leetcode刷题记录——Hash"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">leetcode刷题记录——Hash</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/21/leetcode-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/" title="leetcode刷题记录——二叉搜索树"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">leetcode刷题记录——二叉搜索树</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/20/leetcode-%E4%BA%8C%E5%8F%89%E6%A0%91/" title="leetcode刷题记录——二叉树"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">leetcode刷题记录——二叉树</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/20/leetcode-%E4%BA%8C%E5%8F%89%E6%A0%91%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86/" title="leetcode刷题记录——二叉树层次遍历"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">leetcode刷题记录——二叉树层次遍历</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/05/leetcode_%E5%8C%BA%E9%97%B4/" title="leetcode刷题记录——区间"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">leetcode刷题记录——区间</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/22/leetcode-%E5%9B%BE/" title="leetcode刷题记录——图"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">leetcode刷题记录——图</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/27/leetcode-%E5%9B%BE-BFS/" title="leetcode刷题记录——图的广度优先遍历"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">leetcode刷题记录——图的广度优先遍历</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/28/leetcode-%E5%AD%97%E5%85%B8%E6%A0%91/" title="leetcode刷题记录——字典树"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">leetcode刷题记录——字典树</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/08/leetcode-%E6%A0%88/" title="leetcode刷题记录——栈"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">leetcode刷题记录——栈</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/07/30/my-fourth-blog/" title="leetcode刷题记录——矩阵"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">leetcode刷题记录——矩阵</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/09/leetcode-%E9%93%BE%E8%A1%A8/" title="leetcode刷题记录——链表"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">leetcode刷题记录——链表</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">leetcode刷题记录——字典树</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="208-实现-Tire（前缀树）-Medium"><a href="#208-实现-Tire（前缀树）-Medium" class="headerlink" title="208 实现 Tire（前缀树） Medium"></a>208 实现 Tire（前缀树） <font color=#ff7f50 size=4>Medium</font></h1><p>**<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%AD%97%E5%85%B8%E6%A0%91/9825209?fr=aladdin">Trie</a>**（发音类似 “try”）或者说 <strong>前缀树</strong> 是一种树形数据结构，用于高效地存储和检索字符串数据集中的键。这一数据结构有相当多的应用情景，例如自动补全和拼写检查。</p>
+<p>请你实现 Trie 类：</p>
+<ul>
+<li><code>Trie()</code> 初始化前缀树对象。</li>
+<li><code>void insert(String word)</code> 向前缀树中插入字符串 <code>word</code> 。</li>
+<li><code>boolean search(String word)</code> 如果字符串 <code>word</code> 在前缀树中，返回 <code>true</code>（即，在检索之前已经插入）；否则，返回 <code>false</code> 。</li>
+<li><code>boolean startsWith(String prefix)</code> 如果之前已经插入的字符串 <code>word</code> 的前缀之一为 <code>prefix</code> ，返回 <code>true</code> ；否则，返回 <code>false</code> 。</li>
+</ul>
+<p><strong>示例：</strong></p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">输入<br>[&quot;Trie&quot;, &quot;insert&quot;, &quot;search&quot;, &quot;search&quot;, &quot;startsWith&quot;, &quot;insert&quot;, &quot;search&quot;]<br>[[], [&quot;apple&quot;], [&quot;apple&quot;], [&quot;app&quot;], [&quot;app&quot;], [&quot;app&quot;], [&quot;app&quot;]]<br>输出<br>[<span class="hljs-keyword">null</span>, <span class="hljs-keyword">null</span>, <span class="hljs-keyword">true</span>, <span class="hljs-keyword">false</span>, <span class="hljs-keyword">true</span>, <span class="hljs-keyword">null</span>, <span class="hljs-keyword">true</span>]<br><br>解释<br>Trie trie = <span class="hljs-built_in">new</span> Trie();<br>trie.<span class="hljs-keyword">insert</span>(&quot;apple&quot;);<br>trie.<span class="hljs-keyword">search</span>(&quot;apple&quot;);   // 返回 <span class="hljs-keyword">True</span><br>trie.<span class="hljs-keyword">search</span>(&quot;app&quot;);     // 返回 <span class="hljs-keyword">False</span><br>trie.startsWith(&quot;app&quot;); // 返回 <span class="hljs-keyword">True</span><br>trie.<span class="hljs-keyword">insert</span>(&quot;app&quot;);<br>trie.<span class="hljs-keyword">search</span>(&quot;app&quot;);     // 返回 <span class="hljs-keyword">True</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= word.length, prefix.length &lt;= 2000</code></li>
+<li><code>word</code> 和 <code>prefix</code> 仅由小写英文字母组成</li>
+<li><code>insert</code>、<code>search</code> 和 <code>startsWith</code> 调用次数 <strong>总计</strong> 不超过 <code>3 * 104</code> 次</li>
+</ul>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>首先需要解释下什么是Tire结构，该结构的每个几点存储了对其子节点的链接，每个节点代表一个字符。根节点不包含字符，除根节点外的每个节点都与一个字符相关联。除此之外，节点通常还包含一个标志，表示该结点是否是某个字符串的结束。</p>
+<h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><p>使用字典去存储，并用一个bool型变量去标记是否是单词的结尾</p>
+<h3 id="插入字符"><a href="#插入字符" class="headerlink" title="插入字符"></a>插入字符</h3><p>从根节点开始遍历，如果不存在就创建一个新的子节点。遍历完成后标记最后一个节点为字符串的结束。</p>
+<h3 id="搜索字符串"><a href="#搜索字符串" class="headerlink" title="搜索字符串"></a>搜索字符串</h3><p>这里和前面一样，只不过存在返回一个True不存在返回False，但需要保证最后一个节点被标记为字符串的结束</p>
+<h3 id="前缀搜索"><a href="#前缀搜索" class="headerlink" title="前缀搜索"></a>前缀搜索</h3><p>能够完整遍历，但不需要检查最后一个节点是否被标记为结束</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Trie</span>:<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-variable language_">self</span>.children = &#123;&#125;<br>        <span class="hljs-variable language_">self</span>.is_end_of_word = <span class="hljs-literal">False</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">insert</span>(<span class="hljs-params">self, word: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-literal">None</span>:<br>        current = <span class="hljs-variable language_">self</span><br>        <span class="hljs-keyword">for</span> char <span class="hljs-keyword">in</span> word:<br>            <span class="hljs-keyword">if</span> char <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> current.children:<br>                current.children[char] = Trie()<br>            current = current.children[char]<br>        current.is_end_of_word = <span class="hljs-literal">True</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">search</span>(<span class="hljs-params">self, word: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-built_in">bool</span>:<br>        current = <span class="hljs-variable language_">self</span><br>        <span class="hljs-keyword">for</span> char <span class="hljs-keyword">in</span> word:<br>            <span class="hljs-keyword">if</span> char <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> current.children:<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br>            current = current.children[char]<br>        <span class="hljs-keyword">return</span> current.is_end_of_word<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">startsWith</span>(<span class="hljs-params">self, prefix: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-built_in">bool</span>:<br>        current = <span class="hljs-variable language_">self</span><br>        <span class="hljs-keyword">for</span> char <span class="hljs-keyword">in</span> prefix:<br>            <span class="hljs-keyword">if</span> char <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> current.children:<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br>            current = current.children[char]<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>时间复杂度均为O(n)，空间复杂度为O(m * n)，执行时间133ms，消耗内存31.3MB</p>
+<h1 id="211-添加与搜索单词-数据结构设计-Medium"><a href="#211-添加与搜索单词-数据结构设计-Medium" class="headerlink" title="211 添加与搜索单词 - 数据结构设计 Medium"></a>211 添加与搜索单词 - 数据结构设计 <font color=#ff7f50 size=4>Medium</font></h1><p>请你设计一个数据结构，支持 添加新单词 和 查找字符串是否与任何先前添加的字符串匹配 。</p>
+<p>实现词典类 <code>WordDictionary</code> ：</p>
+<ul>
+<li><code>WordDictionary()</code> 初始化词典对象</li>
+<li><code>void addWord(word)</code> 将 <code>word</code> 添加到数据结构中，之后可以对它进行匹配</li>
+<li><code>bool search(word)</code> 如果数据结构中存在字符串与 <code>word</code> 匹配，则返回 <code>true</code> ；否则，返回 <code>false</code> 。<code>word</code> 中可能包含一些 <code>&#39;.&#39;</code> ，每个 <code>.</code> 都可以表示任何一个字母。</li>
+</ul>
+<p><strong>示例：</strong></p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">输入：<br>[&quot;WordDictionary&quot;,&quot;addWord&quot;,&quot;addWord&quot;,&quot;addWord&quot;,&quot;search&quot;,&quot;search&quot;,&quot;search&quot;,&quot;search&quot;]<br>[[],[&quot;bad&quot;],[&quot;dad&quot;],[&quot;mad&quot;],[&quot;pad&quot;],[&quot;bad&quot;],[&quot;.ad&quot;],[&quot;b..&quot;]]<br>输出：<br>[<span class="hljs-keyword">null</span>,<span class="hljs-keyword">null</span>,<span class="hljs-keyword">null</span>,<span class="hljs-keyword">null</span>,<span class="hljs-keyword">false</span>,<span class="hljs-keyword">true</span>,<span class="hljs-keyword">true</span>,<span class="hljs-keyword">true</span>]<br><br>解释：<br>WordDictionary wordDictionary = <span class="hljs-built_in">new</span> WordDictionary();<br>wordDictionary.addWord(&quot;bad&quot;);<br>wordDictionary.addWord(&quot;dad&quot;);<br>wordDictionary.addWord(&quot;mad&quot;);<br>wordDictionary.<span class="hljs-keyword">search</span>(&quot;pad&quot;); // 返回 <span class="hljs-keyword">False</span><br>wordDictionary.<span class="hljs-keyword">search</span>(&quot;bad&quot;); // 返回 <span class="hljs-keyword">True</span><br>wordDictionary.<span class="hljs-keyword">search</span>(&quot;.ad&quot;); // 返回 <span class="hljs-keyword">True</span><br>wordDictionary.<span class="hljs-keyword">search</span>(&quot;b..&quot;); // 返回 <span class="hljs-keyword">True</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= word.length &lt;= 25</code></li>
+<li><code>addWord</code> 中的 <code>word</code> 由小写英文字母组成</li>
+<li><code>search</code> 中的 <code>word</code> 由 ‘.’ 或小写英文字母组成</li>
+<li>最多调用 <code>104</code> 次 <code>addWord</code> 和 <code>search</code></li>
+</ul>
+<h2 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h2><p>和前一题的思路基本上一致，但由于在 <code>search</code> 中我们需要分辨含有 <code>.</code> 的特殊节点，所以我们采用dfs去做，如果我们能够匹配到就返回，不能满足就下一个，所有都不满足就False</p>
+<h2 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Node</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-variable language_">self</span>.children = [<span class="hljs-literal">None</span>] * <span class="hljs-number">26</span><br>        <span class="hljs-variable language_">self</span>.isEnd = <span class="hljs-literal">False</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">WordDictionary</span>:<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-variable language_">self</span>.root = Node()<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">addWord</span>(<span class="hljs-params">self, word: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-literal">None</span>:<br>        node = <span class="hljs-variable language_">self</span>.root<br>        <span class="hljs-keyword">for</span> char <span class="hljs-keyword">in</span> word:<br>            index = <span class="hljs-built_in">ord</span>(char) - <span class="hljs-built_in">ord</span>(<span class="hljs-string">&#x27;a&#x27;</span>)<br>            <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> node.children[index]:<br>                node.children[index] = Node()<br>            node = node.children[index]<br>        node.isEnd = <span class="hljs-literal">True</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">search</span>(<span class="hljs-params">self, word: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-built_in">bool</span>:<br>        <span class="hljs-keyword">def</span> <span class="hljs-title function_">dfs</span>(<span class="hljs-params">word, index, root</span>):<br>            <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> root: <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br>            <span class="hljs-keyword">if</span> index == <span class="hljs-built_in">len</span>(word): <span class="hljs-keyword">return</span> root.isEnd<br>            <span class="hljs-keyword">if</span> word[index]  != <span class="hljs-string">&#x27;.&#x27;</span>:<br>                i = <span class="hljs-built_in">ord</span>(word[index]) - <span class="hljs-built_in">ord</span>(<span class="hljs-string">&#x27;a&#x27;</span>)<br>                <span class="hljs-keyword">return</span> dfs(word, index + <span class="hljs-number">1</span>, root.children[i])<br>            <span class="hljs-keyword">else</span>:<br>                <span class="hljs-keyword">for</span> child <span class="hljs-keyword">in</span> root.children:<br>                    <span class="hljs-keyword">if</span> dfs(word, index + <span class="hljs-number">1</span>, child):<br>                        <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span><br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br>        <span class="hljs-keyword">return</span> dfs(word, <span class="hljs-number">0</span>, <span class="hljs-variable language_">self</span>.root)<br><br></code></pre></td></tr></table></figure>
+
+<h2 id="时间复杂度-1"><a href="#时间复杂度-1" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>时间复杂度 <code>addWord</code> 为O(n)，<code>search</code> 最坏是O(n * 26)，最好是O(n)，执行时间为1916ms，消耗内存75.7MB</p>
+<h1 id="212-单词搜索-II-Hard"><a href="#212-单词搜索-II-Hard" class="headerlink" title="212 单词搜索 II Hard"></a>212 单词搜索 II <font color=#ff0000 size=4>Hard</font></h1><p>给定一个 <code>m x n</code> 二维字符网格 <code>board</code> 和一个单词（字符串）列表 <code>words</code>， <em>返回所有二维网格上的单词</em> 。</p>
+<p>单词必须按照字母顺序，通过 <strong>相邻的单元格</strong> 内的字母构成，其中“相邻”单元格是那些水平相邻或垂直相邻的单元格。同一个单元格内的字母在一个单词中不允许被重复使用。</p>
+<p><strong>示例 1：</strong></p>
+<p><img src="https://assets.leetcode.com/uploads/2020/11/07/search1.jpg" srcset="/img/loading.gif" lazyload alt="212.1"></p>
+<figure class="highlight prolog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs prolog">输入：board = [[<span class="hljs-string">&quot;o&quot;</span>,<span class="hljs-string">&quot;a&quot;</span>,<span class="hljs-string">&quot;a&quot;</span>,<span class="hljs-string">&quot;n&quot;</span>],[<span class="hljs-string">&quot;e&quot;</span>,<span class="hljs-string">&quot;t&quot;</span>,<span class="hljs-string">&quot;a&quot;</span>,<span class="hljs-string">&quot;e&quot;</span>],[<span class="hljs-string">&quot;i&quot;</span>,<span class="hljs-string">&quot;h&quot;</span>,<span class="hljs-string">&quot;k&quot;</span>,<span class="hljs-string">&quot;r&quot;</span>],[<span class="hljs-string">&quot;i&quot;</span>,<span class="hljs-string">&quot;f&quot;</span>,<span class="hljs-string">&quot;l&quot;</span>,<span class="hljs-string">&quot;v&quot;</span>]], words = [<span class="hljs-string">&quot;oath&quot;</span>,<span class="hljs-string">&quot;pea&quot;</span>,<span class="hljs-string">&quot;eat&quot;</span>,<span class="hljs-string">&quot;rain&quot;</span>]<br>输出：[<span class="hljs-string">&quot;eat&quot;</span>,<span class="hljs-string">&quot;oath&quot;</span>]<br></code></pre></td></tr></table></figure>
+
+<p><strong>示例 2：</strong></p>
+<p><img src="https://assets.leetcode.com/uploads/2020/11/07/search2.jpg" srcset="/img/loading.gif" lazyload alt="212.2"></p>
+<figure class="highlight prolog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs prolog">输入：board = [[<span class="hljs-string">&quot;a&quot;</span>,<span class="hljs-string">&quot;b&quot;</span>],[<span class="hljs-string">&quot;c&quot;</span>,<span class="hljs-string">&quot;d&quot;</span>]], words = [<span class="hljs-string">&quot;abcb&quot;</span>]<br>输出：[]<br></code></pre></td></tr></table></figure>
+
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>m == board.length</code></li>
+<li><code>n == board[i].length</code></li>
+<li><code>1 &lt;= m, n &lt;= 12</code></li>
+<li><code>board[i][j]</code> 是一个小写英文字母</li>
+<li><code>1 &lt;= words.length &lt;= 3 * 104</code></li>
+<li><code>1 &lt;= words[i].length &lt;= 10</code></li>
+<li><code>words[i]</code> 由小写英文字母组成</li>
+<li><code>words</code> 中的所有字符串互不相同</li>
+</ul>
+<h2 id="思路-2"><a href="#思路-2" class="headerlink" title="思路"></a>思路</h2><p>首先建立一个 TrieNode，再构建一个 Trie 树</p>
+<p>再构建一个DFS，遍历当前节点的四个方位，并存储到结果集中，最终转换为列表返回</p>
+<h2 id="代码-2"><a href="#代码-2" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">TireNode</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-variable language_">self</span>.children = &#123;&#125; <span class="hljs-comment"># 存储 TireNode 的子节点</span><br>        <span class="hljs-variable language_">self</span>.is_end_of_word = <span class="hljs-literal">False</span> <span class="hljs-comment"># 是否是结尾</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">findWords</span>(<span class="hljs-params">self, board: <span class="hljs-type">List</span>[<span class="hljs-type">List</span>[<span class="hljs-built_in">str</span>]], words: <span class="hljs-type">List</span>[<span class="hljs-built_in">str</span>]</span>) -&gt; <span class="hljs-type">List</span>[<span class="hljs-built_in">str</span>]:<br>        <span class="hljs-comment"># 创建 Tire</span><br>        trie = TireNode()<br>        <span class="hljs-keyword">for</span> word <span class="hljs-keyword">in</span> words:<br>            node = trie<br>            <span class="hljs-keyword">for</span> char <span class="hljs-keyword">in</span> word:<br>                <span class="hljs-keyword">if</span> char <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> node.children:<br>                    node.children[char] = TireNode()<br>                node = node.children[char]<br>            node.is_end_of_word = <span class="hljs-literal">True</span><br>            <br>        result = <span class="hljs-built_in">set</span>() <span class="hljs-comment"># 存储搜索到的单词</span><br>        rows, cols = <span class="hljs-built_in">len</span>(board), <span class="hljs-built_in">len</span>(board[<span class="hljs-number">0</span>])<br>        <br>        <span class="hljs-keyword">def</span> <span class="hljs-title function_">dfs</span>(<span class="hljs-params">row, col, node, path</span>):<br>            <span class="hljs-comment"># 检查边界条件和当前字符是否已被访问</span><br>            <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> (<span class="hljs-number">0</span> &lt;= row &lt; rows <span class="hljs-keyword">and</span> <span class="hljs-number">0</span> &lt;= col &lt; cols) <span class="hljs-keyword">or</span> board[row][col] == <span class="hljs-string">&#x27;#&#x27;</span>:<br>                <span class="hljs-keyword">return</span> <br>            char = board[row][col]<br>            <span class="hljs-comment"># 如果当前字符不在子节点中,直接返回</span><br>            <span class="hljs-keyword">if</span> char <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> node.children:<br>                <span class="hljs-keyword">return</span> <br>            <span class="hljs-comment"># 获取当前字符对应的字 TireNode</span><br>            child = node.children[char]<br>            <span class="hljs-comment"># 是结尾就加入结果集</span><br>            <span class="hljs-keyword">if</span> child.is_end_of_word:<br>                result.add(path + char)<br>                <span class="hljs-comment"># 如果没有子节点，直接返回</span><br>                <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> child.children:<br>                    <span class="hljs-keyword">return</span> <br>            <span class="hljs-comment"># 标记当前字符为已访问字符    </span><br>            board[row][col] = <span class="hljs-string">&#x27;#&#x27;</span><br>            <span class="hljs-comment"># 上下左右依次DFS</span><br>            dfs(row + <span class="hljs-number">1</span>, col, child, path + char)<br>            dfs(row - <span class="hljs-number">1</span>, col, child, path + char)<br>            dfs(row, col + <span class="hljs-number">1</span>, child, path + char)<br>            dfs(row, col - <span class="hljs-number">1</span>, child, path + char)<br>            <span class="hljs-comment"># 恢复原字符</span><br>            board[row][col] = char<br>        <br>        <span class="hljs-keyword">for</span> row <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(rows):<br>            <span class="hljs-keyword">for</span> col <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(cols):<br>                dfs(row, col, trie, <span class="hljs-string">&#x27;&#x27;</span>)<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">list</span>(result)<br></code></pre></td></tr></table></figure>
+
+<h2 id="时间复杂度-2"><a href="#时间复杂度-2" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>时间复杂度O(N * L + M * N * 4^L)，空间复杂度O(N * L + L + K)，<code>N</code> 是单词数量，<code>L</code> 是单词的平均长度，<code>M</code> 和 <code>N</code> 是字符网格的行数和列数，<code>K</code> 是找到的单词数量。执行时间2852ms，消耗内存18.6MB</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>这三道题我是推荐以第三题为主，因为他的整个流程更加全面，能够很好的对此类题构建出一个模板来，所以我这里也更推荐采用第三题作为主力研究对象。</p>
+<p>我自己大致总结了一下做题的模板和方法：</p>
+<h2 id="操作实现方法"><a href="#操作实现方法" class="headerlink" title="操作实现方法"></a>操作实现方法</h2><p><strong>初始化</strong>：</p>
+<ul>
+<li>使用一个字典来存储子节点。</li>
+<li>用一个布尔变量 <code>is_end_of_word</code> 标记当前节点是否是单词的结束节点。</li>
+</ul>
+<p><strong>插入操作</strong>：</p>
+<ul>
+<li>从根节点开始，逐字符检查字典树中是否存在对应的子节点。</li>
+<li>如果不存在，则创建一个新节点；遍历完所有字符后，将最后一个节点标记为单词结束。</li>
+</ul>
+<p><strong>搜索操作</strong>：</p>
+<ul>
+<li>从根节点逐字符遍历字典树。如果找到对应节点且最终节点被标记为单词结束，则返回 <code>True</code>；否则返回 <code>False</code>。</li>
+</ul>
+<p><strong>前缀搜索操作</strong>：</p>
+<ul>
+<li>从根节点逐字符遍历字典树，只要能成功遍历完整个前缀即可返回 <code>True</code>，无需检查最终节点是否为单词结束。</li>
+</ul>
+<h2 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Trie</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-variable language_">self</span>.children = &#123;&#125;<br>        <span class="hljs-variable language_">self</span>.is_end_of_word = <span class="hljs-literal">False</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">insert</span>(<span class="hljs-params">self, word: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-literal">None</span>:<br>        current = <span class="hljs-variable language_">self</span><br>        <span class="hljs-keyword">for</span> char <span class="hljs-keyword">in</span> word:<br>            <span class="hljs-keyword">if</span> char <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> current.children:<br>                current.children[char] = Trie()<br>            current = current.children[char]<br>        current.is_end_of_word = <span class="hljs-literal">True</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">search</span>(<span class="hljs-params">self, word: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-built_in">bool</span>:<br>        current = <span class="hljs-variable language_">self</span><br>        <span class="hljs-keyword">for</span> char <span class="hljs-keyword">in</span> word:<br>            <span class="hljs-keyword">if</span> char <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> current.children:<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br>            current = current.children[char]<br>        <span class="hljs-keyword">return</span> current.is_end_of_word<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">startsWith</span>(<span class="hljs-params">self, prefix: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-built_in">bool</span>:<br>        current = <span class="hljs-variable language_">self</span><br>        <span class="hljs-keyword">for</span> char <span class="hljs-keyword">in</span> prefix:<br>            <span class="hljs-keyword">if</span> char <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> current.children:<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br>            current = current.children[char]<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span><br></code></pre></td></tr></table></figure>
+
+<p>整体上来看，都是基于字典树的基本结构，操作上主要是通过遍历和检查节点是否存在来完成插入、查找和前缀匹配的功能。</p>
+<p>同时可以看到核心代码几乎完全复用，体现了字典树操作的模块化与通用性。</p>
+<p>在这里还需要补充一个点，<code>ord</code>函数。该函数的作用是将单个字符转换为其对应的Unicode整数表示。这个函数的功能可以概括如下：</p>
+<ol>
+<li>字符到整数的转换：<code>ord()</code>函数接受一个单个字符作为输入，并返回该字符的Unicode码点（整数值）</li>
+<li>Unicode支持：<code>ord()</code>函数可以处理任何Unicode字符，不仅限于ASCII字符</li>
+<li>单字符输入：<code>ord()</code>函数只接受单个字符作为参数。如果尝试传入多个字符，会导致错误</li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/" class="category-chain-item">刷题记录</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Leetcode/" class="print-no-link">#Leetcode</a>
+      
+        <a href="/tags/%E5%88%B7%E9%A2%98/" class="print-no-link">#刷题</a>
+      
+        <a href="/tags/%E5%AD%97%E5%85%B8%E6%A0%91/" class="print-no-link">#字典树</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>leetcode刷题记录——字典树</div>
+      <div>https://lx02918.github.io/2024/08/28/leetcode-字典树/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Seth</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年8月28日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/08/29/leetcode-%E5%9B%9E%E6%BA%AF/" title="leetcode-回溯">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">leetcode-回溯</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/08/27/leetcode-%E5%9B%BE-BFS/" title="leetcode刷题记录——图的广度优先遍历">
+                        <span class="hidden-mobile">leetcode刷题记录——图的广度优先遍历</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"pAyQlcbEY6nkOIh5fveIBxLA-gzGzoHsz","appKey":"DjSrQhO4p64SG8qV28lz5J0H","path":"window.location.pathname","placeholder":"Just go go","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
