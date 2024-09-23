@@ -16,27 +16,26 @@
   <meta name="author" content="Seth">
   <meta name="keywords" content="">
   
-    <meta name="description" content="360是我七月初就已经投的公司，同时也是我今年秋招第一个拿到笔试的公司。在考前按照往年的试卷估计题目应该是40道客观题2道编程题。实际结果也如预期一般，30多道的单选题，为数不多的多选题（每个卷子的题型不一样，maybe我这个卷子的少）以及2个编程题。接下来我将尽可能完整的复刻题目并阐述我自己的做法，同时也会附加我自己的代码，望各位看官满意。 第一题 加密算法有两个人在研究加密算法，一个人提出对只">
+    <meta name="description" content="215 数组中的第K个最大元素 Medium给定整数数组 nums 和整数 k，请返回数组中第 **k** 个最大的元素。 请注意，你需要找的是数组排序后的第 k 个最大的元素，而不是第 k 个不同的元素。 你必须设计并实现时间复杂度为 O(n) 的算法解决此问题。 示例 1: 12输入: [3,2,1,5,6,4], k &#x3D; 2输出: 5  示例 2: 12输入: [3,2,3,1,2,4,5,">
 <meta property="og:type" content="article">
-<meta property="og:title" content="360技术综合H卷笔试——编程题记录">
-<meta property="og:url" content="https://lx02918.github.io/2024/07/20/My-First-Blog/index.html">
+<meta property="og:title" content="leetcode刷题记录——堆">
+<meta property="og:url" content="https://lx02918.github.io/2024/09/11/leetcode-%E5%A0%86/index.html">
 <meta property="og:site_name" content="Seth的小站">
-<meta property="og:description" content="360是我七月初就已经投的公司，同时也是我今年秋招第一个拿到笔试的公司。在考前按照往年的试卷估计题目应该是40道客观题2道编程题。实际结果也如预期一般，30多道的单选题，为数不多的多选题（每个卷子的题型不一样，maybe我这个卷子的少）以及2个编程题。接下来我将尽可能完整的复刻题目并阐述我自己的做法，同时也会附加我自己的代码，望各位看官满意。 第一题 加密算法有两个人在研究加密算法，一个人提出对只">
+<meta property="og:description" content="215 数组中的第K个最大元素 Medium给定整数数组 nums 和整数 k，请返回数组中第 **k** 个最大的元素。 请注意，你需要找的是数组排序后的第 k 个最大的元素，而不是第 k 个不同的元素。 你必须设计并实现时间复杂度为 O(n) 的算法解决此问题。 示例 1: 12输入: [3,2,1,5,6,4], k &#x3D; 2输出: 5  示例 2: 12输入: [3,2,3,1,2,4,5,">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lx02918.github.io/img/first%20blog%20cover.jpg">
-<meta property="article:published_time" content="2024-07-20T11:53:11.000Z">
-<meta property="article:modified_time" content="2024-07-20T16:26:11.983Z">
+<meta property="article:published_time" content="2024-09-11T08:18:38.000Z">
+<meta property="article:modified_time" content="2024-09-11T09:05:06.009Z">
 <meta property="article:author" content="Seth">
-<meta property="article:tag" content="笔试">
-<meta property="article:tag" content="算法题">
+<meta property="article:tag" content="Leetcode">
+<meta property="article:tag" content="刷题">
+<meta property="article:tag" content="堆">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lx02918.github.io/img/first%20blog%20cover.jpg">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>360技术综合H卷笔试——编程题记录 - Seth的小站</title>
+  <title>leetcode刷题记录——堆 - Seth的小站</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -232,7 +231,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="360技术综合H卷笔试——编程题记录"></span>
+            <span id="subtitle" data-typed-text="leetcode刷题记录——堆"></span>
           
         </div>
 
@@ -243,8 +242,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-07-20 19:53" pubdate>
-          星期六, 七月 20日 2024, 7:53 晚上
+        <time datetime="2024-09-11 16:18" pubdate>
+          星期三, 九月 11日 2024, 4:18 下午
         </time>
       </span>
     
@@ -255,7 +254,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.6k 字
+          853 字
         
       </span>
     
@@ -266,7 +265,7 @@
         
         
         
-          14 分钟
+          8 分钟
         
       </span>
     
@@ -319,17 +318,17 @@
     
     <div class="category row nomargin-x">
       <a class="category-item 
-          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="笔试记录"
-        id="heading-bfa4f1941c3a5b694732e4f0db1b74e1" role="tab" data-toggle="collapse" href="#collapse-bfa4f1941c3a5b694732e4f0db1b74e1"
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="刷题记录"
+        id="heading-909ea5d72d27ab9e042108431b0dc4d0" role="tab" data-toggle="collapse" href="#collapse-909ea5d72d27ab9e042108431b0dc4d0"
         aria-expanded="true"
       >
-        笔试记录
-        <span class="list-group-count">(4)</span>
+        刷题记录
+        <span class="list-group-count">(17)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
-      <div class="category-collapse collapse show" id="collapse-bfa4f1941c3a5b694732e4f0db1b74e1"
-           role="tabpanel" aria-labelledby="heading-bfa4f1941c3a5b694732e4f0db1b74e1">
+      <div class="category-collapse collapse show" id="collapse-909ea5d72d27ab9e042108431b0dc4d0"
+           role="tabpanel" aria-labelledby="heading-909ea5d72d27ab9e042108431b0dc4d0">
         
         
           
@@ -338,37 +337,154 @@
     
       
       
-        <a href="/2024/07/20/My-First-Blog/" title="360技术综合H卷笔试——编程题记录"
+        <a href="/2024/07/21/my-third-post/" title="Leetcode刷题——滑动窗口"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Leetcode刷题——滑动窗口</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/01/Hash/" title="leetcode刷题记录——Hash"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">leetcode刷题记录——Hash</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/09/04/leetcode-Kadane%E7%AE%97%E6%B3%95/" title="leetcode刷题记录——Kadane算法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">leetcode刷题记录——Kadane算法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/09/09/leetcode-%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" title="leetcode刷题记录——二分查找"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">leetcode刷题记录——二分查找</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/21/leetcode-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/" title="leetcode刷题记录——二叉搜索树"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">leetcode刷题记录——二叉搜索树</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/20/leetcode-%E4%BA%8C%E5%8F%89%E6%A0%91/" title="leetcode刷题记录——二叉树"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">leetcode刷题记录——二叉树</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/20/leetcode-%E4%BA%8C%E5%8F%89%E6%A0%91%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86/" title="leetcode刷题记录——二叉树层次遍历"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">leetcode刷题记录——二叉树层次遍历</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/09/03/leetcode-%E5%88%86%E6%B2%BB/" title="leetcode刷题记录——分治"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">leetcode刷题记录——分治</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/05/leetcode_%E5%8C%BA%E9%97%B4/" title="leetcode刷题记录——区间"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">leetcode刷题记录——区间</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/29/leetcode-%E5%9B%9E%E6%BA%AF/" title="leetcode刷题记录——回溯"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">leetcode刷题记录——回溯</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/22/leetcode-%E5%9B%BE/" title="leetcode刷题记录——图"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">leetcode刷题记录——图</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/27/leetcode-%E5%9B%BE-BFS/" title="leetcode刷题记录——图的广度优先遍历"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">leetcode刷题记录——图的广度优先遍历</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/09/11/leetcode-%E5%A0%86/" title="leetcode刷题记录——堆"
            class="list-group-item list-group-item-action
            active">
-          <span class="category-post">360技术综合H卷笔试——编程题记录</span>
+          <span class="category-post">leetcode刷题记录——堆</span>
         </a>
       
     
       
       
-        <a href="/2024/08/26/%E4%BA%AC%E4%B8%9C%E7%AC%94%E8%AF%95/" title="京东笔试——算法工程师第三批"
+        <a href="/2024/08/28/leetcode-%E5%AD%97%E5%85%B8%E6%A0%91/" title="leetcode刷题记录——字典树"
            class="list-group-item list-group-item-action
            ">
-          <span class="category-post">京东笔试——算法工程师第三批</span>
+          <span class="category-post">leetcode刷题记录——字典树</span>
         </a>
       
     
       
       
-        <a href="/2024/09/23/%E8%A5%BF%E5%B1%B1%E5%B1%85%E7%AC%94%E8%AF%95%E8%AE%B0%E5%BD%95/" title="西山居笔试——游戏AI算法A卷"
+        <a href="/2024/08/08/leetcode-%E6%A0%88/" title="leetcode刷题记录——栈"
            class="list-group-item list-group-item-action
            ">
-          <span class="category-post">西山居笔试——游戏AI算法A卷</span>
+          <span class="category-post">leetcode刷题记录——栈</span>
         </a>
       
     
       
       
-        <a href="/2024/09/06/%E9%99%8C%E9%99%8C%E7%AC%94%E8%AF%95/" title="陌陌笔试——推荐算法-计算智能算法笔试"
+        <a href="/2024/07/30/my-fourth-blog/" title="leetcode刷题记录——矩阵"
            class="list-group-item list-group-item-action
            ">
-          <span class="category-post">陌陌笔试——推荐算法-计算智能算法笔试</span>
+          <span class="category-post">leetcode刷题记录——矩阵</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/09/leetcode-%E9%93%BE%E8%A1%A8/" title="leetcode刷题记录——链表"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">leetcode刷题记录——链表</span>
         </a>
       
     
@@ -390,71 +506,61 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">360技术综合H卷笔试——编程题记录</h1>
+            <h1 id="seo-header">leetcode刷题记录——堆</h1>
             
             
               <div class="markdown-body">
                 
-                <p>360是我七月初就已经投的公司，同时也是我今年秋招第一个拿到笔试的公司。在考前按照往年的试卷估计题目应该是40道客观题2道编程题。实际结果也如预期一般，30多道的单选题，为数不多的多选题（每个卷子的题型不一样，maybe我这个卷子的少）以及2个编程题。接下来我将尽可能完整的复刻题目并阐述我自己的做法，同时也会附加我自己的代码，望各位看官满意。</p>
-<h2 id="第一题-加密算法"><a href="#第一题-加密算法" class="headerlink" title="第一题 加密算法"></a><strong>第一题 加密算法</strong></h2><p>有两个人在研究加密算法，一个人提出对只包含小写英文字母的字符串，将 ’a’替换成 ’1’，将 ’b’;替换成 ’2’……，将 ’z’替换成 ’26’。比如一个字符串 ’aabac’（想不起来了，我编的），加密后变成了 ’11213’，但另外一个人提出困难会造成多个结果，就比如 ’11213’也可能是 ’kbm’，会产生多个结果。所以我们要做的就是计算某个加密后的字符串可能对应的原字符串个数，要求取模10^9+7。</p>
-<p>输入：</p>
-<p>第一行n是加密后的字符串长度</p>
-<p>第二行是加密后的字符串</p>
-<p>输出：</p>
-<p>一个正整数表示原字符串个数</p>
-<p>样例输入：</p>
-<p>5</p>
-<p>11213</p>
-<p>样例输出：</p>
-<p>8</p>
-<p>在做题的时候我就感觉这题怎么这么熟悉，考完一看才发现这不就是leetcode 91 解码方法。</p>
-<p>既然提到了那就顺便说一下这道题的思路吧，如果实在需要代码可以直接用笔试题的代码稍微改改应该maybe也能行？</p>
-<p>首先这道题需要对一个问题进行多次匹配求解出多个情况。也就是说字符串’11213’可能被分为’1’和’1213’也可能被分为’11’和’213’类似于这样的不断进行。故而就想到了动态规划来解决。<br>接下来就需要具体构建：</p>
-<ol>
-<li>定义一个数组dp，其中dp[i]表示长度为i的加密字符串可能解码出的原字符串个数。</li>
-<li>设置初始条件dp[0] &#x3D; 1，即空字符串有一种解码方式。</li>
-<li>状态转移：<ul>
-<li>如果当前字符可以作为有效的单字符解码(1 &lt;&#x3D; s[i - 1] &lt;&#x3D; 9)，则dp[i] +&#x3D; dp[i - 1]</li>
-<li>如果当前字符和前一个字符可以作为一个有效的双字符解码(10 &lt;&#x3D; s[i - 2:i] &lt;&#x3D; 26)，则dp[i] +&#x3D; dp[i - 2]</li>
+                <h1 id="215-数组中的第K个最大元素-Medium"><a href="#215-数组中的第K个最大元素-Medium" class="headerlink" title="215 数组中的第K个最大元素 Medium"></a>215 <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/kth-largest-element-in-an-array/">数组中的第K个最大元素</a> <font color=#ff7f50 size=4>Medium</font></h1><p>给定整数数组 <code>nums</code> 和整数 <code>k</code>，请返回数组中第 <code>**k**</code> 个最大的元素。</p>
+<p>请注意，你需要找的是数组排序后的第 <code>k</code> 个最大的元素，而不是第 <code>k</code> 个不同的元素。</p>
+<p>你必须设计并实现时间复杂度为 <code>O(n)</code> 的算法解决此问题。</p>
+<p><strong>示例 1:</strong></p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs makefile"><span class="hljs-section">输入: [3,2,1,5,6,4], k = 2</span><br><span class="hljs-section">输出: 5</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>示例 2:</strong></p>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs dns">输入: [<span class="hljs-number">3,2,3,1</span>,<span class="hljs-number">2,4,5,5</span>,<span class="hljs-number">6</span>], k = <span class="hljs-number">4</span><br>输出: <span class="hljs-number">4</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= k &lt;= nums.length &lt;= 105</code></li>
+<li><code>-104 &lt;= nums[i] &lt;= 104</code></li>
 </ul>
-</li>
-<li>最终结果为dp[n]</li>
-</ol>
-<p>好的，接下来回到笔试的考题加密算法本身。</p>
-<p>首先分析问题，我们需要给每个字母进行一一对应；加密后的字符串可能对应多个原字符串；我们需要对结果进行取模。<br>接下来来说说具体的思路：</p>
-<ol>
-<li>使用动态规划来解决</li>
-<li>创建一个数组dp，其中dp[i]表示前i个数字可能对应的原字符串</li>
-<li>对每个位置i，我们需要考虑单独解码和组合解码</li>
-</ol>
-<p>借助这个大致思路得到了下面的代码</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">count_possible_string</span>(<span class="hljs-params">encoded</span>):<br>    MOD = <span class="hljs-number">1000000007</span><br>    n = <span class="hljs-built_in">len</span>(encoded)<br>    dp = [<span class="hljs-number">0</span>] * (n + <span class="hljs-number">1</span>)<br>    dp[<span class="hljs-number">0</span>] = <span class="hljs-number">1</span><br>    dp[<span class="hljs-number">1</span>] = <span class="hljs-number">1</span> <span class="hljs-keyword">if</span> encoded[<span class="hljs-number">0</span>] != <span class="hljs-string">&#x27;0&#x27;</span> <span class="hljs-keyword">else</span> <span class="hljs-number">0</span><br>    <br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">2</span>, n + <span class="hljs-number">1</span>):<br>        <span class="hljs-comment"># 单独解码</span><br>        <span class="hljs-keyword">if</span> encoded[i - <span class="hljs-number">1</span>] != <span class="hljs-string">&#x27;0&#x27;</span>:<br>            dp[i] = dp[i - <span class="hljs-number">1</span>]<br>        <span class="hljs-comment"># 组合解码</span><br>        two_digit = <span class="hljs-built_in">int</span>(encoded[i - <span class="hljs-number">2</span>:i])<br>        <span class="hljs-keyword">if</span> <span class="hljs-number">10</span> &lt;= two_digit &lt;= <span class="hljs-number">26</span>:<br>            dp[i] = (dp[i] + dp[i - <span class="hljs-number">2</span>]) % MOD<br><br>    <span class="hljs-keyword">return</span> dp[n]<br><br><span class="hljs-comment"># 输入</span><br>n = <span class="hljs-built_in">int</span>(<span class="hljs-built_in">input</span>())<br>encoded = <span class="hljs-built_in">input</span>()<br><br><span class="hljs-comment"># 输出</span><br>result = count_possible_string(encoded)<br><span class="hljs-built_in">print</span>(result)<br></code></pre></td></tr></table></figure>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>毫无思路可言，sorted直接搞定</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">findKthLargest</span>(<span class="hljs-params">self, nums: <span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>], k: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-built_in">int</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">sorted</span>(nums, reverse=<span class="hljs-literal">True</span>)[k-<span class="hljs-number">1</span>]<br></code></pre></td></tr></table></figure>
 
-<p>到这里第一题就结束了，不过我需要说明一点的是，我的代码并不是最优代码，只是能AC这道题，这里也只是提供一种代码和一种思路。</p>
-<h2 id="第二题-传染病防控"><a href="#第二题-传染病防控" class="headerlink" title="第二题 传染病防控"></a>第二题 传染病防控</h2><p>某市正在进行传染病防控，某市有n个人，每个人有一个位置$(x_{i},y_{i})$。现在已知有一个是高风险人员，但不知道是谁。同时我们定义一个安全距离k，如果某个人和这个高风险人员的距离不超过k，那么这个人也将被列为高风险人员。所以我们现在需要帮工作人员得到最多的高风险人员数量。两个人$(x_1,y_1),(x_2,y_2)$的距离公式为$|x_1-x_2| + |y_1 - y_2|$。</p>
-<p>输入描述：</p>
-<p>一行两个整数n，k</p>
-<p>接下来一行n个整数分别表示$x_1$到$x_n$</p>
-<p>接下来一行n个整数分别表示$y_1$到$y_n$</p>
-<p>输出描述：</p>
-<p>输出一个整数表示最多的高风险人员数量</p>
-<p>样例输入：（这里因为debug了好几遍输了好几遍所以还有记录，可以用原本的数）</p>
-<p>5 2</p>
-<p>8 6 1 5 1</p>
-<p>4 4 3 4 6</p>
-<p>样例输出：</p>
-<p>3</p>
-<p>首先明确一点，这个距离公式就是常用的曼哈顿距离，所以在正式写算法前需要先把这个距离公式给写了。</p>
-<p>接下来说一下我的大致思路：</p>
-<ol>
-<li>首先构建图，根据输入的坐标和距离构建邻接矩阵<code>ajd</code></li>
-<li>图的遍历：这里根据惯例选择DFS或BFS来遍历图，我选的是BFS，以此计算出某一点出发的最大连通节点数。</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">max_high_risk</span>(<span class="hljs-params">n, k, x, y</span>):<br>    <span class="hljs-keyword">from</span> collections <span class="hljs-keyword">import</span> deque<br><br>    <span class="hljs-comment"># 曼哈顿距离公式</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">manhatten_distance</span>(<span class="hljs-params">x1, y1, x2, y2</span>):<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">abs</span>(x1 - x2) + <span class="hljs-built_in">abs</span>(y1 - y2)<br><br>    <span class="hljs-comment"># 构建邻接表，adj[i]表示与第i个人相邻的所有人</span><br>    adj = [[] <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n)]<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n):<br>        <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(i + <span class="hljs-number">1</span>, n):<br>            <span class="hljs-keyword">if</span> manhatten_distance(x[i], y[i], x[j], y[j]) &lt;= k:<br>                adj[i].append(j)<br>                adj[j].append(i)<br><br>    <span class="hljs-comment"># 构建BFS            </span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">bfs</span>(<span class="hljs-params">start</span>):<br>        queue = deque([start])<br>        visited = <span class="hljs-built_in">set</span>([start])<br>        count = <span class="hljs-number">1</span><br>        <span class="hljs-keyword">while</span> queue:<br>            current = queue.popleft()<br>            <span class="hljs-keyword">for</span> neighbor <span class="hljs-keyword">in</span> adj[current]:<br>                <span class="hljs-keyword">if</span> neighbor <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> visited:<br>                    queue.append(neighbor)<br>                    visited.add(neighbor)<br>                    count += <span class="hljs-number">1</span><br>        <span class="hljs-keyword">return</span> count<br><br>    max_count = <span class="hljs-number">0</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n):<br>        max_count = <span class="hljs-built_in">max</span>(max_count, bfs(i))<br>    <span class="hljs-keyword">return</span> max_count<br><br><span class="hljs-comment"># 输入</span><br>n, k = <span class="hljs-built_in">map</span>(<span class="hljs-built_in">int</span>, <span class="hljs-built_in">input</span>().split())<br>x = <span class="hljs-built_in">list</span>(<span class="hljs-built_in">map</span>(<span class="hljs-built_in">int</span>, <span class="hljs-built_in">input</span>().split()))<br>y = <span class="hljs-built_in">list</span>(<span class="hljs-built_in">map</span>(<span class="hljs-built_in">int</span>, <span class="hljs-built_in">input</span>().split()))<br><br><span class="hljs-comment"># 输出</span><br><span class="hljs-built_in">print</span>(max_high_risk(n, k, x, y))<br></code></pre></td></tr></table></figure>
+<p>还有一个我之前写的版本，也顺便发一下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">findKthLargest</span>(<span class="hljs-params">self, nums: <span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>], k: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-built_in">int</span>:<br>        <span class="hljs-keyword">def</span> <span class="hljs-title function_">quick_select</span>(<span class="hljs-params">nums, k</span>):<br>            pivot = random.choice(nums)<br>            big, equal, small = [], [], []<br>            <span class="hljs-keyword">for</span> num <span class="hljs-keyword">in</span> nums:<br>                <span class="hljs-keyword">if</span> num &gt; pivot:<br>                    big.append(num)<br>                <span class="hljs-keyword">elif</span> num &lt; pivot:<br>                    small.append(num)<br>                <span class="hljs-keyword">else</span>:<br>                    equal.append(num)<br>            <span class="hljs-keyword">if</span> k &lt;= <span class="hljs-built_in">len</span>(big):<br>                <span class="hljs-keyword">return</span> quick_select(big, k)<br>            <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(nums) - <span class="hljs-built_in">len</span>(small) &lt; k:<br>                <span class="hljs-keyword">return</span> quick_select(small, k - <span class="hljs-built_in">len</span>(nums) + <span class="hljs-built_in">len</span>(small))<br>            <span class="hljs-keyword">return</span> pivot<br>        <span class="hljs-keyword">return</span> quick_select(nums, k)<br></code></pre></td></tr></table></figure>
 
-<p>到这里第二题也就结束了，我当时这道题debug了好几遍，第一次是输入不对，第二次是邻接矩阵出问题，到第三次才成功AC。再次说明我的代码仅仅只能通过所有样例完成这道题，并不是最优解。</p>
-<p>最后附上一张在食堂吃饭的时候拍到的学长，超乖的一只猫咪，就是动作有那么一丝丝不文雅。</p>
-<p><img src="/../img/first%20blog%20cover.jpg" srcset="/img/loading.gif" lazyload alt="alt text"></p>
+<h2 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>时间复杂度O(n log n)，空间复杂度O(n)，执行时间128ms，消耗内存27.3MB</p>
+<h1 id="502-IPO-Hard"><a href="#502-IPO-Hard" class="headerlink" title="502 IPO Hard"></a>502 <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/ipo/">IPO</a> <font color=#ff0000 size=4>Hard</font></h1><p>假设 力扣（LeetCode）即将开始 <strong>IPO</strong> 。为了以更高的价格将股票卖给风险投资公司，力扣 希望在 IPO 之前开展一些项目以增加其资本。 由于资源有限，它只能在 IPO 之前完成最多 <code>k</code> 个不同的项目。帮助 力扣 设计完成最多 <code>k</code> 个不同项目后得到最大总资本的方式。</p>
+<p>给你 <code>n</code> 个项目。对于每个项目 <code>i</code> ，它都有一个纯利润 <code>profits[i]</code> ，和启动该项目需要的最小资本 <code>capital[i]</code> 。</p>
+<p>最初，你的资本为 <code>w</code> 。当你完成一个项目时，你将获得纯利润，且利润将被添加到你的总资本中。</p>
+<p>总而言之，从给定项目中选择 <strong>最多</strong> <code>k</code> 个不同项目的列表，以 <strong>最大化最终资本</strong> ，并输出最终可获得的最多资本。</p>
+<p>答案保证在 32 位有符号整数范围内。</p>
+<p><strong>示例 1：</strong></p>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs tap">输入：k = 2, w = 0, profits = [1,2,3], capital = [0,1,1]<br>输出：4<br>解释：<br>由于你的初始资本为 0，你仅可以从<span class="hljs-number"> 0 </span>号项目开始。<br>在完成后，你将获得<span class="hljs-number"> 1 </span>的利润，你的总资本将变为 1。<br>此时你可以选择开始<span class="hljs-number"> 1 </span>号或<span class="hljs-number"> 2 </span>号项目。<br>由于你最多可以选择两个项目，所以你需要完成<span class="hljs-number"> 2 </span>号项目以获得最大的资本。<br>因此，输出最后最大化的资本，为<span class="hljs-number"> 0 </span>+<span class="hljs-number"> 1 </span>+<span class="hljs-number"> 3 </span>= 4。<br></code></pre></td></tr></table></figure>
+
+<p><strong>示例 2：</strong></p>
+<figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs inform7">输入：k = 3, w = 0, profits = <span class="hljs-comment">[1,2,3]</span>, capital = <span class="hljs-comment">[0,1,2]</span><br>输出：6<br></code></pre></td></tr></table></figure>
+
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= k &lt;= 105</code></li>
+<li><code>0 &lt;= w &lt;= 109</code></li>
+<li><code>n == profits.length</code></li>
+<li><code>n == capital.length</code></li>
+<li><code>1 &lt;= n &lt;= 105</code></li>
+<li><code>0 &lt;= profits[i] &lt;= 104</code></li>
+<li><code>0 &lt;= capital[i] &lt;= 109</code></li>
+</ul>
+<h2 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h2><ol>
+<li>排序后方便进行，可以直接考虑当前资金</li>
+<li>用最大堆来维护利润，堆顶元素就是当前能够启动的里面利润最大的</li>
+<li>选择项目，每次迭代后将能够启动的项目加入最大堆并选择最大利润的启动</li>
+</ol>
+<h2 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">findMaximizedCapital</span>(<span class="hljs-params">self, k: <span class="hljs-built_in">int</span>, W: <span class="hljs-built_in">int</span>, Profits: <span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>], Capital: <span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>]</span>) -&gt; <span class="hljs-built_in">int</span>:<br>        n = <span class="hljs-built_in">len</span>(Profits)<br>        projects = <span class="hljs-built_in">sorted</span>(<span class="hljs-built_in">zip</span>(Capital, Profits))<br>        max_heap = []<br>        idx = <span class="hljs-number">0</span><br>        <br>        <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(k):<br>            <span class="hljs-keyword">while</span> idx &lt; n <span class="hljs-keyword">and</span> projects[idx][<span class="hljs-number">0</span>] &lt;= W:<br>                heapq.heappush(max_heap, -projects[idx][<span class="hljs-number">1</span>])<br>                idx += <span class="hljs-number">1</span><br>            <span class="hljs-keyword">if</span> max_heap:<br>                W -= heapq.heappop(max_heap)<br>            <span class="hljs-keyword">else</span>:<br>                <span class="hljs-keyword">break</span><br>        <span class="hljs-keyword">return</span> W<br></code></pre></td></tr></table></figure>
+
+<h2 id="时间复杂度-1"><a href="#时间复杂度-1" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>时间复杂度O(n log n)，空间复杂度O(n)，执行时间380ms，消耗内存40.4MB</p>
 
                 
               </div>
@@ -473,7 +579,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E7%AC%94%E8%AF%95%E8%AE%B0%E5%BD%95/" class="category-chain-item">笔试记录</a>
+  <a href="/categories/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/" class="category-chain-item">刷题记录</a>
   
   
 
@@ -488,9 +594,11 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E7%AC%94%E8%AF%95/" class="print-no-link">#笔试</a>
+        <a href="/tags/Leetcode/" class="print-no-link">#Leetcode</a>
       
-        <a href="/tags/%E7%AE%97%E6%B3%95%E9%A2%98/" class="print-no-link">#算法题</a>
+        <a href="/tags/%E5%88%B7%E9%A2%98/" class="print-no-link">#刷题</a>
+      
+        <a href="/tags/%E5%A0%86/" class="print-no-link">#堆</a>
       
     </div>
   
@@ -502,8 +610,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>360技术综合H卷笔试——编程题记录</div>
-      <div>https://lx02918.github.io/2024/07/20/My-First-Blog/</div>
+      <div>leetcode刷题记录——堆</div>
+      <div>https://lx02918.github.io/2024/09/11/leetcode-堆/</div>
     </div>
     <div class="license-meta">
       
@@ -515,7 +623,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年7月20日</div>
+          <div>2024年9月11日</div>
         </div>
       
       
@@ -547,15 +655,21 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/07/20/My-Second-Blog/" title="卧推训练过程中发现的一个小问题">
+                      <a href="/2024/09/23/%E8%A5%BF%E5%B1%B1%E5%B1%85%E7%AC%94%E8%AF%95%E8%AE%B0%E5%BD%95/" title="西山居笔试——游戏AI算法A卷">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">卧推训练过程中发现的一个小问题</span>
+                        <span class="hidden-mobile">西山居笔试——游戏AI算法A卷</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
                   </article>
                   <article class="post-next col-6">
                     
+                    
+                      <a href="/2024/09/09/leetcode-%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" title="leetcode刷题记录——二分查找">
+                        <span class="hidden-mobile">leetcode刷题记录——二分查找</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
                     
                   </article>
                 </div>

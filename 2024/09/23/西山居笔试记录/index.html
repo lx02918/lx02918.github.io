@@ -1,0 +1,987 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Seth">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="柱状图中最大矩形对应leetcode84，属于hard 这里需要说明一下这道题第一反应会和最大容器和接雨水有点像，会考虑到双指针，但是题目实际上用到的是单调栈和哨兵 原题目给定 n 个非负整数，用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 1 。 求在该柱状图中，能够勾勒出来的矩形的最大面积。 示例 1:  123输入：heights &#x3D; [2,1,5,6,2,3]输出：10解释：最">
+<meta property="og:type" content="article">
+<meta property="og:title" content="西山居笔试——游戏AI算法A卷">
+<meta property="og:url" content="https://lx02918.github.io/2024/09/23/%E8%A5%BF%E5%B1%B1%E5%B1%85%E7%AC%94%E8%AF%95%E8%AE%B0%E5%BD%95/index.html">
+<meta property="og:site_name" content="Seth的小站">
+<meta property="og:description" content="柱状图中最大矩形对应leetcode84，属于hard 这里需要说明一下这道题第一反应会和最大容器和接雨水有点像，会考虑到双指针，但是题目实际上用到的是单调栈和哨兵 原题目给定 n 个非负整数，用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 1 。 求在该柱状图中，能够勾勒出来的矩形的最大面积。 示例 1:  123输入：heights &#x3D; [2,1,5,6,2,3]输出：10解释：最">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://assets.leetcode.com/uploads/2021/01/04/histogram.jpg">
+<meta property="og:image" content="https://assets.leetcode.com/uploads/2021/01/04/histogram-1.jpg">
+<meta property="og:image" content="https://lx02918.github.io/2024/09/23/%E8%A5%BF%E5%B1%B1%E5%B1%85%E7%AC%94%E8%AF%95%E8%AE%B0%E5%BD%95/84_1.jpg">
+<meta property="article:published_time" content="2024-09-23T01:26:19.000Z">
+<meta property="article:modified_time" content="2024-09-23T01:57:42.104Z">
+<meta property="article:author" content="Seth">
+<meta property="article:tag" content="笔试">
+<meta property="article:tag" content="算法题">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://assets.leetcode.com/uploads/2021/01/04/histogram.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>西山居笔试——游戏AI算法A卷 - Seth的小站</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"lx02918.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"pAyQlcbEY6nkOIh5fveIBxLA-gzGzoHsz","app_key":"DjSrQhO4p64SG8qV28lz5J0H","server_url":"https://payqlcbe.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Seth的小站" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Seth的小站</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="西山居笔试——游戏AI算法A卷"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-09-23 09:26" pubdate>
+          星期一, 九月 23日 2024, 9:26 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          17 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="笔试记录"
+        id="heading-bfa4f1941c3a5b694732e4f0db1b74e1" role="tab" data-toggle="collapse" href="#collapse-bfa4f1941c3a5b694732e4f0db1b74e1"
+        aria-expanded="true"
+      >
+        笔试记录
+        <span class="list-group-count">(4)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-bfa4f1941c3a5b694732e4f0db1b74e1"
+           role="tabpanel" aria-labelledby="heading-bfa4f1941c3a5b694732e4f0db1b74e1">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/07/20/My-First-Blog/" title="360技术综合H卷笔试——编程题记录"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">360技术综合H卷笔试——编程题记录</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/26/%E4%BA%AC%E4%B8%9C%E7%AC%94%E8%AF%95/" title="京东笔试——算法工程师第三批"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">京东笔试——算法工程师第三批</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/09/23/%E8%A5%BF%E5%B1%B1%E5%B1%85%E7%AC%94%E8%AF%95%E8%AE%B0%E5%BD%95/" title="西山居笔试——游戏AI算法A卷"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">西山居笔试——游戏AI算法A卷</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/09/06/%E9%99%8C%E9%99%8C%E7%AC%94%E8%AF%95/" title="陌陌笔试——推荐算法-计算智能算法笔试"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">陌陌笔试——推荐算法-计算智能算法笔试</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">西山居笔试——游戏AI算法A卷</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="柱状图中最大矩形"><a href="#柱状图中最大矩形" class="headerlink" title="柱状图中最大矩形"></a>柱状图中最大矩形</h1><p>对应leetcode84，属于<code>hard</code></p>
+<p>这里需要说明一下这道题第一反应会和最大容器和接雨水有点像，会考虑到双指针，但是题目实际上用到的是单调栈和哨兵</p>
+<h2 id="原题目"><a href="#原题目" class="headerlink" title="原题目"></a>原题目</h2><p>给定 <em>n</em> 个非负整数，用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 1 。</p>
+<p>求在该柱状图中，能够勾勒出来的矩形的最大面积。</p>
+<p><strong>示例 1:</strong></p>
+<p><img src="https://assets.leetcode.com/uploads/2021/01/04/histogram.jpg" srcset="/img/loading.gif" lazyload alt="img"></p>
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs accesslog">输入：heights = <span class="hljs-string">[2,1,5,6,2,3]</span><br>输出：<span class="hljs-number">10</span><br>解释：最大的矩形为图中红色区域，面积为 <span class="hljs-number">10</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>示例 2：</strong></p>
+<p><img src="https://assets.leetcode.com/uploads/2021/01/04/histogram-1.jpg" srcset="/img/loading.gif" lazyload alt="img"></p>
+<figure class="highlight fix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs fix"><span class="hljs-attr">输入： heights </span>=<span class="hljs-string"> [2,4]</span><br><span class="hljs-string">输出： 4</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= heights.length &lt;=105</code></li>
+<li><code>0 &lt;= heights[i] &lt;= 104</code></li>
+</ul>
+<h2 id="考试题目"><a href="#考试题目" class="headerlink" title="考试题目"></a>考试题目</h2><p>给定一个数组heights, 长度为n, height[i]是第i根的高度, 那么height[i]表示的直方图, 能够形成的最大矩形是多少?</p>
+<p>1.每个直方图底座宽度为1<br>2.直方图都是相邻的<br>3.如果不能形成矩形, 返回0即可<br>4.保证返回的结果不会超过2³¹-1</p>
+<p>数据范围:<br>0&lt;&#x3D;heights[i]&lt;&#x3D;10 ^4<br>0&lt;&#x3D;heights.length&lt;&#x3D;10 ^5</p>
+<p>如输入[3,4,7,8,1,2], 那么如下:</p>
+<figure>
+  <img src="/2024/09/23/%E8%A5%BF%E5%B1%B1%E5%B1%85%E7%AC%94%E8%AF%95%E8%AE%B0%E5%BD%95/84_1.jpg" srcset="/img/loading.gif" lazyload class="" title="84.1">
+  <figcaption>84.1</figcaption>
+</figure>
+
+<p>输入：</p>
+<p>heights &#x3D; [3, 4, 7, 8, 1, 2]</p>
+<p>输出</p>
+<p>14</p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><ol>
+<li>单调栈：使用单调栈来存储柱子的索引，并保持栈中的柱子高度是递增的</li>
+<li>哨兵：在原始高度数组的前后都添加一个高度为0的柱子，这样可以简化边界处理</li>
+<li>遍历过程<ol>
+<li>当栈不为空且当前柱子的高度小于栈顶柱子的高度时能够找到一个可以计算面积的矩形</li>
+<li>弹出栈顶，计算以该柱子高度为高的最大矩形面积</li>
+<li>如果栈为空，宽度就是当前索引i；否则宽度时当前索引i减去新的栈顶索引再减1</li>
+<li>更新最大面积</li>
+<li>将当前柱子的索引入栈</li>
+</ol>
+</li>
+<li>结果：遍历结束后在max_area中存储就是最大面积</li>
+</ol>
+<p>总的来说核心思想就是对每个柱子都左右扩展，直到遇到比它矮的柱子，这样就找到了以这个柱子高度为高的最大矩形</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs pythonn">class Solution:<br>    def largestRectangleArea(self , heights: List[int]) -&gt; int:<br>        stack = []<br>        heights = [0] + heights + [0]<br>        max_area = 0<br>        for i in range(len(heights)):<br>            while stack and heights[stack[-1]] &gt; heights[i]:<br>                h = heights[stack.pop()]<br>                w = i if not stack else i - stack[-1] - 1<br>                max_area = max(max_area, h * w)<br>            stack.append(i)<br>        return max_area<br></code></pre></td></tr></table></figure>
+
+<h2 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>时间复杂度为O(n)，空间复杂度为O(n)</p>
+<h1 id="压缩字符串Ⅱ"><a href="#压缩字符串Ⅱ" class="headerlink" title="压缩字符串Ⅱ"></a>压缩字符串Ⅱ</h1><p>这道题对应的是leetcode1531，属于<code>hard</code>。这道题需要事先说明我只通过了26.73%，思路上应该没啥问题，但是过不去是为什么我还在看原因。</p>
+<h2 id="原题目-1"><a href="#原题目-1" class="headerlink" title="原题目"></a>原题目</h2><p><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E8%A1%8C%E7%A8%8B%E9%95%BF%E5%BA%A6%E7%BC%96%E7%A0%81/2931940?fr=aladdin">行程长度编码</a> 是一种常用的字符串压缩方法，它将连续的相同字符（重复 2 次或更多次）替换为字符和表示字符计数的数字（行程长度）。例如，用此方法压缩字符串 <code>&quot;aabccc&quot;</code> ，将 <code>&quot;aa&quot;</code> 替换为 <code>&quot;a2&quot;</code> ，<code>&quot;ccc&quot;</code> 替换为<code> </code>“c3”<code>。因此压缩后的字符串变为</code>“a2bc3”&#96; 。</p>
+<p>注意，本问题中，压缩时没有在单个字符后附加计数 <code>&#39;1&#39;</code> 。</p>
+<p>给你一个字符串 <code>s</code> 和一个整数 <code>k</code> 。你需要从字符串 <code>s</code> 中删除最多 <code>k</code> 个字符，以使 <code>s</code> 的行程长度编码长度最小。</p>
+<p>请你返回删除最多 <code>k</code> 个字符后，<code>s</code> <strong>行程长度编码的最小长度</strong> 。</p>
+<p><strong>示例 1：</strong></p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs 1c">输入：s <span class="hljs-punctuation">=</span> <span class="hljs-string">&quot;aaabcccd&quot;</span><span class="hljs-punctuation">,</span> k <span class="hljs-punctuation">=</span> <span class="hljs-number">2</span><br>输出：<span class="hljs-number">4</span><br>解释：在不删除任何内容的情况下，压缩后的字符串是 <span class="hljs-string">&quot;a3bc3d&quot;</span> ，长度为 <span class="hljs-number">6</span> 。最优的方案是删除 &#x27;b&#x27; 和 &#x27;d&#x27;，这样一来，压缩后的字符串为 <span class="hljs-string">&quot;a3c3&quot;</span> ，长度是 <span class="hljs-number">4</span> 。<br></code></pre></td></tr></table></figure>
+
+<p><strong>示例 2：</strong></p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs 1c">输入：s <span class="hljs-punctuation">=</span> <span class="hljs-string">&quot;aabbaa&quot;</span><span class="hljs-punctuation">,</span> k <span class="hljs-punctuation">=</span> <span class="hljs-number">2</span><br>输出：<span class="hljs-number">2</span><br>解释：如果删去两个 &#x27;b&#x27; 字符，那么压缩后的字符串是长度为 <span class="hljs-number">2</span> 的 <span class="hljs-string">&quot;a4&quot;</span> 。<br></code></pre></td></tr></table></figure>
+
+<p><strong>示例 3：</strong></p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs nix">输入：<span class="hljs-attr">s</span> = <span class="hljs-string">&quot;aaaaaaaaaaa&quot;</span>, <span class="hljs-attr">k</span> = <span class="hljs-number">0</span><br>输出：<span class="hljs-number">3</span><br>解释：由于 k 等于 <span class="hljs-number">0</span> ，不能删去任何字符。压缩后的字符串是 <span class="hljs-string">&quot;a11&quot;</span> ，长度为 <span class="hljs-number">3</span> 。<br></code></pre></td></tr></table></figure>
+
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= s.length &lt;= 100</code></li>
+<li><code>0 &lt;= k &lt;= s.length</code></li>
+<li><code>s</code> 仅包含小写英文字母</li>
+</ul>
+<h2 id="考试题目-1"><a href="#考试题目-1" class="headerlink" title="考试题目"></a>考试题目</h2><p>利用字符串重复出现的次数，编写一种方法，最多可以先删除K个字符，再实现字符串压缩，返回压缩后的字符串的最小长度。比如，字符串aabccccaaa，k&#x3D;0时，会压缩为a2bc5a3，返回7。</p>
+<p>例<br>1.如果只有一个字符，1不用写<br>2.新增一个先删除k个字符的处理，也可以不删除，也可以删除少于k个字符，要达到压缩后字符串的长度为最小<br>3.字符串中只包含小写英文字母（a至z）</p>
+<p>数据范围：<br>0&lt;&#x3D;字符串长度&lt;&#x3D;100<br>0&lt;&#x3D;k&lt;&#x3D;字符串长度</p>
+<p>示例1</p>
+<p>输入<br>“aabccccaaa”,0</p>
+<p>输出<br>7</p>
+<p>说明<br>压缩后的字符串为”a2bc5a3”，长度为7</p>
+<h2 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h2><ol>
+<li><strong>递归函数</strong>：<ul>
+<li>内部定义的 <code>compress</code> 函数用于递归地计算字符串从索引 <code>idx</code> 开始压缩的最小结果，同时追踪已删除的字符数量 <code>deleted</code>。</li>
+</ul>
+</li>
+<li><strong>终止条件</strong>：<ul>
+<li>当 <code>idx</code> 达到字符串长度 <code>n</code> 时，表示已经处理完所有字符，返回 <code>0</code>。</li>
+</ul>
+</li>
+<li><strong>备忘录</strong>：<ul>
+<li>使用字典 <code>memo</code> 来存储中间结果，以避免重复计算。</li>
+</ul>
+</li>
+<li><strong>删除选项</strong>：<ul>
+<li>如果已经删除的字符数小于 <code>k</code>，则可以选择删除当前字符，这个选项的结果为 <code>compress(idx + 1, deleted + 1)</code>。</li>
+</ul>
+</li>
+<li><strong>保留选项</strong>：<ul>
+<li>保留当前字符，然后计算与后续相同字符的数量。如果存在连续相同的字符，则需要计算这些字符的数量并进行压缩。</li>
+<li><code>keep_option</code> 开始时为 1（表示至少保留当前字符），并根据连续相同字符的数量来更新。</li>
+</ul>
+</li>
+<li><strong>选择最优解</strong>：<ul>
+<li>最终，比较删除选项和保留选项的结果，选择其中的最小值，并将结果存储到 <code>memo</code> 中。</li>
+</ul>
+</li>
+<li><strong>返回结果</strong>：<ul>
+<li>最后，调用 <code>compress</code> 函数从索引 <code>0</code> 和已删除字符数 <code>0</code> 开始，最终返回字符串的压缩结果。</li>
+</ul>
+</li>
+</ol>
+<h2 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">compressString</span>(<span class="hljs-params">self , s: <span class="hljs-built_in">str</span>, k: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-built_in">int</span>:<br>        n = <span class="hljs-built_in">len</span>(s)<br>        memo = &#123;&#125;<br>        <span class="hljs-keyword">def</span> <span class="hljs-title function_">compress</span>(<span class="hljs-params">idx, deleted</span>):<br>            <span class="hljs-keyword">if</span> idx == n:<br>                <span class="hljs-keyword">return</span> <span class="hljs-number">0</span><br>            <span class="hljs-keyword">if</span> (idx, deleted) <span class="hljs-keyword">in</span> memo:<br>                <span class="hljs-keyword">return</span> memo[(idx, deleted)]<br>            <br>            deleted_option = <span class="hljs-built_in">float</span>(<span class="hljs-string">&#x27;inf&#x27;</span>)<br>            <span class="hljs-keyword">if</span> deleted &lt; k:<br>                deleted_option = compress(idx + <span class="hljs-number">1</span>, deleted + <span class="hljs-number">1</span>)<br>            keep_option = <span class="hljs-number">1</span><br>            count = <span class="hljs-number">1</span><br>            <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(idx + <span class="hljs-number">1</span>, n):<br>                <span class="hljs-keyword">if</span> s[j] == s[idx]:<br>                    count += <span class="hljs-number">1</span><br>                <span class="hljs-keyword">else</span>:<br>                    <span class="hljs-keyword">break</span><br>            <span class="hljs-keyword">if</span> count &gt; <span class="hljs-number">1</span>:<br>                keep_option += <span class="hljs-built_in">len</span>(<span class="hljs-built_in">str</span>(count))<br>            keep_option += compress(idx + count, deleted)<br>            result = <span class="hljs-built_in">min</span>(deleted_option, keep_option)<br>            memo[(idx, deleted)] = result<br>            <span class="hljs-keyword">return</span> result<br>        <br>        <span class="hljs-keyword">return</span> compress(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>)<br></code></pre></td></tr></table></figure>
+
+<h2 id="leetcode官方答案代码"><a href="#leetcode官方答案代码" class="headerlink" title="leetcode官方答案代码"></a>leetcode官方答案代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">getLengthOfOptimalCompression</span>(<span class="hljs-params">self, s: <span class="hljs-built_in">str</span>, k: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-built_in">int</span>:<br>        calc = <span class="hljs-keyword">lambda</span> x: <span class="hljs-number">1</span> <span class="hljs-keyword">if</span> x == <span class="hljs-number">1</span> <span class="hljs-keyword">else</span> (<span class="hljs-number">2</span> <span class="hljs-keyword">if</span> x &lt; <span class="hljs-number">10</span> <span class="hljs-keyword">else</span> (<span class="hljs-number">3</span> <span class="hljs-keyword">if</span> x &lt; <span class="hljs-number">100</span> <span class="hljs-keyword">else</span> <span class="hljs-number">4</span>))<br><br>        n = <span class="hljs-built_in">len</span>(s)<br>        f = [[<span class="hljs-number">10</span>**<span class="hljs-number">9</span>] * (k + <span class="hljs-number">1</span>) <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n + <span class="hljs-number">1</span>)]<br>        f[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>] = <span class="hljs-number">0</span><br>        <br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, n + <span class="hljs-number">1</span>):<br>            <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">min</span>(k, i) + <span class="hljs-number">1</span>):<br>                <span class="hljs-keyword">if</span> j &gt; <span class="hljs-number">0</span>:<br>                    f[i][j] = f[i - <span class="hljs-number">1</span>][j - <span class="hljs-number">1</span>]<br>                same = diff = <span class="hljs-number">0</span><br>                <span class="hljs-keyword">for</span> i0 <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(i, <span class="hljs-number">0</span>, -<span class="hljs-number">1</span>):<br>                    <span class="hljs-keyword">if</span> s[i0 - <span class="hljs-number">1</span>] == s[i - <span class="hljs-number">1</span>]:<br>                        same += <span class="hljs-number">1</span><br>                        f[i][j] = <span class="hljs-built_in">min</span>(f[i][j], f[i0 - <span class="hljs-number">1</span>][j - diff] + calc(same))<br>                    <span class="hljs-keyword">else</span>:<br>                        diff += <span class="hljs-number">1</span><br>                        <span class="hljs-keyword">if</span> diff &gt; j:<br>                            <span class="hljs-keyword">break</span><br>        <span class="hljs-keyword">return</span> f[n][k]<br><br>作者：力扣官方题解<br>链接：https://leetcode.cn/problems/string-compression-ii/solutions/<span class="hljs-number">379042</span>/ya-suo-zi-fu-chuan-ii-by-leetcode-solution/<br>来源：力扣（LeetCode）<br></code></pre></td></tr></table></figure>
+
+<p>我写的时候第一遍直接写的dp，过了15还是16，代码贴一下吧，给大家个错误展示</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">compressString</span>(<span class="hljs-params">self , s: <span class="hljs-built_in">str</span>, k: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-built_in">int</span>:<br>        n = <span class="hljs-built_in">len</span>(s)<br>        dp = [[<span class="hljs-built_in">float</span>(<span class="hljs-string">&#x27;inf&#x27;</span>) * (k + <span class="hljs-number">1</span>) <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n + <span class="hljs-number">1</span>)]]<br>        dp[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>] = <span class="hljs-number">0</span><br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, n + <span class="hljs-number">1</span>):<br>            <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>, k + <span class="hljs-number">1</span>):<br>                <span class="hljs-keyword">if</span> dp[i - <span class="hljs-number">1</span>][j] &lt; <span class="hljs-built_in">float</span>(<span class="hljs-string">&#x27;inf&#x27;</span>):<br>                    <span class="hljs-keyword">if</span> j + <span class="hljs-number">1</span> &lt;= k:<br>                        dp[i][j + <span class="hljs-number">1</span>] = <span class="hljs-built_in">min</span>(dp[i][j + <span class="hljs-number">1</span>], dp[i - <span class="hljs-number">1</span>][j])<br>                    cnt = <span class="hljs-number">0</span><br>                    <span class="hljs-keyword">for</span> m <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(i, n + <span class="hljs-number">1</span>):<br>                        <span class="hljs-keyword">if</span> s[m - <span class="hljs-number">1</span>] == s[i - <span class="hljs-number">1</span>]:<br>                            cnt += <span class="hljs-number">1</span><br>                            cost = <span class="hljs-number">1</span><br>                            <span class="hljs-keyword">if</span> cnt &gt;= <span class="hljs-number">100</span>:<br>                                cost += <span class="hljs-number">3</span><br>                            <span class="hljs-keyword">elif</span> cnt &gt;= <span class="hljs-number">10</span>:<br>                                cost += <span class="hljs-number">2</span><br>                            <span class="hljs-keyword">elif</span> cnt &gt;= <span class="hljs-number">2</span>:<br>                                cost += <span class="hljs-number">1</span><br>                            <span class="hljs-keyword">if</span> j + (m - i) &lt;= k:<br>                                dp[m][j + (m - i)] = <span class="hljs-built_in">min</span>(dp[m][j + (m - i)], dp[i - <span class="hljs-number">1</span>][j] + cost)<br>                        <span class="hljs-keyword">else</span>:<br>                            <span class="hljs-keyword">continue</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">min</span>(dp[n])<br></code></pre></td></tr></table></figure>
+
+<h2 id="时间复杂度-1"><a href="#时间复杂度-1" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>时间复杂度O(n * k)，空间复杂度O(n * k)</p>
+<p>编程两道题就说到这里，如果有同学第二题写出来的一定一定要评论一下，讲讲思路。这题我考场上是真没搞明白😭</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%AC%94%E8%AF%95%E8%AE%B0%E5%BD%95/" class="category-chain-item">笔试记录</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E7%AC%94%E8%AF%95/" class="print-no-link">#笔试</a>
+      
+        <a href="/tags/%E7%AE%97%E6%B3%95%E9%A2%98/" class="print-no-link">#算法题</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>西山居笔试——游戏AI算法A卷</div>
+      <div>https://lx02918.github.io/2024/09/23/西山居笔试记录/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Seth</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年9月23日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/09/11/leetcode-%E5%A0%86/" title="leetcode刷题记录——堆">
+                        <span class="hidden-mobile">leetcode刷题记录——堆</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"pAyQlcbEY6nkOIh5fveIBxLA-gzGzoHsz","appKey":"DjSrQhO4p64SG8qV28lz5J0H","path":"window.location.pathname","placeholder":"Just go go","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
