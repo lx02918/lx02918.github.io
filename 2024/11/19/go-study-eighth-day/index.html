@@ -1,0 +1,1217 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Seth">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="标准库类似于fmt和os的库在Golang中有150+个，被称为标准库（和python的什么math啊，os一样）（附录中D有详细的书里引用的包的列表，书的地址见 go学习记录——第三天  unsafe 包含一个打破 Golang “类型安全”的命令，一般不会使用（估计这辈子用到的概率比彗星撞地球还低）  syscall - os - os&#x2F;exec   os 提供一个与平台无关的操作系统功能接口">
+<meta property="og:type" content="article">
+<meta property="og:title" content="go学习记录——第八天">
+<meta property="og:url" content="https://lx02918.github.io/2024/11/19/go-study-eighth-day/index.html">
+<meta property="og:site_name" content="Seth的小站">
+<meta property="og:description" content="标准库类似于fmt和os的库在Golang中有150+个，被称为标准库（和python的什么math啊，os一样）（附录中D有详细的书里引用的包的列表，书的地址见 go学习记录——第三天  unsafe 包含一个打破 Golang “类型安全”的命令，一般不会使用（估计这辈子用到的概率比彗星撞地球还低）  syscall - os - os&#x2F;exec   os 提供一个与平台无关的操作系统功能接口">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-11-19T05:39:27.000Z">
+<meta property="article:modified_time" content="2024-12-06T15:44:07.106Z">
+<meta property="article:author" content="Seth">
+<meta property="article:tag" content="学习记录">
+<meta property="article:tag" content="go">
+<meta property="article:tag" content="库">
+<meta property="article:tag" content="包">
+<meta property="article:tag" content="锁">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>go学习记录——第八天 - Seth的小站</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"lx02918.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"pAyQlcbEY6nkOIh5fveIBxLA-gzGzoHsz","app_key":"DjSrQhO4p64SG8qV28lz5J0H","server_url":"https://payqlcbe.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Seth的小站" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Seth的小站</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="go学习记录——第八天"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-11-19 13:39" pubdate>
+          星期二, 十一月 19日 2024, 1:39 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          25 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="学习记录"
+        id="heading-7f2ecb9c4d10981cd40468b79a104150" role="tab" data-toggle="collapse" href="#collapse-7f2ecb9c4d10981cd40468b79a104150"
+        aria-expanded="true"
+      >
+        学习记录
+        <span class="list-group-count">(17)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-7f2ecb9c4d10981cd40468b79a104150"
+           role="tabpanel" aria-labelledby="heading-7f2ecb9c4d10981cd40468b79a104150">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="PostgreSQL"
+        id="heading-399bd1ee587245ecac6f39beaa99886f" role="tab" data-toggle="collapse" href="#collapse-399bd1ee587245ecac6f39beaa99886f"
+        aria-expanded="false"
+      >
+        PostgreSQL
+        <span class="list-group-count">(5)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-399bd1ee587245ecac6f39beaa99886f"
+           role="tabpanel" aria-labelledby="heading-399bd1ee587245ecac6f39beaa99886f">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/08/02/postgresql-study-first-day/" title="PostgreSQL学习记录——第一天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">PostgreSQL学习记录——第一天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/06/postgresql-study-third-day/" title="PostgreSQL学习记录——第三天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">PostgreSQL学习记录——第三天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/05/postgresql-study-second-day/" title="PostgreSQL学习记录——第二天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">PostgreSQL学习记录——第二天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/07/postgresql-study-fourth-day/" title="PostgreSQL学习记录——第四天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">PostgreSQL学习记录——第四天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/01/install-postgreSQL/" title="PostgreSQL安装记录及集群初始化失败问题解决"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">PostgreSQL安装记录及集群初始化失败问题解决</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="go"
+        id="heading-34d1f91fb2e514b8576fab1a75a89a6b" role="tab" data-toggle="collapse" href="#collapse-34d1f91fb2e514b8576fab1a75a89a6b"
+        aria-expanded="true"
+      >
+        go
+        <span class="list-group-count">(12)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-34d1f91fb2e514b8576fab1a75a89a6b"
+           role="tabpanel" aria-labelledby="heading-34d1f91fb2e514b8576fab1a75a89a6b">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/08/07/go-study-first-day/" title="go学习记录——第一天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go学习记录——第一天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/15/go-study-seventh-day/" title="go学习记录——第七天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go学习记录——第七天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/09/go-study-third-day/" title="go学习记录——第三天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go学习记录——第三天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/11/20/go-study-ninth-day/" title="go学习记录——第九天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go学习记录——第九天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/08/go-study-second-day/" title="go学习记录——第二天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go学习记录——第二天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/13/go-study-fifth-day/" title="go学习记录——第五天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go学习记录——第五天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/11/19/go-study-eighth-day/" title="go学习记录——第八天"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">go学习记录——第八天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/14/go-study-sixth-day/" title="go学习记录——第六天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go学习记录——第六天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/11/29/go-study-eleventh-day/" title="go学习记录——第十一天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go学习记录——第十一天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/12/01/go-study-twelfth-day/" title="go学习记录——第十二天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go学习记录——第十二天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/11/26/go-study-tenth-day/" title="go学习记录——第十天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go学习记录——第十天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/12/go-study-fourth-day/" title="go学习记录——第四天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go学习记录——第四天</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">go学习记录——第八天</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="标准库"><a href="#标准库" class="headerlink" title="标准库"></a>标准库</h1><p>类似于<code>fmt</code>和<code>os</code>的库在<code>Golang</code>中有150+个，被称为标准库（和python的什么math啊，os一样）（附录中D有详细的书里引用的包的列表，书的地址见 <a href="https://lx02918.github.io/2024/08/09/go-study-third-day/">go学习记录——第三天</a></p>
+<ul>
+<li><p><code>unsafe</code> 包含一个打破 Golang “类型安全”的命令，一般不会使用（估计这辈子用到的概率比彗星撞地球还低）</p>
+</li>
+<li><p><code>syscall</code> - <code>os</code> - <code>os/exec</code> </p>
+<ul>
+<li><p><code>os</code> 提供一个与平台无关的操作系统功能接口，采用类Unix的设计，旨在隐藏不同操作系统之间的差异，使得文件系统和操作系统对象保持一致（<code>os</code>属于对<code>syscall</code>进行了封装，整体会更加快速，简化复杂性，不必顾虑底层细节）。同时在错误处理方面采用了Go风格的错误处理机制，能够在函数返回时提供更多的错误信息而不是简单的错误码</p>
+</li>
+<li><p><code>os/exec</code> 提供我们运行外部操作系统命令和程序的方式（就比如我们可以使用该包连接到<code>PowerShell</code>，然后执行<code>go env</code>命令)</p>
+<p>  示例代码</p>
+  <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>    <span class="hljs-string">&quot;fmt&quot;</span><br>    <span class="hljs-string">&quot;log&quot;</span><br>    <span class="hljs-string">&quot;os/exec&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>    <span class="hljs-comment">// 创建命令对象，指定要执行的PowerShell命令</span><br>    cmd := exec.Command(<span class="hljs-string">&quot;powershell.exe&quot;</span>, <span class="hljs-string">&quot;-Command&quot;</span>, <span class="hljs-string">&quot;go env&quot;</span>)<br><br>    <span class="hljs-comment">// 获取命令的输出</span><br>    output, err := cmd.Output()<br>    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>        log.Fatal(err)<br>    &#125;<br><br>    <span class="hljs-comment">// 打印输出结果</span><br>    fmt.Println(<span class="hljs-type">string</span>(output))<br>&#125;<br><br></code></pre></td></tr></table></figure>
+</li>
+<li><p><code>syscall</code> 底层的外部包，提供了操作系统底层调用的基本接口</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>示例代码</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;syscall&quot;</span><br>)<br><br><span class="hljs-keyword">const</span> LINUX_REBOOT_MAGIC1 <span class="hljs-type">uintptr</span> = <span class="hljs-number">0xfee1dead</span><br><span class="hljs-keyword">const</span> LINUX_REBOOT_MAGIC2 <span class="hljs-type">uintptr</span> = <span class="hljs-number">672274793</span><br><span class="hljs-keyword">const</span> LINUX_REBOOT_CMD_RESTART <span class="hljs-type">uintptr</span> = <span class="hljs-number">0x1234567</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	syscall.Syscall(syscall.SYS_REBOOT,<br>		LINUX_REBOOT_MAGIC1,<br>		LINUX_REBOOT_MAGIC2,<br>		LINUX_REBOOT_CMD_RESTART)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这里需要说明的是原本的<code>syscall.Syscall</code>已经被弃用了，所以我改了一下，使用<code>golang.org/x/sys/unix</code>去完成类似的操作，代码如下</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;golang.org/x/sys/unix&quot;</span><br>)<br><br><span class="hljs-keyword">const</span> (<br>	LINUX_REBOOT_MAGIC1      = <span class="hljs-number">0xfee1dead</span><br>	LINUX_REBOOT_MAGIC2      = <span class="hljs-number">672274793</span><br>	LINUX_REBOOT_CMD_RESTART = <span class="hljs-number">0x1234567</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	unix.Reboot(LINUX_REBOOT_CMD_RESTART)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p><code>archive/tar</code>和<code>compress/gzip </code>压缩（解压缩）文件功能</p>
+</li>
+<li><p><code>fmt</code>-<code>io</code>-<code>bufio</code>-<code>path/filepath</code>-<code>flag</code></p>
+<ul>
+<li><code>fmt</code> 提供格式化输入输出功能（类似于C中的<code>printf</code>和<code>scanf</code>，用法是<code>fmt.Println</code> <code>fmt.Printf</code> <code>fmt.Scan</code> <code>fmt.Scanf</code>）</li>
+<li><code>io</code> 提供基本输入输出功能，主要围绕系统功能的封装（输入输出接口用法<code>Reader</code> <code>Writer</code> 主要是让不同的输入输出流能够通过统一的接口进行操作，常用函数有<code>io.Copy</code> <code>io.ReadAll</code>，主要是是哦不同的输入输出流之间复制数据或读取数据）</li>
+<li><code>bufio</code> 缓冲输入输出功能的封装（缓冲功能就是通过在读取和写入时使用缓冲区，减少对系统调用的次数，提高性能，常用的有<code>bufio.Reader</code> <code>bufio.Writer</code>）</li>
+<li><code>path/filepath</code> 用来操作系统中目标文件名路径（提供了处理文件路径的函数，比如文件的扩展名、合并路径、获取绝对路径等，同时还支持跨平台的处理，比如对Windows和Linux之间的路径分隔符的差异进行处理）</li>
+<li><code>flag</code> 对命令行参数的相关操作（说白了就是对命令行参数的解析，能够允许开发者去定义和解析命令行参数，使得程序能够接收用户传入的参数，常用函数有<code>flag.String</code> <code>flag.Int</code> 等函数去定义不同类型的参数）</li>
+</ul>
+</li>
+<li><p><code>string</code> - <code>strconv</code> - <code>unicode</code> - <code>regexp</code> - <code>bytes</code></p>
+<ul>
+<li><code>string</code> 提供了对字符串进行操作的函数（比如对字符串查找、替换、分割、连接，判断字符串的前后缀，大小写转换等）</li>
+<li><code>strconv</code> 对字符串和基本数据类型进行转化（和python的数据类型转化类似，把字符串转为其他类型，其他类型转字符串）</li>
+<li><code>unicode</code> 提供对 Unicode 字符的处理功能（判断字符是否属于某个类型（字母啊数字啊这些），提供对字符的特定操作）</li>
+<li><code>regexp</code> 提供正则化表达式的支持，用于字符串的模式匹配和操作（查找、替换、验证字符串是否符合某个格式，支持复杂的正则表达式语法）</li>
+<li><code>bytes</code> 提供了对字节切片的操作（有点类似于 <code>string</code>但更注重于字节数据，提供对字节数据的高效处理）</li>
+</ul>
+</li>
+<li><p><code>math</code> - <code>math/cmath</code> - <code>math/rand</code> - <code>sort</code> - <code>math/big</code></p>
+<ul>
+<li><code>math</code> 提供基本数学函数和常数，支持浮点数的各种数学运算（比如三角函数呀（Sin Cos Tan）幂函数呀（Pow Sqrt Log）特殊函数呀（Inf NaN Hypot）都有）</li>
+<li><code>math/cmath</code> 提供处理复数的数学运算，有类似于 <code>math</code> 的函数，但是运用于复数类型的（有一说一除了高考那一道复数题我都八百年没听过这玩意了，好久远的存在）</li>
+<li><code>math/rand</code> 提供伪随机数生成器（和python著名的rand.random类似！我恨随机数，秋招鬼知道多少公司采用随机抽取简历）</li>
+<li><code>sort</code> 提供对切片和自定义集合的排序功能（这玩意我可太熟悉了，python是不是就得来个sort）</li>
+<li><code>math/big</code> 对大数进行运算（比如<code>big.Int</code>整数运算<code>big.Float</code>高精度浮点数运算<code>big.Rat</code>有理数运算）</li>
+</ul>
+</li>
+<li><p><code>container/list</code> - <code>ring</code> - <code>heap</code></p>
+<ul>
+<li><code>container/list</code> 主要是实现双向链表的数据结构（每个节点分别包含一个指向前和指向后的指针，常用方法有 <code>PushBack(value)</code>尾部添加元素 <code>PushFront(value)</code>头部添加元素 <code>Remove(element)</code>删除指定元素 <code>Init()</code>初始化链表）</li>
+<li><code>container/ring</code> 主要是实现环形链表的数据结构（最后一个节点指向第一个节点，适合循环访问元素的场景，常用方法有<code>Next()</code>返回下一个元素 <code>Prev()</code>返回前一个元素 <code>Value</code>获取或设置当前节点的值）</li>
+<li><code>container/heap</code> 主要是实现堆数据结构（用于实现优先队列，Golang的堆是基于<code>sort.Interfacce</code>实现的，允许用户定义自己的数据类型并实现相应的接口，常用方法<code>Init(h)</code>初始化堆 <code>Push(h, x)</code>向堆中加入元素 <code>Pop(h)</code>从堆中移除并返回最小(或最大)元素）</li>
+</ul>
+</li>
+<li><p><code>time</code> - <code>log</code></p>
+<ul>
+<li><code>time</code> 提供了对时间和日期的基本操作，包含了获取当前时间、时间格式化、时间计算等（<code>time.Now()</code>获取当前时间 <code>time.Format()</code>时间格式化为字符串 <code>time.Parse()</code>字符串解析为时间）</li>
+<li><code>log</code> 提供了简单的日志记录功能，允许开发者在程序允许时记录信息、错误和调试信息（<code>log.Print()</code> <code>log.Println()</code> <code>log.Printf()</code>记录信息 <code>log.Fantal()</code> <code>log.Panic()</code>记录错误并终止 <code>log.SetPrifix()</code> <code>log.SetFlags()</code>自定义日志输出格式</li>
+</ul>
+</li>
+<li><p><code>encoding/json/xml</code> - <code>text/template</code></p>
+<ul>
+<li><code>encoding/json</code> 用于处理<code>JSON</code>数据的编码和解码（<code>json.Marshal(v interface&#123;&#125;)</code>将数据结构编码为JSON格式 <code>json.Unmarshal(data []byte, v interface&#123;&#125;)</code>将<code>JSON</code>数据解码到指定的<code>Go</code>的数据结构中</li>
+<li><code>encoding/xml</code> 提供了对<code>xml</code>数据的编码和解码功能（<code>xml/Marshal(v interface&#123;&#125;)</code>将数据结构编码为XML格式 <code>xml.Unmarshal(date []byte, v interface&#123;&#125;)</code>将XML数据编码到指定的<code>Go</code>数据结构中</li>
+</ul>
+</li>
+<li><p><code>net</code> - <code>net/http</code> - <code>html</code> </p>
+<ul>
+<li><code>net</code> 用于网络编程呢的核心组件，提供了对网络I&#x2F;O的基本操作，包括TCP、UDP、域名解析等（通过<code>Dial</code>和<code>Listen</code>函数创建TCP或UDP链接，用<code>net.LookupHost</code> <code>net.ResolveIPAddr</code>等函数进行域名解析）</li>
+<li><code>net/http</code> 提供了HTTP客户端和服务器的实现，支持处理HTTP请求和响应（<code>http.ListenAndServer</code>启动HTTP服务处理客户端请求 <code>hettp.Get</code> <code>http.Post</code>等方法发起HTTP请求 <code>http.Request</code> <code>http.ResponseWriter</code>处理请求和响应）</li>
+</ul>
+</li>
+<li><p><code>runtime</code></p>
+<ul>
+<li>垃圾回收（GC）负责自动管理内存，回收不用的对象（这里我的理解是和python的类似，问了下AI给了个表）</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Go</th>
+<th>Python</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>策略</td>
+<td>三色标记-清除算法（分为黑白灰三类，白潜在，灰被检查，黑确定清除）</td>
+<td>引用计数</td>
+</tr>
+<tr>
+<td>回收机制</td>
+<td>并发回收（垃圾回收与程序执行并发进行）</td>
+<td>标记-清除和分代回收</td>
+</tr>
+<tr>
+<td>相似之处</td>
+<td>旨在自动管理内存，减少内存泄露风险</td>
+<td>都是用标记-清除来识别不再使用的对象</td>
+</tr>
+<tr>
+<td>不同之处</td>
+<td>并发操作</td>
+<td>为即时处理，可能会导致出现程序暂停</td>
+</tr>
+</tbody></table>
+<ul>
+<li>协程创建与管理，使用关键词<code>go</code>即可创建新的协程并进行调度控制等操作</li>
+</ul>
+</li>
+<li><p><code>reflect</code> 实现通过程序允许时反射，让程序操作任意类型的变量</p>
+</li>
+</ul>
+<h1 id="regexp包"><a href="#regexp包" class="headerlink" title="regexp包"></a>regexp包</h1><p>简单模式的话可以直接使用<code>Match()</code>方法</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">ok, _ := regexp.Match(pat, []<span class="hljs-type">byte</span>(searchIn))<br></code></pre></td></tr></table></figure>
+
+<p>变量<code>ok</code>将返回<code>true</code> or <code>false</code>，也可以使用<code>MatchString()</code></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">ok, _ := regexp.MatchString(pat, searchIn)<br></code></pre></td></tr></table></figure>
+
+<p>下面将使用<code>Compile()</code>方法返回一个<code>Regexp</code>对象，并且涉及到匹配、查找、替换<br>示例代码：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;regexp&quot;</span><br>	<span class="hljs-string">&quot;strconv&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	searchIn := <span class="hljs-string">&quot;John: 2578.34 William: 4567.23 Steve: 5632.18&quot;</span><br>	pat := <span class="hljs-string">&quot;[0-9]+.[0-9]+&quot;</span><br><br>	f := <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(s <span class="hljs-type">string</span>)</span></span> <span class="hljs-type">string</span> &#123;<br>		v, _ := strconv.ParseFloat(s, <span class="hljs-number">32</span>)<br>		<span class="hljs-keyword">return</span> strconv.FormatFloat(v*<span class="hljs-number">2</span>, <span class="hljs-string">&#x27;f&#x27;</span>, <span class="hljs-number">2</span>, <span class="hljs-number">32</span>)<br>	&#125;<br>	<span class="hljs-keyword">if</span> ok, _ := regexp.Match(pat, []<span class="hljs-type">byte</span>(searchIn)); ok &#123;<br>		fmt.Println(<span class="hljs-string">&quot;Match Found&quot;</span>)<br>	&#125;<br>	re, _ := regexp.Compile(pat)<br>	str := re.ReplaceAllString(searchIn, <span class="hljs-string">&quot;##.#&quot;</span>)<br>	fmt.Println(str)<br>	str2 := re.ReplaceAllStringFunc(searchIn, f)<br>	fmt.Println(str2)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>输出结果</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs text">Match Found<br>John: ##.# William: ##.# Steve: ##.#<br>John: 5156.68 William: 9134.46 Steve: 11264.36<br></code></pre></td></tr></table></figure>
+
+<p>除了<code>Compile()</code>我们还可以使用<code>MustComplie()</code>，这个方法会去检查我们正则的有效性，如果不合法时将<code>panic()</code>。换句话说，<code>Compile()</code>是可能返回错误的</p>
+<h1 id="锁和sync包"><a href="#锁和sync包" class="headerlink" title="锁和sync包"></a>锁和sync包</h1><p>看到锁就想到了SQL里在面试的时候最怕也是最烦的锁相关问题，呕，但是继续学吧。</p>
+<p>当我们遇到未知变量对我们已经固定好的线程顺序进行了修改（也就是资源抢夺，多个线程对同一变量使用进行抢夺），接下来就要说怎么去解决。</p>
+<p>最经典的做法就是一次只允许一个线程对共享变量进行操作。当变量被一个线程改变时，我们就需要上锁（这不就是排他锁吗），直到我们该线程完成执行后解锁，其他线程才能进行访问。</p>
+<p>在前面接触的<code>map</code>中就不存在锁机制，由于其需要考虑性能，所以并没有该类设计。所以<code>map</code>类型数据在并行被访问时就有可能出错。</p>
+<p>一般来说的解决方案就是两种，<code>sync.Mutex</code> 和 <code>sync.RWMutex</code>，但是在Go 1.9中引入了<code>sync.map</code>，一个专为并发设计的<code>map</code>。</p>
+<h2 id="sync-Mutex"><a href="#sync-Mutex" class="headerlink" title="sync.Mutex"></a><code>sync.Mutex</code></h2><p>这个其实就是我们所说的排他锁（互斥锁），作用就是在临界区对同一时间能够进入的线程数进行控制（只允许一个）。</p>
+<p>现在，假设<code>info</code>是一个需要上锁的在共享内存中的变量</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;sync&quot;</span><br><span class="hljs-keyword">type</span> Info <span class="hljs-keyword">struct</span> &#123;<br>    mu sync.Mutex<br>    <span class="hljs-comment">// ... other</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>然后如果想改变变量可以写</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Update</span><span class="hljs-params">(info *Info)</span></span> &#123;<br>    info.mu.Lock()<br>    <span class="hljs-comment">// critical section:</span><br>    info.Str = <span class="hljs-comment">// new value</span><br>    <span class="hljs-comment">//end critical section</span><br>    info.mu.UnLock()<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>还有一个例子是通过<code>Mutex</code>来实现一个可以上锁的共享缓冲器</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> SyncedBuffer <span class="hljs-keyword">struct</span> &#123;<br>    lock sync.Mutex<br>    buffer bytes.Buffer<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这个结构体的整体就是有一个排他锁去保证<code>buffer</code>能够在任何时刻只被一个<code>goroutine</code>访问，而缓冲器则是提供了动态增长的字节切片，适合高效的字节拼读和读取。</p>
+<p>再回到我们的<code>sync</code>来，在这里面还有一个<code>RWMutex</code>锁，也是前面提到过的，主要作用就是在同一时间允许多线程访问但只允许单线程进行写操作。还有<code>Lock()</code>和一般的<code>Mutex</code>的作用是一样的。包里还有一个<code>Once</code>类型变量的方法<code>once.Do(call)</code>这个方法是确保被调用函数只能被调用一次（莫名想到了之前写的一个python的东西）</p>
+<p>综上所述，一般情况下<code>snyc</code>包可以解决同一时间只能一个线程访问变量或<code>map</code>类型数据的问题，但是涉及到程序运行速度变慢或其他问题，我们又需要去思考其他解决办法，书里给的是通过<code>goroutines</code> or <code>channels</code>去解决，不过这部分得在后面才有，咱就先写一下，后面再说。</p>
+<p>今天就先到这里吧，package的东西还有点多，明儿再学</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" class="category-chain-item">学习记录</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/go/" class="category-chain-item">go</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" class="print-no-link">#学习记录</a>
+      
+        <a href="/tags/go/" class="print-no-link">#go</a>
+      
+        <a href="/tags/%E5%BA%93/" class="print-no-link">#库</a>
+      
+        <a href="/tags/%E5%8C%85/" class="print-no-link">#包</a>
+      
+        <a href="/tags/%E9%94%81/" class="print-no-link">#锁</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>go学习记录——第八天</div>
+      <div>https://lx02918.github.io/2024/11/19/go-study-eighth-day/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Seth</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年11月19日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/11/20/go-study-ninth-day/" title="go学习记录——第九天">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">go学习记录——第九天</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/09/28/%E7%BD%91%E6%98%93%E7%AC%94%E8%AF%95/" title="网易笔试——算法卷">
+                        <span class="hidden-mobile">网易笔试——算法卷</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"pAyQlcbEY6nkOIh5fveIBxLA-gzGzoHsz","appKey":"DjSrQhO4p64SG8qV28lz5J0H","path":"window.location.pathname","placeholder":"Just go go","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

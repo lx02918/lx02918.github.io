@@ -1,0 +1,1162 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Seth">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="精密计算和big包众所周知编程实现的计算一般来说是不准确的，会出现float64的最多15位等等情况。而当我们对精度有非常严格的要求的时候就不能使用浮点数了，毕竟在内存里是近似表示的。 那么我们就得用自带的big包，这个是包含在math包下的。举几个例子  big.Int 用来表示大整数 big.Rat用来表示大有理数（可以表示分数2&#x2F;5或者小数3.1415926，不能表示π这种无理数）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="go学习记录——第九天">
+<meta property="og:url" content="https://lx02918.github.io/2024/11/20/go-study-ninth-day/index.html">
+<meta property="og:site_name" content="Seth的小站">
+<meta property="og:description" content="精密计算和big包众所周知编程实现的计算一般来说是不准确的，会出现float64的最多15位等等情况。而当我们对精度有非常严格的要求的时候就不能使用浮点数了，毕竟在内存里是近似表示的。 那么我们就得用自带的big包，这个是包含在math包下的。举几个例子  big.Int 用来表示大整数 big.Rat用来表示大有理数（可以表示分数2&#x2F;5或者小数3.1415926，不能表示π这种无理数）">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-11-20T08:35:01.000Z">
+<meta property="article:modified_time" content="2024-12-06T15:47:01.019Z">
+<meta property="article:author" content="Seth">
+<meta property="article:tag" content="学习记录">
+<meta property="article:tag" content="go">
+<meta property="article:tag" content="包">
+<meta property="article:tag" content="自定义包">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>go学习记录——第九天 - Seth的小站</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"lx02918.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"pAyQlcbEY6nkOIh5fveIBxLA-gzGzoHsz","app_key":"DjSrQhO4p64SG8qV28lz5J0H","server_url":"https://payqlcbe.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Seth的小站" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Seth的小站</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="go学习记录——第九天"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-11-20 16:35" pubdate>
+          星期三, 十一月 20日 2024, 4:35 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          20 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="学习记录"
+        id="heading-7f2ecb9c4d10981cd40468b79a104150" role="tab" data-toggle="collapse" href="#collapse-7f2ecb9c4d10981cd40468b79a104150"
+        aria-expanded="true"
+      >
+        学习记录
+        <span class="list-group-count">(17)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-7f2ecb9c4d10981cd40468b79a104150"
+           role="tabpanel" aria-labelledby="heading-7f2ecb9c4d10981cd40468b79a104150">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="PostgreSQL"
+        id="heading-399bd1ee587245ecac6f39beaa99886f" role="tab" data-toggle="collapse" href="#collapse-399bd1ee587245ecac6f39beaa99886f"
+        aria-expanded="false"
+      >
+        PostgreSQL
+        <span class="list-group-count">(5)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-399bd1ee587245ecac6f39beaa99886f"
+           role="tabpanel" aria-labelledby="heading-399bd1ee587245ecac6f39beaa99886f">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/08/02/postgresql-study-first-day/" title="PostgreSQL学习记录——第一天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">PostgreSQL学习记录——第一天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/06/postgresql-study-third-day/" title="PostgreSQL学习记录——第三天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">PostgreSQL学习记录——第三天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/05/postgresql-study-second-day/" title="PostgreSQL学习记录——第二天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">PostgreSQL学习记录——第二天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/07/postgresql-study-fourth-day/" title="PostgreSQL学习记录——第四天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">PostgreSQL学习记录——第四天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/01/install-postgreSQL/" title="PostgreSQL安装记录及集群初始化失败问题解决"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">PostgreSQL安装记录及集群初始化失败问题解决</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="go"
+        id="heading-34d1f91fb2e514b8576fab1a75a89a6b" role="tab" data-toggle="collapse" href="#collapse-34d1f91fb2e514b8576fab1a75a89a6b"
+        aria-expanded="true"
+      >
+        go
+        <span class="list-group-count">(12)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-34d1f91fb2e514b8576fab1a75a89a6b"
+           role="tabpanel" aria-labelledby="heading-34d1f91fb2e514b8576fab1a75a89a6b">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/08/07/go-study-first-day/" title="go学习记录——第一天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go学习记录——第一天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/15/go-study-seventh-day/" title="go学习记录——第七天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go学习记录——第七天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/09/go-study-third-day/" title="go学习记录——第三天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go学习记录——第三天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/11/20/go-study-ninth-day/" title="go学习记录——第九天"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">go学习记录——第九天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/08/go-study-second-day/" title="go学习记录——第二天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go学习记录——第二天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/13/go-study-fifth-day/" title="go学习记录——第五天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go学习记录——第五天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/11/19/go-study-eighth-day/" title="go学习记录——第八天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go学习记录——第八天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/14/go-study-sixth-day/" title="go学习记录——第六天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go学习记录——第六天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/11/29/go-study-eleventh-day/" title="go学习记录——第十一天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go学习记录——第十一天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/12/01/go-study-twelfth-day/" title="go学习记录——第十二天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go学习记录——第十二天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/11/26/go-study-tenth-day/" title="go学习记录——第十天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go学习记录——第十天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/12/go-study-fourth-day/" title="go学习记录——第四天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go学习记录——第四天</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">go学习记录——第九天</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="精密计算和big包"><a href="#精密计算和big包" class="headerlink" title="精密计算和big包"></a>精密计算和big包</h1><p>众所周知编程实现的计算一般来说是不准确的，会出现<code>float64</code>的最多15位等等情况。而当我们对精度有非常严格的要求的时候就不能使用浮点数了，毕竟在内存里是近似表示的。</p>
+<p>那么我们就得用自带的<code>big</code>包，这个是包含在<code>math</code>包下的。举几个例子</p>
+<ul>
+<li><code>big.Int</code> 用来表示大整数</li>
+<li><code>big.Rat</code>用来表示大有理数（可以表示分数2&#x2F;5或者小数3.1415926，不能表示π这种无理数）</li>
+<li><code>big.NewInt(n)</code>用来表示大的整型数字，其中<code>n</code>为<code>int64</code>类型整数</li>
+<li><code>big.NewRat(n, d)</code>用来构造大有理数，其中<code>n</code>为分母<code>d</code>为分子，且均为<code>init64</code>类型</li>
+</ul>
+<p>前面提到的数字类型其实包含了我们常见的所有数字类型，不管是整数浮点数有理数都算，只要我们的内存够大够能装，实际上都是可以装得下的能够运行的。但是这里需要说明的是由于更大的内存需要更多的开销，故而处理时间上来看会比我们内置的数字类型慢很多（当然客户不介意时间的话那就无所谓了）。</p>
+<p>由于<code>Golang</code>不支持运算符重载，所以所有的大数字类型都有像<code>Add()</code> <code>Mul()</code>这些方法，主要作用就是作为<code>receiver</code>的整数和有理数，大多数情况下它们会修改<code>receiver</code>并以<code>reciver</code>作为返回结果。由于没必要创建<code>big.Int</code>类型的临时变量来存放中间结果，所以运算可以被链式的调用，故而可以节省内存（再牵扯到前面的消耗内存，这不妥妥风险对冲）</p>
+<p>示例：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;math&quot;</span><br>	<span class="hljs-string">&quot;math/big&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-comment">// Here are some calculations with bigInts:</span><br>	im := big.NewInt(math.MaxInt64)<br>	in := im<br>	io := big.NewInt(<span class="hljs-number">1</span>)<br>	ip := big.NewInt(<span class="hljs-number">1956</span>)<br>	ip.Mul(im, in).Add(ip, im).Div(ip, io)<br>	fmt.Printf(<span class="hljs-string">&quot;BIg Int: %v\n&quot;</span>, ip)<br>	<span class="hljs-comment">// Here are some calculations with bigInts:</span><br>	rm := big.NewRat(math.MaxInt64, <span class="hljs-number">1956</span>)<br>	rn := big.NewRat(<span class="hljs-number">-1956</span>, math.MaxInt64)<br>	ro := big.NewRat(<span class="hljs-number">19</span>, <span class="hljs-number">56</span>)<br>	rp := big.NewRat(<span class="hljs-number">1111</span>, <span class="hljs-number">2222</span>)<br>	rq := big.NewRat(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>)<br>	rq.Mul(rm, rn).Add(rq, ro).Mul(rq, rp)<br>	fmt.Printf(<span class="hljs-string">&quot;Big Rat: %v\n&quot;</span>, rq)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>输出结果：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs text">BIg Int: 85070591730234615856620279821087277056<br>Big Rat: -37/112<br></code></pre></td></tr></table></figure>
+
+<h1 id="自定义包和可见性"><a href="#自定义包和可见性" class="headerlink" title="自定义包和可见性"></a>自定义包和可见性</h1><p>这部分就是说下怎么去写自己的包</p>
+<p>首先命名需要使用不含<code>_</code>的小写字母来命名，这里举一个小例子（抄的），以此来说明包是如何相互调用以及可见性是如何实现的。</p>
+<p>在目录下有个叫<code>package_mytest.go</code>（<a target="_blank" rel="noopener" href="https://github.com/unknwon/the-way-to-go_ZH_CN/tree/master/eBook/examples/chapter_9/book">address</a>）的程序，其使用了自定义包<code>pack1</code>中的<code>pack1.go</code>的代码，最后是生成了<code>pack1.a</code>并存放在<code>pack1</code>目录下。</p>
+<p>示例<a target="_blank" rel="noopener" href="https://github.com/unknwon/the-way-to-go_ZH_CN/blob/master/eBook/examples/chapter_9/book/pack1/pack1.go">pack1.go</a></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> pack1<br><span class="hljs-keyword">var</span> Pack1Int <span class="hljs-type">int</span> = <span class="hljs-number">42</span><br><span class="hljs-keyword">var</span> Pack1Float = <span class="hljs-number">3.14</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">ReturnStr</span><span class="hljs-params">()</span></span> <span class="hljs-type">string</span>&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Hello main!&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这个就包含了一个整型变量<code>Pack1Int</code>和一个返回字符串的函数<code>ReturnStr</code>，由于没有<code>main</code>函数，所以运行了也无事发生。</p>
+<p>在主程序<code>package_mytest.go</code>中这个包通过声明被导入</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;./pack1&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>import的一般格式如下：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">import “包的路径或URL地址”<br></code></pre></td></tr></table></figure>
+
+<p>for example: </p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">import &quot;github.com/org1/pack1&quot;<br></code></pre></td></tr></table></figure>
+
+<p>路径指的是目录的相对路径</p>
+<p>示例<a target="_blank" rel="noopener" href="https://github.com/unknwon/the-way-to-go_ZH_CN/blob/master/eBook/examples/chapter_9/book/package_mytest.go">package_mytest.go</a></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;myproject/chapter9/pack1&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-keyword">var</span> test1 <span class="hljs-type">string</span><br>	test1 = pack1.ReturnStr()<br>	fmt.Printf(<span class="hljs-string">&quot;ReturnStr from package1: %s\n&quot;</span>, test1)<br>	fmt.Printf(<span class="hljs-string">&quot;integer from package1: %d\n&quot;</span>, pack1.Pack1Int)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>输出结果：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs text">ReturnStr from package1: Hello main!<br>integer from package1: 42<br></code></pre></td></tr></table></figure>
+
+<p>根据实际检验，<code>./pack1</code>引用嘎嘎报错，所以还是老老实实写绝对路径吧。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">fmt.Printf(<span class="hljs-string">&quot;Float from package1: %f/n&quot;</span>, pack1.pack1Float)<br></code></pre></td></tr></table></figure>
+
+<p>上述代码试图访问一个没有引用的变量或函数，就会报错（有一说一，这个错误我前面遇到了，忘记加引用了）</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">cannot refer to unexported name pack1.pack1Float<br></code></pre></td></tr></table></figure>
+
+<p>需要注意的是，主程序利用的包都需要在主程序之前被编译，且主程序中引用的每个东西都需要以<code>pack1.Item</code>的形式来使用。</p>
+<p>在使用<code>.</code>作为别名时，可以不通过包名来使用其中的项目，例如<code>test := ReturenStr()</code></p>
+<p>具体形式为</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">import</span> . <span class="hljs-string">&quot;myproject/chapter9/pack1&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>然后在使用<code>_</code>作为别名时将导入包的副作用（没明白，我猜大概是只对包内容进行初始化，然后主程序无法进行调用相关函数或变量，不确定后面再研究研究）</p>
+<h2 id="导入外部安装包"><a href="#导入外部安装包" class="headerlink" title="导入外部安装包"></a>导入外部安装包</h2><p>如果想在程序中引入一个或多个外部包，就必须使用<code>go install</code>在本地机器上进行安装。</p>
+<p>如果想使用被托管在<code>Github</code> <code>Google Code</code> <code>Launchpad</code>上的包，则需要使用类似如下命令：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">go install codesite.ext/author/goExample/goex<br></code></pre></td></tr></table></figure>
+
+<p>将一个名为<code>codesite.ext/author/goExample/goex</code>的map安装在<code>$GOROOT/src/</code>目录下</p>
+<p>通过这种方式一次性安装并导入代码</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">import</span> goex <span class="hljs-string">&quot;codesite.exit/author/goExample/goex&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>综上，如果想使用被托管的包，则需要使用URL作为路径，并将包名放在路径前。</p>
+<h2 id="包的初始化"><a href="#包的初始化" class="headerlink" title="包的初始化"></a>包的初始化</h2><p>程序的执行开始于包，初始化<code>main</code>包然后调用<code>main()</code>函数。</p>
+<p>在一个包中，可能有多个<code>init()</code>函数，且他们的执行是无序的。</p>
+<p><code>init()</code>函数是不能被调用的（只是不能被我们显性调用，他会在包被导入时自动被调用，故而我们在代码中是不能直接写<code>init()</code>来调用的。</p>
+<p>导入的包在包自身被初始化前被初始化（当前包导入了其他包，则在当前包被初始化前其他包会先被初始化，其中包括分配包级变量的初始值和被导入包中的<code>init()</code>函数。在被导入包初始化完成后，当前包才会进行初始化）</p>
+<h1 id="为自定义包使用godoc"><a href="#为自定义包使用godoc" class="headerlink" title="为自定义包使用godoc"></a>为自定义包使用godoc</h1><p><code>godoc</code>工具在显示自定义包中的注释也有很好的效果（虽然但是，那部分内容我是学的别的教程的，后续再补吧，先贴个链接<a target="_blank" rel="noopener" href="https://github.com/unknwon/the-way-to-go_ZH_CN/blob/master/eBook/03.6.md">第3.6节</a>）；注释必须以<code>//</code>开始并无空行放在声明前（包，类型，函数）。<code>godoc</code>会为每个文件生成一系列的网页。</p>
+<p>例如：</p>
+<ul>
+<li>在<a target="_blank" rel="noopener" href="https://github.com/unknwon/the-way-to-go_ZH_CN/tree/master/eBook/examples/chapter_9/doc_example">doc_examples</a>目录下有<a target="_blank" rel="noopener" href="https://github.com/unknwon/the-way-to-go_ZH_CN/blob/master/eBook/11.7.md">第11.7节</a>中的用来排序的go文件，文件中有一些煮熟（文件需未编译）</li>
+<li>命令行输入<code>godoc -http=:6060 -goroot=&quot;.&quot;</code>（<code>.</code>指当前路径，<code>-goroot</code>参数可以是<code>/path/to/my/package1</code>这样的形式指出<code>package1</code>在源码中的位置或接受用冒号形式分隔的路径，吴根目录的路径为相对于当前路径的相对路径）</li>
+<li>浏览器打开<code>https://localhost:6060</code></li>
+</ul>
+<p>完成后就能看到本地的<code>godoc</code>页面，从左到右依次显示出目录中的包</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs text">doc_example:<br><br>doc_example | Packages | Commands | Specification<br></code></pre></td></tr></table></figure>
+
+<p>下面是链接到源码和所有对象时有序概述（很好的浏览和查询源代码的方式），连同文件&#x2F;注释</p>
+<p><code>sort</code>包</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Float64sAreSorted</span></span><br><br><span class="hljs-keyword">type</span> IntArray<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">IntsAreSortedfunc</span> <span class="hljs-title">IsSortedfunc</span> <span class="hljs-title">Sort</span></span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(IntArray)</span></span> Len<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">SortFloat64s</span></span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(IntArray)</span></span> Less<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">SortInts</span></span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(IntArray)</span></span> Swap<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">SortStrings</span> <span class="hljs-title">type</span> <span class="hljs-title">Interface</span></span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">StringsAreSorted</span> <span class="hljs-title">type</span> <span class="hljs-title">StringArray</span> <span class="hljs-title">type</span> <span class="hljs-title">Float64Array</span></span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(StringArray)</span></span> Len<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(Float64Array)</span></span> Len<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(StringArray)</span></span> Less<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(Float64Array)</span></span> Less<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(StringArray)</span></span> Swap<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(Float64Array)</span></span> Swap<br><br><span class="hljs-comment">// Other packages</span><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;doc_example&quot;</span> <br></code></pre></td></tr></table></figure>
+
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs text">func Float64sAreSorted[Top]<br>func Float64sAreSorted(a []float64) bool<br><br>func IntsAreSorted[Top]<br>func IntsAreSorted(a []int) bool<br><br>func IsSorted[Top]<br>func IsSorted(data Interface) bool<br>Test if data is sorted<br><br>func Sort[Top]<br>func Sort(data Interface)<br>General sort function<br><br>func SortInts[Top]<br>func SortInts(a []int)<br><br>Convenience wrappers for common cases: type IntArray[Top]<br>Convenience types for common cases: IntArray type IntArray []int  <br></code></pre></td></tr></table></figure>
+
+<p>如果在团队内，将源代码树存储在网络硬盘上，就可以使用godoc给所有团队成员连续支持文档。通过设置<code>sync_minutues = n</code>，就可以设置为每<code>n</code>分钟更新一次</p>
+<h1 id="使用-go-install-安装自定义包"><a href="#使用-go-install-安装自定义包" class="headerlink" title="使用 go install 安装自定义包"></a>使用 go install 安装自定义包</h1><p><code>go install</code>是 Go 中自动包安装工具，如果需要将包安装到本地它就会从远端仓库下载包：检出、编译和安装一气呵成。</p>
+<p>在包安装之前的先决条件是要自动处理包自身依赖关系的安装（和python倒是一样，不过python通过<code>pip</code>或者<code>coda</code>安装都会自动去得到没安装的依赖包然后安装）</p>
+<p><code>go install</code>使用了<code>GOPATH</code>变量（参考<a target="_blank" rel="noopener" href="https://github.com/unknwon/the-way-to-go_ZH_CN/blob/master/eBook/02.2.md">第2.2节</a>）</p>
+<p>远端包（参考前面内容）</p>
+<p>假设我们要安装<code>tideland</code>（包含了很多帮助示例，参考<a target="_blank" rel="noopener" href="http://code.google.com/p/tideland-cgl">项目主页</a>）</p>
+<p>由于我们需要创建目录在 Go 安装目录下，所以我们需要使用到<code>root</code> or <code>su</code>（Linux的，不知道的叉出去）</p>
+<p>确保 Go 环境变量已经设置在 root 用户下的 <code>./bashrc</code>文件中（好熟悉的东西，之前搞Java也设置过，没写过Java，就是因为Spark和Hadoop要用）。</p>
+<p>使用命令<code>go install tideland-cgl.googlecode.com/hg</code>进行安装。</p>
+<p>可执行文件<code>hg.a</code>被放在了<code>$GOROOT/pkg/linux_amd64/tideland-cgl.googlecode.com</code>目录下，源码文件被放在了 <code>$GOROOT/src/tideland-cgl.googlecode.com/hg</code> 目录下，同样也有 <code>hg.a </code>放置在 <code>_obj</code>的子目录下。</p>
+<p>现在就可以在 Go 的代码中使用包中的功能了，就比如使用报名<code>cgl</code>导入</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">import</span> cgl <span class="hljs-string">&quot;tideland-cgl.googlecode.com/hg&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>从Go 1开始 <code>go install</code> 安装Google Code 的导入路径形式是 <code>&quot;code.google.com/p/tideland-cgl&quot;</code> </p>
+<p>升级到新版本的 Go 之后本地安装包的二进制文件将被全部删除。如果想更新，重编译、重安装所有的 Go 安装包可以使用：</p>
+<p><code>go install -a</code>。</p>
+<p>由于 Go 的版本发布的非常频繁，所以还是需要注意发布版本和包的兼容性的（python实在不行搞个coda虚拟环境还能设置个指定版本，go不知道有没有类似的功能，理论上应该有吧）。Go 1之后都是自己编译自己了</p>
+<p><code>go install</code> 同样可以使用 <code>go install</code> 编译链接并安装本地自己的包（详细见下一节）</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" class="category-chain-item">学习记录</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/go/" class="category-chain-item">go</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" class="print-no-link">#学习记录</a>
+      
+        <a href="/tags/go/" class="print-no-link">#go</a>
+      
+        <a href="/tags/%E5%8C%85/" class="print-no-link">#包</a>
+      
+        <a href="/tags/%E8%87%AA%E5%AE%9A%E4%B9%89%E5%8C%85/" class="print-no-link">#自定义包</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>go学习记录——第九天</div>
+      <div>https://lx02918.github.io/2024/11/20/go-study-ninth-day/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Seth</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年11月20日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/11/26/go-study-tenth-day/" title="go学习记录——第十天">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">go学习记录——第十天</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/11/19/go-study-eighth-day/" title="go学习记录——第八天">
+                        <span class="hidden-mobile">go学习记录——第八天</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"pAyQlcbEY6nkOIh5fveIBxLA-gzGzoHsz","appKey":"DjSrQhO4p64SG8qV28lz5J0H","path":"window.location.pathname","placeholder":"Just go go","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

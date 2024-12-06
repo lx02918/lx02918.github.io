@@ -1,0 +1,1180 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Seth">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="自定义包的目录结构、go install 和 go test书里为了示范搞了个名为 uc 的简单包，含有一个 UpperCase 函数将字符串的所有字母转换为大写。 自定义包的目录结构下面给了一个已经弄好的示范（ uc 表示通用包名，名字为粗体的代表目录，斜体表示可执行文件。结果上传之后压根没显示，给个链接大家需要的话自己去看uc） 1234567891011121314151617&#x2F;home&#x2F;u">
+<meta property="og:type" content="article">
+<meta property="og:title" content="go学习记录——第十天">
+<meta property="og:url" content="https://lx02918.github.io/2024/11/26/go-study-tenth-day/index.html">
+<meta property="og:site_name" content="Seth的小站">
+<meta property="og:description" content="自定义包的目录结构、go install 和 go test书里为了示范搞了个名为 uc 的简单包，含有一个 UpperCase 函数将字符串的所有字母转换为大写。 自定义包的目录结构下面给了一个已经弄好的示范（ uc 表示通用包名，名字为粗体的代表目录，斜体表示可执行文件。结果上传之后压根没显示，给个链接大家需要的话自己去看uc） 1234567891011121314151617&#x2F;home&#x2F;u">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-11-26T09:47:30.000Z">
+<meta property="article:modified_time" content="2024-12-06T15:50:51.074Z">
+<meta property="article:author" content="Seth">
+<meta property="article:tag" content="学习记录">
+<meta property="article:tag" content="go">
+<meta property="article:tag" content="包">
+<meta property="article:tag" content="自定义包">
+<meta property="article:tag" content="Git">
+<meta property="article:tag" content="外部包">
+<meta property="article:tag" content="外部库">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>go学习记录——第十天 - Seth的小站</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"lx02918.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"pAyQlcbEY6nkOIh5fveIBxLA-gzGzoHsz","app_key":"DjSrQhO4p64SG8qV28lz5J0H","server_url":"https://payqlcbe.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Seth的小站" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Seth的小站</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="go学习记录——第十天"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-11-26 17:47" pubdate>
+          星期二, 十一月 26日 2024, 5:47 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          12 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="学习记录"
+        id="heading-7f2ecb9c4d10981cd40468b79a104150" role="tab" data-toggle="collapse" href="#collapse-7f2ecb9c4d10981cd40468b79a104150"
+        aria-expanded="true"
+      >
+        学习记录
+        <span class="list-group-count">(17)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-7f2ecb9c4d10981cd40468b79a104150"
+           role="tabpanel" aria-labelledby="heading-7f2ecb9c4d10981cd40468b79a104150">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="PostgreSQL"
+        id="heading-399bd1ee587245ecac6f39beaa99886f" role="tab" data-toggle="collapse" href="#collapse-399bd1ee587245ecac6f39beaa99886f"
+        aria-expanded="false"
+      >
+        PostgreSQL
+        <span class="list-group-count">(5)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-399bd1ee587245ecac6f39beaa99886f"
+           role="tabpanel" aria-labelledby="heading-399bd1ee587245ecac6f39beaa99886f">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/08/02/postgresql-study-first-day/" title="PostgreSQL学习记录——第一天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">PostgreSQL学习记录——第一天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/06/postgresql-study-third-day/" title="PostgreSQL学习记录——第三天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">PostgreSQL学习记录——第三天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/05/postgresql-study-second-day/" title="PostgreSQL学习记录——第二天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">PostgreSQL学习记录——第二天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/07/postgresql-study-fourth-day/" title="PostgreSQL学习记录——第四天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">PostgreSQL学习记录——第四天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/01/install-postgreSQL/" title="PostgreSQL安装记录及集群初始化失败问题解决"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">PostgreSQL安装记录及集群初始化失败问题解决</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="go"
+        id="heading-34d1f91fb2e514b8576fab1a75a89a6b" role="tab" data-toggle="collapse" href="#collapse-34d1f91fb2e514b8576fab1a75a89a6b"
+        aria-expanded="true"
+      >
+        go
+        <span class="list-group-count">(12)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-34d1f91fb2e514b8576fab1a75a89a6b"
+           role="tabpanel" aria-labelledby="heading-34d1f91fb2e514b8576fab1a75a89a6b">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/08/07/go-study-first-day/" title="go学习记录——第一天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go学习记录——第一天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/15/go-study-seventh-day/" title="go学习记录——第七天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go学习记录——第七天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/09/go-study-third-day/" title="go学习记录——第三天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go学习记录——第三天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/11/20/go-study-ninth-day/" title="go学习记录——第九天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go学习记录——第九天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/08/go-study-second-day/" title="go学习记录——第二天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go学习记录——第二天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/13/go-study-fifth-day/" title="go学习记录——第五天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go学习记录——第五天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/11/19/go-study-eighth-day/" title="go学习记录——第八天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go学习记录——第八天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/14/go-study-sixth-day/" title="go学习记录——第六天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go学习记录——第六天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/11/29/go-study-eleventh-day/" title="go学习记录——第十一天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go学习记录——第十一天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/12/01/go-study-twelfth-day/" title="go学习记录——第十二天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go学习记录——第十二天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/11/26/go-study-tenth-day/" title="go学习记录——第十天"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">go学习记录——第十天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/12/go-study-fourth-day/" title="go学习记录——第四天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go学习记录——第四天</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">go学习记录——第十天</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="自定义包的目录结构、go-install-和-go-test"><a href="#自定义包的目录结构、go-install-和-go-test" class="headerlink" title="自定义包的目录结构、go install 和 go test"></a>自定义包的目录结构、go install 和 go test</h1><p>书里为了示范搞了个名为 <code>uc</code> 的简单包，含有一个 <code>UpperCase</code> 函数将字符串的所有字母转换为大写。</p>
+<h2 id="自定义包的目录结构"><a href="#自定义包的目录结构" class="headerlink" title="自定义包的目录结构"></a>自定义包的目录结构</h2><p>下面给了一个已经弄好的示范（ <code>uc</code> 表示通用包名，名字为粗体的代表目录，斜体表示可执行文件。结果上传之后压根没显示，给个链接大家需要的话自己去看<a target="_blank" rel="noopener" href="https://github.com/unknwon/the-way-to-go_ZH_CN/tree/master/eBook/examples/chapter_9">uc</a>）</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs text">/home/user/goprograms<br>	ucmain.go	(uc 包主程序)<br>	Makefile (ucmain 的 makefile)<br>	ucmain<br>	src/uc	 (包含 uc 包的 go 源码)<br>		uc.go<br>	 	uc_test.go<br>	 	Makefile (包的 makefile)<br>	 	uc.a<br>	 	_obj<br>			uc.a<br>		_test<br>			uc.a<br>	bin		(包含最终的执行文件)<br>		ucmain<br>	pkg/linux_amd64<br>		uc.a	(包的目标文件)<br></code></pre></td></tr></table></figure>
+
+<p>将项目放在 <code>goprograms</code> 目录下（可以创建一个环境变量 <code>GOPATH</code> ，在 <code>.profile</code> and <code>.bashrc</code> 文件中添加 <code>export GOPATH=/home.user/goprograms</code> ）而项目将作为 <code>src</code> 的子目录。 <code>uc</code> 包中的功能在 <code>uc.go</code>中实现。</p>
+<p>示例<a target="_blank" rel="noopener" href="https://github.com/unknwon/the-way-to-go_ZH_CN/blob/master/eBook/examples/chapter_9/uc.go">uc.go</a></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> uc<br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;strings&quot;</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">UpperCase</span><span class="hljs-params">(str <span class="hljs-type">string</span>)</span></span> <span class="hljs-type">string</span> &#123;<br>	<span class="hljs-keyword">return</span> strings.ToUpper(str)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>包通常附带一个或多个测试文件，这里我们创建一个 <code>us_test.go</code>文件</p>
+<p>示例<a target="_blank" rel="noopener" href="https://github.com/unknwon/the-way-to-go_ZH_CN/blob/master/eBook/examples/chapter_9/test.go">test.go</a></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> uc<br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;testing&quot;</span><br><br><span class="hljs-keyword">type</span> ucTest <span class="hljs-keyword">struct</span> &#123;<br>	in, out <span class="hljs-type">string</span><br>&#125;<br><br><span class="hljs-keyword">var</span> ucTests = []ucTest &#123;<br>	ucTest&#123;<span class="hljs-string">&quot;abc&quot;</span>, <span class="hljs-string">&quot;ABC&quot;</span>&#125;,<br>	ucTest&#123;<span class="hljs-string">&quot;cvo-az&quot;</span>, <span class="hljs-string">&quot;CVO-AZ&quot;</span>&#125;,<br>	ucTest&#123;<span class="hljs-string">&quot;Antwerp&quot;</span>, <span class="hljs-string">&quot;ANTWERP&quot;</span>&#125;,<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestUC</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>	<span class="hljs-keyword">for</span> _, ut := <span class="hljs-keyword">range</span> ucTests &#123;<br>		uc := UpperCase(ut.in)<br>		<span class="hljs-keyword">if</span> uc != ut.out &#123;<br>			t.Errorf(<span class="hljs-string">&quot;UpperCase(%s) = %s, must be %s&quot;</span>, ut.in, uc,<br>			ut.out)<br>		&#125;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>通过指令编译并安装包到本地：<code>go install uc</code> ，这回将 <code>uc.a</code> 复制到 <code>pkg/linux_amd64</code> 下面。</p>
+<p>另外，使用 <code>make</code>，通过以下内容创建一个包的 Makefile 在 <code>src/uc</code> 目录下</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs text">include $(GOROOT)/src/Make.inc<br><br>TARG=uc<br>GOFILES=\<br>		uc.go\<br><br>include $(GOROOT)/src/Make.pkg<br></code></pre></td></tr></table></figure>
+
+<p>在该目录下的命令行调用：gomake</p>
+<p>这将创建一个 <code>_obj</code> 目录并将包编译生成的存档 <code>uc.a</code> 放在该目录下</p>
+<p>这个包可以通过 go test 测试</p>
+<p>PS：如果当前用户没有足够的权限使用 <code>go install</code> 命令，这种情况下，选择 root 用户 <code>su</code>。确保Go环境变量和Go源码路径也设置给 <code>su</code>，同样也适用于普通用户</p>
+<p>接下来创建主程序 <code>ucmain.go</code> :</p>
+<p>示例<a target="_blank" rel="noopener" href="https://github.com/unknwon/the-way-to-go_ZH_CN/blob/master/examples/chapter_9/ucmain.go">ucmain.go</a></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;./src/uc&quot;</span><br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	str1 := <span class="hljs-string">&quot;USING package uc!&quot;</span><br>	fmt.Println(uc.UpperCase(str1))<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>然后在这个目录下输入 <code>go install</code></p>
+<p>另外复制 <code>uc.a</code> 到 <code>/home/user/goprograms</code> 目录并创建一个 Makefile 并写入文本：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs text">include $(GOROOT)/src/Make.inc<br>TARG=ucmain<br>GOFILES=\<br>	ucmain.go\<br><br>include $(GOROOT)/src/Make.cmd<br></code></pre></td></tr></table></figure>
+
+<p>执行 <code>gomake</code> 编译 <code>ucmain.go</code> 生成可执行文件 <code>ucmain</code></p>
+<p>运行 <code>./ucmain</code> 显示：<code>USING PACKAGE UCI</code></p>
+<h2 id="本地安装包"><a href="#本地安装包" class="headerlink" title="本地安装包"></a>本地安装包</h2><p>本地宝在用户目录下，使用给出的目录结构，以下命令用来从源码安装本地包</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs text">go install /home/user/goprograms/src/uc # 编译安装 uc<br>cd /home/user/goprograms/uc<br>go install ./uc 	# 编译安装 uc（和之前的指令一样）<br>cd ..<br>go install .	# 编译安装 ucmain<br></code></pre></td></tr></table></figure>
+
+<p>安装到 <code>$GOPATH</code> 下：</p>
+<p>如果箱安装的包在系统上的其他 Go 程序中使用，则一定要安装到 <code>$GOPATH</code> 下。这样做，在 .profile 和 .bashrc 中设置 <code>export GOPATH=/home/user/goprograms</code></p>
+<p>然后执行 <code>go install uc</code> 将会复制包存档到 <code>$GOPATH/pkg/LINUX_AMD64/uc</code></p>
+<p>现在，uc包可以通过 <code>import &quot;uc&quot;</code>在任何程序中被引用了</p>
+<h2 id="依赖系统的代码"><a href="#依赖系统的代码" class="headerlink" title="依赖系统的代码"></a>依赖系统的代码</h2><p>在不同的操作系统上运行的程序以不同的代码实现是非常少见的，通常情况下语言和标准库解决了大部分可移植性问题（要是每个程序都得重新写一遍，开发怕是得疯掉）</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs text">prog1.go<br>prog1_linux.go<br>prog1_darwin.go<br>prog1_windows.go<br></code></pre></td></tr></table></figure>
+
+<p>上面的 <code>prog1.go</code> 定义了不同操作系统通用的接口，并将系统特定的代码写到 <code>prog1_os.go</code>中，对于 Go 工具可以指定 <code>prog1_$GOOS.go</code> 或 <code>prog1_$GOARCH.go</code> 或在平台 Makefile 中：<code>prog1_$(GOOS).go\</code> or <code>prog1_$(FOARCH).go\</code></p>
+<h1 id="通过Git打包和安装"><a href="#通过Git打包和安装" class="headerlink" title="通过Git打包和安装"></a>通过Git打包和安装</h1><h2 id="安装到GitHub"><a href="#安装到GitHub" class="headerlink" title="安装到GitHub"></a>安装到GitHub</h2><p>这个不必多说，谁要是说自己不会Git的，直接叉出去乱棍打死。</p>
+<p>概括一下就是<code>git init</code> -&gt; <code>git add</code> -&gt; <code>git commit</code> -&gt; <code>git push</code></p>
+<h2 id="从GitHub安装"><a href="#从GitHub安装" class="headerlink" title="从GitHub安装"></a>从GitHub安装</h2><p>简单来说就是先<code>go get github.com/***/**</code></p>
+<p>然后机器上就可以使用导入路径<code>import ** URL</code></p>
+<p>抄一下书上写的网站和版本控制系统</p>
+<ul>
+<li>BitBucket(hg&#x2F;Git)</li>
+<li>GitHub(Git)</li>
+<li>Google Code(hg&#x2F;Git&#x2F;svn)</li>
+<li>Launchpad(bzr)</li>
+</ul>
+<h1 id="Go的外部包和项目"><a href="#Go的外部包和项目" class="headerlink" title="Go的外部包和项目"></a>Go的外部包和项目</h1><p>现在已经把Go和标准库怎么用了解了个七七八八，但是Go的生态没那么简单，所以在使用前最好查一下第三方包或项目能不能使用（还是版本支不支持，记一下记一下）</p>
+<p><a target="_blank" rel="noopener" href="https://gowalker.org/">Go Walker</a> 支持根据包名在海量数据中查询</p>
+<p>目前已经有很多非常好的外部库（好多熟悉的身影啊）</p>
+<ul>
+<li>MySQL(GoMySQL), PostgreSQL(go-pgsql), MongoDB (mgo, gomongo), CouchDB (couch-go), ODBC (godbcl), Redis (redis.go) and SQLite3 (gosqlite) database drivers</li>
+<li>SDL bindings</li>
+<li>Google’s Protocal Buffers(goprotobuf)</li>
+<li>XML-RPC(go-xmlrpc)</li>
+<li>Twitter(twitterstream)</li>
+<li>OAuth libraries(GoAuth)</li>
+</ul>
+<h1 id="在-Go-程序中使用外部库"><a href="#在-Go-程序中使用外部库" class="headerlink" title="在 Go 程序中使用外部库"></a>在 Go 程序中使用外部库</h1><p>这部分相当于一个比较完整的流程，有点啰嗦我感觉（可能加上我自己的吐槽会更啰嗦，小声哔哔ing）</p>
+<p>具体的话就是建立一个 <code>Web</code> 应用和其 <code>Google App Engine</code> 版本，会在第19和21章分别进行具体说明，后续可以回来看（估计书里后续还有URL可以跳转，到时候再看，先打个tag）</p>
+<p>当开始一个新项目或增加新功能到现有项目时，可以通过在应用程序中使用已有库来节省开发时间。为了做到这一点，我们就需要理解库的 <code>API</code>，也就是库中的那些方法可以调用，如何调用。可能没有源码，但是作者写的文档一定有记载怎么去使用（文档大法好）</p>
+<p>举个例子，我们将Google的 <code>API</code> 的 <code>urlshortener</code> 编写成一个小程序：可以尝试在<a target="_blank" rel="noopener" href="http://goo.gl输入一个像"http//www.destandaard.be%22%E8%BF%99%E6%A0%B7%E7%9A%84URL%EF%BC%8C%E5%B0%B1%E4%BC%9A%E7%9C%8B%E5%88%B0%E4%B8%80%E4%B8%AA%E5%83%8F%22http://goo.gl/O9SUO%22%E8%BF%99%E6%A0%B7%E6%9B%B4%E7%9F%AD%E7%9A%84URL%E8%BF%94%E5%9B%9E%EF%BC%8C%E4%B9%9F%E5%B0%B1%E6%98%AF%E8%AF%B4%EF%BC%8C%E5%9C%A8Twitter%E4%B9%8B%E7%B1%BB%E7%9A%84%E6%9C%8D%E5%8A%A1%E4%B8%AD%EF%BC%8C%E8%BF%99%E6%98%AF%E9%9D%9E%E5%B8%B8%E5%AE%B9%E6%98%93%E5%B5%8C%E5%85%A5%E7%9A%84%EF%BC%88%E8%99%BD%E7%84%B6%E4%BD%86%E6%98%AF%E6%88%91%E8%BF%98%E6%98%AF%E6%B2%A1%E6%98%8E%E7%99%BD%E8%BF%99%E7%8E%A9%E6%84%8F%E6%98%AF%E5%95%A5%E6%84%8F%E6%80%9D%EF%BC%8C%E9%9A%BE%E4%B8%8D%E6%88%90%E5%B0%B1%E6%98%AF%E5%80%9F%E5%8A%A9%60goo.gl%60%E5%8E%BB%E5%AF%B9%E6%9F%90%E4%B8%AAURL%E8%BF%9B%E8%A1%8C%E6%8C%87%E5%BC%95%EF%BC%8C%E6%96%B9%E4%BE%BF%E5%B5%8C%E5%85%A5%E7%84%B6%E5%90%8E%E8%83%BD%E5%A4%9F%E5%9C%A8%E5%B9%B3%E5%8F%B0%E6%9F%A5%E7%9C%8B%E7%82%B9%E5%87%BB%E7%BB%9F%E8%AE%A1%E5%92%8C%E5%88%86%E6%9E%90%E7%9B%B8%E5%85%B3%E5%8A%9F%E8%83%BD%E5%90%97%EF%BC%9F%E4%B8%8D%E8%BF%87%E6%88%91%E8%BF%99%E8%BE%B9%E7%9C%8B%E5%88%B0%60goo.gl%60%E7%8E%B0%E5%9C%A8%E5%B7%B2%E7%BB%8F%E5%9C%A8%E7%AD%B9%E5%A4%87%E5%85%B3%E9%97%AD%E4%BA%86%EF%BC%8C%E5%BE%97%E6%89%BE%E5%85%B6%E4%BB%96%E7%9A%84%E7%9F%AD%E9%93%BE%E6%8E%A5%E6%9C%8D%E5%8A%A1%E4%BA%86%EF%BC%8C%E4%B8%8D%E8%BF%87%E9%80%BB%E8%BE%91%E4%B8%8A%E5%BA%94%E8%AF%A5%E5%B7%AE%E4%B8%8D%E5%A4%9A%EF%BC%89">http://goo.gl输入一个像&quot;http://www.destandaard.be&quot;这样的URL，就会看到一个像&quot;http://goo.gl/O9SUO&quot;这样更短的URL返回，也就是说，在Twitter之类的服务中，这是非常容易嵌入的（虽然但是我还是没明白这玩意是啥意思，难不成就是借助`goo.gl`去对某个URL进行指引，方便嵌入然后能够在平台查看点击统计和分析相关功能吗？不过我这边看到`goo.gl`现在已经在筹备关闭了，得找其他的短链接服务了，不过逻辑上应该差不多）</a></p>
+<p>Google 让通过使用 <code>Google API Go</code> 客户端服务的开发者开发变得更加简单，Go客户端程序自动生成 Google 库的 <code>JSON</code> 描述，详情在<a target="_blank" rel="noopener" href="http://code.google.com/p/google-api-go-client/">项目页面</a>查看（还没看，先贴上去吧）</p>
+<p>下载并安装Go客户端：通过 <code>go install</code> 实现。但是首先要验证环境变量中是否含有 <code>GOPATH</code> 变量，因为外部源码被下载到 <code>$GOPATH/src</code> 目录下并被安装到 <code>$GOPATH/PKG/&quot;machine_arch&quot;/</code> 目录下。</p>
+<p>我们将通过在终端调用以下命令来安装 <code>API</code></p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">go install google.golang.org/api/urlshortener/v1<br></code></pre></td></tr></table></figure>
+
+<p><code>go install</code> 将下载源码，编译并安装包</p>
+<p>使用 <code>urlshortener</code> 服务的 <code>Web</code> 程序：现在我们可以通过导入并赋予别名来使用已安装的包</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">import</span>  <span class="hljs-string">&quot;google.golang.org/api/urlshortener/v1&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>现在我们来写一个 <code>Web</code> 应用（参考<a target="_blank" rel="noopener" href="https://github.com/unknwon/the-way-to-go_ZH_CN/blob/master/eBook/15.4.md">第15章 4-8 节</a> 通过表单实现短地址和长地址的相互转换。我们将使用 <code>template</code> 包并写三个处理函数：<code>root()</code> 函数通过执行表单模板来展示表单，<code>short()</code> 函数将长地址转换为短地址，<code>long()</code> 函数逆向转换。</p>
+<p>要调用 <code>urlshortener</code> 接口必须先通过 <code>http</code> 包中的默认客户端创建一个服务实例 <code>urlshortenerSvc</code>：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">urlshortenerSvc, _ := urlshortener.New(http.DefaultClient)<br></code></pre></td></tr></table></figure>
+
+<p>通过调用服务中的 <code>Url.Insert</code> 中的 <code>Do</code> 方法传入包含长地址的 <code>Url</code> 数据结构从而获取短地址：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">url, _ := urlshortenerSvc.Url.Insert(&amp;urlshortener.Url&#123;LongUrl: longUrl&#125;).Do()<br></code></pre></td></tr></table></figure>
+
+<p>返回 <code>url</code> 的 <code>Id</code> 便是我们需要的短地址。</p>
+<p>通过调用服务中的 <code>Url.Get</code> 中的 <code>Do</code> 方法传入包含短地址的 Url 数据结构从而获取长地址：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">url, <span class="hljs-built_in">error</span> := urlshortenerSvc.Url.<span class="hljs-built_in">Get</span>(shwortUrl).<span class="hljs-keyword">Do</span>()<br></code></pre></td></tr></table></figure>
+
+<p>返回的长地址便是转换前的原始地址。</p>
+<p>示例 <a target="_blank" rel="noopener" href="https://github.com/unknwon/the-way-to-go_ZH_CN/blob/master/eBook/examples/chapter_9/use_urlshortener.go">urlshortener.go</a></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	 <span class="hljs-string">&quot;fmt&quot;</span><br>	 <span class="hljs-string">&quot;net/http&quot;</span><br>	 <span class="hljs-string">&quot;text/template&quot;</span><br><br>	 <span class="hljs-string">&quot;google.golang.org/api/urlshortener/v1&quot;</span><br>)<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	 http.HandleFunc(<span class="hljs-string">&quot;/&quot;</span>, root)<br>	 http.HandleFunc(<span class="hljs-string">&quot;/short&quot;</span>, short)<br>	 http.HandleFunc(<span class="hljs-string">&quot;/long&quot;</span>, long)<br><br>	 http.ListenAndServe(<span class="hljs-string">&quot;localhost:8080&quot;</span>, <span class="hljs-literal">nil</span>)<br>&#125;<br><span class="hljs-comment">// the template used to show the forms and the results web page to the user</span><br><span class="hljs-keyword">var</span> rootHtmlTmpl = template.Must(template.New(<span class="hljs-string">&quot;rootHtml&quot;</span>).Parse(<span class="hljs-string">`</span><br><span class="hljs-string">&lt;html&gt;&lt;body&gt;</span><br><span class="hljs-string">&lt;h1&gt;URL SHORTENER&lt;/h1&gt;</span><br><span class="hljs-string">&#123;&#123;if .&#125;&#125;&#123;&#123;.&#125;&#125;&lt;br /&gt;&lt;br /&gt;&#123;&#123;end&#125;&#125;</span><br><span class="hljs-string">&lt;form action=&quot;/short&quot; type=&quot;POST&quot;&gt;</span><br><span class="hljs-string">Shorten this: &lt;input type=&quot;text&quot; name=&quot;longUrl&quot; /&gt;</span><br><span class="hljs-string">&lt;input type=&quot;submit&quot; value=&quot;Give me the short URL&quot; /&gt;</span><br><span class="hljs-string">&lt;/form&gt;</span><br><span class="hljs-string">&lt;br /&gt;</span><br><span class="hljs-string">&lt;form action=&quot;/long&quot; type=&quot;POST&quot;&gt;</span><br><span class="hljs-string">Expand this: http://goo.gl/&lt;input type=&quot;text&quot; name=&quot;shortUrl&quot; /&gt;</span><br><span class="hljs-string">&lt;input type=&quot;submit&quot; value=&quot;Give me the long URL&quot; /&gt;</span><br><span class="hljs-string">&lt;/form&gt;</span><br><span class="hljs-string">&lt;/body&gt;&lt;/html&gt;</span><br><span class="hljs-string">`</span>))<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">root</span><span class="hljs-params">(w http.ResponseWriter, r *http.Request)</span></span> &#123;<br>	rootHtmlTmpl.Execute(w, <span class="hljs-literal">nil</span>)<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">short</span><span class="hljs-params">(w http.ResponseWriter, r *http.Request)</span></span> &#123;<br>	 longUrl := r.FormValue(<span class="hljs-string">&quot;longUrl&quot;</span>)<br>	 urlshortenerSvc, _ := urlshortener.New(http.DefaultClient)<br>	 url, _ := urlshortenerSvc.Url.Insert(&amp;urlshortener.Url&#123;LongUrl:<br>	 longUrl,&#125;).Do()<br>	 rootHtmlTmpl.Execute(w, fmt.Sprintf(<span class="hljs-string">&quot;Shortened version of %s is : %s&quot;</span>,<br>	 longUrl, url.Id))<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">long</span><span class="hljs-params">(w http.ResponseWriter, r *http.Request)</span></span> &#123;<br>	 shortUrl := <span class="hljs-string">&quot;http://goo.gl/&quot;</span> + r.FormValue(<span class="hljs-string">&quot;shortUrl&quot;</span>)<br>	 urlshortenerSvc, _ := urlshortener.New(http.DefaultClient)<br>	 url, err := urlshortenerSvc.Url.Get(shortUrl).Do()<br>	 <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		 fmt.Println(<span class="hljs-string">&quot;error: %v&quot;</span>, err)<br>		 <span class="hljs-keyword">return</span><br><br>	 &#125;<br>	 rootHtmlTmpl.Execute(w, fmt.Sprintf(<span class="hljs-string">&quot;Longer version of %s is : %s&quot;</span>,<br>	 shortUrl, url.LongUrl))<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>执行这段代码</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">go run urlshortener.go<br></code></pre></td></tr></table></figure>
+
+<p>通过浏览 <code>http://localhost:8080</code> 的页面来测试</p>
+<p>这里书里说并没有进行检测返回的错误状态，但真实的生产环境一定要进行检测（我也觉得，不怕一万就怕万一）</p>
+<p>将应用放在 <code>Google App Engine</code> ，我们只需要在之前的代码中做出如下改变</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main -&gt; <span class="hljs-keyword">package</span> urlshort<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> -&gt; <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">init</span><span class="hljs-params">()</span></span><br></code></pre></td></tr></table></figure>
+
+<p>创建一个和包同名的目录 <code>urlshort</code> ，并将一下两个安装目录复制到这个目录：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs text">google.golang.org/api/urlshortener<br>google.golang.org/api/googleapi<br></code></pre></td></tr></table></figure>
+
+<p>此外还要配置下配置文件 <code>app.yaml</code>，内容如下：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">application:</span> <span class="hljs-string">urlshort</span><br><span class="hljs-attr">version:</span> <span class="hljs-number">0</span><span class="hljs-number">-1</span><span class="hljs-string">-test</span><br><span class="hljs-attr">runtime:</span> <span class="hljs-string">go</span><br><span class="hljs-attr">api_version:</span> <span class="hljs-number">3</span><br><span class="hljs-attr">handlers:</span><br><span class="hljs-bullet">-</span> <span class="hljs-attr">url:</span> <span class="hljs-string">/.*</span><br><span class="hljs-attr">script:</span> <span class="hljs-string">_go_app</span><br></code></pre></td></tr></table></figure>
+
+<p>现在可以到项目目录并在终端运行： <code>dev_appserver.py urlshort</code></p>
+<p>然后在浏览器打开 <code>http://localhost:8080</code></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" class="category-chain-item">学习记录</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/go/" class="category-chain-item">go</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" class="print-no-link">#学习记录</a>
+      
+        <a href="/tags/go/" class="print-no-link">#go</a>
+      
+        <a href="/tags/%E5%8C%85/" class="print-no-link">#包</a>
+      
+        <a href="/tags/%E8%87%AA%E5%AE%9A%E4%B9%89%E5%8C%85/" class="print-no-link">#自定义包</a>
+      
+        <a href="/tags/Git/" class="print-no-link">#Git</a>
+      
+        <a href="/tags/%E5%A4%96%E9%83%A8%E5%8C%85/" class="print-no-link">#外部包</a>
+      
+        <a href="/tags/%E5%A4%96%E9%83%A8%E5%BA%93/" class="print-no-link">#外部库</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>go学习记录——第十天</div>
+      <div>https://lx02918.github.io/2024/11/26/go-study-tenth-day/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Seth</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年11月26日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/11/29/go-study-eleventh-day/" title="go学习记录——第十一天">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">go学习记录——第十一天</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/11/20/go-study-ninth-day/" title="go学习记录——第九天">
+                        <span class="hidden-mobile">go学习记录——第九天</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"pAyQlcbEY6nkOIh5fveIBxLA-gzGzoHsz","appKey":"DjSrQhO4p64SG8qV28lz5J0H","path":"window.location.pathname","placeholder":"Just go go","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

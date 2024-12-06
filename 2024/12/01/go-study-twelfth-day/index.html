@@ -1,0 +1,1163 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Seth">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="使用工厂方法创建结构体实例结构体工厂Golang不支持面向对象编程语言中那样的构造子方法，但是可以很容易的在Go中实现“构造子工厂”方法。为了方便通常会为类型定义一个工厂，按惯例，工厂的名字以new...或New...开头。假设定义了如下的File结构体实例。 1234type File struct &#123;    fd int &#x2F;&#x2F; 文件描述符    name string &#x2F;&#x2F; 文件名&amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="go学习记录——第十二天">
+<meta property="og:url" content="https://lx02918.github.io/2024/12/01/go-study-twelfth-day/index.html">
+<meta property="og:site_name" content="Seth的小站">
+<meta property="og:description" content="使用工厂方法创建结构体实例结构体工厂Golang不支持面向对象编程语言中那样的构造子方法，但是可以很容易的在Go中实现“构造子工厂”方法。为了方便通常会为类型定义一个工厂，按惯例，工厂的名字以new...或New...开头。假设定义了如下的File结构体实例。 1234type File struct &#123;    fd int &#x2F;&#x2F; 文件描述符    name string &#x2F;&#x2F; 文件名&amp;">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-12-01T06:15:26.000Z">
+<meta property="article:modified_time" content="2024-12-06T15:58:21.505Z">
+<meta property="article:author" content="Seth">
+<meta property="article:tag" content="学习记录">
+<meta property="article:tag" content="go">
+<meta property="article:tag" content="结构体">
+<meta property="article:tag" content="工厂方法">
+<meta property="article:tag" content="匿名字段">
+<meta property="article:tag" content="内嵌结构体">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>go学习记录——第十二天 - Seth的小站</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"lx02918.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"pAyQlcbEY6nkOIh5fveIBxLA-gzGzoHsz","app_key":"DjSrQhO4p64SG8qV28lz5J0H","server_url":"https://payqlcbe.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Seth的小站" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Seth的小站</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="go学习记录——第十二天"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-12-01 14:15" pubdate>
+          星期日, 十二月 1日 2024, 2:15 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          22 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="学习记录"
+        id="heading-7f2ecb9c4d10981cd40468b79a104150" role="tab" data-toggle="collapse" href="#collapse-7f2ecb9c4d10981cd40468b79a104150"
+        aria-expanded="true"
+      >
+        学习记录
+        <span class="list-group-count">(17)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-7f2ecb9c4d10981cd40468b79a104150"
+           role="tabpanel" aria-labelledby="heading-7f2ecb9c4d10981cd40468b79a104150">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="PostgreSQL"
+        id="heading-399bd1ee587245ecac6f39beaa99886f" role="tab" data-toggle="collapse" href="#collapse-399bd1ee587245ecac6f39beaa99886f"
+        aria-expanded="false"
+      >
+        PostgreSQL
+        <span class="list-group-count">(5)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-399bd1ee587245ecac6f39beaa99886f"
+           role="tabpanel" aria-labelledby="heading-399bd1ee587245ecac6f39beaa99886f">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/08/02/postgresql-study-first-day/" title="PostgreSQL学习记录——第一天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">PostgreSQL学习记录——第一天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/06/postgresql-study-third-day/" title="PostgreSQL学习记录——第三天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">PostgreSQL学习记录——第三天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/05/postgresql-study-second-day/" title="PostgreSQL学习记录——第二天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">PostgreSQL学习记录——第二天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/07/postgresql-study-fourth-day/" title="PostgreSQL学习记录——第四天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">PostgreSQL学习记录——第四天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/01/install-postgreSQL/" title="PostgreSQL安装记录及集群初始化失败问题解决"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">PostgreSQL安装记录及集群初始化失败问题解决</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="go"
+        id="heading-34d1f91fb2e514b8576fab1a75a89a6b" role="tab" data-toggle="collapse" href="#collapse-34d1f91fb2e514b8576fab1a75a89a6b"
+        aria-expanded="true"
+      >
+        go
+        <span class="list-group-count">(12)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-34d1f91fb2e514b8576fab1a75a89a6b"
+           role="tabpanel" aria-labelledby="heading-34d1f91fb2e514b8576fab1a75a89a6b">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/08/07/go-study-first-day/" title="go学习记录——第一天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go学习记录——第一天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/15/go-study-seventh-day/" title="go学习记录——第七天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go学习记录——第七天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/09/go-study-third-day/" title="go学习记录——第三天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go学习记录——第三天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/11/20/go-study-ninth-day/" title="go学习记录——第九天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go学习记录——第九天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/08/go-study-second-day/" title="go学习记录——第二天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go学习记录——第二天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/13/go-study-fifth-day/" title="go学习记录——第五天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go学习记录——第五天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/11/19/go-study-eighth-day/" title="go学习记录——第八天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go学习记录——第八天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/14/go-study-sixth-day/" title="go学习记录——第六天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go学习记录——第六天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/11/29/go-study-eleventh-day/" title="go学习记录——第十一天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go学习记录——第十一天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/12/01/go-study-twelfth-day/" title="go学习记录——第十二天"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">go学习记录——第十二天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/11/26/go-study-tenth-day/" title="go学习记录——第十天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go学习记录——第十天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/12/go-study-fourth-day/" title="go学习记录——第四天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go学习记录——第四天</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">go学习记录——第十二天</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="使用工厂方法创建结构体实例"><a href="#使用工厂方法创建结构体实例" class="headerlink" title="使用工厂方法创建结构体实例"></a>使用工厂方法创建结构体实例</h1><h2 id="结构体工厂"><a href="#结构体工厂" class="headerlink" title="结构体工厂"></a>结构体工厂</h2><p><code>Golang</code>不支持面向对象编程语言中那样的构造子方法，但是可以很容易的在Go中实现“构造子工厂”方法。为了方便通常会为类型定义一个工厂，按惯例，工厂的名字以<code>new...</code>或<code>New...</code>开头。假设定义了如下的<code>File</code>结构体实例。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> File <span class="hljs-keyword">struct</span> &#123;<br>    fd <span class="hljs-type">int</span> <span class="hljs-comment">// 文件描述符</span><br>    name <span class="hljs-type">string</span> <span class="hljs-comment">// 文件名</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>下面是这个结构体类型对应的工厂方法，它返回一个指向结构体实例的指针：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">NewFile</span><span class="hljs-params">(fd <span class="hljs-type">int</span>, name, <span class="hljs-type">string</span>)</span></span> *File &#123;<br>    <span class="hljs-keyword">if</span> fd &lt; <span class="hljs-number">0</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>    &#125;<br>    <br>    <span class="hljs-keyword">return</span> &amp;File&#123;fd, name&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>然后用这个进行调用</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">f := NewFile(<span class="hljs-number">10</span>, <span class="hljs-string">&quot;./test.txt&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>在Go中常常像这样在工厂方法里使用初始化来更加简单的实现函数的构造。</p>
+<p>如果 <code>File</code> 是一个结构体类型，那么表达式 <code>new(File)</code> 和 <code>&amp;File&#123;&#125;</code> 是等价的。</p>
+<p>这可以和大多数面向编程语言中笨拙的初始化方法做个比较（这么说真的好吗，笑死）<code>File f = new File(...)</code>。</p>
+<p>我们可以说是工厂实例化了类型的一个对象，就像在基于类的OO语言中那样（不应该是XX吗，为啥是OO，不懂）</p>
+<p>如果想知道结构体类型 <code>T</code> 的一个实例占用了多少内存，可以使用 <code>size := unsafe.Sizeof(T&#123;&#125;)</code></p>
+<h3 id="如何强制使用工厂方法"><a href="#如何强制使用工厂方法" class="headerlink" title="如何强制使用工厂方法"></a>如何强制使用工厂方法</h3><p>通过应用可以性规则（参考<a target="_blank" rel="noopener" href="https://github.com/unknwon/the-way-to-go_ZH_CN/blob/master/eBook/04.2.md">4.2.1节</a>、<a target="_blank" rel="noopener" href="https://github.com/unknwon/the-way-to-go_ZH_CN/blob/master/eBook/09.5.md">9.5节</a>）就可以禁止使用 <code>new()</code> 函数，强制用户使用工厂方法，从而使类型变成私有的，就像在面向对象语言中那样</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> matrix <span class="hljs-keyword">struct</span> &#123;<br>    ...<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">NewMatrix</span><span class="hljs-params">(params)</span></span> *matrix &#123;<br>    m := <span class="hljs-built_in">new</span>(matrix)<br>    <span class="hljs-keyword">return</span> m<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在其他包里使用工厂方法：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;matrix&quot;</span><br><br>...<br><br>wrong := <span class="hljs-built_in">new</span>(matrix.matrix) <span class="hljs-comment">// 编译失败(matrix是私有化的)</span><br>right := matrix.NewMatrix(...) <span class="hljs-comment">// 实例化matrix的唯一方法</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="map-和-struct-vs-new-和-make"><a href="#map-和-struct-vs-new-和-make" class="headerlink" title="map 和 struct vs new() 和 make()"></a>map 和 struct vs new() 和 make()</h2><p><code>new()</code> 和 <code>make()</code> 这两个内置函数在 <a target="_blank" rel="noopener" href="https://github.com/unknwon/the-way-to-go_ZH_CN/blob/master/eBook/07.2.md">7.2.4节</a> 通过切片的例子已经说明过一次（有一说一我真的记不得了，哭死）</p>
+<p>现在为止我们已经见到了可以使用 <code>make()</code> 的三种类型中的其中两个：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">slices / maps / channels (还在后面，第十四章)<br></code></pre></td></tr></table></figure>
+
+<p>在开始之前先回顾下吧（主要是我是真记不清了，时间隔太久了）</p>
+<ol>
+<li><p>切片（Slice）</p>
+<p> 语法：<code>make([]T, length, capacity)</code></p>
+<p> T -&gt; 元素类型</p>
+<p> length -&gt; 切片当前长度</p>
+<p> capacity -&gt; 切片的容量（可选参数，默认为length）</p>
+ <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs go">slice := <span class="hljs-built_in">make</span>([]<span class="hljs-type">int</span>, <span class="hljs-number">5</span>)        <span class="hljs-comment">// 创建一个长度为5的int切片，初始值为0</span><br>slice := <span class="hljs-built_in">make</span>([]<span class="hljs-type">string</span>, <span class="hljs-number">3</span>, <span class="hljs-number">10</span>) <span class="hljs-comment">// 创建一个长度为3、容量为10的string切片</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>映射（Map）</p>
+<p> 语法： <code>make(map[T1]T2, initialCapacity)</code></p>
+<p> <code>T1</code> -&gt; 键的类型</p>
+<p> <code>T2</code> _&gt; 是值的类型</p>
+<p> <code>initialCapacity </code>-&gt; 预分配的存储空间大小（可选参数）</p>
+ <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs go">m := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-type">string</span>]<span class="hljs-type">int</span>)          <span class="hljs-comment">// 创建一个空的string到int的映射</span><br>m := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-type">int</span>]<span class="hljs-type">string</span>, <span class="hljs-number">10</span>)     <span class="hljs-comment">// 创建一个预分配了10个存储空间的int到string的映射</span><br></code></pre></td></tr></table></figure>
+
+<p> 示例<a target="_blank" rel="noopener" href="https://github.com/unknwon/the-way-to-go_ZH_CN/blob/master/eBook/examples/chapter_10/new_make.go">new_make.go</a>（这个不能编译）</p>
+ <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">type</span> Foo <span class="hljs-keyword">map</span>[<span class="hljs-type">string</span>]<span class="hljs-type">string</span><br><span class="hljs-keyword">type</span> Bar <span class="hljs-keyword">struct</span> &#123;<br>	thingOne <span class="hljs-type">string</span><br>	thingTwo <span class="hljs-type">int</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-comment">// OK</span><br>	y := <span class="hljs-built_in">new</span>(Bar)<br>	(*y).thingOne = <span class="hljs-string">&quot;hello&quot;</span><br><br>	<span class="hljs-comment">// NOT OK</span><br>	z := <span class="hljs-built_in">make</span>(Bar) <span class="hljs-comment">// make(Bar) is wrong, should be make(Foo) or new(Bar)</span><br>	(*z).thingOne = <span class="hljs-string">&quot;hello&quot;</span><br>	(*z).thingTwo = <span class="hljs-number">42</span><br><br>	<span class="hljs-comment">// OK</span><br>	x := <span class="hljs-built_in">make</span>(Foo)<br>	x[<span class="hljs-string">&quot;x&quot;</span>] = <span class="hljs-string">&quot;goodbye&quot;</span><br>	x[<span class="hljs-string">&quot;y&quot;</span>] = <span class="hljs-string">&quot;world&quot;</span><br><br>	<span class="hljs-comment">// NOT OK</span><br>	u := <span class="hljs-built_in">new</span>(Foo) <span class="hljs-comment">// new(Foo) is wrong, should be make(Foo) or new(Bar)</span><br>	(*u)[<span class="hljs-string">&quot;x&quot;</span>] = <span class="hljs-string">&quot;goodbye&quot;</span><br>	(*u)[<span class="hljs-string">&quot;y&quot;</span>] = <span class="hljs-string">&quot;world&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ol>
+<p>分四段进行说明吧（书上写的太简略，我都怕我日后自己看给整晕）</p>
+<p>​	首先简单总结下 <code>new</code> 和 <code>make</code> 的区别</p>
+<p>​		<code>new</code> 用于分配内存并返回只想类型的指针。对于<strong>结构体</strong>来说，调用 <code>new</code> 创建一个结构体类型的指针。</p>
+<p>​		<code>make</code> 用于初始化切片(slices)、映射(maps)、通道(channels)并返回这个初始化后的引用，用于允许后续的操作。</p>
+<p>​	然后开始说四个部分</p>
+<p>​	在y这部分代码中，我们 <code>new(Bar)</code> 正确地创建了一个<code> Bar</code> 类型的指针，并使用指针访问结构体字段。</p>
+<p>​	在z这部分代码中，我们使用 <code>makr(Bar)</code> 是错误的，因为 <code>Bar</code> 属于结构体，而不是 <code>make()</code> 所能使用的三个类型的其中之一</p>
+<p>​	在x这部分代码中，正确是因为 <code>Foo</code> 属于映射类型，是能够使用 <code>make()</code> 的</p>
+<p>​	在u这部分代码中，我们意图用 <code>new</code> 一个 <code>Foo</code> 类型的指针（实际上的返回结果是一个指向 <code>nil</code> 的指针），但这时返回的东西时不能够对其进行操作的，因为就是个指针，而我们所创建的是一个键值对，要对其赋值就需要通过 <code>make()</code> 去创建映射，然后才能对键值对进行操作。</p>
+<h1 id="使用自定义包中的结构体"><a href="#使用自定义包中的结构体" class="headerlink" title="使用自定义包中的结构体"></a>使用自定义包中的结构体</h1><p>下面的例子中，<code>main.go</code> 是使用了一个结构体，其来源于 <code>struct_pack</code> 下的包 <code>structPack</code></p>
+<p>示例 <a target="_blank" rel="noopener" href="https://github.com/unknwon/the-way-to-go_ZH_CN/blob/master/eBook/examples/chapter_10/struct_pack/structPack.go">structPack.go</a></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> structPack<br><br><span class="hljs-keyword">type</span> ExpStruct <span class="hljs-keyword">struct</span> &#123;<br>	Mi1 <span class="hljs-type">int</span><br>	MF1 <span class="hljs-type">float32</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>示例 <a target="_blank" rel="noopener" href="https://github.com/unknwon/the-way-to-go_ZH_CN/blob/master/eBook/examples/chapter_10/main.go">main.go</a></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	structPack <span class="hljs-string">&quot;myproject/chapter10/struct_pack&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	struct1 := <span class="hljs-built_in">new</span>(structPack.ExpStruct)<br>	struct1.Mi1 = <span class="hljs-number">19</span><br>	struct1.MF1 = <span class="hljs-number">3.</span><br><br>	fmt.Printf(<span class="hljs-string">&quot;Mi1: %d\n&quot;</span>, struct1.Mi1)<br>	fmt.Printf(<span class="hljs-string">&quot;MF1: %f\n&quot;</span>, struct1.MF1)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>输出结果</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs text">Mi1: 19<br>MF1: 3.000000<br></code></pre></td></tr></table></figure>
+
+<h1 id="带标签的结构体"><a href="#带标签的结构体" class="headerlink" title="带标签的结构体"></a>带标签的结构体</h1><p>结构体中的字段除了有名字和类型外，还可以有一个可选的标签（tag）：它是一个附属于字段的字符串，可以是文档或其他的重要标记。Tag的内容不可以在一般的编程中使用，只有包 <code>reflect</code> 能够获取它（详情见<a target="_blank" rel="noopener" href="https://github.com/unknwon/the-way-to-go_ZH_CN/blob/master/eBook/11.10.md">第11.10节</a> 将详细讲解其功能，例如运行时自省类型、属性和方法）。</p>
+<p>示例 <a target="_blank" rel="noopener" href="https://github.com/unknwon/the-way-to-go_ZH_CN/blob/master/eBook/examples/chapter_10/struct_tag.go">struct_tag.go</a></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;reflect&quot;</span><br>)<br><br><span class="hljs-keyword">type</span> TagType <span class="hljs-keyword">struct</span> &#123;<br>	field1 <span class="hljs-type">bool</span>   <span class="hljs-string">&quot;An important answer&quot;</span><br>	field2 <span class="hljs-type">string</span> <span class="hljs-string">&quot;The name of the thing&quot;</span><br>	field3 <span class="hljs-type">int</span>    <span class="hljs-string">&quot;How much there are&quot;</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	tt := TagType&#123;<span class="hljs-literal">true</span>, <span class="hljs-string">&quot;Barak Obama&quot;</span>, <span class="hljs-number">1</span>&#125;<br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">3</span>; i++ &#123;<br>		refTag(tt, i)<br>	&#125;<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">refTag</span><span class="hljs-params">(tt TagType, ix <span class="hljs-type">int</span>)</span></span> &#123;<br>	ttType := reflect.TypeOf(tt)<br>	ixField := ttType.Field(ix)<br>	fmt.Printf(<span class="hljs-string">&quot;%v\n&quot;</span>, ixField.Tag)<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p>输出结果</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs text">An important answer<br>The name of the thing<br>How much there are<br></code></pre></td></tr></table></figure>
+
+<h1 id="匿名字段和内嵌结构体"><a href="#匿名字段和内嵌结构体" class="headerlink" title="匿名字段和内嵌结构体"></a>匿名字段和内嵌结构体</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>结构体可以包含一个或多个 <strong>匿名（或内嵌）字段</strong>，即这些字段没有显式的名字，只有字段类型是必须的，此时类型就是字段的名字。匿名字段本身可以是一个结构体类型，即 <strong>结构体可以包含内嵌结构体</strong>。</p>
+<p>可以粗略地将这个和面向对象语言中的继承概念相比较（不懂，不会，比较不了一点），随后将会看到它被用来模拟类似继承的行为。<code>Golang</code> 中的继承是通过内嵌或组合来实现的，所以可以说,，在 <code>Golang</code> 中，相比较于继承，组合更受青睐。（好绕，懂不了一点，开玩笑的）</p>
+<p>示例 <a target="_blank" rel="noopener" href="https://github.com/unknwon/the-way-to-go_ZH_CN/blob/master/eBook/examples/chapter_10/structs_anonymous_fields.go">structs_anonymous_fields.go</a></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span><br><br><span class="hljs-keyword">type</span> innerS <span class="hljs-keyword">struct</span> &#123;<br>	in1 <span class="hljs-type">int</span><br>	in2 <span class="hljs-type">int</span><br>&#125;<br><br><span class="hljs-keyword">type</span> outerS <span class="hljs-keyword">struct</span> &#123;<br>	b      <span class="hljs-type">int</span><br>	c      <span class="hljs-type">float32</span><br>	<span class="hljs-type">int</span>    <span class="hljs-comment">// anonymous field</span><br>	innerS <span class="hljs-comment">// anonymous field</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	outer := <span class="hljs-built_in">new</span>(outerS)<br>	outer.b = <span class="hljs-number">6</span><br>	outer.c = <span class="hljs-number">7.5</span><br>	outer.<span class="hljs-type">int</span> = <span class="hljs-number">60</span><br>	outer.in1 = <span class="hljs-number">10</span><br>	outer.in2 = <span class="hljs-number">20</span><br><br>	fmt.Printf(<span class="hljs-string">&quot;outer.b = %d\n&quot;</span>, outer.b)<br>	fmt.Printf(<span class="hljs-string">&quot;outer.c = %f\n&quot;</span>, outer.c)<br>	fmt.Printf(<span class="hljs-string">&quot;outer.int = %d\n&quot;</span>, outer.<span class="hljs-type">int</span>)<br>	fmt.Printf(<span class="hljs-string">&quot;outer.in1 = %d\n&quot;</span>, outer.in1)<br>	fmt.Printf(<span class="hljs-string">&quot;outer.in2 = %d\n&quot;</span>, outer.in2)<br><br>	<span class="hljs-comment">// 使用结构体字面量</span><br>	outer2 := outerS&#123;<span class="hljs-number">6</span>, <span class="hljs-number">7.5</span>, <span class="hljs-number">60</span>, innerS&#123;<span class="hljs-number">10</span>, <span class="hljs-number">20</span>&#125;&#125;<br>	fmt.Println(<span class="hljs-string">&quot;outer2:&quot;</span>, outer2)<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p>输出结果</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs text">outer.b = 6<br>outer.c = 7.500000<br>outer.int = 60<br>outer.in1 = 10<br>outer.in2 = 20<br>outer2: &#123;6 7.5 60 &#123;10 20&#125;&#125;<br></code></pre></td></tr></table></figure>
+
+<p>通过类型 <code>outer.int</code> 的名字来获取存储在匿名字段中的数据，也就可以得到一个结论：在一个结构体中对于每一种数据只有一个匿名字段。</p>
+<h2 id="内嵌结构体"><a href="#内嵌结构体" class="headerlink" title="内嵌结构体"></a>内嵌结构体</h2><p>同样地，结构体也是一种数据类型，所以也可以作为一个匿名字段来使用，就如上面的例子那样。外层结构通过 <code>outer.in1</code> 直接进入内层结构体的字段，内嵌结构体甚至可以来自其他包。内层结构体被简单的插入或内嵌进外层结构体。这个简单的“继承“机制提供了一种方式，使得可以从另一个或一些类型继承部分或全部实现。（虽然但是，说得好复杂啊，不就是一个变量可以嵌入另一个变量使用，内部的东西不会改变吗）</p>
+<p>在举个例子</p>
+<p>示例 <a target="_blank" rel="noopener" href="https://github.com/unknwon/the-way-to-go_ZH_CN/blob/master/eBook/examples/chapter_10/embedd_struct.go">embedd_struct.go</a></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span><br><br><span class="hljs-keyword">type</span> A <span class="hljs-keyword">struct</span> &#123;<br>	ax, ay <span class="hljs-type">int</span><br>&#125;<br><br><span class="hljs-keyword">type</span> B <span class="hljs-keyword">struct</span> &#123;<br>	A<br>	bx, by <span class="hljs-type">float32</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	b := B&#123;A&#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>&#125;, <span class="hljs-number">3.0</span>, <span class="hljs-number">5.0</span>&#125;<br>	c := B&#123;A&#123;<span class="hljs-number">4</span>, <span class="hljs-number">6</span>&#125;, <span class="hljs-number">7.7</span>, <span class="hljs-number">8.5</span>&#125;<br>	fmt.Println(b.ax, b.ay, b.bx, b.by)<br>	fmt.Println(b.A)<br>	fmt.Println(c.ax, c.ay, c.bx, c.by)<br>	fmt.Println(c.A)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>输出结果</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs text">1 2 3 5<br>&#123;1 2&#125;<br>4 6 7.7 8.5<br>&#123;4 6&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这里例子中为了方便起见我设置了两个赋值，如果赋值是小数输出的就是float类型，如果是 <code>.0</code> 结尾会直接转为int，方便对比区别就设置了两个。</p>
+<h2 id="命名冲突"><a href="#命名冲突" class="headerlink" title="命名冲突"></a>命名冲突</h2><p>当两个字段拥有相同的名字（可能是继承来的名字，莫名想到了某些狗血番茄小说）时怎么办呢？</p>
+<pre><code class="hljs">1. 外层名字会覆盖内层名字（但是两者的内存空间都被保留，我理解的就是内存不变，只是指向这两个的指针被改了名字，但指向还是具体的存储地址），这提供了一种重载字段或方法的方式；
+1. 如果相同的名字出现在同一级别两次，如果这个名字被程序使用了就会报错（不使用就无所谓）。没有办法来解决这种问题，只能程序员自己改
+</code></pre>
+<p>举个例子</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> A <span class="hljs-keyword">struct</span> &#123;a <span class="hljs-type">int</span>&#125;<br><span class="hljs-keyword">type</span> B <span class="hljs-keyword">struct</span> &#123;a, b <span class="hljs-type">int</span>&#125;<br><br><span class="hljs-keyword">type</span> C <span class="hljs-keyword">struct</span> &#123;A; B&#125;<br><span class="hljs-keyword">var</span> c C<br></code></pre></td></tr></table></figure>
+
+<p>使用 <code>c.a</code> 是错误的，到底是 <code>c.A.a</code> 还是 <code>c.B.a</code> 。编译器是分不清的，会报错**<code>ambiguous DOT reference c.a disambiguate with either c.A.a or c.B.a</code>**</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> D <span class="hljs-keyword">struct</span> &#123;B; b <span class="hljs-type">float32</span>&#125;<br><span class="hljs-keyword">var</span> d D<br></code></pre></td></tr></table></figure>
+
+<p>使用 <code>d.b</code>是没问题的，但是它是 <code>float32</code> 而不是 <code>B</code>的 <code>b</code> 。如果想要内层的 <code>b</code> 可以通过 <code>d.B.b</code>得到</p>
+<p>我捋一下，如果我们像第一个例子那样直接访问重名的变量，会导致编译器无法分清在哪个具体的结构体里的变量。而第二个例子里我们虽然D结构体里也有和B里一样的重名变量，但是我们直接用 <code>d.b</code> 是没办法取到 <code>B.d</code> 的，因为我们明确说明是需要取 D 里面的而不是B里面的，我们要取 <code>B.b</code> 则必须d直接取 <code>B.b</code> （好绕啊，反正意思就是那么个意思）</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" class="category-chain-item">学习记录</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/go/" class="category-chain-item">go</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" class="print-no-link">#学习记录</a>
+      
+        <a href="/tags/go/" class="print-no-link">#go</a>
+      
+        <a href="/tags/%E7%BB%93%E6%9E%84%E4%BD%93/" class="print-no-link">#结构体</a>
+      
+        <a href="/tags/%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95/" class="print-no-link">#工厂方法</a>
+      
+        <a href="/tags/%E5%8C%BF%E5%90%8D%E5%AD%97%E6%AE%B5/" class="print-no-link">#匿名字段</a>
+      
+        <a href="/tags/%E5%86%85%E5%B5%8C%E7%BB%93%E6%9E%84%E4%BD%93/" class="print-no-link">#内嵌结构体</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>go学习记录——第十二天</div>
+      <div>https://lx02918.github.io/2024/12/01/go-study-twelfth-day/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Seth</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年12月1日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/11/29/go-study-eleventh-day/" title="go学习记录——第十一天">
+                        <span class="hidden-mobile">go学习记录——第十一天</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"pAyQlcbEY6nkOIh5fveIBxLA-gzGzoHsz","appKey":"DjSrQhO4p64SG8qV28lz5J0H","path":"window.location.pathname","placeholder":"Just go go","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
