@@ -19,7 +19,7 @@
     <meta name="description" content="今天准备继续学PG的高级操作，至于为什么过了一个周末才有开始学，那当然是因为上班时间拿来学习周末时间拿来玩啦~ 今天差不多就是约束、JOIN、UNION、别名、索引、触发器、事务、锁这些，gogogo。 约束在观感上感觉和MySQL的差不多，但是在查询相关资料后发现还是有些许区别。 和MySQL区别首先明确一点，他们都支持五大约束（不知道的拖出去乱棍打死！面试经常考的都不知道！）。 PG自带了一个">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PostgreSQL学习记录——第二天">
-<meta property="og:url" content="https://lx02918.github.io/2024/08/05/postgresql-study-second-day/index.html">
+<meta property="og:url" content="https://www.lx02918.ltd/2024/08/05/postgresql-study-second-day/index.html">
 <meta property="og:site_name" content="Seth的小站">
 <meta property="og:description" content="今天准备继续学PG的高级操作，至于为什么过了一个周末才有开始学，那当然是因为上班时间拿来学习周末时间拿来玩啦~ 今天差不多就是约束、JOIN、UNION、别名、索引、触发器、事务、锁这些，gogogo。 约束在观感上感觉和MySQL的差不多，但是在查询相关资料后发现还是有些许区别。 和MySQL区别首先明确一点，他们都支持五大约束（不知道的拖出去乱棍打死！面试经常考的都不知道！）。 PG自带了一个">
 <meta property="og:locale" content="zh_CN">
@@ -72,7 +72,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"lx02918.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"pAyQlcbEY6nkOIh5fveIBxLA-gzGzoHsz","app_key":"DjSrQhO4p64SG8qV28lz5J0H","server_url":"https://payqlcbe.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"www.lx02918.ltd","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"pAyQlcbEY6nkOIh5fveIBxLA-gzGzoHsz","app_key":"DjSrQhO4p64SG8qV28lz5J0H","server_url":"https://payqlcbe.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -748,7 +748,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>PostgreSQL学习记录——第二天</div>
-      <div>https://lx02918.github.io/2024/08/05/postgresql-study-second-day/</div>
+      <div>https://www.lx02918.ltd/2024/08/05/postgresql-study-second-day/</div>
     </div>
     <div class="license-meta">
       

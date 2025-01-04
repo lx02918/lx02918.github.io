@@ -19,7 +19,7 @@
     <meta name="description" content="标准库类似于fmt和os的库在Golang中有150+个，被称为标准库（和python的什么math啊，os一样）（附录中D有详细的书里引用的包的列表，书的地址见 go学习记录——第三天  unsafe 包含一个打破 Golang “类型安全”的命令，一般不会使用（估计这辈子用到的概率比彗星撞地球还低）  syscall - os - os&#x2F;exec   os 提供一个与平台无关的操作系统功能接口">
 <meta property="og:type" content="article">
 <meta property="og:title" content="go学习记录——第八天">
-<meta property="og:url" content="https://lx02918.github.io/2024/11/19/go-study-eighth-day/index.html">
+<meta property="og:url" content="https://www.lx02918.ltd/2024/11/19/go-study-eighth-day/index.html">
 <meta property="og:site_name" content="Seth的小站">
 <meta property="og:description" content="标准库类似于fmt和os的库在Golang中有150+个，被称为标准库（和python的什么math啊，os一样）（附录中D有详细的书里引用的包的列表，书的地址见 go学习记录——第三天  unsafe 包含一个打破 Golang “类型安全”的命令，一般不会使用（估计这辈子用到的概率比彗星撞地球还低）  syscall - os - os&#x2F;exec   os 提供一个与平台无关的操作系统功能接口">
 <meta property="og:locale" content="zh_CN">
@@ -75,7 +75,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"lx02918.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"pAyQlcbEY6nkOIh5fveIBxLA-gzGzoHsz","app_key":"DjSrQhO4p64SG8qV28lz5J0H","server_url":"https://payqlcbe.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"www.lx02918.ltd","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"pAyQlcbEY6nkOIh5fveIBxLA-gzGzoHsz","app_key":"DjSrQhO4p64SG8qV28lz5J0H","server_url":"https://payqlcbe.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -590,7 +590,7 @@
             
               <div class="markdown-body">
                 
-                <h1 id="标准库"><a href="#标准库" class="headerlink" title="标准库"></a>标准库</h1><p>类似于<code>fmt</code>和<code>os</code>的库在<code>Golang</code>中有150+个，被称为标准库（和python的什么math啊，os一样）（附录中D有详细的书里引用的包的列表，书的地址见 <a href="https://lx02918.github.io/2024/08/09/go-study-third-day/">go学习记录——第三天</a></p>
+                <h1 id="标准库"><a href="#标准库" class="headerlink" title="标准库"></a>标准库</h1><p>类似于<code>fmt</code>和<code>os</code>的库在<code>Golang</code>中有150+个，被称为标准库（和python的什么math啊，os一样）（附录中D有详细的书里引用的包的列表，书的地址见 <a target="_blank" rel="noopener" href="https://lx02918.github.io/2024/08/09/go-study-third-day/">go学习记录——第三天</a></p>
 <ul>
 <li><p><code>unsafe</code> 包含一个打破 Golang “类型安全”的命令，一般不会使用（估计这辈子用到的概率比彗星撞地球还低）</p>
 </li>
@@ -801,7 +801,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>go学习记录——第八天</div>
-      <div>https://lx02918.github.io/2024/11/19/go-study-eighth-day/</div>
+      <div>https://www.lx02918.ltd/2024/11/19/go-study-eighth-day/</div>
     </div>
     <div class="license-meta">
       

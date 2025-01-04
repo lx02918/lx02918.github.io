@@ -19,7 +19,7 @@
     <meta name="description" content="方法和未导出字段考虑 person2.go 中的 person 包：类型 Person 被明确的导出了，但是它的字段没有被导出。例如在 use_person2.go 中 p.firstName 就是错误的。该如何在另一个程序中修改或只读取一个 Person 的名字呢？ 这可以通过面向对象语言中一个众所周知的技术来完成：提供 getter() 和 setter() 方法。对于 setter() 方法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="go学习记录——第十四天">
-<meta property="og:url" content="https://lx02918.github.io/2025/01/03/go-study-fourteenth-day/index.html">
+<meta property="og:url" content="https://www.lx02918.ltd/2025/01/03/go-study-fourteenth-day/index.html">
 <meta property="og:site_name" content="Seth的小站">
 <meta property="og:description" content="方法和未导出字段考虑 person2.go 中的 person 包：类型 Person 被明确的导出了，但是它的字段没有被导出。例如在 use_person2.go 中 p.firstName 就是错误的。该如何在另一个程序中修改或只读取一个 Person 的名字呢？ 这可以通过面向对象语言中一个众所周知的技术来完成：提供 getter() 和 setter() 方法。对于 setter() 方法">
 <meta property="og:locale" content="zh_CN">
@@ -77,7 +77,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"lx02918.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"pAyQlcbEY6nkOIh5fveIBxLA-gzGzoHsz","app_key":"DjSrQhO4p64SG8qV28lz5J0H","server_url":"https://payqlcbe.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"www.lx02918.ltd","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"pAyQlcbEY6nkOIh5fveIBxLA-gzGzoHsz","app_key":"DjSrQhO4p64SG8qV28lz5J0H","server_url":"https://payqlcbe.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -746,7 +746,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>go学习记录——第十四天</div>
-      <div>https://lx02918.github.io/2025/01/03/go-study-fourteenth-day/</div>
+      <div>https://www.lx02918.ltd/2025/01/03/go-study-fourteenth-day/</div>
     </div>
     <div class="license-meta">
       

@@ -19,11 +19,11 @@
     <meta name="description" content="228 汇总矩阵给定一个  无重复元素 的 有序 整数数组 nums 。 返回 恰好覆盖数组中所有数字 的 最小有序 区间范围列表 。也就是说，nums 的每个元素都恰好被某个区间范围所覆盖，并且不存在属于某个范围但不属于 nums 的数字 x 。 列表中的每个区间范围 [a,b] 应该按如下格式输出： “a-&gt;b&quot; ，如果 a !&#x3D; b“a“ ，如果 a &#x3D;&#x3D; b 示例 1： 输">
 <meta property="og:type" content="article">
 <meta property="og:title" content="leetcode刷题记录——区间">
-<meta property="og:url" content="https://lx02918.github.io/2024/08/05/leetcode_%E5%8C%BA%E9%97%B4/index.html">
+<meta property="og:url" content="https://www.lx02918.ltd/2024/08/05/leetcode_%E5%8C%BA%E9%97%B4/index.html">
 <meta property="og:site_name" content="Seth的小站">
 <meta property="og:description" content="228 汇总矩阵给定一个  无重复元素 的 有序 整数数组 nums 。 返回 恰好覆盖数组中所有数字 的 最小有序 区间范围列表 。也就是说，nums 的每个元素都恰好被某个区间范围所覆盖，并且不存在属于某个范围但不属于 nums 的数字 x 。 列表中的每个区间范围 [a,b] 应该按如下格式输出： “a-&gt;b&quot; ，如果 a !&#x3D; b“a“ ，如果 a &#x3D;&#x3D; b 示例 1： 输">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lx02918.github.io/img/leetcode%E5%8C%BA%E9%97%B4%E7%A4%BA%E6%84%8F%E5%9B%BE%E2%80%94%E2%80%94452.png">
+<meta property="og:image" content="https://www.lx02918.ltd/img/leetcode%E5%8C%BA%E9%97%B4%E7%A4%BA%E6%84%8F%E5%9B%BE%E2%80%94%E2%80%94452.png">
 <meta property="article:published_time" content="2024-08-05T08:07:28.000Z">
 <meta property="article:modified_time" content="2024-08-05T10:10:39.815Z">
 <meta property="article:author" content="Seth">
@@ -31,7 +31,7 @@
 <meta property="article:tag" content="刷题">
 <meta property="article:tag" content="区间">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lx02918.github.io/img/leetcode%E5%8C%BA%E9%97%B4%E7%A4%BA%E6%84%8F%E5%9B%BE%E2%80%94%E2%80%94452.png">
+<meta name="twitter:image" content="https://www.lx02918.ltd/img/leetcode%E5%8C%BA%E9%97%B4%E7%A4%BA%E6%84%8F%E5%9B%BE%E2%80%94%E2%80%94452.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -75,7 +75,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"lx02918.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"pAyQlcbEY6nkOIh5fveIBxLA-gzGzoHsz","app_key":"DjSrQhO4p64SG8qV28lz5J0H","server_url":"https://payqlcbe.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"www.lx02918.ltd","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"pAyQlcbEY6nkOIh5fveIBxLA-gzGzoHsz","app_key":"DjSrQhO4p64SG8qV28lz5J0H","server_url":"https://payqlcbe.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -683,7 +683,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>leetcode刷题记录——区间</div>
-      <div>https://lx02918.github.io/2024/08/05/leetcode_区间/</div>
+      <div>https://www.lx02918.ltd/2024/08/05/leetcode_区间/</div>
     </div>
     <div class="license-meta">
       

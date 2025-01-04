@@ -19,20 +19,20 @@
     <meta name="description" content="这篇Blog将分享我在做leetcode面试经典150题中矩阵部分几道题的做题思路和代码。 36 有效的数组请你判断一个 9 x 9 的数独是否有效。只需要 根据以下规则 ，验证已经填入的数字是否有效即可。 数字 1-9 在每一行只能出现一次。数字 1-9 在每一列只能出现一次。数字 1-9 在每一个以粗实线分隔的 3x3 宫内只能出现一次。（请参考示例图） 注意： 一个有效的数独（部分已被填充）">
 <meta property="og:type" content="article">
 <meta property="og:title" content="leetcode刷题记录——矩阵">
-<meta property="og:url" content="https://lx02918.github.io/2024/07/30/my-fourth-blog/index.html">
+<meta property="og:url" content="https://www.lx02918.ltd/2024/07/30/my-fourth-blog/index.html">
 <meta property="og:site_name" content="Seth的小站">
 <meta property="og:description" content="这篇Blog将分享我在做leetcode面试经典150题中矩阵部分几道题的做题思路和代码。 36 有效的数组请你判断一个 9 x 9 的数独是否有效。只需要 根据以下规则 ，验证已经填入的数字是否有效即可。 数字 1-9 在每一行只能出现一次。数字 1-9 在每一列只能出现一次。数字 1-9 在每一个以粗实线分隔的 3x3 宫内只能出现一次。（请参考示例图） 注意： 一个有效的数独（部分已被填充）">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lx02918.github.io/img/%E6%9C%89%E6%95%88%E6%95%B0%E7%8B%AC_%E7%A4%BA%E4%BE%8B1.png">
-<meta property="og:image" content="https://lx02918.github.io/img/%E8%9E%BA%E6%97%8B%E7%9F%A9%E9%98%B5_%E7%A4%BA%E4%BE%8B1.jpg">
-<meta property="og:image" content="https://lx02918.github.io/img/%E8%9E%BA%E6%97%8B%E7%9F%A9%E9%98%B5_%E7%A4%BA%E4%BE%8B2.jpg">
-<meta property="og:image" content="https://lx02918.github.io/img/%E6%97%8B%E8%BD%AC%E5%9B%BE%E5%83%8F_%E7%A4%BA%E4%BE%8B1.jpg">
-<meta property="og:image" content="https://lx02918.github.io/img/%E6%97%8B%E8%BD%AC%E5%9B%BE%E5%83%8F_%E7%A4%BA%E4%BE%8B2.jpg">
-<meta property="og:image" content="https://lx02918.github.io/img/%E6%97%8B%E8%BD%AC%E5%9B%BE%E5%83%8F_%E6%BC%94%E7%A4%BA.jpg">
-<meta property="og:image" content="https://lx02918.github.io/img/%E7%9F%A9%E9%98%B5%E7%BD%AE%E9%9B%B6_%E7%A4%BA%E4%BE%8B1.jpg">
-<meta property="og:image" content="https://lx02918.github.io/img/%E7%9F%A9%E9%98%B5%E7%BD%AE%E9%9B%B6_%E7%A4%BA%E4%BE%8B2.jpg">
-<meta property="og:image" content="https://lx02918.github.io/img/%E7%94%9F%E5%91%BD%E6%B8%B8%E6%88%8F_%E7%A4%BA%E4%BE%8B1.jpg">
-<meta property="og:image" content="https://lx02918.github.io/img/%E7%94%9F%E5%91%BD%E6%B8%B8%E6%88%8F_%E7%A4%BA%E4%BE%8B2.jpg">
+<meta property="og:image" content="https://www.lx02918.ltd/img/%E6%9C%89%E6%95%88%E6%95%B0%E7%8B%AC_%E7%A4%BA%E4%BE%8B1.png">
+<meta property="og:image" content="https://www.lx02918.ltd/img/%E8%9E%BA%E6%97%8B%E7%9F%A9%E9%98%B5_%E7%A4%BA%E4%BE%8B1.jpg">
+<meta property="og:image" content="https://www.lx02918.ltd/img/%E8%9E%BA%E6%97%8B%E7%9F%A9%E9%98%B5_%E7%A4%BA%E4%BE%8B2.jpg">
+<meta property="og:image" content="https://www.lx02918.ltd/img/%E6%97%8B%E8%BD%AC%E5%9B%BE%E5%83%8F_%E7%A4%BA%E4%BE%8B1.jpg">
+<meta property="og:image" content="https://www.lx02918.ltd/img/%E6%97%8B%E8%BD%AC%E5%9B%BE%E5%83%8F_%E7%A4%BA%E4%BE%8B2.jpg">
+<meta property="og:image" content="https://www.lx02918.ltd/img/%E6%97%8B%E8%BD%AC%E5%9B%BE%E5%83%8F_%E6%BC%94%E7%A4%BA.jpg">
+<meta property="og:image" content="https://www.lx02918.ltd/img/%E7%9F%A9%E9%98%B5%E7%BD%AE%E9%9B%B6_%E7%A4%BA%E4%BE%8B1.jpg">
+<meta property="og:image" content="https://www.lx02918.ltd/img/%E7%9F%A9%E9%98%B5%E7%BD%AE%E9%9B%B6_%E7%A4%BA%E4%BE%8B2.jpg">
+<meta property="og:image" content="https://www.lx02918.ltd/img/%E7%94%9F%E5%91%BD%E6%B8%B8%E6%88%8F_%E7%A4%BA%E4%BE%8B1.jpg">
+<meta property="og:image" content="https://www.lx02918.ltd/img/%E7%94%9F%E5%91%BD%E6%B8%B8%E6%88%8F_%E7%A4%BA%E4%BE%8B2.jpg">
 <meta property="article:published_time" content="2024-07-30T10:45:19.000Z">
 <meta property="article:modified_time" content="2024-08-27T02:26:03.940Z">
 <meta property="article:author" content="Seth">
@@ -40,7 +40,7 @@
 <meta property="article:tag" content="刷题">
 <meta property="article:tag" content="矩阵">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lx02918.github.io/img/%E6%9C%89%E6%95%88%E6%95%B0%E7%8B%AC_%E7%A4%BA%E4%BE%8B1.png">
+<meta name="twitter:image" content="https://www.lx02918.ltd/img/%E6%9C%89%E6%95%88%E6%95%B0%E7%8B%AC_%E7%A4%BA%E4%BE%8B1.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -84,7 +84,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"lx02918.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"pAyQlcbEY6nkOIh5fveIBxLA-gzGzoHsz","app_key":"DjSrQhO4p64SG8qV28lz5J0H","server_url":"https://payqlcbe.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"www.lx02918.ltd","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"pAyQlcbEY6nkOIh5fveIBxLA-gzGzoHsz","app_key":"DjSrQhO4p64SG8qV28lz5J0H","server_url":"https://payqlcbe.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -693,7 +693,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>leetcode刷题记录——矩阵</div>
-      <div>https://lx02918.github.io/2024/07/30/my-fourth-blog/</div>
+      <div>https://www.lx02918.ltd/2024/07/30/my-fourth-blog/</div>
     </div>
     <div class="license-meta">
       
