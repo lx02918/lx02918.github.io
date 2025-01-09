@@ -1,12 +1,13 @@
- User-agent: *
- Allow: /posts/
+User-agent: *
+Allow: /posts/
 Allow: /public/
- Disallow: /tags/
- Disallow: /categories/
- Allow: /about/
- Disallow: /archives/
- Disallow: /js/
- Disallow: /css/
- Disallow: /fonts/
- Disallow: /lib/
+Allow: /about/
+Disallow: /archives/
+Disallow: /js/
+Disallow: /css/
+Disallow: /fonts/
+Disallow: /lib/
+Allow: /tags/
+Allow: /categories/
+
 Sitemap: https://www.lx02918.ltd/sitemap.xml
