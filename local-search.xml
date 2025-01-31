@@ -4,6 +4,37 @@
   
   
   <entry>
+    <title>Windows11任务栏失灵解决方案</title>
+    <link href="/2025/01/31/Windows11-tastbar-failed/"/>
+    <url>/2025/01/31/Windows11-tastbar-failed/</url>
+    
+    <content type="html"><![CDATA[<h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>大概交代一下设备的基本参数</p><ul><li>Windows11 24H2</li><li>Windows专业版</li></ul><p>这次主要是我在近期的一次更新后突然出现，版本号是26120.3000，然后这个版本我查了下推送时间是2025-01-24，我更新应该是25或26日。不过主要问题应该理论上和更新无关。</p><p>具体问题就是我的任务栏无法使用及Alt+Tab无法切换任务。</p><h1 id="网解决方案"><a href="#网解决方案" class="headerlink" title="网解决方案"></a>网解决方案</h1><h2 id="解决方案1：重启Windows资源管理器"><a href="#解决方案1：重启Windows资源管理器" class="headerlink" title="解决方案1：重启Windows资源管理器"></a>解决方案1：重启Windows资源管理器</h2><p>首先我查了相关资料后说是因为我的Windows资源管理器出问题了，要在任务管理器里重新启动。任务管理器可以右键点击任务栏的Windows键打开也可以使用快捷键Ctrl + Shift + Esc。打开后找到我们的Windiows资源管理器进行重启。该方法可以将任务栏和桌面重启，可能有助于解决，这是我们最先排查的问题，有的时候会因为内存不足等原因导致我们无法切换。但该方案对我遇到的情况没有丝毫帮助。</p><figure>  <img src="/2025/01/31/Windows11-tastbar-failed/Resource_Manager.png" class="" title="Resource_Manager">  <figcaption>Resource_Manager</figcaption></figure><h2 id="解决方案2：检查任务栏设置"><a href="#解决方案2：检查任务栏设置" class="headerlink" title="解决方案2：检查任务栏设置"></a>解决方案2：检查任务栏设置</h2><p>这个其实涉及到一个卡顿的问题，所以我们右键任务栏空白处选择任务栏设置，将自动隐藏任务栏关闭。然后去查看是否奏效，如果奏效说明可能就是这个的问题，因为为了美化很多人会隐藏任务栏并使用TranslucentTB来透明化任务栏。但很明显我关闭后几分钟内是正常的，但后续又会无法使用。</p><figure>  <img src="/2025/01/31/Windows11-tastbar-failed/Taskbar_Setting.png" class="" title="Taskbar_Setting">  <figcaption>Taskbar_Setting</figcaption></figure><h2 id="解决方案3：检查键盘快捷键冲突"><a href="#解决方案3：检查键盘快捷键冲突" class="headerlink" title="解决方案3：检查键盘快捷键冲突"></a>解决方案3：检查键盘快捷键冲突</h2><p>这里推荐大家去检查一下自己的一些检查用到的例如截图软件，翻译软件等，这些快捷键很容易出问题，就比如我之前F3被占用导致我在原神、绝区零游戏中无法使用相应功能（当时我一度以为是游戏出问题了）所以建议大家还是平时对后台运行的全局应用快捷键进行一下管理。</p><h2 id="解决方案4：修改注册表设置"><a href="#解决方案4：修改注册表设置" class="headerlink" title="解决方案4：修改注册表设置"></a>解决方案4：修改注册表设置</h2><p>注册表这个是我目前找到的比较靠谱的了，按照目前情况来看确实有可能是因为更新了系统才导致的注册表出问题，具体原因还没有找到其他资料，但先解决问题吧。</p><ol><li>按下<code>Win + R</code>，输入<code>regedit</code>，然后按回车，打开注册表编辑器。</li><li>导航到路径：<code>HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer</code>。</li><li>在右侧窗格中，查找名为<code>AltTabSettings</code>的DWORD值。</li><li>如果不存在，右键点击空白处，选择“新建”&gt;“DWORD（32位）值”，命名为<code>AltTabSettings</code>。</li><li>双击<code>AltTabSettings</code>，将数值数据设置为<code>1</code>，然后点击“确定”。</li><li>关闭注册表编辑器，注销并重新登录或重启计算机。</li></ol><p>这里需要注意，我们修改注册表可能会导致系统的稳定性出问题，所以还是样子，在进行任何更改前建议先进行备份。</p><p>然后大家会发现我们设置数值为<code>1</code>后怎么没有任务的缩略图了，这里我经过实验是需要设置为<code>0</code>才能显示到我们原本的东西，也就是经典的应用程序切换器。</p><p>当然这个方案最后也是解决了我的问题。</p><h1 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h1><p>需要注意的地方和大家说一下</p><ol><li><p>修改注册表前一定一定一定备份！</p></li><li><p>如果最近有安装程序，删了排查是不是第三方程序和任务栏冲突。</p></li><li><p>如果是为了最保险，我们使用创建新账户的方式来进行排查</p><ul><li>按下 <code>Win + I</code> 打开设置。</li><li>选择“账户”。</li><li>点击“家庭和其他用户”。</li><li>在“其他用户”下，点击“添加其他人到这台电脑”。</li><li>按照提示创建一个新账户。</li></ul><p> 登录新账户，检查任务栏和 <code>Alt + Tab</code> 功能是否正常。</p></li></ol><p>如果提到的方案都没有解决，建议直接寻找微软支持或相关专业人士帮助。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>问题记录</category>
+      
+      <category>Windows</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>问题记录</tag>
+      
+      <tag>Windows</tag>
+      
+      <tag>Taskbar</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>go学习记录——第十五天</title>
     <link href="/2025/01/05/go-study-fifteenth-day/"/>
     <url>/2025/01/05/go-study-fifteenth-day/</url>
