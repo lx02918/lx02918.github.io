@@ -839,23 +839,24 @@
   
     <article id="comments" lazyload>
       
-  <div id="gitalk-container"></div>
+  <div id="waline"></div>
   <script type="text/javascript">
-    Fluid.utils.loadComments('#gitalk-container', function() {
-      Fluid.utils.createCssLink('/css/gitalk.css')
-      Fluid.utils.createScript('https://lib.baomitu.com/gitalk/1.8.0/gitalk.min.js', function() {
-        // 使用一个安全的ID（例如：页面路径的MD5值）
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createCssLink('https://cdn.staticfile.org/waline/2.15.5/waline.min.css')
+      Fluid.utils.createScript('https://cdn.staticfile.org/waline/2.15.5/waline.min.js', function() {
         var options = Object.assign(
-          {"clientID":"Ov23liVNlAOmi9jAy7O8","clientSecret":"c759203e5c48278c0a7ca6f8d4b4aa83d95b8e5f","repo":"blog-comments","owner":"lx02918","admin":["lx02918"],"language":"zh-CN","labels":["Gitalk"],"perPage":10,"pagerDirection":"last","distractionFreeMode":false,"createIssueManually":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token"},
+          {"serverURL":"https://blogcomments-gold.vercel.app/","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":["nick"],"lang":"zh-CN","emoji":["https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10},
           {
-            id: 'de8d11ba40861ea24969caf397cea69b',
-            // 在这里可以进一步隐藏clientID、clientSecret的暴露
-            clientID: 'REPLACE_WITH_SECURE_METHOD',  // 你可以将这些值通过后端传递
-            clientSecret: 'REPLACE_WITH_SECURE_METHOD',
+            el: '#waline',
+            path: window.location.pathname
           }
-        );
-        var gitalk = new Gitalk(options);
-        gitalk.render('gitalk-container');
+        )
+        Waline.init(options);
+        Fluid.utils.waitElementVisible('#waline .vcontent', () => {
+          var imgSelector = '#waline .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
       });
     });
   </script>
