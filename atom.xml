@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Seth的小站</title>
-  
+  <icon>https://www.lx02918.ltd/icon.png</icon>
   
   <link href="https://www.lx02918.ltd/atom.xml" rel="self"/>
   
@@ -28,10 +28,12 @@
     
       
       
+        
+        
     <summary type="html">&lt;h1 id=&quot;问题描述&quot;&gt;&lt;a href=&quot;#问题描述&quot; class=&quot;headerlink&quot; title=&quot;问题描述&quot;&gt;&lt;/a&gt;问题描述&lt;/h1&gt;&lt;p&gt;大概交代一下设备的基本参数&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;Windows11 24H2&lt;/li&gt;
-&lt;li&gt;Windows专业版&lt;</summary>
+&lt;li&gt;Windows11</summary>
+        
       
     
     
@@ -61,8 +63,11 @@
     
       
       
+        
+        
     <summary type="html">&lt;h1 id=&quot;接口&quot;&gt;&lt;a href=&quot;#接口&quot; class=&quot;headerlink&quot; title=&quot;接口&quot;&gt;&lt;/a&gt;接口&lt;/h1&gt;&lt;p&gt;Go 并不是“传统”的面向对象编程语言，没有类和继承的概念（这不是废话吗）&lt;/p&gt;
-&lt;p&gt;但是 Go 中有非常灵活的&lt;strong&gt;接口&lt;/</summary>
+&lt;p&gt;但是 Go</summary>
+        
       
     
     
@@ -92,7 +97,10 @@
     
       
       
-    <summary type="html">&lt;h1 id=&quot;方法和未导出字段&quot;&gt;&lt;a href=&quot;#方法和未导出字段&quot; class=&quot;headerlink&quot; title=&quot;方法和未导出字段&quot;&gt;&lt;/a&gt;方法和未导出字段&lt;/h1&gt;&lt;p&gt;考虑 &lt;code&gt;person2.go&lt;/code&gt; 中的 &lt;code&gt;person&lt;/co</summary>
+        
+        
+    <summary type="html">&lt;h1 id=&quot;方法和未导出字段&quot;&gt;&lt;a href=&quot;#方法和未导出字段&quot; class=&quot;headerlink&quot; title=&quot;方法和未导出字段&quot;&gt;&lt;/a&gt;方法和未导出字段&lt;/h1&gt;&lt;p&gt;考虑 &lt;code&gt;person2.go&lt;/code&gt; 中的</summary>
+        
       
     
     
@@ -126,7 +134,10 @@
     
       
       
-    <summary type="html">&lt;h1 id=&quot;方法&quot;&gt;&lt;a href=&quot;#方法&quot; class=&quot;headerlink&quot; title=&quot;方法&quot;&gt;&lt;/a&gt;方法&lt;/h1&gt;&lt;h2 id=&quot;方法是什么&quot;&gt;&lt;a href=&quot;#方法是什么&quot; class=&quot;headerlink&quot; title=&quot;方法是什么&quot;&gt;&lt;/a&gt;方法是什</summary>
+        
+        
+    <summary type="html">&lt;h1 id=&quot;方法&quot;&gt;&lt;a href=&quot;#方法&quot; class=&quot;headerlink&quot; title=&quot;方法&quot;&gt;&lt;/a&gt;方法&lt;/h1&gt;&lt;h2 id=&quot;方法是什么&quot;&gt;&lt;a href=&quot;#方法是什么&quot; class=&quot;headerlink&quot;</summary>
+        
       
     
     
@@ -160,7 +171,10 @@
     
       
       
-    <summary type="html">&lt;h1 id=&quot;使用工厂方法创建结构体实例&quot;&gt;&lt;a href=&quot;#使用工厂方法创建结构体实例&quot; class=&quot;headerlink&quot; title=&quot;使用工厂方法创建结构体实例&quot;&gt;&lt;/a&gt;使用工厂方法创建结构体实例&lt;/h1&gt;&lt;h2 id=&quot;结构体工厂&quot;&gt;&lt;a href=&quot;#结构体工</summary>
+        
+        
+    <summary type="html">&lt;h1 id=&quot;使用工厂方法创建结构体实例&quot;&gt;&lt;a href=&quot;#使用工厂方法创建结构体实例&quot; class=&quot;headerlink&quot; title=&quot;使用工厂方法创建结构体实例&quot;&gt;&lt;/a&gt;使用工厂方法创建结构体实例&lt;/h1&gt;&lt;h2 id=&quot;结构体工厂&quot;&gt;&lt;a</summary>
+        
       
     
     
@@ -196,7 +210,10 @@
     
       
       
-    <summary type="html">&lt;h1 id=&quot;结构（struct）与方法（method）&quot;&gt;&lt;a href=&quot;#结构（struct）与方法（method）&quot; class=&quot;headerlink&quot; title=&quot;结构（struct）与方法（method）&quot;&gt;&lt;/a&gt;结构（struct）与方法（method）&lt;/</summary>
+        
+        
+    <summary type="html">&lt;h1 id=&quot;结构（struct）与方法（method）&quot;&gt;&lt;a href=&quot;#结构（struct）与方法（method）&quot; class=&quot;headerlink&quot;</summary>
+        
       
     
     
@@ -228,7 +245,10 @@
     
       
       
-    <summary type="html">&lt;h1 id=&quot;自定义包的目录结构、go-install-和-go-test&quot;&gt;&lt;a href=&quot;#自定义包的目录结构、go-install-和-go-test&quot; class=&quot;headerlink&quot; title=&quot;自定义包的目录结构、go install 和 go test&quot;&gt;</summary>
+        
+        
+    <summary type="html">&lt;h1 id=&quot;自定义包的目录结构、go-install-和-go-test&quot;&gt;&lt;a href=&quot;#自定义包的目录结构、go-install-和-go-test&quot; class=&quot;headerlink&quot; title=&quot;自定义包的目录结构、go install 和 go</summary>
+        
       
     
     
@@ -266,7 +286,10 @@
     
       
       
-    <summary type="html">&lt;h1 id=&quot;精密计算和big包&quot;&gt;&lt;a href=&quot;#精密计算和big包&quot; class=&quot;headerlink&quot; title=&quot;精密计算和big包&quot;&gt;&lt;/a&gt;精密计算和big包&lt;/h1&gt;&lt;p&gt;众所周知编程实现的计算一般来说是不准确的，会出现&lt;code&gt;float64&lt;/cod</summary>
+        
+        
+    <summary type="html">&lt;h1 id=&quot;精密计算和big包&quot;&gt;&lt;a href=&quot;#精密计算和big包&quot; class=&quot;headerlink&quot;</summary>
+        
       
     
     
@@ -298,7 +321,10 @@
     
       
       
-    <summary type="html">&lt;h1 id=&quot;标准库&quot;&gt;&lt;a href=&quot;#标准库&quot; class=&quot;headerlink&quot; title=&quot;标准库&quot;&gt;&lt;/a&gt;标准库&lt;/h1&gt;&lt;p&gt;类似于&lt;code&gt;fmt&lt;/code&gt;和&lt;code&gt;os&lt;/code&gt;的库在&lt;code&gt;Golang&lt;/code&gt;中有150+个，被</summary>
+        
+        
+    <summary type="html">&lt;h1 id=&quot;标准库&quot;&gt;&lt;a href=&quot;#标准库&quot; class=&quot;headerlink&quot;</summary>
+        
       
     
     
@@ -332,10 +358,10 @@
     
       
       
-    <summary type="html">&lt;h1 id=&quot;拆分句子&quot;&gt;&lt;a href=&quot;#拆分句子&quot; class=&quot;headerlink&quot; title=&quot;拆分句子&quot;&gt;&lt;/a&gt;拆分句子&lt;/h1&gt;&lt;p&gt;给定一个字符串，统计其中不重复的英文单词的数量。&lt;/p&gt;
-&lt;p&gt;补充说明：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;字符串只会出现：数字、</summary>
+        
+        
+    <summary type="html">&lt;h1 id=&quot;拆分句子&quot;&gt;&lt;a href=&quot;#拆分句子&quot; class=&quot;headerlink&quot;</summary>
+        
       
     
     
@@ -361,8 +387,10 @@
     
       
       
-    <summary type="html">&lt;h1 id=&quot;柱状图中最大矩形&quot;&gt;&lt;a href=&quot;#柱状图中最大矩形&quot; class=&quot;headerlink&quot; title=&quot;柱状图中最大矩形&quot;&gt;&lt;/a&gt;柱状图中最大矩形&lt;/h1&gt;&lt;p&gt;对应leetcode84，属于&lt;code&gt;hard&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;这里需要说明</summary>
+        
+        
+    <summary type="html">&lt;h1 id=&quot;柱状图中最大矩形&quot;&gt;&lt;a href=&quot;#柱状图中最大矩形&quot; class=&quot;headerlink&quot;</summary>
+        
       
     
     
@@ -388,7 +416,10 @@
     
       
       
-    <summary type="html">&lt;h1 id=&quot;215-数组中的第K个最大元素-Medium&quot;&gt;&lt;a href=&quot;#215-数组中的第K个最大元素-Medium&quot; class=&quot;headerlink&quot; title=&quot;215 数组中的第K个最大元素 Medium&quot;&gt;&lt;/a&gt;215 &lt;a href=&quot;https:/</summary>
+        
+        
+    <summary type="html">&lt;h1 id=&quot;215-数组中的第K个最大元素-Medium&quot;&gt;&lt;a href=&quot;#215-数组中的第K个最大元素-Medium&quot; class=&quot;headerlink&quot; title=&quot;215 数组中的第K个最大元素 Medium&quot;&gt;&lt;/a&gt;215 &lt;a</summary>
+        
       
     
     
@@ -416,7 +447,10 @@
     
       
       
-    <summary type="html">&lt;h1 id=&quot;35-搜索插入位置-Easy&quot;&gt;&lt;a href=&quot;#35-搜索插入位置-Easy&quot; class=&quot;headerlink&quot; title=&quot;35 搜索插入位置 Easy&quot;&gt;&lt;/a&gt;35 &lt;a href=&quot;https://leetcode.cn/problems/sea</summary>
+        
+        
+    <summary type="html">&lt;h1 id=&quot;35-搜索插入位置-Easy&quot;&gt;&lt;a href=&quot;#35-搜索插入位置-Easy&quot; class=&quot;headerlink&quot; title=&quot;35 搜索插入位置 Easy&quot;&gt;&lt;/a&gt;35 &lt;a</summary>
+        
       
     
     
@@ -444,8 +478,10 @@
     
       
       
-    <summary type="html">&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;说实话，陌陌这次的笔试真的真的让人感觉到了原来我真的会点东西啊，废话不多说，直接上题目。&lt;/p&gt;
-&lt;p&gt;对了，前提需要说一下，代码为核心代码</summary>
+        
+        
+    <summary type="html">&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot;</summary>
+        
       
     
     
@@ -471,7 +507,10 @@
     
       
       
-    <summary type="html">&lt;h1 id=&quot;53-最大子数组和-Medium&quot;&gt;&lt;a href=&quot;#53-最大子数组和-Medium&quot; class=&quot;headerlink&quot; title=&quot;53 最大子数组和 Medium&quot;&gt;&lt;/a&gt;53 &lt;a href=&quot;https://leetcode.cn/proble</summary>
+        
+        
+    <summary type="html">&lt;h1 id=&quot;53-最大子数组和-Medium&quot;&gt;&lt;a href=&quot;#53-最大子数组和-Medium&quot; class=&quot;headerlink&quot; title=&quot;53 最大子数组和 Medium&quot;&gt;&lt;/a&gt;53 &lt;a</summary>
+        
       
     
     
@@ -499,7 +538,10 @@
     
       
       
-    <summary type="html">&lt;h1 id=&quot;108-将有序数组转换为二叉搜索树-Easy&quot;&gt;&lt;a href=&quot;#108-将有序数组转换为二叉搜索树-Easy&quot; class=&quot;headerlink&quot; title=&quot;108 将有序数组转换为二叉搜索树 Easy&quot;&gt;&lt;/a&gt;108 &lt;a href=&quot;https:/</summary>
+        
+        
+    <summary type="html">&lt;h1 id=&quot;108-将有序数组转换为二叉搜索树-Easy&quot;&gt;&lt;a href=&quot;#108-将有序数组转换为二叉搜索树-Easy&quot; class=&quot;headerlink&quot; title=&quot;108 将有序数组转换为二叉搜索树 Easy&quot;&gt;&lt;/a&gt;108 &lt;a</summary>
+        
       
     
     
@@ -527,7 +569,10 @@
     
       
       
-    <summary type="html">&lt;h1 id=&quot;17-电话号码的字母组合-Medium&quot;&gt;&lt;a href=&quot;#17-电话号码的字母组合-Medium&quot; class=&quot;headerlink&quot; title=&quot;17 电话号码的字母组合 Medium&quot;&gt;&lt;/a&gt;17 电话号码的字母组合 &lt;font color=#ff7</summary>
+        
+        
+    <summary type="html">&lt;h1 id=&quot;17-电话号码的字母组合-Medium&quot;&gt;&lt;a href=&quot;#17-电话号码的字母组合-Medium&quot; class=&quot;headerlink&quot; title=&quot;17 电话号码的字母组合 Medium&quot;&gt;&lt;/a&gt;17 电话号码的字母组合 &lt;font</summary>
+        
       
     
     
@@ -555,7 +600,10 @@
     
       
       
-    <summary type="html">&lt;h1 id=&quot;208-实现-Tire（前缀树）-Medium&quot;&gt;&lt;a href=&quot;#208-实现-Tire（前缀树）-Medium&quot; class=&quot;headerlink&quot; title=&quot;208 实现 Tire（前缀树） Medium&quot;&gt;&lt;/a&gt;208 实现 Tire（前缀树） </summary>
+        
+        
+    <summary type="html">&lt;h1 id=&quot;208-实现-Tire（前缀树）-Medium&quot;&gt;&lt;a href=&quot;#208-实现-Tire（前缀树）-Medium&quot; class=&quot;headerlink&quot; title=&quot;208 实现 Tire（前缀树） Medium&quot;&gt;&lt;/a&gt;208 实现 Tire（前缀树）</summary>
+        
       
     
     
@@ -583,7 +631,10 @@
     
       
       
-    <summary type="html">&lt;h1 id=&quot;909-蛇形棋-Medium&quot;&gt;&lt;a href=&quot;#909-蛇形棋-Medium&quot; class=&quot;headerlink&quot; title=&quot;909 蛇形棋 Medium&quot;&gt;&lt;/a&gt;909 蛇形棋 &lt;font color=#ff7f50 size=4&gt;Medium&lt;/f</summary>
+        
+        
+    <summary type="html">&lt;h1 id=&quot;909-蛇形棋-Medium&quot;&gt;&lt;a href=&quot;#909-蛇形棋-Medium&quot; class=&quot;headerlink&quot; title=&quot;909 蛇形棋 Medium&quot;&gt;&lt;/a&gt;909 蛇形棋 &lt;font color=#ff7f50</summary>
+        
       
     
     
@@ -611,8 +662,10 @@
     
       
       
-    <summary type="html">&lt;h1 id=&quot;第一题&quot;&gt;&lt;a href=&quot;#第一题&quot; class=&quot;headerlink&quot; title=&quot;第一题&quot;&gt;&lt;/a&gt;第一题&lt;/h1&gt;&lt;p&gt;给你一个整数，请你判断0 ~ N之间有多少个数是100的正整数倍。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;输入描述&lt;/strong&gt;：&lt;/p</summary>
+        
+        
+    <summary type="html">&lt;h1 id=&quot;第一题&quot;&gt;&lt;a href=&quot;#第一题&quot; class=&quot;headerlink&quot; title=&quot;第一题&quot;&gt;&lt;/a&gt;第一题&lt;/h1&gt;&lt;p&gt;给你一个整数，请你判断0 ~</summary>
+        
       
     
     
