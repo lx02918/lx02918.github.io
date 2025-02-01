@@ -848,12 +848,16 @@
     Fluid.utils.loadComments('#gitalk-container', function() {
       Fluid.utils.createCssLink('/css/gitalk.css')
       Fluid.utils.createScript('https://lib.baomitu.com/gitalk/1.8.0/gitalk.min.js', function() {
+        // 使用一个安全的ID（例如：页面路径的MD5值）
         var options = Object.assign(
           {"clientID":"Ov23liVNlAOmi9jAy7O8","clientSecret":"c759203e5c48278c0a7ca6f8d4b4aa83d95b8e5f","repo":"blog-comments","owner":"lx02918","admin":["lx02918"],"language":"zh-CN","labels":["Gitalk"],"perPage":10,"pagerDirection":"last","distractionFreeMode":false,"createIssueManually":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token"},
           {
-            id: 'b2b3f358d52a25bb0fe50b57296aa7d2'
+            id: 'b2b3f358d52a25bb0fe50b57296aa7d2',
+            // 在这里可以进一步隐藏clientID、clientSecret的暴露
+            clientID: 'REPLACE_WITH_SECURE_METHOD',  // 你可以将这些值通过后端传递
+            clientSecret: 'REPLACE_WITH_SECURE_METHOD',
           }
-        )
+        );
         var gitalk = new Gitalk(options);
         gitalk.render('gitalk-container');
       });
