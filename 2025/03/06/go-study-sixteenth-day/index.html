@@ -1,0 +1,1235 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Seth">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="测试一个值是否实现了某个接口下面是类型断言那一part里的一个特例：假定 v 是一个值，然后我们想测试它是否实现了 Stringer 接口，可以用： 123456type Stringer interface &#123;    String() string&#125;if sv, ok :&#x3D; v.(Stringer); ok &#123;    fmt.Printf(&quot;v imple">
+<meta property="og:type" content="article">
+<meta property="og:title" content="go学习记录——第十六天">
+<meta property="og:url" content="https://www.lx02918.ltd/2025/03/06/go-study-sixteenth-day/index.html">
+<meta property="og:site_name" content="Seth的小站">
+<meta property="og:description" content="测试一个值是否实现了某个接口下面是类型断言那一part里的一个特例：假定 v 是一个值，然后我们想测试它是否实现了 Stringer 接口，可以用： 123456type Stringer interface &#123;    String() string&#125;if sv, ok :&#x3D; v.(Stringer); ok &#123;    fmt.Printf(&quot;v imple">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-03-06T07:59:54.000Z">
+<meta property="article:modified_time" content="2025-03-06T16:16:04.459Z">
+<meta property="article:author" content="Seth">
+<meta property="article:tag" content="学习记录">
+<meta property="article:tag" content="go">
+<meta property="article:tag" content="接口">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+
+  <!-- 引入 Font Awesome 图标库 -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+  <!-- 百度验证 -->
+  <meta name="baidu-site-verification" content="codeva-9kdQTZt849" />
+  <title>go学习记录——第十六天 - Seth的小站</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"www.lx02918.ltd","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"pAyQlcbEY6nkOIh5fveIBxLA-gzGzoHsz","app_key":"DjSrQhO4p64SG8qV28lz5J0H","server_url":"https://payqlcbe.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Seth的小站" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Seth的小站</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/atom.xml" target="_self">
+                <i class="iconfont icon-rss"></i>
+                <span>rss</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="go学习记录——第十六天"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-03-06 15:59" pubdate>
+          星期四, 三月 6日 2025, 3:59 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          29 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="学习记录"
+        id="heading-7f2ecb9c4d10981cd40468b79a104150" role="tab" data-toggle="collapse" href="#collapse-7f2ecb9c4d10981cd40468b79a104150"
+        aria-expanded="true"
+      >
+        学习记录
+        <span class="list-group-count">(21)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-7f2ecb9c4d10981cd40468b79a104150"
+           role="tabpanel" aria-labelledby="heading-7f2ecb9c4d10981cd40468b79a104150">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="PostgreSQL"
+        id="heading-399bd1ee587245ecac6f39beaa99886f" role="tab" data-toggle="collapse" href="#collapse-399bd1ee587245ecac6f39beaa99886f"
+        aria-expanded="false"
+      >
+        PostgreSQL
+        <span class="list-group-count">(5)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-399bd1ee587245ecac6f39beaa99886f"
+           role="tabpanel" aria-labelledby="heading-399bd1ee587245ecac6f39beaa99886f">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/08/02/postgresql-study-first-day/" title="PostgreSQL学习记录——第一天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">PostgreSQL学习记录——第一天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/06/postgresql-study-third-day/" title="PostgreSQL学习记录——第三天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">PostgreSQL学习记录——第三天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/05/postgresql-study-second-day/" title="PostgreSQL学习记录——第二天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">PostgreSQL学习记录——第二天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/07/postgresql-study-fourth-day/" title="PostgreSQL学习记录——第四天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">PostgreSQL学习记录——第四天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/01/install-postgreSQL/" title="PostgreSQL安装记录及集群初始化失败问题解决"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">PostgreSQL安装记录及集群初始化失败问题解决</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="go"
+        id="heading-34d1f91fb2e514b8576fab1a75a89a6b" role="tab" data-toggle="collapse" href="#collapse-34d1f91fb2e514b8576fab1a75a89a6b"
+        aria-expanded="true"
+      >
+        go
+        <span class="list-group-count">(16)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-34d1f91fb2e514b8576fab1a75a89a6b"
+           role="tabpanel" aria-labelledby="heading-34d1f91fb2e514b8576fab1a75a89a6b">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/08/07/go-study-first-day/" title="go学习记录——第一天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go学习记录——第一天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/15/go-study-seventh-day/" title="go学习记录——第七天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go学习记录——第七天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/09/go-study-third-day/" title="go学习记录——第三天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go学习记录——第三天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/11/20/go-study-ninth-day/" title="go学习记录——第九天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go学习记录——第九天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/08/go-study-second-day/" title="go学习记录——第二天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go学习记录——第二天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/13/go-study-fifth-day/" title="go学习记录——第五天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go学习记录——第五天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/11/19/go-study-eighth-day/" title="go学习记录——第八天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go学习记录——第八天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/14/go-study-sixth-day/" title="go学习记录——第六天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go学习记录——第六天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/11/29/go-study-eleventh-day/" title="go学习记录——第十一天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go学习记录——第十一天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/12/07/go-study-thirteenth-day/" title="go学习记录——第十三天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go学习记录——第十三天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/12/01/go-study-twelfth-day/" title="go学习记录——第十二天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go学习记录——第十二天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/01/05/go-study-fifteenth-day/" title="go学习记录——第十五天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go学习记录——第十五天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/03/06/go-study-sixteenth-day/" title="go学习记录——第十六天"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">go学习记录——第十六天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/01/03/go-study-fourteenth-day/" title="go学习记录——第十四天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go学习记录——第十四天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/11/26/go-study-tenth-day/" title="go学习记录——第十天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go学习记录——第十天</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/12/go-study-fourth-day/" title="go学习记录——第四天"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">go学习记录——第四天</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">go学习记录——第十六天</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="测试一个值是否实现了某个接口"><a href="#测试一个值是否实现了某个接口" class="headerlink" title="测试一个值是否实现了某个接口"></a>测试一个值是否实现了某个接口</h1><p>下面是类型断言那一part里的一个特例：假定 <code>v</code> 是一个值，然后我们想测试它是否实现了 <code>Stringer</code> 接口，可以用：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> Stringer <span class="hljs-keyword">interface</span> &#123;<br>    String() <span class="hljs-type">string</span><br>&#125;<br><span class="hljs-keyword">if</span> sv, ok := v.(Stringer); ok &#123;<br>    fmt.Printf(<span class="hljs-string">&quot;v implements String(): %s\n&quot;</span>, sv.String()) <span class="hljs-comment">// note: sv, not v</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><code>Print()</code> 函数就是如此检测类型是否可以打印自身的。</p>
+<p>接口是一种契约，实现类型必须满足它，它描述了类型的行为，规定类型可以做什么。接口彻底将类型能做什么，以及如何做分离开来，使得相同的接口的变量在不同的时刻表现出不同的行为，这就是多态的本质。</p>
+<p>编写参数是接口变量的函数，这使得它们更具有一般性。</p>
+<p><strong>使用接口使代码更具有普适性</strong></p>
+<p>而标准库中都是使用了这个原则（所以需要看标准库的源码）</p>
+<p>接下来会用两个例子去深入理解并掌握它们</p>
+<h1 id="使用方法集和接口"><a href="#使用方法集和接口" class="headerlink" title="使用方法集和接口"></a>使用方法集和接口</h1><p>在前文<a target="_blank" rel="noopener" href="https://github.com/unknwon/the-way-to-go_ZH_CN/blob/master/eBook/10.6.md">第 10.6.3 节</a>及例子<a target="_blank" rel="noopener" href="https://github.com/unknwon/the-way-to-go_ZH_CN/blob/master/eBook/examples%5Cchapter_10%5Cmethodset1.go">methodset1.go</a> 中我们看到，作用于变量上的方法实际上是不区分变量到底是指针还是值的。当碰到接口类型的值时，这会变得有点复杂，原因是接口变量中存储的具体值时不可寻址的，当然如果使用不当编译器会给出错误提示。</p>
+<p>示例<a target="_blank" rel="noopener" href="https://github.com/unknwon/the-way-to-go_ZH_CN/blob/master/eBook/examples/chapter_11/methodset2.go">methodset2.go</a></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span><br><br><span class="hljs-keyword">type</span> List []<span class="hljs-type">int</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(l List)</span></span> Len() <span class="hljs-type">int</span> &#123;<br>	<span class="hljs-keyword">return</span> <span class="hljs-built_in">len</span>(l)<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(l *List)</span></span> Append(val <span class="hljs-type">int</span>) &#123;<br>	*l = <span class="hljs-built_in">append</span>(*l, val)<br>&#125;<br><br><span class="hljs-keyword">type</span> Appender <span class="hljs-keyword">interface</span> &#123;<br>	Append(<span class="hljs-type">int</span>)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">CountInto</span><span class="hljs-params">(a Appender, start, end <span class="hljs-type">int</span>)</span></span> &#123;<br>	<span class="hljs-keyword">for</span> i := start; i &lt;= end; i++ &#123;<br>		a.Append(i)<br>	&#125;<br>&#125;<br><br><span class="hljs-keyword">type</span> Lener <span class="hljs-keyword">interface</span> &#123;<br>	Len() <span class="hljs-type">int</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">LongEnough</span><span class="hljs-params">(l Lener)</span></span> <span class="hljs-type">bool</span> &#123;<br>	<span class="hljs-keyword">return</span> l.Len()*<span class="hljs-number">10</span> &gt; <span class="hljs-number">42</span><br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-comment">// A bare value</span><br>	<span class="hljs-keyword">var</span> lst List<br>	<span class="hljs-comment">// compiler error: cannot use lst (variable of type List) as type valuable in argument to LongEnough:</span><br>	<span class="hljs-comment">//	List does not implement valuable (getValue method has pointer receiver)</span><br>	<span class="hljs-comment">// CountInto(lst, 1, 10)</span><br>	<span class="hljs-keyword">if</span> LongEnough(lst) &#123;<br>		fmt.Printf(<span class="hljs-string">&quot;- lst is long enough\n&quot;</span>)<br>	&#125;<br><br>	<span class="hljs-comment">// A Pointer value</span><br>	plst := <span class="hljs-built_in">new</span>(List)<br>	CountInto(plst, <span class="hljs-number">1</span>, <span class="hljs-number">10</span>) <span class="hljs-comment">// VALID: Identical receiver type</span><br>	<span class="hljs-keyword">if</span> LongEnough(plst) &#123;<br>		<span class="hljs-comment">// VALID:  a *List can be dereferenced for the receiver</span><br>		fmt.Printf(<span class="hljs-string">&quot;- plst is long enough\n&quot;</span>)<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>输出结果：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">- plst is long enough<br></code></pre></td></tr></table></figure>
+
+<p>在 <code>lst</code> 上调用 <code>CountInto</code> 时会导致一个编译器错误，因为 <code>CountInto</code> 需要一个 <code>Appender</code> ，而它的方法 <code>Append</code> 只定义在指针上。在 <code>lst</code> 上调用 <code>LongEnough</code> 是可以的，因为 <code>Len</code> 定义在值上。</p>
+<p>在 <code>plst</code> 上调用 <code>CountInto</code> 是可以的，因为 <code>CountInto</code> 是需要一个 <code>Appender</code> ，并且它的方法 <code>Append</code> 定义在指针上。在 <code>plst</code> 上调用 <code>LongEnough</code> 也是可以的，因为指针会被自动解引用。</p>
+<p>总结：</p>
+<p>在接口上调用方法，必须有和方法定义时相同的接收者类型或者是可以根据具体类型 <code>p</code> 直接辨识的：</p>
+<ul>
+<li>指针方法可以通过指针调用</li>
+<li>值方法可以通过值调用</li>
+<li>接收者是值的方法可以通过指针调用，因为指针会首先被解引用</li>
+<li>接收者是指针的方法不可以通过值调用，因为存储在接口中的值没有地址</li>
+</ul>
+<p>将一个值赋值给一个接口，编译器会确保所有可能的接口方法都可以在此值上被调用，因此不正确的赋值在编译期就会失败。</p>
+<p>PS：</p>
+<p>Go中规范定义了接口方法集的调用规则：</p>
+<ul>
+<li><p>类型 <code>*T</code> 的可调用方法集包含接受者为 <code>*T</code> 或 <code>T</code> 的所有方法集</p>
+</li>
+<li><p>类型 <code>T</code> 的可调用方法集包含接受者为 <code>T</code> 的所有方法</p>
+</li>
+<li><p>类型 <code>T</code> 的可调用方法集<strong>不包含</strong>接受者为 <code>*T</code> 的方法</p>
+</li>
+</ul>
+<h1 id="例子1：使用sorter接口排序"><a href="#例子1：使用sorter接口排序" class="headerlink" title="例子1：使用sorter接口排序"></a>例子1：使用sorter接口排序</h1><p>这里将以 <code>Sort</code> 包为例子，对一组数字或字符串进行排序，只需要实现三个方法：反应元素个数的 <code>Len()</code> 方法、比较第 <code>i</code> 和 <code>j</code> 个元素的 <code>Less(i, j)</code> 方法以及交换第 <code>i</code> 和 <code>j</code> 个元素的 <code>Swap(i, j)</code> 方法。</p>
+<p>排序函数的算法只会用到这三个方法（和Python不一样诶，这里使用的是冒泡排序）</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Sort</span><span class="hljs-params">(data Sorter)</span></span> &#123;<br>	<span class="hljs-keyword">for</span> pass := <span class="hljs-number">1</span>; pass &lt; data.Len(); pass++ &#123;<br>		<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; data.Len()-pass; i++ &#123;<br>			<span class="hljs-keyword">if</span> data.Less(i+<span class="hljs-number">1</span>, i) &#123;<br>				data.Swap(i, i+<span class="hljs-number">1</span>)<br>			&#125;<br>		&#125;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>两层循环的解释：</p>
+<p>外层循环：控制轮数，轮数最多为长度减1，因为每层至少有一个元素会被放在正确的位置上。</p>
+<p>内层循环：遍历未排序的元素，<code>data.Len() - pass</code> 保证经过一轮后，已排序的最大元素不会被再次比较。</p>
+<p><code>Sort</code> 函数接收一个接口类型的参数： <code>Sorter</code> ，它声明了如下方法：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> Sorter <span class="hljs-keyword">interface</span> &#123;<br>    Len() <span class="hljs-type">int</span><br>    Less(i, j <span class="hljs-type">int</span>) <span class="hljs-type">bool</span><br>    Swap(i, j <span class="hljs-type">int</span>)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>参数中的 <code>int</code> 是待排序序列长度的类型，而不是要排序的对象一定要是一组 <code>int</code>。<code>i</code> and <code>j</code> 表示元素的整型索引，长度也是整型的。</p>
+<p>如果现在相对一个 <code>int</code> 数组进行排序，必须要做的事情就是：为数组顶一个类型并且在它上面实现 <code>Sorter</code> 接口的方法：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> IntArray []<span class="hljs-type">int</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(p IntArray)</span></span> Len() <span class="hljs-type">int</span> &#123;<span class="hljs-keyword">return</span> <span class="hljs-built_in">len</span>(p)&#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(p IntArray)</span></span> Less(i, j <span class="hljs-type">int</span>) <span class="hljs-type">bool</span> &#123;<span class="hljs-keyword">return</span> p[i] &lt; p[j]&#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(p IntArray)</span></span> Swap(i, j <span class="hljs-type">int</span>) &#123;p[i], p[j] = p[j], p[i]&#125;<br></code></pre></td></tr></table></figure>
+
+<p>下面是一个调用排序函数的例子：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs go">data := []<span class="hljs-type">int</span>&#123;<span class="hljs-number">74</span>, <span class="hljs-number">59</span>, <span class="hljs-number">238</span>, <span class="hljs-number">-784</span>, <span class="hljs-number">9845</span>, <span class="hljs-number">959</span>, <span class="hljs-number">905</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">42</span>, <span class="hljs-number">7586</span>, <span class="hljs-number">-5467984</span>, <span class="hljs-number">7586</span>&#125;<br>a := sort.IntArray(data)<br>sort.sort(a)<br></code></pre></td></tr></table></figure>
+
+<p>接下来是完整的代码<a target="_blank" rel="noopener" href="https://github.com/unknwon/the-way-to-go_ZH_CN/blob/master/eBook/examples/chapter_11/sort/sort.go">sort.go</a> and <a target="_blank" rel="noopener" href="https://github.com/unknwon/the-way-to-go_ZH_CN/blob/master/eBook/examples/chapter_11/sortmain.go">sortmain.go</a></p>
+<p>示例 <code>sort.go</code></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> sort<br><br><span class="hljs-keyword">type</span> Interface <span class="hljs-keyword">interface</span> &#123;<br>	Len() <span class="hljs-type">int</span><br>	Less(i, j <span class="hljs-type">int</span>) <span class="hljs-type">bool</span><br>	Swap(i, j <span class="hljs-type">int</span>)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Sort</span><span class="hljs-params">(data Interface)</span></span> &#123;<br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">1</span>; i &lt; data.Len(); i++ &#123;<br>		<span class="hljs-keyword">for</span> j := i; j &gt; <span class="hljs-number">0</span> &amp;&amp; data.Less(j, j<span class="hljs-number">-1</span>); j-- &#123;<br>			data.Swap(j, j<span class="hljs-number">-1</span>)<br>		&#125;<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">IsSorted</span><span class="hljs-params">(data Interface)</span></span> <span class="hljs-type">bool</span> &#123;<br>	n := data.Len()<br>	<span class="hljs-keyword">for</span> i := n - <span class="hljs-number">1</span>; i &gt; <span class="hljs-number">0</span>; i-- &#123;<br>		<span class="hljs-keyword">if</span> data.Less(i, i<span class="hljs-number">-1</span>) &#123;<br>			<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span><br>&#125;<br><br><span class="hljs-keyword">type</span> IntArray []<span class="hljs-type">int</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(p IntArray)</span></span> Len() <span class="hljs-type">int</span>           &#123; <span class="hljs-keyword">return</span> <span class="hljs-built_in">len</span>(p) &#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(p IntArray)</span></span> Less(i, j <span class="hljs-type">int</span>) <span class="hljs-type">bool</span> &#123; <span class="hljs-keyword">return</span> p[i] &lt; p[j] &#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(p IntArray)</span></span> Swap(i, j <span class="hljs-type">int</span>)      &#123; p[i], p[j] = p[j], p[i] &#125;<br><br><span class="hljs-keyword">type</span> Float64Array []<span class="hljs-type">float64</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(p Float64Array)</span></span> Len() <span class="hljs-type">int</span>           &#123; <span class="hljs-keyword">return</span> <span class="hljs-built_in">len</span>(p) &#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(p Float64Array)</span></span> Less(i, j <span class="hljs-type">int</span>) <span class="hljs-type">bool</span> &#123; <span class="hljs-keyword">return</span> p[i] &lt; p[j] &#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(p Float64Array)</span></span> Swap(i, j <span class="hljs-type">int</span>)      &#123; p[i], p[j] = p[j], p[i] &#125;<br><br><span class="hljs-keyword">type</span> StringArray []<span class="hljs-type">string</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(p StringArray)</span></span> Len() <span class="hljs-type">int</span>           &#123; <span class="hljs-keyword">return</span> <span class="hljs-built_in">len</span>(p) &#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(p StringArray)</span></span> Less(i, j <span class="hljs-type">int</span>) <span class="hljs-type">bool</span> &#123; <span class="hljs-keyword">return</span> p[i] &lt; p[j] &#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(p StringArray)</span></span> Swap(i, j <span class="hljs-type">int</span>)      &#123; p[i], p[j] = p[j], p[i] &#125;<br><br><span class="hljs-comment">// Convenience wrappers for common cases</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">SortInts</span><span class="hljs-params">(a []<span class="hljs-type">int</span>)</span></span>         &#123; Sort(IntArray(a)) &#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">SortFloat64s</span><span class="hljs-params">(a []<span class="hljs-type">float64</span>)</span></span> &#123; Sort(Float64Array(a)) &#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">SortStrings</span><span class="hljs-params">(a []<span class="hljs-type">string</span>)</span></span>   &#123; Sort(StringArray(a)) &#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">IntsAreSorted</span><span class="hljs-params">(a []<span class="hljs-type">int</span>)</span></span> <span class="hljs-type">bool</span>         &#123; <span class="hljs-keyword">return</span> IsSorted(IntArray(a)) &#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Float64sAreSorted</span><span class="hljs-params">(a []<span class="hljs-type">float64</span>)</span></span> <span class="hljs-type">bool</span> &#123; <span class="hljs-keyword">return</span> IsSorted(Float64Array(a)) &#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">StringsAreSorted</span><span class="hljs-params">(a []<span class="hljs-type">string</span>)</span></span> <span class="hljs-type">bool</span>   &#123; <span class="hljs-keyword">return</span> IsSorted(StringArray(a)) &#125;<br><br></code></pre></td></tr></table></figure>
+
+<p>这里面要注意的就是 <code>Sort</code> 函数是<code>j--</code>和<code>j-1</code>，众所周知由于编写习惯都会写++。我最开始写完就是报错，查了之后才发现这里写错了。然后Sort记得放在Sort包下，别和<code>sortmain</code>在一个包里</p>
+<p>示例<code>sortmain.go</code></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;myproject/chapter11/sort&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">ints</span><span class="hljs-params">()</span></span> &#123;<br>	data := []<span class="hljs-type">int</span>&#123;<span class="hljs-number">74</span>, <span class="hljs-number">59</span>, <span class="hljs-number">238</span>, <span class="hljs-number">-784</span>, <span class="hljs-number">9845</span>, <span class="hljs-number">959</span>, <span class="hljs-number">905</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">42</span>, <span class="hljs-number">7586</span>, <span class="hljs-number">-5467984</span>, <span class="hljs-number">7586</span>&#125;<br>	a := sort.IntArray(data)<br>	sort.Sort(a)<br>	<span class="hljs-keyword">if</span> !sort.IsSorted(a) &#123;<br>		<span class="hljs-built_in">panic</span>(<span class="hljs-string">&quot;fail&quot;</span>)<br>	&#125;<br>	fmt.Printf(<span class="hljs-string">&quot;The sorted array is: %v\n&quot;</span>, a)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">strings</span><span class="hljs-params">()</span></span> &#123;<br>	data := []<span class="hljs-type">string</span>&#123;<span class="hljs-string">&quot;monday&quot;</span>, <span class="hljs-string">&quot;friday&quot;</span>, <span class="hljs-string">&quot;tuesday&quot;</span>, <span class="hljs-string">&quot;wednesday&quot;</span>, <span class="hljs-string">&quot;sunday&quot;</span>, <span class="hljs-string">&quot;thursday&quot;</span>, <span class="hljs-string">&quot;&quot;</span>, <span class="hljs-string">&quot;saturday&quot;</span>&#125;<br>	a := sort.StringArray(data)<br>	sort.Sort(a)<br>	<span class="hljs-keyword">if</span> !sort.IsSorted(a) &#123;<br>		<span class="hljs-built_in">panic</span>(<span class="hljs-string">&quot;fail&quot;</span>)<br>	&#125;<br>	fmt.Printf(<span class="hljs-string">&quot;The sorted array is: %v\n&quot;</span>, a)<br>&#125;<br><br><span class="hljs-keyword">type</span> day <span class="hljs-keyword">struct</span> &#123;<br>	num       <span class="hljs-type">int</span><br>	shortName <span class="hljs-type">string</span><br>	longName  <span class="hljs-type">string</span><br>&#125;<br><br><span class="hljs-keyword">type</span> dayArray <span class="hljs-keyword">struct</span> &#123;<br>	data []*day<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(p *dayArray)</span></span> Len() <span class="hljs-type">int</span>           &#123; <span class="hljs-keyword">return</span> <span class="hljs-built_in">len</span>(p.data) &#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(p *dayArray)</span></span> Less(i, j <span class="hljs-type">int</span>) <span class="hljs-type">bool</span> &#123; <span class="hljs-keyword">return</span> p.data[i].num &lt; p.data[j].num &#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(p *dayArray)</span></span> Swap(i, j <span class="hljs-type">int</span>)      &#123; p.data[i], p.data[j] = p.data[j], p.data[i] &#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">days</span><span class="hljs-params">()</span></span> &#123;<br>	Sunday := day&#123;<span class="hljs-number">0</span>, <span class="hljs-string">&quot;SUM&quot;</span>, <span class="hljs-string">&quot;Sunday&quot;</span>&#125;<br>	Monday := day&#123;<span class="hljs-number">1</span>, <span class="hljs-string">&quot;MON&quot;</span>, <span class="hljs-string">&quot;Monday&quot;</span>&#125;<br>	Tuesday := day&#123;<span class="hljs-number">2</span>, <span class="hljs-string">&quot;TUE&quot;</span>, <span class="hljs-string">&quot;Tuesday&quot;</span>&#125;<br>	Wednesday := day&#123;<span class="hljs-number">3</span>, <span class="hljs-string">&quot;WED&quot;</span>, <span class="hljs-string">&quot;Wednesday&quot;</span>&#125;<br>	Thursday := day&#123;<span class="hljs-number">4</span>, <span class="hljs-string">&quot;THU&quot;</span>, <span class="hljs-string">&quot;Thursday&quot;</span>&#125;<br>	Friday := day&#123;<span class="hljs-number">5</span>, <span class="hljs-string">&quot;FRI&quot;</span>, <span class="hljs-string">&quot;Friday&quot;</span>&#125;<br>	Saturday := day&#123;<span class="hljs-number">6</span>, <span class="hljs-string">&quot;SAT&quot;</span>, <span class="hljs-string">&quot;Saturday&quot;</span>&#125;<br>	data := []*day&#123;&amp;Sunday, &amp;Monday, &amp;Tuesday, &amp;Wednesday, &amp;Thursday, &amp;Friday, &amp;Saturday&#125;<br>	a := dayArray&#123;data&#125;<br>	sort.Sort(&amp;a)<br>	<span class="hljs-keyword">if</span> !sort.IsSorted(&amp;a) &#123;<br>		<span class="hljs-built_in">panic</span>(<span class="hljs-string">&quot;fail&quot;</span>)<br>	&#125;<br>	<span class="hljs-keyword">for</span> _, d := <span class="hljs-keyword">range</span> data &#123;<br>		fmt.Printf(<span class="hljs-string">&quot;%s&quot;</span>, d.longName)<br>	&#125;<br>	fmt.Printf(<span class="hljs-string">&quot;\n&quot;</span>)<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	ints()<br>	strings()<br>	days()<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>输出结果</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs text">The sorted array is: [-5467984 -784 0 0 42 59 74 238 905 959 7586 7586 9845]<br>The sorted array is: [ friday monday saturday sunday thursday tuesday wednesday]<br>SundayMondayTuesdayWednesdayThursdayFridaySaturday<br></code></pre></td></tr></table></figure>
+
+<p>PS：</p>
+<p><code>panic(&#39;fail&#39;)</code>用于停止处在非正常状态下的程序（详细参考<a target="_blank" rel="noopener" href="https://github.com/unknwon/the-way-to-go_ZH_CN/blob/master/eBook/13.0.md">第13章</a>），当然也可以先打印一条信息，然后调用<code>os.Exit(1)</code>来停止程序。</p>
+<p>当然，众所周知<code>Sort</code>都是标准库，所以正常调用直接用就行，不用自己写。对于一般性的排序，<code>sort</code> 包定义了一个接口：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> Interface <span class="hljs-keyword">interface</span> &#123;<br>    Len() <span class="hljs-type">int</span><br>    Less(i, j <span class="hljs-type">int</span>) <span class="hljs-type">bool</span><br>    Swap(i, j <span class="hljs-type">int</span>)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这个接口主要是总结了用于排序的抽象方法，函数<code>Sort(data Interface)</code> 用来对此类对象进行排序，可以用它们来实现对其他类型的数据（非基本类型）进行排序。在上面的例子中，我们也是这么做的，不仅可以对 <code>int</code> 和 <code>string</code> 序列进行排序，也可以对用户自定义类型 <code>dayArray</code> 进行排序。</p>
+<h1 id="例子2：读和写"><a href="#例子2：读和写" class="headerlink" title="例子2：读和写"></a>例子2：读和写</h1><p>读和写作为程序中常见的操作，一提起就会想到读写文件、缓存、标准输入输出（万恶的ACM模式）、标准错误以及网络连接、管道等，或者读写自定义类型。为了让代码尽可能通用，Go采用的是一致的方式来读写。</p>
+<p><code>io</code> 包提供了读和写的接口 <code>io.Reader</code> 和 <code>io,Writer</code>：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> Reader <span class="hljs-keyword">interface</span> &#123;<br>    Read(p []<span class="hljs-type">byte</span>) (n <span class="hljs-type">int</span>, err <span class="hljs-type">error</span>)<br>&#125;<br><br><span class="hljs-keyword">type</span> Writer <span class="hljs-keyword">interface</span> &#123;<br>    Write(p []<span class="hljs-type">byte</span>) (n <span class="hljs-type">int</span>, err <span class="hljs-type">error</span>)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>只要类型实现了读写接口，提供 <code>Read</code> 和 <code>Write</code> 方法，就可以从它读取数据，或者向它写入数据。一个对象要是可读的，它必须实现 <code>io.Reader</code> 接口，这个接口只有一个签名是 <code>Read(p []byte) (n int, err error)</code> 的方法，它从调用它的对象上读取数据，并把读取到的数据放入参数中的字节切片中，然后返回读取的字节数和一个 <code>error</code> 对象。如果没有错误发生返回 <code>nil</code> ，如果已经到达输入数据的尾端，会返回 <code>io.EOF(&quot;EOF&quot;)</code> ，如果读取的过程中发生了错误，就会返回具体的错误信息。类似的写操作也是一样的。</p>
+<p><code>io</code>  包中的 <code>Reader</code> 和 <code>Writers</code> 都是不带缓冲的，<code>bufio</code>  包里提供了对应的带缓冲操作，在读写 <code>UTF-8</code> 编码的文本时尤其有用。</p>
+<p>所以在实际编程中，尽可能使用这些接口，能够使程序更加通用，可以在任何实现了接口的类型上使用读写方法。</p>
+<h1 id="空接口"><a href="#空接口" class="headerlink" title="空接口"></a>空接口</h1><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>一个概念一出我就瞬间想到了那几步XXX的历史，XXX的由来，XXX的定义，XXX的现状，XXX的未来，XXX的应用</p>
+<p><strong>空接口或者最小接口</strong>不包含任何方法，它对实现不做任何要求：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> Any <span class="hljs-keyword">interface</span> &#123;&#125;<br></code></pre></td></tr></table></figure>
+
+<p>任何其他类型都实现了空接口（它不仅像 <code>Java/C#</code> 中 <code>Object</code> 引用类型），<code>any</code> 或 <code>Any</code> 是空接口一个很好的别名或缩写。</p>
+<p>空接口类似 <code>Java/C#</code> 中所有类的基类：<code>Object</code> 类，二者的目标也很相近。</p>
+<p> 示例<a target="_blank" rel="noopener" href="https://github.com/unknwon/the-way-to-go_ZH_CN/blob/master/eBook/examples/chapter_11/empty_interface.go">empty_interface.go</a></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span><br><br><span class="hljs-keyword">var</span> i = <span class="hljs-number">5</span><br><span class="hljs-keyword">var</span> str = <span class="hljs-string">&quot;ABC&quot;</span><br><br><span class="hljs-keyword">type</span> Person <span class="hljs-keyword">struct</span> &#123;<br>	name <span class="hljs-type">string</span><br>	age  <span class="hljs-type">int</span><br>&#125;<br><br><span class="hljs-keyword">type</span> Any <span class="hljs-keyword">interface</span>&#123;&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-keyword">var</span> val Any<br>	val = <span class="hljs-number">5</span><br>	fmt.Printf(<span class="hljs-string">&quot;val has the value: %v\n&quot;</span>, val)<br>	val = str<br>	fmt.Printf(<span class="hljs-string">&quot;val has the value: %v\n&quot;</span>, val)<br>	pers1 := <span class="hljs-built_in">new</span>(Person)<br>	pers1.name = <span class="hljs-string">&quot;Rob Pike&quot;</span><br>	pers1.age = <span class="hljs-number">42</span><br>	val = pers1<br>	fmt.Printf(<span class="hljs-string">&quot;Person 1: %v\n&quot;</span>, val)<br>	<span class="hljs-keyword">switch</span> t := val.(<span class="hljs-keyword">type</span>) &#123;<br>	<span class="hljs-keyword">case</span> <span class="hljs-type">int</span>:<br>		fmt.Printf(<span class="hljs-string">&quot;Type int %T\n&quot;</span>, t)<br>	<span class="hljs-keyword">case</span> <span class="hljs-type">string</span>:<br>		fmt.Printf(<span class="hljs-string">&quot;Type string %T\n&quot;</span>, t)<br>	<span class="hljs-keyword">case</span> <span class="hljs-type">bool</span>:<br>		fmt.Printf(<span class="hljs-string">&quot;Type bool %T\n&quot;</span>, t)<br>	<span class="hljs-keyword">case</span> *Person:<br>		fmt.Printf(<span class="hljs-string">&quot;Type *Person %T\n&quot;</span>, t)<br>	<span class="hljs-keyword">default</span>:<br>		fmt.Printf(<span class="hljs-string">&quot;Type unknown %T&quot;</span>, t)<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>输出结果</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs text">val has the value: 5<br>val has the value: ABC<br>Person 1: &amp;&#123;Rob Pike 42&#125;<br>Type *Person *main.Person<br></code></pre></td></tr></table></figure>
+
+<p>在上述例子中，接口变量 <code>val</code> 被依次赋予一个 <code>int</code>, <code>string</code> 和 <code>Person</code> 实例的值，然后使用 <code>type-switch</code> 来测试它的实际类型。每个 <code>interface()</code> 变量在内存中占据两个字长：一个用来存储它所包含的类型，一个用来存储它所包含的数据或指向数据的指针。</p>
+<p>示例<a target="_blank" rel="noopener" href="https://github.com/unknwon/the-way-to-go_ZH_CN/blob/master/eBook/examples/chapter_11/emptyint_switch.go">emptyint_switch.go</a></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span><br><br><span class="hljs-keyword">type</span> specialString <span class="hljs-type">string</span><br><br><span class="hljs-keyword">var</span> whatlsThis specialString = <span class="hljs-string">&quot;hello&quot;</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TypeSwitch</span><span class="hljs-params">()</span></span> &#123;<br>	testFunc := <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(any <span class="hljs-keyword">interface</span>&#123;&#125;)</span></span> &#123;<br>		<span class="hljs-keyword">switch</span> v := any.(<span class="hljs-keyword">type</span>) &#123;<br>		<span class="hljs-keyword">case</span> <span class="hljs-type">bool</span>:<br>			fmt.Printf(<span class="hljs-string">&quot;any %v is a bool type&quot;</span>, v)<br>		<span class="hljs-keyword">case</span> <span class="hljs-type">int</span>:<br>			fmt.Printf(<span class="hljs-string">&quot;any %v is an int type&quot;</span>, v)<br>		<span class="hljs-keyword">case</span> <span class="hljs-type">float32</span>:<br>			fmt.Printf(<span class="hljs-string">&quot;any %v is a float32 type&quot;</span>, v)<br>		<span class="hljs-keyword">case</span> <span class="hljs-type">float64</span>:<br>			fmt.Printf(<span class="hljs-string">&quot;any %v is a float64 type&quot;</span>, v)<br>		<span class="hljs-keyword">case</span> <span class="hljs-type">string</span>:<br>			fmt.Printf(<span class="hljs-string">&quot;any %v is a string type&quot;</span>, v)<br>		<span class="hljs-keyword">case</span> specialString:<br>			fmt.Printf(<span class="hljs-string">&quot;any %v is a special String!&quot;</span>, v)<br>		<span class="hljs-keyword">default</span>:<br>			fmt.Printf(<span class="hljs-string">&quot;unknown type!&quot;</span>)<br>		&#125;<br>	&#125;<br>	testFunc(whatlsThis)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	TypeSwitch()<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>输出结果</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">any hello is a special String!<br></code></pre></td></tr></table></figure>
+
+<p>该示例中说明了空接口在 <code>type-switch</code> 中联合 <code>lambda</code> 函数的用法</p>
+<h2 id="构建通用类型或包含不同类型变量的数组"><a href="#构建通用类型或包含不同类型变量的数组" class="headerlink" title="构建通用类型或包含不同类型变量的数组"></a>构建通用类型或包含不同类型变量的数组</h2><p>在 <a target="_blank" rel="noopener" href="https://github.com/unknwon/the-way-to-go_ZH_CN/blob/master/eBook/07.6.md">7.6.6</a> 中我们看到了能被搜索和排序的 <code>int</code>数组、<code>float</code> 数组以及<code>string</code> 数组，那么对于其他类型的数组呢？（莫名想到leetcode）</p>
+<p>具体实现就是通过一个空接口，让我们给空接口定一个别名类型 <code>Element</code>: <code>type Elemet interface&#123;&#125;</code></p>
+<p>然后定义一个容器类型的结构体 <code>Verctor</code>，它包含一个 <code>Element</code> 类型元素的切片：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> Vector <span class="hljs-keyword">struct</span>&#123;<br>    a []Element<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><code>Vector</code> 里能够放任何类型的元素，因为任何类型都是先了空接口，实际上 <code>Vector</code> 里放的每个元素可以是不同类型的变量。我们为它定义一个 <code>At()</code> 方法用于返回 第 <code>i</code> 个元素：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(p *Vector)</span></span> At(i <span class="hljs-type">int</span>) Element &#123;<br>    <span class="hljs-keyword">return</span> p.a[i]<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>再定一个 <code>Set()</code> 方法用于设置第 <code>i</code> 个元素的值：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(p *Vertor)</span></span> Set(i <span class="hljs-type">int</span>, e Element) &#123;<br>    p.a[i] = e<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><code>Vector</code> 中存储的元素都是 <code>Element</code> 类型，要得到它们的原始类型（unboxing：拆箱）需要用到类型断言。<code>TODO: The compiler rejects assertions guaranteed to fail</code> ，类型断言总是在运行时才执行，因此它会产生运行时错误。</p>
+<h2 id="复制数据到切片至空切片接口"><a href="#复制数据到切片至空切片接口" class="headerlink" title="复制数据到切片至空切片接口"></a>复制数据到切片至空切片接口</h2><p>假设有一个 <code>myType</code> 类型的数据切片，你想将切片中的数据复制到一个空接口切片中，类似：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> dataSlice []myType = FuncReturnSlice()<br><span class="hljs-keyword">var</span> interfaceSlice []<span class="hljs-keyword">interface</span>&#123;&#125; = dataSlice<br></code></pre></td></tr></table></figure>
+
+<p>可惜的是这样会直接报错 <code>cannot use dataSlice (type []myType) as type []interface &#123; &#125; in assignment</code>。</p>
+<p>原因是他俩在内存中的布局是不一样的（参考<a target="_blank" rel="noopener" href="https://github.com/golang/go/wiki/InterfaceSlice">go wiki</a>）</p>
+<p>必须使用 <code>for-range</code> 语句来一个一个显式地赋值：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> dataSlice []myType = FuncReturnSlice()<br><span class="hljs-keyword">var</span> interfaceSilce []<span class="hljs-keyword">interface</span>&#123;&#125; = <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">interface</span>&#123;&#125;, <span class="hljs-built_in">len</span>(dataSlice))<br><span class="hljs-keyword">for</span> i, d := <span class="hljs-keyword">range</span> dataSlice &#123;<br>    interfaceSlice[i] = d<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" class="category-chain-item">学习记录</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/go/" class="category-chain-item">go</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" class="print-no-link">#学习记录</a>
+      
+        <a href="/tags/go/" class="print-no-link">#go</a>
+      
+        <a href="/tags/%E6%8E%A5%E5%8F%A3/" class="print-no-link">#接口</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>go学习记录——第十六天</div>
+      <div>https://www.lx02918.ltd/2025/03/06/go-study-sixteenth-day/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Seth</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年3月6日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/03/10/obsidian-windows-ios-sync-settings/" title="Obsidian 双端同步教程：Windows 与 iOS 设置全攻略">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Obsidian 双端同步教程：Windows 与 iOS 设置全攻略</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/03/05/Fix-iOS-18-4-Beta-2-No-Signal-After-Update/" title="Fix iOS 18.4 Beta 2 No Signal After Update">
+                        <span class="hidden-mobile">Fix iOS 18.4 Beta 2 No Signal After Update</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createCssLink('https://cdn.staticfile.org/waline/2.15.5/waline.min.css')
+      Fluid.utils.createScript('https://cdn.staticfile.org/waline/2.15.5/waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://blogcomments-sigma.vercel.app/","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":["nick"],"lang":"zh-CN","emoji":["https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        Waline.init(options);
+        Fluid.utils.waitElementVisible('#waline .vcontent', () => {
+          var imgSelector = '#waline .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
