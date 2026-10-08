@@ -1,536 +1,40 @@
-
-
-<!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=auto>
-
-
-
+<!doctype html>
+<html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
-  <link rel="icon" href="/img/fluid.png">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-  
-  <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="Seth">
-  <meta name="keywords" content="">
-  
-    <meta name="description" content="20 有效的括号给定一个只包括 &#39;(&#39;，&#39;)&#39;，&#39;&#123;&#39;，&#39;&#125;&#39;，&#39;[&#39;，&#39;]&#39; 的字符串 s ，判断字符串是否有效。 有效字符串需满足：  左括号必须用相同类型的右括号闭合。  左括号必须以正确的顺序闭合。  每个右括号都有一个对应的相同类型的左括号。   示例 1： 输入：s &#x3D;">
-<meta property="og:type" content="article">
-<meta property="og:title" content="leetcode刷题记录——栈">
-<meta property="og:url" content="https://www.lx02918.ltd/2024/08/08/leetcode-%E6%A0%88/index.html">
-<meta property="og:site_name" content="Seth的小站">
-<meta property="og:description" content="20 有效的括号给定一个只包括 &#39;(&#39;，&#39;)&#39;，&#39;&#123;&#39;，&#39;&#125;&#39;，&#39;[&#39;，&#39;]&#39; 的字符串 s ，判断字符串是否有效。 有效字符串需满足：  左括号必须用相同类型的右括号闭合。  左括号必须以正确的顺序闭合。  每个右括号都有一个对应的相同类型的左括号。   示例 1： 输入：s &#x3D;">
-<meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-08-08T08:22:02.000Z">
-<meta property="article:modified_time" content="2024-08-27T02:26:07.422Z">
-<meta property="article:author" content="Seth">
-<meta property="article:tag" content="Leetcode">
-<meta property="article:tag" content="刷题">
-<meta property="article:tag" content="栈">
-<meta name="twitter:card" content="summary_large_image">
-  
-  
-    <meta name="referrer" content="no-referrer-when-downgrade">
-  
-  
-
-  <!-- 引入 Font Awesome 图标库 -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
-  <!-- 百度验证 -->
-  <meta name="baidu-site-verification" content="codeva-9kdQTZt849" />
-  <title>leetcode刷题记录——栈 - Seth的小站</title>
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
-
-
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-
-
-<!-- 主题依赖的图标库，不要自行修改 -->
-<!-- Do not modify the link that theme dependent icons -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
-
-
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
-
-
-<link  rel="stylesheet" href="/css/main.css" />
-
-
-  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
-  
-    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
-  
-
-
-
-
-  <script id="fluid-configs">
-    var Fluid = window.Fluid || {};
-    Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"www.lx02918.ltd","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"pAyQlcbEY6nkOIh5fveIBxLA-gzGzoHsz","app_key":"DjSrQhO4p64SG8qV28lz5J0H","server_url":"https://payqlcbe.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
-
-    if (CONFIG.web_analytics.follow_dnt) {
-      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
-      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
-    }
-  </script>
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-  
-
-  
-
-  
-    <!-- Google tag (gtag.js) -->
-    <script async>
-      if (!Fluid.ctx.dnt) {
-        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
-          window.dataLayer = window.dataLayer || [];
-          function gtag() {
-            dataLayer.push(arguments);
-          }
-          gtag('js', new Date());
-          gtag('config', '');
-        });
-      }
-    </script>
-  
-
-  
-
-  
-
-  
-
-  
-    
-  
-
-
-
-  
-<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/rss.xml" title="Seth的小站" type="application/rss+xml">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f1e9">
+  <meta name="description" content="20 有效的括号 给定一个只包括 &#x27;(&#x27; ， &#x27;)&#x27; ， &#x27;{&#x27; ， &#x27;}&#x27; ， &#x27;[&#x27; ， &#x27;]&#x27; 的字符串 s ，判断字符串是否有效。 有效字符串需满足： 左括号必须用相同类型的右括号闭合。 左括号必须以正确的顺序闭合。 每个右括号都有一个对应的相同类型的左括号。 ">
+  <title>leetcode刷题记录——栈 · Seth的小站</title>
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/article.css">
+  <script defer src="/site.js"></script>
 </head>
-
-
 <body>
-  
-
-  <header>
-    
-
-<div class="header-inner" style="height: 70vh;">
-  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand" href="/">
-      <strong>Seth的小站</strong>
-    </a>
-
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/" target="_self">
-                <i class="iconfont icon-home-fill"></i>
-                <span>首页</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/" target="_self">
-                <i class="iconfont icon-archive-fill"></i>
-                <span>归档</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/" target="_self">
-                <i class="iconfont icon-category-fill"></i>
-                <span>分类</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/" target="_self">
-                <i class="iconfont icon-tags-fill"></i>
-                <span>标签</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/" target="_self">
-                <i class="iconfont icon-user-fill"></i>
-                <span>关于</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/rss.xml" target="_self">
-                <i class="iconfont icon-rss"></i>
-                <span>rss</span>
-              </a>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
-              <i class="iconfont icon-search"></i>
-            </a>
-          </li>
-          
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
-              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
-            </a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-</nav>
-
-  
-
-<div id="banner" class="banner" parallax=true
-     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
-  <div class="full-bg-img">
-    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-      <div class="banner-text text-center fade-in-up">
-        <div class="h2">
-          
-            <span id="subtitle" data-typed-text="leetcode刷题记录——栈"></span>
-          
+  <div class="site-shell">
+    <header class="site-header">
+<a aria-label="Seth 首页" class="wordmark" href="/index.html"><span class="mark">S<span class="mark-dot">.</span></span><span class="wordmark-text">SETH / NOTES</span></a>
+<nav aria-label="主导航" class="main-nav"><a class="active" href="/index.html">首页</a><a href="/blog.html">文章</a><a href="/about.html">关于</a></nav>
+<button aria-label="切换明暗主题" class="theme-toggle" title="切换明暗主题" type="button"><span aria-hidden="true">◐</span></button>
+</header>
+    <main id="top">
+      <section class="reading-hero reveal">
+        <div class="reading-hero-inner">
+          <a class="reading-back" href="/blog.html">← 返回全部文章</a>
+          <p class="eyebrow">WRITINGS <span class="eyebrow-line"></span> 刷题记录</p>
+          <h1>leetcode刷题记录——栈</h1>
+          <div class="reading-meta"><time datetime="2024-08-08">2024-08-08</time><span>刷题记录</span><span>第 40 / 53 篇</span></div>
         </div>
-
-        
-          
-  <div class="mt-3">
-    
-    
-      <span class="post-meta">
-        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-08-08 16:22" pubdate>
-          星期四, 八月 8日 2024, 4:22 下午
-        </time>
-      </span>
-    
-  </div>
-
-  <div class="mt-1">
-    
-      <span class="post-meta mr-2">
-        <i class="iconfont icon-chart"></i>
-        
-          3k 字
-        
-      </span>
-    
-
-    
-      <span class="post-meta mr-2">
-        <i class="iconfont icon-clock-fill"></i>
-        
-        
-        
-          25 分钟
-        
-      </span>
-    
-
-    
-    
-      
-        <span id="busuanzi_container_page_pv" style="display: none">
-          <i class="iconfont icon-eye" aria-hidden="true"></i>
-          <span id="busuanzi_value_page_pv"></span> 次
-        </span>
-        
-      
-    
-  </div>
-
-
-        
-      </div>
-
-      
-    </div>
-  </div>
-</div>
-
-</div>
-
-  </header>
-
-  <main>
-    
-      
-
-<div class="container-fluid nopadding-x">
-  <div class="row nomargin-x">
-    <div class="side-col d-none d-lg-block col-lg-2">
-      
-  <aside class="sidebar category-bar" style="margin-right: -1rem">
-    
-
-
-
-
-
-<div class="category-list">
-  
-  
-    
-    
-    
-    <div class="category row nomargin-x">
-      <a class="category-item 
-          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="刷题记录"
-        id="heading-909ea5d72d27ab9e042108431b0dc4d0" role="tab" data-toggle="collapse" href="#collapse-909ea5d72d27ab9e042108431b0dc4d0"
-        aria-expanded="true"
-      >
-        刷题记录
-        <span class="list-group-count">(17)</span>
-        <i class="iconfont icon-arrowright"></i>
-      </a>
-      
-      <div class="category-collapse collapse show" id="collapse-909ea5d72d27ab9e042108431b0dc4d0"
-           role="tabpanel" aria-labelledby="heading-909ea5d72d27ab9e042108431b0dc4d0">
-        
-        
-          
-  <div class="category-post-list">
-    
-    
-      
-      
-        <a href="/2024/07/21/my-third-post/" title="Leetcode刷题——滑动窗口"
-           class="list-group-item list-group-item-action
-           ">
-          <span class="category-post">Leetcode刷题——滑动窗口</span>
-        </a>
-      
-    
-      
-      
-        <a href="/2024/08/01/Hash/" title="leetcode刷题记录——Hash"
-           class="list-group-item list-group-item-action
-           ">
-          <span class="category-post">leetcode刷题记录——Hash</span>
-        </a>
-      
-    
-      
-      
-        <a href="/2024/09/04/leetcode-Kadane%E7%AE%97%E6%B3%95/" title="leetcode刷题记录——Kadane算法"
-           class="list-group-item list-group-item-action
-           ">
-          <span class="category-post">leetcode刷题记录——Kadane算法</span>
-        </a>
-      
-    
-      
-      
-        <a href="/2024/09/09/leetcode-%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" title="leetcode刷题记录——二分查找"
-           class="list-group-item list-group-item-action
-           ">
-          <span class="category-post">leetcode刷题记录——二分查找</span>
-        </a>
-      
-    
-      
-      
-        <a href="/2024/08/21/leetcode-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/" title="leetcode刷题记录——二叉搜索树"
-           class="list-group-item list-group-item-action
-           ">
-          <span class="category-post">leetcode刷题记录——二叉搜索树</span>
-        </a>
-      
-    
-      
-      
-        <a href="/2024/08/20/leetcode-%E4%BA%8C%E5%8F%89%E6%A0%91/" title="leetcode刷题记录——二叉树"
-           class="list-group-item list-group-item-action
-           ">
-          <span class="category-post">leetcode刷题记录——二叉树</span>
-        </a>
-      
-    
-      
-      
-        <a href="/2024/08/20/leetcode-%E4%BA%8C%E5%8F%89%E6%A0%91%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86/" title="leetcode刷题记录——二叉树层次遍历"
-           class="list-group-item list-group-item-action
-           ">
-          <span class="category-post">leetcode刷题记录——二叉树层次遍历</span>
-        </a>
-      
-    
-      
-      
-        <a href="/2024/09/03/leetcode-%E5%88%86%E6%B2%BB/" title="leetcode刷题记录——分治"
-           class="list-group-item list-group-item-action
-           ">
-          <span class="category-post">leetcode刷题记录——分治</span>
-        </a>
-      
-    
-      
-      
-        <a href="/2024/08/05/leetcode_%E5%8C%BA%E9%97%B4/" title="leetcode刷题记录——区间"
-           class="list-group-item list-group-item-action
-           ">
-          <span class="category-post">leetcode刷题记录——区间</span>
-        </a>
-      
-    
-      
-      
-        <a href="/2024/08/29/leetcode-%E5%9B%9E%E6%BA%AF/" title="leetcode刷题记录——回溯"
-           class="list-group-item list-group-item-action
-           ">
-          <span class="category-post">leetcode刷题记录——回溯</span>
-        </a>
-      
-    
-      
-      
-        <a href="/2024/08/22/leetcode-%E5%9B%BE/" title="leetcode刷题记录——图"
-           class="list-group-item list-group-item-action
-           ">
-          <span class="category-post">leetcode刷题记录——图</span>
-        </a>
-      
-    
-      
-      
-        <a href="/2024/08/27/leetcode-%E5%9B%BE-BFS/" title="leetcode刷题记录——图的广度优先遍历"
-           class="list-group-item list-group-item-action
-           ">
-          <span class="category-post">leetcode刷题记录——图的广度优先遍历</span>
-        </a>
-      
-    
-      
-      
-        <a href="/2024/09/11/leetcode-%E5%A0%86/" title="leetcode刷题记录——堆"
-           class="list-group-item list-group-item-action
-           ">
-          <span class="category-post">leetcode刷题记录——堆</span>
-        </a>
-      
-    
-      
-      
-        <a href="/2024/08/28/leetcode-%E5%AD%97%E5%85%B8%E6%A0%91/" title="leetcode刷题记录——字典树"
-           class="list-group-item list-group-item-action
-           ">
-          <span class="category-post">leetcode刷题记录——字典树</span>
-        </a>
-      
-    
-      
-      
-        <a href="/2024/08/08/leetcode-%E6%A0%88/" title="leetcode刷题记录——栈"
-           class="list-group-item list-group-item-action
-           active">
-          <span class="category-post">leetcode刷题记录——栈</span>
-        </a>
-      
-    
-      
-      
-        <a href="/2024/07/30/my-fourth-blog/" title="leetcode刷题记录——矩阵"
-           class="list-group-item list-group-item-action
-           ">
-          <span class="category-post">leetcode刷题记录——矩阵</span>
-        </a>
-      
-    
-      
-      
-        <a href="/2024/08/09/leetcode-%E9%93%BE%E8%A1%A8/" title="leetcode刷题记录——链表"
-           class="list-group-item list-group-item-action
-           ">
-          <span class="category-post">leetcode刷题记录——链表</span>
-        </a>
-      
-    
-  </div>
-
-        
-      </div>
-    </div>
-  
-</div>
-
-
-  </aside>
-
-
-    </div>
-
-    <div class="col-lg-8 nopadding-x-md">
-      <div class="container nopadding-x-md" id="board-ctn">
-        <div id="board">
-          <article class="post-content mx-auto">
-            <h1 id="seo-header">leetcode刷题记录——栈</h1>
-            
-            
-              <div class="markdown-body">
-                
-                <h1 id="20-有效的括号"><a href="#20-有效的括号" class="headerlink" title="20 有效的括号"></a>20 有效的括号</h1><p>给定一个只包括 <code>&#39;(&#39;</code>，<code>&#39;)&#39;</code>，<code>&#39;&#123;&#39;</code>，<code>&#39;&#125;&#39;</code>，<code>&#39;[&#39;</code>，<code>&#39;]&#39;</code> 的字符串 <code>s</code> ，判断字符串是否有效。</p>
+      </section>
+      <div class="reading-layout">
+        <aside class="reading-rail" aria-label="文章目录">
+          <p class="reading-rail-label">IN THIS ARTICLE / 目录</p>
+          <nav><a href="#20-有效的括号">20 有效的括号</a><a href="#思路">思路</a><a href="#代码">代码</a><a href="#时间复杂度">时间复杂度</a><a href="#71-简化路径">71 简化路径</a><a href="#思路-1">思路</a><a href="#代码-1">代码</a><a href="#时间复杂度-1">时间复杂度</a><a href="#155-最小栈">155 最小栈</a><a href="#思路-2">思路</a><a href="#代码-2">代码</a><a href="#时间复杂度-2">时间复杂度</a><a href="#article-end">继续往下阅读 ↓</a></nav>
+          <a class="reading-rail-back" href="/blog.html">查看全部 53 篇 ↗</a>
+        </aside>
+        <article class="reading-article">
+          <div id="article-body" class="legacy-body">
+<h1 id="20-有效的括号"><a class="headerlink" href="#20-有效的括号" title="20 有效的括号"></a>20 有效的括号</h1><p>给定一个只包括 <code>'('</code>，<code>')'</code>，<code>'{'</code>，<code>'}'</code>，<code>'['</code>，<code>']'</code> 的字符串 <code>s</code> ，判断字符串是否有效。</p>
 <p>有效字符串需满足：</p>
 <ol>
 <li><p>左括号必须用相同类型的右括号闭合。</p>
@@ -541,61 +45,59 @@
 </li>
 </ol>
 <p>示例 1：</p>
-<pre><code class="hljs">输入：s = &quot;()&quot;
+<pre><code class="hljs">输入：s = "()"
 输出：true
 </code></pre>
 <p>示例 2：</p>
-<pre><code class="hljs">输入：s = &quot;()[]&#123;&#125;&quot;
+<pre><code class="hljs">输入：s = "()[]{}"
 输出：true
 </code></pre>
 <p>示例 3：</p>
-<pre><code class="hljs">输入：s = &quot;(]&quot;
+<pre><code class="hljs">输入：s = "(]"
 输出：false
 </code></pre>
 <p>提示：</p>
 <p><code>1 &lt;= s.length &lt;= 104</code></p>
-<p><code>s</code> 仅由括号 <code>&#39;()[]&#123;&#125;&#39;</code> 组成</p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>这道题基本上都多多少少做过、听过，思路基本上就是一个，遇到括号左边压入栈，遇到括号右边就匹配，成功就弹出栈顶失败就false</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">isValid</span>(<span class="hljs-params">self, s: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-built_in">bool</span>:<br>        stack = []<br>        dic = &#123;<span class="hljs-string">&#x27;(&#x27;</span>:<span class="hljs-string">&#x27;)&#x27;</span>, <span class="hljs-string">&#x27;[&#x27;</span>:<span class="hljs-string">&#x27;]&#x27;</span>, <span class="hljs-string">&#x27;&#123;&#x27;</span>:<span class="hljs-string">&#x27;&#125;&#x27;</span>&#125;<br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> s:<br>            <span class="hljs-keyword">if</span> i <span class="hljs-keyword">in</span> dic:<br>                stack.append(i)<br>            <span class="hljs-keyword">elif</span> <span class="hljs-built_in">len</span>(stack) == <span class="hljs-number">0</span> <span class="hljs-keyword">or</span> dic[stack.pop()] != i:<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">len</span>(stack) == <span class="hljs-number">0</span><br></code></pre></td></tr></table></figure>
-
-<h2 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>时间复杂度O(n)，执行时间43ms，消耗内存16.5MB</p>
-<h1 id="71-简化路径"><a href="#71-简化路径" class="headerlink" title="71 简化路径"></a>71 简化路径</h1><p>给你一个字符串 <code>path</code> ，表示指向某一文件或目录的 <code>Unix</code> 风格 <strong>绝对路径</strong> （以 <code>&#39;/&#39;</code> 开头），请你将其转化为更加简洁的规范路径。</p>
-<p>在 Unix 风格的文件系统中，一个点（<code>.</code>）表示当前目录本身；此外，两个点 （<code>..</code>） 表示将目录切换到上一级（指向父目录）；两者都可以是复杂相对路径的组成部分。任意多个连续的斜杠（即，<code>&#39;//&#39;</code>）都被视为单个斜杠 <code>&#39;/&#39; </code>。 对于此问题，任何其他格式的点（例如，’<code>...</code>‘）均被视为文件&#x2F;目录名称。</p>
+<p><code>s</code> 仅由括号 <code>'()[]{}'</code> 组成</p>
+<h2 id="思路"><a class="headerlink" href="#思路" title="思路"></a>思路</h2><p>这道题基本上都多多少少做过、听过，思路基本上就是一个，遇到括号左边压入栈，遇到括号右边就匹配，成功就弹出栈顶失败就false</p>
+<h2 id="代码"><a class="headerlink" href="#代码" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/><span class="line">10</span><br/></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br/>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">isValid</span>(<span class="hljs-params">self, s: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-built_in">bool</span>:<br/>        stack = []<br/>        dic = {<span class="hljs-string">'('</span>:<span class="hljs-string">')'</span>, <span class="hljs-string">'['</span>:<span class="hljs-string">']'</span>, <span class="hljs-string">'{'</span>:<span class="hljs-string">'}'</span>}<br/>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> s:<br/>            <span class="hljs-keyword">if</span> i <span class="hljs-keyword">in</span> dic:<br/>                stack.append(i)<br/>            <span class="hljs-keyword">elif</span> <span class="hljs-built_in">len</span>(stack) == <span class="hljs-number">0</span> <span class="hljs-keyword">or</span> dic[stack.pop()] != i:<br/>                <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br/>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">len</span>(stack) == <span class="hljs-number">0</span><br/></code></pre></td></tr></table></figure>
+<h2 id="时间复杂度"><a class="headerlink" href="#时间复杂度" title="时间复杂度"></a>时间复杂度</h2><p>时间复杂度O(n)，执行时间43ms，消耗内存16.5MB</p>
+<h1 id="71-简化路径"><a class="headerlink" href="#71-简化路径" title="71 简化路径"></a>71 简化路径</h1><p>给你一个字符串 <code>path</code> ，表示指向某一文件或目录的 <code>Unix</code> 风格 <strong>绝对路径</strong> （以 <code>'/'</code> 开头），请你将其转化为更加简洁的规范路径。</p>
+<p>在 Unix 风格的文件系统中，一个点（<code>.</code>）表示当前目录本身；此外，两个点 （<code>..</code>） 表示将目录切换到上一级（指向父目录）；两者都可以是复杂相对路径的组成部分。任意多个连续的斜杠（即，<code>'//'</code>）都被视为单个斜杠 <code>'/' </code>。 对于此问题，任何其他格式的点（例如，’<code>...</code>‘）均被视为文件/目录名称。</p>
 <p>请注意，返回的 <strong>规范路径</strong> 必须遵循下述格式：</p>
-<p>始终以斜杠 <code>&#39;/&#39;</code> 开头。<br>两个目录名之间必须只有一个斜杠 <code>&#39;/&#39;</code> 。<br>最后一个目录名（如果存在）不能 以 <code>&#39;/&#39;</code> 结尾。<br>此外，路径仅包含从根目录到目标文件或目录的路径上的目录（即，不含 ‘<code>.</code>‘ 或 ‘<code>..</code>‘）。<br>返回简化后得到的 <strong>规范路径</strong> 。</p>
+<p>始终以斜杠 <code>'/'</code> 开头。<br/>两个目录名之间必须只有一个斜杠 <code>'/'</code> 。<br/>最后一个目录名（如果存在）不能 以 <code>'/'</code> 结尾。<br/>此外，路径仅包含从根目录到目标文件或目录的路径上的目录（即，不含 ‘<code>.</code>‘ 或 ‘<code>..</code>‘）。<br/>返回简化后得到的 <strong>规范路径</strong> 。</p>
 <p>示例 1：</p>
-<pre><code class="hljs">输入：path = &quot;/home/&quot;
-输出：&quot;/home&quot;
+<pre><code class="hljs">输入：path = "/home/"
+输出："/home"
 解释：注意，最后一个目录名后面没有斜杠。 
 </code></pre>
 <p>示例 2：</p>
-<pre><code class="hljs">输入：path = &quot;/../&quot;
-输出：&quot;/&quot;
+<pre><code class="hljs">输入：path = "/../"
+输出："/"
 解释：从根目录向上一级是不可行的，因为根目录是你可以到达的最高级。
 </code></pre>
 <p>示例 3：</p>
-<pre><code class="hljs">输入：path = &quot;/home//foo/&quot;
-输出：&quot;/home/foo&quot;
+<pre><code class="hljs">输入：path = "/home//foo/"
+输出："/home/foo"
 解释：在规范路径中，多个连续斜杠需要用一个斜杠替换。
 </code></pre>
 <p>示例 4：</p>
-<pre><code class="hljs">输入：path = &quot;/a/./b/../../c/&quot;
-输出：&quot;/c&quot;
+<pre><code class="hljs">输入：path = "/a/./b/../../c/"
+输出："/c"
 </code></pre>
 <p>提示：</p>
 <p><code>1 &lt;= path.length &lt;= 3000</code></p>
-<p><code>path</code> 由英文字母，数字，<code>&#39;.&#39;</code>，<code>&#39;/&#39;</code> 或 <code>&#39;_&#39;</code> 组成。</p>
+<p><code>path</code> 由英文字母，数字，<code>'.'</code>，<code>'/'</code> 或 <code>'_'</code> 组成。</p>
 <p><code>path</code> 是一个有效的 Unix 风格绝对路径。</p>
-<h2 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h2><p>首先将所有的<code>/</code>给去掉，然后在我们没遇到<code>&#39; &#39;</code>, <code>&#39;.&#39;</code>, <code>&#39;..&#39;</code>时就会直接压入当前元素，然后当我们遇到<code>&#39;..&#39;</code>就直接将栈顶元素弹出，因为要返回上一级。最后用<code>/</code>连接每个字符并在最前面添加一个<code>/</code></p>
-<h2 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">simplifyPath</span>(<span class="hljs-params">self, path: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-built_in">str</span>:<br>        stack = []<br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> path.split(<span class="hljs-string">&#x27;/&#x27;</span>):<br>            <span class="hljs-keyword">if</span> i == <span class="hljs-string">&#x27;..&#x27;</span> <span class="hljs-keyword">and</span> stack:<br>                stack.pop()<br>            <span class="hljs-keyword">elif</span> i <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> [<span class="hljs-string">&#x27;&#x27;</span>, <span class="hljs-string">&#x27;.&#x27;</span>, <span class="hljs-string">&#x27;..&#x27;</span>]:<br>                stack.append(i)<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;/&#x27;</span> + <span class="hljs-string">&#x27;/&#x27;</span>.join(stack)<br></code></pre></td></tr></table></figure>
-
-<h2 id="时间复杂度-1"><a href="#时间复杂度-1" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>时间复杂度O(n)，执行时间49ms，消耗内存16.3MB</p>
-<h1 id="155-最小栈"><a href="#155-最小栈" class="headerlink" title="155 最小栈"></a>155 最小栈</h1><p>设计一个支持 <code>push</code> ，<code>pop</code> ，<code>top</code> 操作，并能在常数时间内检索到最小元素的栈。</p>
+<h2 id="思路-1"><a class="headerlink" href="#思路-1" title="思路"></a>思路</h2><p>首先将所有的<code>/</code>给去掉，然后在我们没遇到<code>' '</code>, <code>'.'</code>, <code>'..'</code>时就会直接压入当前元素，然后当我们遇到<code>'..'</code>就直接将栈顶元素弹出，因为要返回上一级。最后用<code>/</code>连接每个字符并在最前面添加一个<code>/</code></p>
+<h2 id="代码-1"><a class="headerlink" href="#代码-1" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br/>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">simplifyPath</span>(<span class="hljs-params">self, path: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-built_in">str</span>:<br/>        stack = []<br/>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> path.split(<span class="hljs-string">'/'</span>):<br/>            <span class="hljs-keyword">if</span> i == <span class="hljs-string">'..'</span> <span class="hljs-keyword">and</span> stack:<br/>                stack.pop()<br/>            <span class="hljs-keyword">elif</span> i <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> [<span class="hljs-string">''</span>, <span class="hljs-string">'.'</span>, <span class="hljs-string">'..'</span>]:<br/>                stack.append(i)<br/>        <span class="hljs-keyword">return</span> <span class="hljs-string">'/'</span> + <span class="hljs-string">'/'</span>.join(stack)<br/></code></pre></td></tr></table></figure>
+<h2 id="时间复杂度-1"><a class="headerlink" href="#时间复杂度-1" title="时间复杂度"></a>时间复杂度</h2><p>时间复杂度O(n)，执行时间49ms，消耗内存16.3MB</p>
+<h1 id="155-最小栈"><a class="headerlink" href="#155-最小栈" title="155 最小栈"></a>155 最小栈</h1><p>设计一个支持 <code>push</code> ，<code>pop</code> ，<code>top</code> 操作，并能在常数时间内检索到最小元素的栈。</p>
 <p>实现 <code>MinStack</code> 类:</p>
-<p><code>MinStack()</code> 初始化堆栈对象。<br><code>void push(int val)</code> 将元素val推入堆栈。<br><code>void pop()</code> 删除堆栈顶部的元素。<br><code>int top()</code> 获取堆栈顶部的元素。<br><code>int getMin()</code> 获取堆栈中的最小元素。</p>
+<p><code>MinStack()</code> 初始化堆栈对象。<br/><code>void push(int val)</code> 将元素val推入堆栈。<br/><code>void pop()</code> 删除堆栈顶部的元素。<br/><code>int top()</code> 获取堆栈顶部的元素。<br/><code>int getMin()</code> 获取堆栈中的最小元素。</p>
 <p>示例 1:</p>
 <p>输入：</p>
-<pre><code class="hljs">[&quot;MinStack&quot;,&quot;push&quot;,&quot;push&quot;,&quot;push&quot;,&quot;getMin&quot;,&quot;pop&quot;,&quot;top&quot;,&quot;getMin&quot;]
+<pre><code class="hljs">["MinStack","push","push","push","getMin","pop","top","getMin"]
 [[],[-2],[0],[-3],[],[],[],[]]
 </code></pre>
 <p>输出：</p>
@@ -615,37 +117,36 @@ minStack.getMin();   --&gt; 返回 -2.
 <p><code>-231 &lt;= val &lt;= 231 - 1</code></p>
 <p><code>pop</code>、<code>top</code> 和 <code>getMin</code> 操作总是在 <strong>非空栈</strong> 上调用</p>
 <p><code>push</code>, <code>pop</code>, <code>top</code>, and <code>getMin</code>最多被调用 <code>3 * 104</code> 次</p>
-<h2 id="思路-2"><a href="#思路-2" class="headerlink" title="思路"></a>思路</h2><p>这里基本上都是采用辅助栈的形式去做，做法其实大差不差</p>
+<h2 id="思路-2"><a class="headerlink" href="#思路-2" title="思路"></a>思路</h2><p>这里基本上都是采用辅助栈的形式去做，做法其实大差不差</p>
 <p>四个函数分别说一下</p>
 <p><code>push</code>，每当我们push一个新值进来，如果小于等于辅助栈的栈顶则一起push到辅助栈，也就更新了最小值</p>
 <p><code>pop</code>，如果栈顶和辅助栈的栈顶一样，两个都pop，保证最小值在辅助栈中</p>
 <p><code>top</code>，返回主栈栈顶元素</p>
 <p><code>getMin</code>，返回辅助栈栈顶元素也即最小值</p>
-<h2 id="代码-2"><a href="#代码-2" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">MinStack</span>:<br>    <span class="hljs-comment"># 初始化两个栈，一个用于存储所有元素，另一个用于存储最小元素</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-variable language_">self</span>.stack = []<br>        <span class="hljs-variable language_">self</span>.min_stack = []<br><br>    <span class="hljs-comment"># 向栈中添加元素，并更新最小元素栈</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">push</span>(<span class="hljs-params">self, val: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-literal">None</span>:<br>        <span class="hljs-variable language_">self</span>.stack.append(val)<br>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> <span class="hljs-variable language_">self</span>.min_stack <span class="hljs-keyword">or</span> val &lt;= <span class="hljs-variable language_">self</span>.min_stack[-<span class="hljs-number">1</span>]:<br>            <span class="hljs-variable language_">self</span>.min_stack.append(val)<br><br>    <span class="hljs-comment"># 从栈中移除元素，并更新最小元素栈</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">pop</span>(<span class="hljs-params">self</span>) -&gt; <span class="hljs-literal">None</span>:<br>        x = <span class="hljs-variable language_">self</span>.stack.pop()<br>        <span class="hljs-keyword">if</span> x == <span class="hljs-variable language_">self</span>.min_stack[-<span class="hljs-number">1</span>]:<br>            <span class="hljs-variable language_">self</span>.min_stack.pop()<br><br>    <span class="hljs-comment"># 获取栈顶元素</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">top</span>(<span class="hljs-params">self</span>) -&gt; <span class="hljs-built_in">int</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">self</span>.stack[-<span class="hljs-number">1</span>]<br><br>    <span class="hljs-comment"># 获取栈中的最小元素</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">getMin</span>(<span class="hljs-params">self</span>) -&gt; <span class="hljs-built_in">int</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">self</span>.min_stack[-<span class="hljs-number">1</span>]<br></code></pre></td></tr></table></figure>
-
-<h2 id="时间复杂度-2"><a href="#时间复杂度-2" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>时间复杂度O(1)，执行时间59ms，消耗内存20MB</p>
+<h2 id="代码-2"><a class="headerlink" href="#代码-2" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/><span class="line">10</span><br/><span class="line">11</span><br/><span class="line">12</span><br/><span class="line">13</span><br/><span class="line">14</span><br/><span class="line">15</span><br/><span class="line">16</span><br/><span class="line">17</span><br/><span class="line">18</span><br/><span class="line">19</span><br/><span class="line">20</span><br/><span class="line">21</span><br/><span class="line">22</span><br/><span class="line">23</span><br/><span class="line">24</span><br/><span class="line">25</span><br/></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">MinStack</span>:<br/>    <span class="hljs-comment"># 初始化两个栈，一个用于存储所有元素，另一个用于存储最小元素</span><br/>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br/>        <span class="hljs-variable language_">self</span>.stack = []<br/>        <span class="hljs-variable language_">self</span>.min_stack = []<br/><br/>    <span class="hljs-comment"># 向栈中添加元素，并更新最小元素栈</span><br/>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">push</span>(<span class="hljs-params">self, val: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-literal">None</span>:<br/>        <span class="hljs-variable language_">self</span>.stack.append(val)<br/>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> <span class="hljs-variable language_">self</span>.min_stack <span class="hljs-keyword">or</span> val &lt;= <span class="hljs-variable language_">self</span>.min_stack[-<span class="hljs-number">1</span>]:<br/>            <span class="hljs-variable language_">self</span>.min_stack.append(val)<br/><br/>    <span class="hljs-comment"># 从栈中移除元素，并更新最小元素栈</span><br/>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">pop</span>(<span class="hljs-params">self</span>) -&gt; <span class="hljs-literal">None</span>:<br/>        x = <span class="hljs-variable language_">self</span>.stack.pop()<br/>        <span class="hljs-keyword">if</span> x == <span class="hljs-variable language_">self</span>.min_stack[-<span class="hljs-number">1</span>]:<br/>            <span class="hljs-variable language_">self</span>.min_stack.pop()<br/><br/>    <span class="hljs-comment"># 获取栈顶元素</span><br/>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">top</span>(<span class="hljs-params">self</span>) -&gt; <span class="hljs-built_in">int</span>:<br/>        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">self</span>.stack[-<span class="hljs-number">1</span>]<br/><br/>    <span class="hljs-comment"># 获取栈中的最小元素</span><br/>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">getMin</span>(<span class="hljs-params">self</span>) -&gt; <span class="hljs-built_in">int</span>:<br/>        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">self</span>.min_stack[-<span class="hljs-number">1</span>]<br/></code></pre></td></tr></table></figure>
+<h2 id="时间复杂度-2"><a class="headerlink" href="#时间复杂度-2" title="时间复杂度"></a>时间复杂度</h2><p>时间复杂度O(1)，执行时间59ms，消耗内存20MB</p>
 <p>这里容易有一个误区就是pop的时候我们把辅助栈的最小元素给pop了，那么我们是不是就没有辅助栈了呢。并不是，辅助栈也是会被更新的，如果我们在pop的下一个就需要运行getMin了，那得到的就肯定为空了。当我们在后续还有新的push，那必然获得的就不是这个为空的了。</p>
-<h1 id="150-逆波兰表达式求值"><a href="#150-逆波兰表达式求值" class="headerlink" title="150 逆波兰表达式求值"></a>150 逆波兰表达式求值</h1><p>给你一个字符串数组 <code>tokens</code> ，表示一个根据 <a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E9%80%86%E6%B3%A2%E5%85%B0%E5%BC%8F/128437">逆波兰表示法</a> 表示的算术表达式。</p>
+<h1 id="150-逆波兰表达式求值"><a class="headerlink" href="#150-逆波兰表达式求值" title="150 逆波兰表达式求值"></a>150 逆波兰表达式求值</h1><p>给你一个字符串数组 <code>tokens</code> ，表示一个根据 <a href="https://baike.baidu.com/item/%E9%80%86%E6%B3%A2%E5%85%B0%E5%BC%8F/128437" rel="noopener" target="_blank">逆波兰表示法</a> 表示的算术表达式。</p>
 <p>请你计算该表达式。返回一个表示表达式值的整数。</p>
 <p>注意：</p>
-<p>有效的算符为 <code>&#39;+&#39;</code>、<code>&#39;-&#39;</code>、<code>&#39;*&#39;</code> 和 <code>&#39;/&#39;</code> 。</p>
+<p>有效的算符为 <code>'+'</code>、<code>'-'</code>、<code>'*'</code> 和 <code>'/'</code> 。</p>
 <p>每个操作数（运算对象）都可以是一个整数或者另一个表达式。</p>
 <p>两个整数之间的除法总是 <strong>向零截断</strong> 。</p>
 <p>表达式中不含除零运算。</p>
 <p>输入是一个根据逆波兰表示法表示的算术表达式。</p>
 <p>答案及所有中间计算结果可以用 <strong>32 位</strong> 整数表示。</p>
 <p>示例 1：</p>
-<pre><code class="hljs">输入：tokens = [&quot;2&quot;,&quot;1&quot;,&quot;+&quot;,&quot;3&quot;,&quot;*&quot;]
+<pre><code class="hljs">输入：tokens = ["2","1","+","3","*"]
 输出：9
 解释：该算式转化为常见的中缀算术表达式为：((2 + 1) * 3) = 9
 </code></pre>
 <p>示例 2：</p>
-<pre><code class="hljs">输入：tokens = [&quot;4&quot;,&quot;13&quot;,&quot;5&quot;,&quot;/&quot;,&quot;+&quot;]
+<pre><code class="hljs">输入：tokens = ["4","13","5","/","+"]
 输出：6
 解释：该算式转化为常见的中缀算术表达式为：(4 + (13 / 5)) = 6
 </code></pre>
 <p>示例 3：</p>
-<pre><code class="hljs">输入：tokens = [&quot;10&quot;,&quot;6&quot;,&quot;9&quot;,&quot;3&quot;,&quot;+&quot;,&quot;-11&quot;,&quot;*&quot;,&quot;/&quot;,&quot;*&quot;,&quot;17&quot;,&quot;+&quot;,&quot;5&quot;,&quot;+&quot;]
+<pre><code class="hljs">输入：tokens = ["10","6","9","3","+","-11","*","/","*","17","+","5","+"]
 输出：22
 解释：该算式转化为常见的中缀算术表达式为：
 
@@ -659,7 +160,7 @@ minStack.getMin();   --&gt; 返回 -2.
 </code></pre>
 <p>提示：</p>
 <p><code>1 &lt;= tokens.length &lt;= 104</code></p>
-<p><code>tokens[i]</code> 是一个算符（<code>&quot;+&quot;</code>、<code>&quot;-&quot;</code>、<code>&quot;*&quot;</code> 或 <code>&quot;/&quot;</code>），或是在范围 <code>[-200, 200]</code> 内的一个整数</p>
+<p><code>tokens[i]</code> 是一个算符（<code>"+"</code>、<code>"-"</code>、<code>"*"</code> 或 <code>"/"</code>），或是在范围 <code>[-200, 200]</code> 内的一个整数</p>
 <p>逆波兰表达式：</p>
 <p>逆波兰表达式是一种后缀表达式，所谓后缀就是指算符写在后面。</p>
 <p>平常使用的算式则是一种中缀表达式，如 <code>( 1 + 2 ) * ( 3 + 4 )</code> 。</p>
@@ -667,526 +168,52 @@ minStack.getMin();   --&gt; 返回 -2.
 <p>逆波兰表达式主要有以下两个优点：</p>
 <p>去掉括号后表达式无歧义，上式即便写成 <code>1 2 + 3 4 + *</code> 也可以依据次序计算出正确结果。</p>
 <p>适合用栈操作运算：遇到数字则入栈；遇到算符则取出栈顶两个数字进行计算，并将结果压入栈中。</p>
-<h2 id="思路-3"><a href="#思路-3" class="headerlink" title="思路"></a>思路</h2><p>首先第一个需要理解的点是逆波兰表达式是一个后缀表达式，所以我们可以先将后缀表达式转换为逆波兰表达式，并计算结果。而我们常用的计算式是中缀表达式，所以明白了这点就可以大概构思出怎么做。</p>
+<h2 id="思路-3"><a class="headerlink" href="#思路-3" title="思路"></a>思路</h2><p>首先第一个需要理解的点是逆波兰表达式是一个后缀表达式，所以我们可以先将后缀表达式转换为逆波兰表达式，并计算结果。而我们常用的计算式是中缀表达式，所以明白了这点就可以大概构思出怎么做。</p>
 <p>接下来我们需要想到几个问题。</p>
 <p>第一当用例中出现负数怎么办，负数我们可以直接转换为<code>-</code> + <code>num</code>这样就变相的改成了计算式，然后数字直接int为整数就行。</p>
 <p>第二，当我们看到题目中的第三条时会有一个很无语的事情，就是除法需要 <strong>向零截断</strong>，而python的除余结果是直接向下取整。然而，在我们第一步的操作后，我们直接解决了这个问题，唯一需要注意的是我们除式的结果需要转化为int型变量</p>
-<h2 id="代码-3"><a href="#代码-3" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">evalRPN</span>(<span class="hljs-params">self, tokens: <span class="hljs-type">List</span>[<span class="hljs-built_in">str</span>]</span>) -&gt; <span class="hljs-built_in">int</span>:<br>        stack = []<br>        dic = &#123;<span class="hljs-string">&#x27;+&#x27;</span>:<span class="hljs-keyword">lambda</span> x,y:x+y, <span class="hljs-string">&#x27;-&#x27;</span>:<span class="hljs-keyword">lambda</span> x,y:x-y, <span class="hljs-string">&#x27;*&#x27;</span>:<span class="hljs-keyword">lambda</span> x,y:x*y, <span class="hljs-string">&#x27;/&#x27;</span>:<span class="hljs-keyword">lambda</span> x,y:<span class="hljs-built_in">int</span>(x/y)&#125;<br>        <span class="hljs-comment"># 定义一个字典dic，存储运算符和对应的lambda函数，用于执行相应的算术操作</span><br>        <span class="hljs-keyword">for</span> token <span class="hljs-keyword">in</span> tokens:<br>            <span class="hljs-comment"># 遍历tokens列表中的每一个token</span><br>            <span class="hljs-keyword">if</span> token <span class="hljs-keyword">in</span> dic:<br>                <span class="hljs-comment"># 如果token是运算符</span><br>                y = stack.pop()<br>                x = stack.pop()<br>                <span class="hljs-comment"># 从stack中弹出两个操作数</span><br>                stack.append(dic[token](x,y))<br>                <span class="hljs-comment"># 执行相应的算术操作，并将结果压入stack</span><br>            <span class="hljs-keyword">else</span>:<br>                <span class="hljs-comment"># 如果token是操作数</span><br>                stack.append(<span class="hljs-built_in">int</span>(token))<br>                <span class="hljs-comment"># 将token转换为整数并压入stack</span><br>        <span class="hljs-keyword">return</span> stack[<span class="hljs-number">0</span>]<br>        <span class="hljs-comment"># 返回stack中唯一的元素，即逆波兰表达式的计算结果</span><br></code></pre></td></tr></table></figure>
-
-<h2 id="时间复杂度-3"><a href="#时间复杂度-3" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>时间复杂度O(n)，执行时间40ms，消耗内存18.2MB</p>
-<h1 id="224-基本计算器"><a href="#224-基本计算器" class="headerlink" title="224 基本计算器"></a>224 基本计算器</h1><p>给你一个字符串表达式 <code>s</code> ，请你实现一个基本计算器来计算并返回它的值。</p>
+<h2 id="代码-3"><a class="headerlink" href="#代码-3" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/><span class="line">10</span><br/><span class="line">11</span><br/><span class="line">12</span><br/><span class="line">13</span><br/><span class="line">14</span><br/><span class="line">15</span><br/><span class="line">16</span><br/><span class="line">17</span><br/><span class="line">18</span><br/><span class="line">19</span><br/><span class="line">20</span><br/></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br/>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">evalRPN</span>(<span class="hljs-params">self, tokens: <span class="hljs-type">List</span>[<span class="hljs-built_in">str</span>]</span>) -&gt; <span class="hljs-built_in">int</span>:<br/>        stack = []<br/>        dic = {<span class="hljs-string">'+'</span>:<span class="hljs-keyword">lambda</span> x,y:x+y, <span class="hljs-string">'-'</span>:<span class="hljs-keyword">lambda</span> x,y:x-y, <span class="hljs-string">'*'</span>:<span class="hljs-keyword">lambda</span> x,y:x*y, <span class="hljs-string">'/'</span>:<span class="hljs-keyword">lambda</span> x,y:<span class="hljs-built_in">int</span>(x/y)}<br/>        <span class="hljs-comment"># 定义一个字典dic，存储运算符和对应的lambda函数，用于执行相应的算术操作</span><br/>        <span class="hljs-keyword">for</span> token <span class="hljs-keyword">in</span> tokens:<br/>            <span class="hljs-comment"># 遍历tokens列表中的每一个token</span><br/>            <span class="hljs-keyword">if</span> token <span class="hljs-keyword">in</span> dic:<br/>                <span class="hljs-comment"># 如果token是运算符</span><br/>                y = stack.pop()<br/>                x = stack.pop()<br/>                <span class="hljs-comment"># 从stack中弹出两个操作数</span><br/>                stack.append(dic[token](x,y))<br/>                <span class="hljs-comment"># 执行相应的算术操作，并将结果压入stack</span><br/>            <span class="hljs-keyword">else</span>:<br/>                <span class="hljs-comment"># 如果token是操作数</span><br/>                stack.append(<span class="hljs-built_in">int</span>(token))<br/>                <span class="hljs-comment"># 将token转换为整数并压入stack</span><br/>        <span class="hljs-keyword">return</span> stack[<span class="hljs-number">0</span>]<br/>        <span class="hljs-comment"># 返回stack中唯一的元素，即逆波兰表达式的计算结果</span><br/></code></pre></td></tr></table></figure>
+<h2 id="时间复杂度-3"><a class="headerlink" href="#时间复杂度-3" title="时间复杂度"></a>时间复杂度</h2><p>时间复杂度O(n)，执行时间40ms，消耗内存18.2MB</p>
+<h1 id="224-基本计算器"><a class="headerlink" href="#224-基本计算器" title="224 基本计算器"></a>224 基本计算器</h1><p>给你一个字符串表达式 <code>s</code> ，请你实现一个基本计算器来计算并返回它的值。</p>
 <p>注意:不允许使用任何将字符串作为数学表达式计算的内置函数，比如 <code>eval() </code>。</p>
 <p>示例 1：</p>
-<pre><code class="hljs">输入：s = &quot;1 + 1&quot;
+<pre><code class="hljs">输入：s = "1 + 1"
 输出：2
 </code></pre>
 <p>示例 2：</p>
-<pre><code class="hljs">输入：s = &quot; 2-1 + 2 &quot;
+<pre><code class="hljs">输入：s = " 2-1 + 2 "
 输出：3
 </code></pre>
 <p>示例 3：</p>
-<pre><code class="hljs">输入：s = &quot;(1+(4+5+2)-3)+(6+8)&quot;
+<pre><code class="hljs">输入：s = "(1+(4+5+2)-3)+(6+8)"
 输出：23
 </code></pre>
 <p>提示：</p>
 <p><code>1 &lt;= s.length &lt;= 3 * 105</code></p>
-<p><code>s</code> 由数字、<code>&#39;+&#39;</code>、<code>&#39;-&#39;</code>、<code>&#39;(&#39;</code>、<code>&#39;)&#39;</code>、和 <code>&#39; &#39;</code> 组成</p>
+<p><code>s</code> 由数字、<code>'+'</code>、<code>'-'</code>、<code>'('</code>、<code>')'</code>、和 <code>' '</code> 组成</p>
 <p><code>s</code> 表示一个有效的表达式</p>
-<p><code>&#39;+&#39;</code> 不能用作一元运算(例如， <code>&quot;+1&quot;</code> 和 <code>&quot;+(2 + 3)&quot;</code> 无效)</p>
-<p><code>&#39;-&#39;</code> 可以用作一元运算(即 <code>&quot;-1&quot;</code> 和 <code>&quot;-(2 + 3)&quot;</code> 是有效的)</p>
+<p><code>'+'</code> 不能用作一元运算(例如， <code>"+1"</code> 和 <code>"+(2 + 3)"</code> 无效)</p>
+<p><code>'-'</code> 可以用作一元运算(即 <code>"-1"</code> 和 <code>"-(2 + 3)"</code> 是有效的)</p>
 <p>输入中不存在两个连续的操作符</p>
 <p>每个数字和运行的计算将适合于一个有符号的 <strong>32位</strong> 整数</p>
-<h2 id="思路-4"><a href="#思路-4" class="headerlink" title="思路"></a>思路</h2><p>这个问题的核心是如何处理加减法运算，并正确处理括号内的优先级。我们可以通过以下步骤来解决问题：</p>
+<h2 id="思路-4"><a class="headerlink" href="#思路-4" title="思路"></a>思路</h2><p>这个问题的核心是如何处理加减法运算，并正确处理括号内的优先级。我们可以通过以下步骤来解决问题：</p>
 <ol>
 <li><p>符号转换：我们将 <code>+</code> 用 <code>1</code> 表示，将 <code>-</code> 用 <code>-1</code> 表示。这样，当遇到加减号时，可以通过将当前数字乘以符号值来简化运算过程。</p>
 </li>
 <li><p>处理括号：当遇到左括号 <code>(</code> 时，需要将当前的计算结果和运算符号压入栈中，保存当前的运算状态。这是因为括号内的运算结果会影响括号外的结果。遇到右括号 <code>)</code> 时，需要弹出栈顶的运算符号和结果，并将括号内的计算结果与之相结合。</p>
 </li>
 </ol>
-<p>示例<br>例如对于表达式 <code>(1+(4+5+2)-3)+(6+8)</code>，我们首先处理最内层的括号，然后逐步将结果合并到外层的运算中。</p>
-<h2 id="代码-4"><a href="#代码-4" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">calculate</span>(<span class="hljs-params">self, s: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-built_in">int</span>:<br>        stack = []<br>        num = <span class="hljs-number">0</span><br>        sign = <span class="hljs-number">1</span>  <span class="hljs-comment"># 1表示加号，-1表示减号</span><br>        result = <span class="hljs-number">0</span><br>        <br>        <span class="hljs-keyword">for</span> char <span class="hljs-keyword">in</span> s:<br>            <span class="hljs-keyword">if</span> char.isdigit():<br>                num = num * <span class="hljs-number">10</span> + <span class="hljs-built_in">int</span>(char)<br>            <span class="hljs-keyword">elif</span> char == <span class="hljs-string">&#x27;+&#x27;</span>:<br>                result += sign * num<br>                num = <span class="hljs-number">0</span><br>                sign = <span class="hljs-number">1</span><br>            <span class="hljs-keyword">elif</span> char == <span class="hljs-string">&#x27;-&#x27;</span>:<br>                result += sign * num<br>                num = <span class="hljs-number">0</span><br>                sign = -<span class="hljs-number">1</span><br>            <span class="hljs-keyword">elif</span> char == <span class="hljs-string">&#x27;(&#x27;</span>:<br>                stack.append(result)<br>                stack.append(sign)<br>                result = <span class="hljs-number">0</span><br>                sign = <span class="hljs-number">1</span><br>            <span class="hljs-keyword">elif</span> char == <span class="hljs-string">&#x27;)&#x27;</span>:<br>                result += sign * num<br>                num = <span class="hljs-number">0</span><br>                result *= stack.pop()  <span class="hljs-comment"># 乘以括号前的符号</span><br>                result += stack.pop()  <span class="hljs-comment"># 加上括号前的结果</span><br>        <br>        <span class="hljs-comment"># 处理最后一个数字</span><br>        result += sign * num<br>        <br>        <span class="hljs-keyword">return</span> result<br></code></pre></td></tr></table></figure>
-
-<h2 id="时间复杂度-4"><a href="#时间复杂度-4" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>时间复杂度：O(n)，执行时间57ms，消耗内存16.9MB</p>
-
-                
-              </div>
-            
-            <hr/>
-            <div>
-              <div class="post-metas my-3">
-  
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/" class="category-chain-item">刷题记录</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
-  
-  
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/Leetcode/" class="print-no-link">#Leetcode</a>
-      
-        <a href="/tags/%E5%88%B7%E9%A2%98/" class="print-no-link">#刷题</a>
-      
-        <a href="/tags/%E6%A0%88/" class="print-no-link">#栈</a>
-      
-    </div>
-  
+<p>示例<br/>例如对于表达式 <code>(1+(4+5+2)-3)+(6+8)</code>，我们首先处理最内层的括号，然后逐步将结果合并到外层的运算中。</p>
+<h2 id="代码-4"><a class="headerlink" href="#代码-4" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/><span class="line">10</span><br/><span class="line">11</span><br/><span class="line">12</span><br/><span class="line">13</span><br/><span class="line">14</span><br/><span class="line">15</span><br/><span class="line">16</span><br/><span class="line">17</span><br/><span class="line">18</span><br/><span class="line">19</span><br/><span class="line">20</span><br/><span class="line">21</span><br/><span class="line">22</span><br/><span class="line">23</span><br/><span class="line">24</span><br/><span class="line">25</span><br/><span class="line">26</span><br/><span class="line">27</span><br/><span class="line">28</span><br/><span class="line">29</span><br/><span class="line">30</span><br/><span class="line">31</span><br/><span class="line">32</span><br/><span class="line">33</span><br/></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br/>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">calculate</span>(<span class="hljs-params">self, s: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-built_in">int</span>:<br/>        stack = []<br/>        num = <span class="hljs-number">0</span><br/>        sign = <span class="hljs-number">1</span>  <span class="hljs-comment"># 1表示加号，-1表示减号</span><br/>        result = <span class="hljs-number">0</span><br/>        <br/>        <span class="hljs-keyword">for</span> char <span class="hljs-keyword">in</span> s:<br/>            <span class="hljs-keyword">if</span> char.isdigit():<br/>                num = num * <span class="hljs-number">10</span> + <span class="hljs-built_in">int</span>(char)<br/>            <span class="hljs-keyword">elif</span> char == <span class="hljs-string">'+'</span>:<br/>                result += sign * num<br/>                num = <span class="hljs-number">0</span><br/>                sign = <span class="hljs-number">1</span><br/>            <span class="hljs-keyword">elif</span> char == <span class="hljs-string">'-'</span>:<br/>                result += sign * num<br/>                num = <span class="hljs-number">0</span><br/>                sign = -<span class="hljs-number">1</span><br/>            <span class="hljs-keyword">elif</span> char == <span class="hljs-string">'('</span>:<br/>                stack.append(result)<br/>                stack.append(sign)<br/>                result = <span class="hljs-number">0</span><br/>                sign = <span class="hljs-number">1</span><br/>            <span class="hljs-keyword">elif</span> char == <span class="hljs-string">')'</span>:<br/>                result += sign * num<br/>                num = <span class="hljs-number">0</span><br/>                result *= stack.pop()  <span class="hljs-comment"># 乘以括号前的符号</span><br/>                result += stack.pop()  <span class="hljs-comment"># 加上括号前的结果</span><br/>        <br/>        <span class="hljs-comment"># 处理最后一个数字</span><br/>        result += sign * num<br/>        <br/>        <span class="hljs-keyword">return</span> result<br/></code></pre></td></tr></table></figure>
+<h2 id="时间复杂度-4"><a class="headerlink" href="#时间复杂度-4" title="时间复杂度"></a>时间复杂度</h2><p>时间复杂度：O(n)，执行时间57ms，消耗内存16.9MB</p>
 </div>
-
-
-              
-  
-
-  <div class="license-box my-3">
-    <div class="license-title">
-      <div>leetcode刷题记录——栈</div>
-      <div>https://www.lx02918.ltd/2024/08/08/leetcode-栈/</div>
-    </div>
-    <div class="license-meta">
-      
-        <div class="license-meta-item">
-          <div>作者</div>
-          <div>Seth</div>
-        </div>
-      
-      
-        <div class="license-meta-item license-meta-date">
-          <div>发布于</div>
-          <div>2024年8月8日</div>
-        </div>
-      
-      
-      
-        <div class="license-meta-item">
-          <div>许可协议</div>
-          <div>
-            
-              
-              
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
-                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
-                    <i class="iconfont icon-by"></i>
-                  </span>
-                </a>
-              
-            
-          </div>
-        </div>
-      
-    </div>
-    <div class="license-icon iconfont"></div>
-  </div>
-
-
-
-              
-                <div class="post-prevnext my-3">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2024/08/09/go-study-third-day/" title="go学习记录——第三天">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">go学习记录——第三天</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2024/08/08/go-study-second-day/" title="go学习记录——第二天">
-                        <span class="hidden-mobile">go学习记录——第二天</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
-            </div>
-
-            
-  
-  
-    <article id="comments" lazyload>
-      
-  <div id="waline"></div>
-  <script type="text/javascript">
-    Fluid.utils.loadComments('#waline', function() {
-      Fluid.utils.createCssLink('https://cdn.staticfile.org/waline/2.15.5/waline.min.css')
-      Fluid.utils.createScript('https://cdn.staticfile.org/waline/2.15.5/waline.min.js', function() {
-        var options = Object.assign(
-          {"serverURL":"https://blogcomments-sigma.vercel.app/","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":["nick"],"lang":"zh-CN","emoji":["https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10},
-          {
-            el: '#waline',
-            path: window.location.pathname
-          }
-        )
-        Waline.init(options);
-        Fluid.utils.waitElementVisible('#waline .vcontent', () => {
-          var imgSelector = '#waline .vcontent img:not(.vemoji)';
-          Fluid.plugins.imageCaption(imgSelector);
-          Fluid.plugins.fancyBox(imgSelector);
-        })
-      });
-    });
-  </script>
-  <noscript>Please enable JavaScript to view the comments</noscript>
-
-
-    </article>
-  
-
-
-          </article>
-        </div>
+          <div id="article-end" class="reading-end"><span>END OF ARTICLE</span><a href="#top">回到顶部 ↑</a></div>
+          <nav class="reading-next" aria-label="相邻文章"><a href="/2024/08/09/go-study-third-day/"><small>上一篇</small><strong>go学习记录——第三天</strong><span aria-hidden="true">↗</span></a><a href="/2024/08/08/go-study-second-day/"><small>下一篇</small><strong>go学习记录——第二天</strong><span aria-hidden="true">↗</span></a></nav>
+          <a class="reading-all" href="/blog.html">← 返回文章列表</a>
+        </article>
       </div>
-    </div>
-
-    <div class="side-col d-none d-lg-block col-lg-2">
-      
-  <aside class="sidebar" style="margin-left: -1rem">
-    <div id="toc">
-  <p class="toc-header">
-    <i class="iconfont icon-list"></i>
-    <span>目录</span>
-  </p>
-  <div class="toc-body" id="toc-body"></div>
-</div>
-
-
-
-  </aside>
-
-
-    </div>
+    </main>
+    <footer class="site-footer"><a class="wordmark footer-mark" href="/index.html">S<span class="mark-dot">.</span></a><span>一个关于记录与创造的个人空间</span><span>© <span class="year">2026</span> Seth</span><a class="back-top" href="#top">返回顶部 ↑</a></footer>
   </div>
-</div>
-
-
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-  
-  
-
-
-
-
-
-
-
-
-
-    
-
-    
-      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
-        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-      </a>
-    
-
-    
-      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-    
-
-    
-  </main>
-
-  <footer>
-    <div class="footer-inner">
-  
-    <div class="footer-content">
-       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
-    </div>
-  
-  
-    <div class="statistics">
-  
-  
-
-  
-    
-      <span id="busuanzi_container_site_pv" style="display: none">
-        总访问量 
-        <span id="busuanzi_value_site_pv"></span>
-         次
-      </span>
-    
-    
-      <span id="busuanzi_container_site_uv" style="display: none">
-        总访客数 
-        <span id="busuanzi_value_site_uv"></span>
-         人
-      </span>
-    
-    
-  
-</div>
-
-  
-  
-  
-</div>
-
-  </footer>
-
-  <!-- Scripts -->
-  
-  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
-
-  <script>
-    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
-    NProgress.start()
-    window.addEventListener('load', function() {
-      NProgress.done();
-    })
-  </script>
-
-
-<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
-<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
-<script  src="/js/events.js" ></script>
-<script  src="/js/plugins.js" ></script>
-
-
-  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var subtitle = document.getElementById('subtitle');
-      if (!subtitle || !typing) {
-        return;
-      }
-      var text = subtitle.getAttribute('data-typed-text');
-      
-        typing(text);
-      
-    })(window, document);
-  </script>
-
-
-
-
-  
-    <script  src="/js/img-lazyload.js" ></script>
-  
-
-
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
-    var toc = jQuery('#toc');
-    if (toc.length === 0 || !window.tocbot) { return; }
-    var boardCtn = jQuery('#board-ctn');
-    var boardTop = boardCtn.offset().top;
-
-    window.tocbot.init(Object.assign({
-      tocSelector     : '#toc-body',
-      contentSelector : '.markdown-body',
-      linkClass       : 'tocbot-link',
-      activeLinkClass : 'tocbot-active-link',
-      listClass       : 'tocbot-list',
-      isCollapsedClass: 'tocbot-is-collapsed',
-      collapsibleClass: 'tocbot-is-collapsible',
-      scrollSmooth    : true,
-      includeTitleTags: true,
-      headingsOffset  : -boardTop,
-    }, CONFIG.toc));
-    if (toc.find('.toc-list-item').length > 0) {
-      toc.css('visibility', 'visible');
-    }
-
-    Fluid.events.registerRefreshCallback(function() {
-      if ('tocbot' in window) {
-        tocbot.refresh();
-        var toc = jQuery('#toc');
-        if (toc.length === 0 || !tocbot) {
-          return;
-        }
-        if (toc.find('.toc-list-item').length > 0) {
-          toc.css('visibility', 'visible');
-        }
-      }
-    });
-  });
-</script>
-
-
-  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
-
-  <script>Fluid.plugins.codeWidget();</script>
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
-    window.anchors.options = {
-      placement: CONFIG.anchorjs.placement,
-      visible  : CONFIG.anchorjs.visible
-    };
-    if (CONFIG.anchorjs.icon) {
-      window.anchors.options.icon = CONFIG.anchorjs.icon;
-    }
-    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
-    var res = [];
-    for (var item of el) {
-      res.push('.markdown-body > ' + item.trim());
-    }
-    if (CONFIG.anchorjs.placement === 'left') {
-      window.anchors.options.class = 'anchorjs-link-left';
-    }
-    window.anchors.add(res.join(', '));
-
-    Fluid.events.registerRefreshCallback(function() {
-      if ('anchors' in window) {
-        anchors.removeAll();
-        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
-        var res = [];
-        for (var item of el) {
-          res.push('.markdown-body > ' + item.trim());
-        }
-        if (CONFIG.anchorjs.placement === 'left') {
-          anchors.options.class = 'anchorjs-link-left';
-        }
-        anchors.add(res.join(', '));
-      }
-    });
-  });
-</script>
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
-    Fluid.plugins.fancyBox();
-  });
-</script>
-
-
-  <script>Fluid.plugins.imageCaption();</script>
-
-  
-      <script>
-        if (!window.MathJax) {
-          window.MathJax = {
-            tex    : {
-              inlineMath: { '[+]': [['$', '$']] }
-            },
-            loader : {
-              load: ['ui/lazy']
-            },
-            options: {
-              renderActions: {
-                insertedScript: [200, () => {
-                  document.querySelectorAll('mjx-container').forEach(node => {
-                    let target = node.parentNode;
-                    if (target.nodeName.toLowerCase() === 'li') {
-                      target.parentNode.classList.add('has-jax');
-                    }
-                  });
-                }, '', false]
-              }
-            }
-          };
-        } else {
-          MathJax.startup.document.state(0);
-          MathJax.texReset();
-          MathJax.typeset();
-          MathJax.typesetPromise();
-        }
-
-        Fluid.events.registerRefreshCallback(function() {
-          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
-            MathJax.startup.document.state(0);
-            MathJax.texReset();
-            MathJax.typeset();
-            MathJax.typesetPromise();
-          }
-        });
-      </script>
-    
-
-  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
-
-  <script defer src="/js/leancloud.js" ></script>
-
-  <script  src="/js/local-search.js" ></script>
-
-  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
-
-
-
-
-
-<!-- 主题的启动项，将它保持在最底部 -->
-<!-- the boot of the theme, keep it at the bottom -->
-<script  src="/js/boot.js" ></script>
-
-
-  
-
-  <noscript>
-    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
-  </noscript>
 </body>
 </html>

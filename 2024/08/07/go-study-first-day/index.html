@@ -1,632 +1,40 @@
-
-
-<!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=auto>
-
-
-
+<!doctype html>
+<html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
-  <link rel="icon" href="/img/fluid.png">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-  
-  <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="Seth">
-  <meta name="keywords" content="">
-  
-    <meta name="description" content="go的基本组成部分 包声明 引入包 函数 变量 语句 &amp; 表达式 注释  go变量声明go中用var来声明变量，语法如下： 1var variableName dataType 其中，variableName为变量名，dataType为变量的数据类型。 一次声明多个变量 12345var (    variable1 dataType1    variable2 dataType2">
-<meta property="og:type" content="article">
-<meta property="og:title" content="go学习记录——第一天">
-<meta property="og:url" content="https://www.lx02918.ltd/2024/08/07/go-study-first-day/index.html">
-<meta property="og:site_name" content="Seth的小站">
-<meta property="og:description" content="go的基本组成部分 包声明 引入包 函数 变量 语句 &amp; 表达式 注释  go变量声明go中用var来声明变量，语法如下： 1var variableName dataType 其中，variableName为变量名，dataType为变量的数据类型。 一次声明多个变量 12345var (    variable1 dataType1    variable2 dataType2">
-<meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-08-07T02:49:32.000Z">
-<meta property="article:modified_time" content="2024-08-15T07:51:59.807Z">
-<meta property="article:author" content="Seth">
-<meta property="article:tag" content="学习记录">
-<meta property="article:tag" content="go">
-<meta property="article:tag" content="基本概念">
-<meta property="article:tag" content="条件语句">
-<meta name="twitter:card" content="summary_large_image">
-  
-  
-    <meta name="referrer" content="no-referrer-when-downgrade">
-  
-  
-
-  <!-- 引入 Font Awesome 图标库 -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
-  <!-- 百度验证 -->
-  <meta name="baidu-site-verification" content="codeva-9kdQTZt849" />
-  <title>go学习记录——第一天 - Seth的小站</title>
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
-
-
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-
-
-<!-- 主题依赖的图标库，不要自行修改 -->
-<!-- Do not modify the link that theme dependent icons -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
-
-
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
-
-
-<link  rel="stylesheet" href="/css/main.css" />
-
-
-  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
-  
-    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
-  
-
-
-
-
-  <script id="fluid-configs">
-    var Fluid = window.Fluid || {};
-    Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"www.lx02918.ltd","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"pAyQlcbEY6nkOIh5fveIBxLA-gzGzoHsz","app_key":"DjSrQhO4p64SG8qV28lz5J0H","server_url":"https://payqlcbe.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
-
-    if (CONFIG.web_analytics.follow_dnt) {
-      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
-      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
-    }
-  </script>
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-  
-
-  
-
-  
-    <!-- Google tag (gtag.js) -->
-    <script async>
-      if (!Fluid.ctx.dnt) {
-        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
-          window.dataLayer = window.dataLayer || [];
-          function gtag() {
-            dataLayer.push(arguments);
-          }
-          gtag('js', new Date());
-          gtag('config', '');
-        });
-      }
-    </script>
-  
-
-  
-
-  
-
-  
-
-  
-    
-  
-
-
-
-  
-<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/rss.xml" title="Seth的小站" type="application/rss+xml">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f1e9">
+  <meta name="description" content="go的基本组成部分 包声明 引入包 函数 变量 语句 &amp; 表达式 注释 go变量声明 go中用var来声明变量，语法如下： 1 var variableName dataType 其中，variableName为变量名，dataType为变量的数据类型。 一次声明多个变">
+  <title>go学习记录——第一天 · Seth的小站</title>
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/article.css">
+  <script defer src="/site.js"></script>
 </head>
-
-
 <body>
-  
-
-  <header>
-    
-
-<div class="header-inner" style="height: 70vh;">
-  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand" href="/">
-      <strong>Seth的小站</strong>
-    </a>
-
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/" target="_self">
-                <i class="iconfont icon-home-fill"></i>
-                <span>首页</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/" target="_self">
-                <i class="iconfont icon-archive-fill"></i>
-                <span>归档</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/" target="_self">
-                <i class="iconfont icon-category-fill"></i>
-                <span>分类</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/" target="_self">
-                <i class="iconfont icon-tags-fill"></i>
-                <span>标签</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/" target="_self">
-                <i class="iconfont icon-user-fill"></i>
-                <span>关于</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/rss.xml" target="_self">
-                <i class="iconfont icon-rss"></i>
-                <span>rss</span>
-              </a>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
-              <i class="iconfont icon-search"></i>
-            </a>
-          </li>
-          
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
-              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
-            </a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-</nav>
-
-  
-
-<div id="banner" class="banner" parallax=true
-     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
-  <div class="full-bg-img">
-    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-      <div class="banner-text text-center fade-in-up">
-        <div class="h2">
-          
-            <span id="subtitle" data-typed-text="go学习记录——第一天"></span>
-          
+  <div class="site-shell">
+    <header class="site-header">
+<a aria-label="Seth 首页" class="wordmark" href="/index.html"><span class="mark">S<span class="mark-dot">.</span></span><span class="wordmark-text">SETH / NOTES</span></a>
+<nav aria-label="主导航" class="main-nav"><a class="active" href="/index.html">首页</a><a href="/blog.html">文章</a><a href="/about.html">关于</a></nav>
+<button aria-label="切换明暗主题" class="theme-toggle" title="切换明暗主题" type="button"><span aria-hidden="true">◐</span></button>
+</header>
+    <main id="top">
+      <section class="reading-hero reveal">
+        <div class="reading-hero-inner">
+          <a class="reading-back" href="/blog.html">← 返回全部文章</a>
+          <p class="eyebrow">WRITINGS <span class="eyebrow-line"></span> 学习记录</p>
+          <h1>go学习记录——第一天</h1>
+          <div class="reading-meta"><time datetime="2024-08-07">2024-08-07</time><span>学习记录</span><span>第 43 / 53 篇</span></div>
         </div>
-
-        
-          
-  <div class="mt-3">
-    
-    
-      <span class="post-meta">
-        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-08-07 10:49" pubdate>
-          星期三, 八月 7日 2024, 10:49 上午
-        </time>
-      </span>
-    
-  </div>
-
-  <div class="mt-1">
-    
-      <span class="post-meta mr-2">
-        <i class="iconfont icon-chart"></i>
-        
-          1.3k 字
-        
-      </span>
-    
-
-    
-      <span class="post-meta mr-2">
-        <i class="iconfont icon-clock-fill"></i>
-        
-        
-        
-          11 分钟
-        
-      </span>
-    
-
-    
-    
-      
-        <span id="busuanzi_container_page_pv" style="display: none">
-          <i class="iconfont icon-eye" aria-hidden="true"></i>
-          <span id="busuanzi_value_page_pv"></span> 次
-        </span>
-        
-      
-    
-  </div>
-
-
-        
-      </div>
-
-      
-    </div>
-  </div>
-</div>
-
-</div>
-
-  </header>
-
-  <main>
-    
-      
-
-<div class="container-fluid nopadding-x">
-  <div class="row nomargin-x">
-    <div class="side-col d-none d-lg-block col-lg-2">
-      
-  <aside class="sidebar category-bar" style="margin-right: -1rem">
-    
-
-
-
-
-
-<div class="category-list">
-  
-  
-    
-    
-    
-    <div class="category row nomargin-x">
-      <a class="category-item 
-          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="学习记录"
-        id="heading-7f2ecb9c4d10981cd40468b79a104150" role="tab" data-toggle="collapse" href="#collapse-7f2ecb9c4d10981cd40468b79a104150"
-        aria-expanded="true"
-      >
-        学习记录
-        <span class="list-group-count">(21)</span>
-        <i class="iconfont icon-arrowright"></i>
-      </a>
-      
-      <div class="category-collapse collapse show" id="collapse-7f2ecb9c4d10981cd40468b79a104150"
-           role="tabpanel" aria-labelledby="heading-7f2ecb9c4d10981cd40468b79a104150">
-        
-        
-          
-          
-  <div class="category-post-list">
-    
-    
-  </div>
-
-          
-  
-    
-    
-    
-    <div class="category-sub row nomargin-x">
-      <a class="category-subitem collapsed
-          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="PostgreSQL"
-        id="heading-399bd1ee587245ecac6f39beaa99886f" role="tab" data-toggle="collapse" href="#collapse-399bd1ee587245ecac6f39beaa99886f"
-        aria-expanded="false"
-      >
-        PostgreSQL
-        <span class="list-group-count">(5)</span>
-        <i class="iconfont icon-arrowright"></i>
-      </a>
-      
-      <div class="category-collapse collapse " id="collapse-399bd1ee587245ecac6f39beaa99886f"
-           role="tabpanel" aria-labelledby="heading-399bd1ee587245ecac6f39beaa99886f">
-        
-        
-          
-  <div class="category-post-list">
-    
-    
-      
-      
-        <a href="/2024/08/02/postgresql-study-first-day/" title="PostgreSQL学习记录——第一天"
-           class="list-group-item list-group-item-action
-           ">
-          <span class="category-post">PostgreSQL学习记录——第一天</span>
-        </a>
-      
-    
-      
-      
-        <a href="/2024/08/06/postgresql-study-third-day/" title="PostgreSQL学习记录——第三天"
-           class="list-group-item list-group-item-action
-           ">
-          <span class="category-post">PostgreSQL学习记录——第三天</span>
-        </a>
-      
-    
-      
-      
-        <a href="/2024/08/05/postgresql-study-second-day/" title="PostgreSQL学习记录——第二天"
-           class="list-group-item list-group-item-action
-           ">
-          <span class="category-post">PostgreSQL学习记录——第二天</span>
-        </a>
-      
-    
-      
-      
-        <a href="/2024/08/07/postgresql-study-fourth-day/" title="PostgreSQL学习记录——第四天"
-           class="list-group-item list-group-item-action
-           ">
-          <span class="category-post">PostgreSQL学习记录——第四天</span>
-        </a>
-      
-    
-      
-      
-        <a href="/2024/08/01/install-postgreSQL/" title="PostgreSQL安装记录及集群初始化失败问题解决"
-           class="list-group-item list-group-item-action
-           ">
-          <span class="category-post">PostgreSQL安装记录及集群初始化失败问题解决</span>
-        </a>
-      
-    
-  </div>
-
-        
-      </div>
-    </div>
-  
-    
-    
-    
-    <div class="category-sub row nomargin-x">
-      <a class="category-subitem 
-          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="go"
-        id="heading-34d1f91fb2e514b8576fab1a75a89a6b" role="tab" data-toggle="collapse" href="#collapse-34d1f91fb2e514b8576fab1a75a89a6b"
-        aria-expanded="true"
-      >
-        go
-        <span class="list-group-count">(16)</span>
-        <i class="iconfont icon-arrowright"></i>
-      </a>
-      
-      <div class="category-collapse collapse show" id="collapse-34d1f91fb2e514b8576fab1a75a89a6b"
-           role="tabpanel" aria-labelledby="heading-34d1f91fb2e514b8576fab1a75a89a6b">
-        
-        
-          
-  <div class="category-post-list">
-    
-    
-      
-      
-        <a href="/2024/08/07/go-study-first-day/" title="go学习记录——第一天"
-           class="list-group-item list-group-item-action
-           active">
-          <span class="category-post">go学习记录——第一天</span>
-        </a>
-      
-    
-      
-      
-        <a href="/2024/08/15/go-study-seventh-day/" title="go学习记录——第七天"
-           class="list-group-item list-group-item-action
-           ">
-          <span class="category-post">go学习记录——第七天</span>
-        </a>
-      
-    
-      
-      
-        <a href="/2024/08/09/go-study-third-day/" title="go学习记录——第三天"
-           class="list-group-item list-group-item-action
-           ">
-          <span class="category-post">go学习记录——第三天</span>
-        </a>
-      
-    
-      
-      
-        <a href="/2024/11/20/go-study-ninth-day/" title="go学习记录——第九天"
-           class="list-group-item list-group-item-action
-           ">
-          <span class="category-post">go学习记录——第九天</span>
-        </a>
-      
-    
-      
-      
-        <a href="/2024/08/08/go-study-second-day/" title="go学习记录——第二天"
-           class="list-group-item list-group-item-action
-           ">
-          <span class="category-post">go学习记录——第二天</span>
-        </a>
-      
-    
-      
-      
-        <a href="/2024/08/13/go-study-fifth-day/" title="go学习记录——第五天"
-           class="list-group-item list-group-item-action
-           ">
-          <span class="category-post">go学习记录——第五天</span>
-        </a>
-      
-    
-      
-      
-        <a href="/2024/11/19/go-study-eighth-day/" title="go学习记录——第八天"
-           class="list-group-item list-group-item-action
-           ">
-          <span class="category-post">go学习记录——第八天</span>
-        </a>
-      
-    
-      
-      
-        <a href="/2024/08/14/go-study-sixth-day/" title="go学习记录——第六天"
-           class="list-group-item list-group-item-action
-           ">
-          <span class="category-post">go学习记录——第六天</span>
-        </a>
-      
-    
-      
-      
-        <a href="/2024/11/29/go-study-eleventh-day/" title="go学习记录——第十一天"
-           class="list-group-item list-group-item-action
-           ">
-          <span class="category-post">go学习记录——第十一天</span>
-        </a>
-      
-    
-      
-      
-        <a href="/2024/12/07/go-study-thirteenth-day/" title="go学习记录——第十三天"
-           class="list-group-item list-group-item-action
-           ">
-          <span class="category-post">go学习记录——第十三天</span>
-        </a>
-      
-    
-      
-      
-        <a href="/2024/12/01/go-study-twelfth-day/" title="go学习记录——第十二天"
-           class="list-group-item list-group-item-action
-           ">
-          <span class="category-post">go学习记录——第十二天</span>
-        </a>
-      
-    
-      
-      
-        <a href="/2025/01/05/go-study-fifteenth-day/" title="go学习记录——第十五天"
-           class="list-group-item list-group-item-action
-           ">
-          <span class="category-post">go学习记录——第十五天</span>
-        </a>
-      
-    
-      
-      
-        <a href="/2025/03/06/go-study-sixteenth-day/" title="go学习记录——第十六天"
-           class="list-group-item list-group-item-action
-           ">
-          <span class="category-post">go学习记录——第十六天</span>
-        </a>
-      
-    
-      
-      
-        <a href="/2025/01/03/go-study-fourteenth-day/" title="go学习记录——第十四天"
-           class="list-group-item list-group-item-action
-           ">
-          <span class="category-post">go学习记录——第十四天</span>
-        </a>
-      
-    
-      
-      
-        <a href="/2024/11/26/go-study-tenth-day/" title="go学习记录——第十天"
-           class="list-group-item list-group-item-action
-           ">
-          <span class="category-post">go学习记录——第十天</span>
-        </a>
-      
-    
-      
-      
-        <a href="/2024/08/12/go-study-fourth-day/" title="go学习记录——第四天"
-           class="list-group-item list-group-item-action
-           ">
-          <span class="category-post">go学习记录——第四天</span>
-        </a>
-      
-    
-  </div>
-
-        
-      </div>
-    </div>
-  
-        
-      </div>
-    </div>
-  
-</div>
-
-
-  </aside>
-
-
-    </div>
-
-    <div class="col-lg-8 nopadding-x-md">
-      <div class="container nopadding-x-md" id="board-ctn">
-        <div id="board">
-          <article class="post-content mx-auto">
-            <h1 id="seo-header">go学习记录——第一天</h1>
-            
-            
-              <div class="markdown-body">
-                
-                <h1 id="go的基本组成部分"><a href="#go的基本组成部分" class="headerlink" title="go的基本组成部分"></a>go的基本组成部分</h1><ul>
+      </section>
+      <div class="reading-layout">
+        <aside class="reading-rail" aria-label="文章目录">
+          <p class="reading-rail-label">IN THIS ARTICLE / 目录</p>
+          <nav><a href="#go的基本组成部分">go的基本组成部分</a><a href="#go变量声明">go变量声明</a><a href="#go常量声明">go常量声明</a><a href="#inta">inta</a><a href="#go的运算符">go的运算符</a><a href="#算数运算符">算数运算符</a><a href="#关系运算符">关系运算符</a><a href="#逻辑运算符">逻辑运算符</a><a href="#位运算符">位运算符</a><a href="#赋值运算符">赋值运算符</a><a href="#其他运算符">其他运算符</a><a href="#运算优先级">运算优先级</a><a href="#article-end">继续往下阅读 ↓</a></nav>
+          <a class="reading-rail-back" href="/blog.html">查看全部 53 篇 ↗</a>
+        </aside>
+        <article class="reading-article">
+          <div id="article-body" class="legacy-body">
+<h1 id="go的基本组成部分"><a class="headerlink" href="#go的基本组成部分" title="go的基本组成部分"></a>go的基本组成部分</h1><ul>
 <li>包声明</li>
 <li>引入包</li>
 <li>函数</li>
@@ -634,50 +42,43 @@
 <li>语句 &amp; 表达式</li>
 <li>注释</li>
 </ul>
-<h1 id="go变量声明"><a href="#go变量声明" class="headerlink" title="go变量声明"></a>go变量声明</h1><p>go中用var来声明变量，语法如下：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> variableName dataType<br></code></pre></td></tr></table></figure>
+<h1 id="go变量声明"><a class="headerlink" href="#go变量声明" title="go变量声明"></a>go变量声明</h1><p>go中用var来声明变量，语法如下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br/></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> variableName dataType<br/></code></pre></td></tr></table></figure>
 <p>其中，variableName为变量名，dataType为变量的数据类型。</p>
 <p>一次声明多个变量</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> (<br>    variable1 dataType1<br>    variable2 dataType2<br>    variable3 dataType3<br>)<br></code></pre></td></tr></table></figure>
-
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> (<br/>    variable1 dataType1<br/>    variable2 dataType2<br/>    variable3 dataType3<br/>)<br/></code></pre></td></tr></table></figure>
 <p>第一种，指定变量类型，如果没有初始化则默认为0</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> v_name v_type<br>v_name = value<br>或<br><span class="hljs-keyword">var</span> v_name v_type = value<br></code></pre></td></tr></table></figure>
-
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> v_name v_type<br/>v_name = value<br/>或<br/><span class="hljs-keyword">var</span> v_name v_type = value<br/></code></pre></td></tr></table></figure>
 <p>第二种，不指定类型，由编译器自动推导</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> v_name = value<br></code></pre></td></tr></table></figure>
-
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br/></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> v_name = value<br/></code></pre></td></tr></table></figure>
 <p>第三种，短变量声明，在函数内使用，注意当已经进行了变量声明再使用短声明会报错。短声明只适用于函数内使用，不能在全局作用域使用。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">v_name := value<br></code></pre></td></tr></table></figure>
-
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br/></pre></td><td class="code"><pre><code class="hljs go">v_name := value<br/></code></pre></td></tr></table></figure>
 <p>第四种，多变量声明</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> (<br>    v1, v2, v3 = <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-string">&quot;hello&quot;</span><br>)<br>或<br><span class="hljs-keyword">var</span> v1, v2, v3 = <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-string">&quot;hello&quot;</span> <span class="hljs-comment">// 这个为主使用，和python类似，迁移起来较快</span><br>或<br>v1, v2, v3 := <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-string">&quot;hello&quot;</span><br></code></pre></td></tr></table></figure>
-
-<h1 id="go常量声明"><a href="#go常量声明" class="headerlink" title="go常量声明"></a>go常量声明</h1><p>只能使用布尔型、数字型（int, float, 复数）和字符串型</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> (<br/>    v1, v2, v3 = <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-string">"hello"</span><br/>)<br/>或<br/><span class="hljs-keyword">var</span> v1, v2, v3 = <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-string">"hello"</span> <span class="hljs-comment">// 这个为主使用，和python类似，迁移起来较快</span><br/>或<br/>v1, v2, v3 := <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-string">"hello"</span><br/></code></pre></td></tr></table></figure>
+<h1 id="go常量声明"><a class="headerlink" href="#go常量声明" title="go常量声明"></a>go常量声明</h1><p>只能使用布尔型、数字型（int, float, 复数）和字符串型</p>
 <p>常量定义格式</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">const</span> constantName  [<span class="hljs-keyword">type</span>]= value<br></code></pre></td></tr></table></figure>
-
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br/></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">const</span> constantName  [<span class="hljs-keyword">type</span>]= value<br/></code></pre></td></tr></table></figure>
 <p>多个常量声明</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">const</span> constantName1, constantName2 = value1, value2<br></code></pre></td></tr></table></figure>
-
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br/></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">const</span> constantName1, constantName2 = value1, value2<br/></code></pre></td></tr></table></figure>
 <p>常量中可以使用内置函数进行运算，如len(), cap(), unsafe.Sizeof()等。</p>
-<h2 id="inta"><a href="#inta" class="headerlink" title="inta"></a>inta</h2><p>inta是go中的特殊常量，可以当作一个可以被编译成功的常量</p>
+<h2 id="inta"><a class="headerlink" href="#inta" title="inta"></a>inta</h2><p>inta是go中的特殊常量，可以当作一个可以被编译成功的常量</p>
 <p>inta在const关键词出现时将被重置为0，const中每加一行都将使inta加1。</p>
 <p>inta可以做枚举值</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">const</span> (<br>    a = inta<br>    b = inta<br>    c = inta<br>)<br></code></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">const</span> (<br/>    a = inta<br/>    b = inta<br/>    c = inta<br/>)<br/></code></pre></td></tr></table></figure>
 <p>inta也可以做一个类似行索引的功能</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">const</span> (<br>    a = inta<br>    b<br>    c<br>)<br></code></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">const</span> (<br/>    a = inta<br/>    b<br/>    c<br/>)<br/></code></pre></td></tr></table></figure>
 <p>输出的结果就是<code>a=0, b=1, c=2</code>。</p>
 <p>inta用法</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-keyword">const</span> (<br>		a = <span class="hljs-literal">iota</span><br>		b<br>		c<br>		d = <span class="hljs-string">&quot;ha&quot;</span><br>		e<br>		f = <span class="hljs-number">100</span><br>		g<br>		h = <span class="hljs-literal">iota</span><br>		i<br>	)<br><br>	fmt.Println(a, b, c, d, e, f, g, h, i)<br>&#125;<br><span class="hljs-comment">// output：</span><br><span class="hljs-comment">// 0 1 2 ha 4 100 6 7 8</span><br></code></pre></td></tr></table></figure>
-<h1 id="go的运算符"><a href="#go的运算符" class="headerlink" title="go的运算符"></a>go的运算符</h1><h2 id="算数运算符"><a href="#算数运算符" class="headerlink" title="算数运算符"></a>算数运算符</h2><ol>
-<li><p>++ 自增，和+&#x3D;1类似</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/><span class="line">10</span><br/><span class="line">11</span><br/><span class="line">12</span><br/><span class="line">13</span><br/><span class="line">14</span><br/><span class="line">15</span><br/><span class="line">16</span><br/><span class="line">17</span><br/><span class="line">18</span><br/><span class="line">19</span><br/><span class="line">20</span><br/><span class="line">21</span><br/><span class="line">22</span><br/><span class="line">23</span><br/></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br/><br/><span class="hljs-keyword">import</span> (<br/>	<span class="hljs-string">"fmt"</span><br/>)<br/><br/><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {<br/>	<span class="hljs-keyword">const</span> (<br/>		a = <span class="hljs-literal">iota</span><br/>		b<br/>		c<br/>		d = <span class="hljs-string">"ha"</span><br/>		e<br/>		f = <span class="hljs-number">100</span><br/>		g<br/>		h = <span class="hljs-literal">iota</span><br/>		i<br/>	)<br/><br/>	fmt.Println(a, b, c, d, e, f, g, h, i)<br/>}<br/><span class="hljs-comment">// output：</span><br/><span class="hljs-comment">// 0 1 2 ha 4 100 6 7 8</span><br/></code></pre></td></tr></table></figure>
+<h1 id="go的运算符"><a class="headerlink" href="#go的运算符" title="go的运算符"></a>go的运算符</h1><h2 id="算数运算符"><a class="headerlink" href="#算数运算符" title="算数运算符"></a>算数运算符</h2><ol>
+<li><p>++ 自增，和+=1类似</p>
 </li>
-<li><p>– 自减，和-&#x3D;1类似</p>
+<li><p>– 自减，和-=1类似</p>
 </li>
 </ol>
 <p>别的和python一样</p>
-<h2 id="关系运算符"><a href="#关系运算符" class="headerlink" title="关系运算符"></a>关系运算符</h2><p>和python一样，直接忽略</p>
-<h2 id="逻辑运算符"><a href="#逻辑运算符" class="headerlink" title="逻辑运算符"></a>逻辑运算符</h2><ol>
+<h2 id="关系运算符"><a class="headerlink" href="#关系运算符" title="关系运算符"></a>关系运算符</h2><p>和python一样，直接忽略</p>
+<h2 id="逻辑运算符"><a class="headerlink" href="#逻辑运算符" title="逻辑运算符"></a>逻辑运算符</h2><ol>
 <li><p>&amp;&amp; -&gt; and</p>
 </li>
 <li><p>|| -&gt; or</p>
@@ -686,7 +87,7 @@
 </li>
 </ol>
 <p>从字母换成了符号，其他没区别</p>
-<h2 id="位运算符"><a href="#位运算符" class="headerlink" title="位运算符"></a>位运算符</h2><ol>
+<h2 id="位运算符"><a class="headerlink" href="#位运算符" title="位运算符"></a>位运算符</h2><ol>
 <li><p>&amp;  -&gt; 按位与</p>
 </li>
 <li><p>|  -&gt; 按位或</p>
@@ -704,24 +105,24 @@
 <li><p>~  -&gt; 按位取反</p>
 </li>
 </ol>
-<h2 id="赋值运算符"><a href="#赋值运算符" class="headerlink" title="赋值运算符"></a>赋值运算符</h2><ol>
-<li>&lt;&lt;&#x3D; -&gt; 左移后赋值</li>
+<h2 id="赋值运算符"><a class="headerlink" href="#赋值运算符" title="赋值运算符"></a>赋值运算符</h2><ol>
+<li>&lt;&lt;= -&gt; 左移后赋值</li>
 <li><blockquote>
 <blockquote>
-<p>&#x3D; -&gt; 右移后赋值</p>
+<p>= -&gt; 右移后赋值</p>
 </blockquote>
 </blockquote>
 </li>
-<li>&amp;&#x3D;  -&gt; 按位与后赋值</li>
-<li>|&#x3D;  -&gt; 按位或后赋值</li>
-<li>^&#x3D;  -&gt; 按位异或后赋值</li>
+<li>&amp;=  -&gt; 按位与后赋值</li>
+<li>|=  -&gt; 按位或后赋值</li>
+<li>^=  -&gt; 按位异或后赋值</li>
 </ol>
 <p>其他和python一样</p>
-<h2 id="其他运算符"><a href="#其他运算符" class="headerlink" title="其他运算符"></a>其他运算符</h2><ol>
+<h2 id="其他运算符"><a class="headerlink" href="#其他运算符" title="其他运算符"></a>其他运算符</h2><ol>
 <li>&amp; -&gt; 返回实际地址</li>
 <li>‘*’  -&gt; 指针变量</li>
 </ol>
-<h2 id="运算优先级"><a href="#运算优先级" class="headerlink" title="运算优先级"></a>运算优先级</h2><table>
+<h2 id="运算优先级"><a class="headerlink" href="#运算优先级" title="运算优先级"></a>运算优先级</h2><table>
 <thead>
 <tr>
 <th>优先级</th>
@@ -734,7 +135,7 @@
 </tr>
 <tr>
 <td>2 乘除类运算符</td>
-<td>*  &#x2F;  %  &lt;&lt;  &gt;&gt; &amp;（按位与） &amp;^（按位清除）</td>
+<td>*  /  %  &lt;&lt;  &gt;&gt; &amp;（按位与） &amp;^（按位清除）</td>
 </tr>
 <tr>
 <td>3 加减类运算符</td>
@@ -742,31 +143,27 @@
 </tr>
 <tr>
 <td>4 关系运算符</td>
-<td>&#x3D;&#x3D; !&#x3D;  &lt;  &lt;&#x3D;  &gt;  &gt;&#x3D;</td>
+<td>== !=  &lt;  &lt;=  &gt;  &gt;=</td>
 </tr>
 <tr>
 <td>5 逻辑运算符</td>
 <td>&amp;&amp;  逻辑或（符号markdown无法显示就用文字代替了）</td>
 </tr>
 </tbody></table>
-<h1 id="条件语句"><a href="#条件语句" class="headerlink" title="条件语句"></a>条件语句</h1><p>和python一样，但编写方式有些不同</p>
-<h2 id="if"><a href="#if" class="headerlink" title="if"></a>if</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">if</span> 布尔表达式 &#123;<br>   <span class="hljs-comment">/* 在布尔表达式为 true 时执行 */</span><br>&#125;<br></code></pre></td></tr></table></figure>
-<h2 id="if…else"><a href="#if…else" class="headerlink" title="if…else"></a>if…else</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">if</span> 布尔表达式 &#123;<br>   <span class="hljs-comment">/* 在布尔表达式为 true 时执行 */</span><br>&#125; <span class="hljs-keyword">else</span> &#123;<br>  <span class="hljs-comment">/* 在布尔表达式为 false 时执行 */</span><br>&#125;<br></code></pre></td></tr></table></figure>
-
-
-<h2 id="if…else-if…else"><a href="#if…else-if…else" class="headerlink" title="if…else if…else"></a>if…else if…else</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">if</span> 布尔表达式<span class="hljs-number">1</span> &#123;<br>   <span class="hljs-comment">/* 在布尔表达式1为 true 时执行 */</span><br>&#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> 布尔表达式<span class="hljs-number">2</span> &#123;<br>   <span class="hljs-comment">/* 在布尔表达式2为 true 时执行 */</span><br>&#125; <span class="hljs-keyword">else</span> &#123;<br>  <span class="hljs-comment">/* 在布尔表达式1和表达式2都为 false 时执行 */</span><br>&#125;<br></code></pre></td></tr></table></figure>
-
-<h2 id="switch"><a href="#switch" class="headerlink" title="switch"></a>switch</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">switch</span> 表达式 &#123;<br>   <span class="hljs-keyword">case</span> 值<span class="hljs-number">1</span>:<br>      <span class="hljs-comment">/* 当表达式的值等于值1时执行 */</span><br>      <span class="hljs-keyword">break</span><br>   <span class="hljs-keyword">case</span> 值<span class="hljs-number">2</span>:<br>      <span class="hljs-comment">/* 当表达式的值等于值2时执行 */</span><br>      <span class="hljs-keyword">break</span><br>   <span class="hljs-keyword">default</span>:<br>      <span class="hljs-comment">/* 当以上都不满足时执行 */</span><br>&#125;<br></code></pre></td></tr></table></figure>
-
-<h3 id="Type-Swith"><a href="#Type-Swith" class="headerlink" title="Type Swith"></a>Type Swith</h3><p>用于判断某个interface变量的实际类型</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">switch</span> x.(<span class="hljs-keyword">type</span>)&#123;<br>    <span class="hljs-keyword">case</span> <span class="hljs-keyword">type</span>:<br>       statement(s);      <br>    <span class="hljs-keyword">case</span> <span class="hljs-keyword">type</span>:<br>       statement(s); <br>    <span class="hljs-comment">/* 你可以定义任意个数的case */</span><br>    <span class="hljs-keyword">default</span>: <span class="hljs-comment">/* 可选 */</span><br>       statement(s);<br>&#125;<br></code></pre></td></tr></table></figure>
+<h1 id="条件语句"><a class="headerlink" href="#条件语句" title="条件语句"></a>条件语句</h1><p>和python一样，但编写方式有些不同</p>
+<h2 id="if"><a class="headerlink" href="#if" title="if"></a>if</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">if</span> 布尔表达式 {<br/>   <span class="hljs-comment">/* 在布尔表达式为 true 时执行 */</span><br/>}<br/></code></pre></td></tr></table></figure>
+<h2 id="if…else"><a class="headerlink" href="#if…else" title="if…else"></a>if…else</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">if</span> 布尔表达式 {<br/>   <span class="hljs-comment">/* 在布尔表达式为 true 时执行 */</span><br/>} <span class="hljs-keyword">else</span> {<br/>  <span class="hljs-comment">/* 在布尔表达式为 false 时执行 */</span><br/>}<br/></code></pre></td></tr></table></figure>
+<h2 id="if…else-if…else"><a class="headerlink" href="#if…else-if…else" title="if…else if…else"></a>if…else if…else</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">if</span> 布尔表达式<span class="hljs-number">1</span> {<br/>   <span class="hljs-comment">/* 在布尔表达式1为 true 时执行 */</span><br/>} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> 布尔表达式<span class="hljs-number">2</span> {<br/>   <span class="hljs-comment">/* 在布尔表达式2为 true 时执行 */</span><br/>} <span class="hljs-keyword">else</span> {<br/>  <span class="hljs-comment">/* 在布尔表达式1和表达式2都为 false 时执行 */</span><br/>}<br/></code></pre></td></tr></table></figure>
+<h2 id="switch"><a class="headerlink" href="#switch" title="switch"></a>switch</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/><span class="line">10</span><br/></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">switch</span> 表达式 {<br/>   <span class="hljs-keyword">case</span> 值<span class="hljs-number">1</span>:<br/>      <span class="hljs-comment">/* 当表达式的值等于值1时执行 */</span><br/>      <span class="hljs-keyword">break</span><br/>   <span class="hljs-keyword">case</span> 值<span class="hljs-number">2</span>:<br/>      <span class="hljs-comment">/* 当表达式的值等于值2时执行 */</span><br/>      <span class="hljs-keyword">break</span><br/>   <span class="hljs-keyword">default</span>:<br/>      <span class="hljs-comment">/* 当以上都不满足时执行 */</span><br/>}<br/></code></pre></td></tr></table></figure>
+<h3 id="Type-Swith"><a class="headerlink" href="#Type-Swith" title="Type Swith"></a>Type Swith</h3><p>用于判断某个interface变量的实际类型</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">switch</span> x.(<span class="hljs-keyword">type</span>){<br/>    <span class="hljs-keyword">case</span> <span class="hljs-keyword">type</span>:<br/>       statement(s);      <br/>    <span class="hljs-keyword">case</span> <span class="hljs-keyword">type</span>:<br/>       statement(s); <br/>    <span class="hljs-comment">/* 你可以定义任意个数的case */</span><br/>    <span class="hljs-keyword">default</span>: <span class="hljs-comment">/* 可选 */</span><br/>       statement(s);<br/>}<br/></code></pre></td></tr></table></figure>
 <p>例子如下</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>   <span class="hljs-keyword">var</span> x <span class="hljs-keyword">interface</span>&#123;&#125;<br>     <br>   <span class="hljs-keyword">switch</span> i := x.(<span class="hljs-keyword">type</span>) &#123;<br>      <span class="hljs-keyword">case</span> <span class="hljs-literal">nil</span>:   <br>         fmt.Printf(<span class="hljs-string">&quot; x 的类型 :%T&quot;</span>,i)                <br>      <span class="hljs-keyword">case</span> <span class="hljs-type">int</span>:   <br>         fmt.Printf(<span class="hljs-string">&quot;x 是 int 型&quot;</span>)                       <br>      <span class="hljs-keyword">case</span> <span class="hljs-type">float64</span>:<br>         fmt.Printf(<span class="hljs-string">&quot;x 是 float64 型&quot;</span>)           <br>      <span class="hljs-keyword">case</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(<span class="hljs-type">int</span>)</span></span> <span class="hljs-type">float64</span>:<br>         fmt.Printf(<span class="hljs-string">&quot;x 是 func(int) 型&quot;</span>)                      <br>      <span class="hljs-keyword">case</span> <span class="hljs-type">bool</span>, <span class="hljs-type">string</span>:<br>         fmt.Printf(<span class="hljs-string">&quot;x 是 bool 或 string 型&quot;</span> )       <br>      <span class="hljs-keyword">default</span>:<br>         fmt.Printf(<span class="hljs-string">&quot;未知型&quot;</span>)     <br>   &#125;   <br>&#125;<br><br>output:<br>x 的类型 : &lt;<span class="hljs-literal">nil</span>&gt;<br></code></pre></td></tr></table></figure>
-<h3 id="fullthrough"><a href="#fullthrough" class="headerlink" title="fullthrough"></a>fullthrough</h3><p>强制执行case后语句，不会判断是否为true<br>即使用了fullthrough，也可以直接用break跳出switch</p>
-<h2 id="select"><a href="#select" class="headerlink" title="select"></a>select</h2><p>此select非彼select。不是SQL中的那个查看</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/><span class="line">10</span><br/><span class="line">11</span><br/><span class="line">12</span><br/><span class="line">13</span><br/><span class="line">14</span><br/><span class="line">15</span><br/><span class="line">16</span><br/><span class="line">17</span><br/><span class="line">18</span><br/><span class="line">19</span><br/><span class="line">20</span><br/><span class="line">21</span><br/><span class="line">22</span><br/><span class="line">23</span><br/><span class="line">24</span><br/><span class="line">25</span><br/></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br/><br/><span class="hljs-keyword">import</span> <span class="hljs-string">"fmt"</span><br/><br/><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {<br/>   <span class="hljs-keyword">var</span> x <span class="hljs-keyword">interface</span>{}<br/>     <br/>   <span class="hljs-keyword">switch</span> i := x.(<span class="hljs-keyword">type</span>) {<br/>      <span class="hljs-keyword">case</span> <span class="hljs-literal">nil</span>:   <br/>         fmt.Printf(<span class="hljs-string">" x 的类型 :%T"</span>,i)                <br/>      <span class="hljs-keyword">case</span> <span class="hljs-type">int</span>:   <br/>         fmt.Printf(<span class="hljs-string">"x 是 int 型"</span>)                       <br/>      <span class="hljs-keyword">case</span> <span class="hljs-type">float64</span>:<br/>         fmt.Printf(<span class="hljs-string">"x 是 float64 型"</span>)           <br/>      <span class="hljs-keyword">case</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(<span class="hljs-type">int</span>)</span></span> <span class="hljs-type">float64</span>:<br/>         fmt.Printf(<span class="hljs-string">"x 是 func(int) 型"</span>)                      <br/>      <span class="hljs-keyword">case</span> <span class="hljs-type">bool</span>, <span class="hljs-type">string</span>:<br/>         fmt.Printf(<span class="hljs-string">"x 是 bool 或 string 型"</span> )       <br/>      <span class="hljs-keyword">default</span>:<br/>         fmt.Printf(<span class="hljs-string">"未知型"</span>)     <br/>   }   <br/>}<br/><br/>output:<br/>x 的类型 : &lt;<span class="hljs-literal">nil</span>&gt;<br/></code></pre></td></tr></table></figure>
+<h3 id="fullthrough"><a class="headerlink" href="#fullthrough" title="fullthrough"></a>fullthrough</h3><p>强制执行case后语句，不会判断是否为true<br/>即使用了fullthrough，也可以直接用break跳出switch</p>
+<h2 id="select"><a class="headerlink" href="#select" title="select"></a>select</h2><p>此select非彼select。不是SQL中的那个查看</p>
 <p>这里的select虽然类似switch，但只能作用于通道，一个case只能进行接受或发送</p>
 <p>select会监听每个通道，只要有一个case准备好了就立马执行。如果多个准备好就随机挑选一个。如果一个都没准备好执行default。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">select</span> &#123;<br>  <span class="hljs-keyword">case</span> &lt;- channel1:<br>    <span class="hljs-comment">// 执行的代码</span><br>  <span class="hljs-keyword">case</span> value := &lt;- channel2:<br>    <span class="hljs-comment">// 执行的代码</span><br>  <span class="hljs-keyword">case</span> channel3 &lt;- value:<br>    <span class="hljs-comment">// 执行的代码</span><br><br>    <span class="hljs-comment">// 你可以定义任意数量的 case</span><br><br>  <span class="hljs-keyword">default</span>:<br>    <span class="hljs-comment">// 所有通道都没有准备好，执行的代码</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/><span class="line">10</span><br/><span class="line">11</span><br/><span class="line">12</span><br/><span class="line">13</span><br/></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">select</span> {<br/>  <span class="hljs-keyword">case</span> &lt;- channel1:<br/>    <span class="hljs-comment">// 执行的代码</span><br/>  <span class="hljs-keyword">case</span> value := &lt;- channel2:<br/>    <span class="hljs-comment">// 执行的代码</span><br/>  <span class="hljs-keyword">case</span> channel3 &lt;- value:<br/>    <span class="hljs-comment">// 执行的代码</span><br/><br/>    <span class="hljs-comment">// 你可以定义任意数量的 case</span><br/><br/>  <span class="hljs-keyword">default</span>:<br/>    <span class="hljs-comment">// 所有通道都没有准备好，执行的代码</span><br/>}<br/></code></pre></td></tr></table></figure>
 <p>注意</p>
 <ul>
 <li>每一个case都必须对应一个通道</li>
@@ -775,495 +172,14 @@
 <li>如果有default则会在case均未准备好时执行。如果没有则会阻塞，直到有通道可以运行。Go不会重新对channel或值进行求值</li>
 </ul>
 <p>今儿的就学到这里吧，感觉上在语句写法上和C类似。不过可能是我一直用Python所以还有点不习惯用花括号来作为代码块的感觉。慢慢习惯吧，今儿没啥心情，感觉学不下去了，休息咯~</p>
-
-                
-              </div>
-            
-            <hr/>
-            <div>
-              <div class="post-metas my-3">
-  
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" class="category-chain-item">学习记录</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/go/" class="category-chain-item">go</a>
-  
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
-  
-  
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" class="print-no-link">#学习记录</a>
-      
-        <a href="/tags/go/" class="print-no-link">#go</a>
-      
-        <a href="/tags/%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" class="print-no-link">#基本概念</a>
-      
-        <a href="/tags/%E6%9D%A1%E4%BB%B6%E8%AF%AD%E5%8F%A5/" class="print-no-link">#条件语句</a>
-      
-    </div>
-  
 </div>
-
-
-              
-  
-
-  <div class="license-box my-3">
-    <div class="license-title">
-      <div>go学习记录——第一天</div>
-      <div>https://www.lx02918.ltd/2024/08/07/go-study-first-day/</div>
-    </div>
-    <div class="license-meta">
-      
-        <div class="license-meta-item">
-          <div>作者</div>
-          <div>Seth</div>
-        </div>
-      
-      
-        <div class="license-meta-item license-meta-date">
-          <div>发布于</div>
-          <div>2024年8月7日</div>
-        </div>
-      
-      
-      
-        <div class="license-meta-item">
-          <div>许可协议</div>
-          <div>
-            
-              
-              
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
-                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
-                    <i class="iconfont icon-by"></i>
-                  </span>
-                </a>
-              
-            
-          </div>
-        </div>
-      
-    </div>
-    <div class="license-icon iconfont"></div>
-  </div>
-
-
-
-              
-                <div class="post-prevnext my-3">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2024/08/08/go-study-second-day/" title="go学习记录——第二天">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">go学习记录——第二天</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2024/08/07/postgresql-study-fourth-day/" title="PostgreSQL学习记录——第四天">
-                        <span class="hidden-mobile">PostgreSQL学习记录——第四天</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
-            </div>
-
-            
-  
-  
-    <article id="comments" lazyload>
-      
-  <div id="waline"></div>
-  <script type="text/javascript">
-    Fluid.utils.loadComments('#waline', function() {
-      Fluid.utils.createCssLink('https://cdn.staticfile.org/waline/2.15.5/waline.min.css')
-      Fluid.utils.createScript('https://cdn.staticfile.org/waline/2.15.5/waline.min.js', function() {
-        var options = Object.assign(
-          {"serverURL":"https://blogcomments-sigma.vercel.app/","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":["nick"],"lang":"zh-CN","emoji":["https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10},
-          {
-            el: '#waline',
-            path: window.location.pathname
-          }
-        )
-        Waline.init(options);
-        Fluid.utils.waitElementVisible('#waline .vcontent', () => {
-          var imgSelector = '#waline .vcontent img:not(.vemoji)';
-          Fluid.plugins.imageCaption(imgSelector);
-          Fluid.plugins.fancyBox(imgSelector);
-        })
-      });
-    });
-  </script>
-  <noscript>Please enable JavaScript to view the comments</noscript>
-
-
-    </article>
-  
-
-
-          </article>
-        </div>
+          <div id="article-end" class="reading-end"><span>END OF ARTICLE</span><a href="#top">回到顶部 ↑</a></div>
+          <nav class="reading-next" aria-label="相邻文章"><a href="/2024/08/07/postgresql-study-fourth-day/"><small>上一篇</small><strong>PostgreSQL学习记录——第四天</strong><span aria-hidden="true">↗</span></a><a href="/2024/08/06/postgresql-study-third-day/"><small>下一篇</small><strong>PostgreSQL学习记录——第三天</strong><span aria-hidden="true">↗</span></a></nav>
+          <a class="reading-all" href="/blog.html">← 返回文章列表</a>
+        </article>
       </div>
-    </div>
-
-    <div class="side-col d-none d-lg-block col-lg-2">
-      
-  <aside class="sidebar" style="margin-left: -1rem">
-    <div id="toc">
-  <p class="toc-header">
-    <i class="iconfont icon-list"></i>
-    <span>目录</span>
-  </p>
-  <div class="toc-body" id="toc-body"></div>
-</div>
-
-
-
-  </aside>
-
-
-    </div>
+    </main>
+    <footer class="site-footer"><a class="wordmark footer-mark" href="/index.html">S<span class="mark-dot">.</span></a><span>一个关于记录与创造的个人空间</span><span>© <span class="year">2026</span> Seth</span><a class="back-top" href="#top">返回顶部 ↑</a></footer>
   </div>
-</div>
-
-
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-  
-  
-
-
-
-
-
-
-
-
-
-    
-
-    
-      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
-        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-      </a>
-    
-
-    
-      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-    
-
-    
-  </main>
-
-  <footer>
-    <div class="footer-inner">
-  
-    <div class="footer-content">
-       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
-    </div>
-  
-  
-    <div class="statistics">
-  
-  
-
-  
-    
-      <span id="busuanzi_container_site_pv" style="display: none">
-        总访问量 
-        <span id="busuanzi_value_site_pv"></span>
-         次
-      </span>
-    
-    
-      <span id="busuanzi_container_site_uv" style="display: none">
-        总访客数 
-        <span id="busuanzi_value_site_uv"></span>
-         人
-      </span>
-    
-    
-  
-</div>
-
-  
-  
-  
-</div>
-
-  </footer>
-
-  <!-- Scripts -->
-  
-  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
-
-  <script>
-    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
-    NProgress.start()
-    window.addEventListener('load', function() {
-      NProgress.done();
-    })
-  </script>
-
-
-<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
-<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
-<script  src="/js/events.js" ></script>
-<script  src="/js/plugins.js" ></script>
-
-
-  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var subtitle = document.getElementById('subtitle');
-      if (!subtitle || !typing) {
-        return;
-      }
-      var text = subtitle.getAttribute('data-typed-text');
-      
-        typing(text);
-      
-    })(window, document);
-  </script>
-
-
-
-
-  
-    <script  src="/js/img-lazyload.js" ></script>
-  
-
-
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
-    var toc = jQuery('#toc');
-    if (toc.length === 0 || !window.tocbot) { return; }
-    var boardCtn = jQuery('#board-ctn');
-    var boardTop = boardCtn.offset().top;
-
-    window.tocbot.init(Object.assign({
-      tocSelector     : '#toc-body',
-      contentSelector : '.markdown-body',
-      linkClass       : 'tocbot-link',
-      activeLinkClass : 'tocbot-active-link',
-      listClass       : 'tocbot-list',
-      isCollapsedClass: 'tocbot-is-collapsed',
-      collapsibleClass: 'tocbot-is-collapsible',
-      scrollSmooth    : true,
-      includeTitleTags: true,
-      headingsOffset  : -boardTop,
-    }, CONFIG.toc));
-    if (toc.find('.toc-list-item').length > 0) {
-      toc.css('visibility', 'visible');
-    }
-
-    Fluid.events.registerRefreshCallback(function() {
-      if ('tocbot' in window) {
-        tocbot.refresh();
-        var toc = jQuery('#toc');
-        if (toc.length === 0 || !tocbot) {
-          return;
-        }
-        if (toc.find('.toc-list-item').length > 0) {
-          toc.css('visibility', 'visible');
-        }
-      }
-    });
-  });
-</script>
-
-
-  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
-
-  <script>Fluid.plugins.codeWidget();</script>
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
-    window.anchors.options = {
-      placement: CONFIG.anchorjs.placement,
-      visible  : CONFIG.anchorjs.visible
-    };
-    if (CONFIG.anchorjs.icon) {
-      window.anchors.options.icon = CONFIG.anchorjs.icon;
-    }
-    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
-    var res = [];
-    for (var item of el) {
-      res.push('.markdown-body > ' + item.trim());
-    }
-    if (CONFIG.anchorjs.placement === 'left') {
-      window.anchors.options.class = 'anchorjs-link-left';
-    }
-    window.anchors.add(res.join(', '));
-
-    Fluid.events.registerRefreshCallback(function() {
-      if ('anchors' in window) {
-        anchors.removeAll();
-        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
-        var res = [];
-        for (var item of el) {
-          res.push('.markdown-body > ' + item.trim());
-        }
-        if (CONFIG.anchorjs.placement === 'left') {
-          anchors.options.class = 'anchorjs-link-left';
-        }
-        anchors.add(res.join(', '));
-      }
-    });
-  });
-</script>
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
-    Fluid.plugins.fancyBox();
-  });
-</script>
-
-
-  <script>Fluid.plugins.imageCaption();</script>
-
-  
-      <script>
-        if (!window.MathJax) {
-          window.MathJax = {
-            tex    : {
-              inlineMath: { '[+]': [['$', '$']] }
-            },
-            loader : {
-              load: ['ui/lazy']
-            },
-            options: {
-              renderActions: {
-                insertedScript: [200, () => {
-                  document.querySelectorAll('mjx-container').forEach(node => {
-                    let target = node.parentNode;
-                    if (target.nodeName.toLowerCase() === 'li') {
-                      target.parentNode.classList.add('has-jax');
-                    }
-                  });
-                }, '', false]
-              }
-            }
-          };
-        } else {
-          MathJax.startup.document.state(0);
-          MathJax.texReset();
-          MathJax.typeset();
-          MathJax.typesetPromise();
-        }
-
-        Fluid.events.registerRefreshCallback(function() {
-          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
-            MathJax.startup.document.state(0);
-            MathJax.texReset();
-            MathJax.typeset();
-            MathJax.typesetPromise();
-          }
-        });
-      </script>
-    
-
-  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
-
-  <script defer src="/js/leancloud.js" ></script>
-
-  <script  src="/js/local-search.js" ></script>
-
-  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
-
-
-
-
-
-<!-- 主题的启动项，将它保持在最底部 -->
-<!-- the boot of the theme, keep it at the bottom -->
-<script  src="/js/boot.js" ></script>
-
-
-  
-
-  <noscript>
-    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
-  </noscript>
 </body>
 </html>
