@@ -864,7 +864,7 @@
 </tr>
 </tbody></table>
 <p>方便对比搞个脑图（试了试ai做的）</p>
-<p><img src="D:\blog\func.png" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p><img src="/img/func.png" srcset="/img/loading.gif" lazyload alt="image"></p>
 <h2 id="指针或值作为接收者"><a href="#指针或值作为接收者" class="headerlink" title="指针或值作为接收者"></a>指针或值作为接收者</h2><p>鉴于性能，<code>recv</code> 最常见的是一个指向 <code>receiver_type</code> 的指针（因为我们不想要一个实例的拷贝，如果按值调用的话就会是这样），特别是在 <code>receiver</code> 类型是结构体时，就更是如此了。</p>
 <p>如果想要方法改变接收者的数据，就在接收者的指针类型上定义该方法。否则，就在普通的值类型上定义方法。</p>
 <p>示例<a target="_blank" rel="noopener" href="https://github.com/unknwon/the-way-to-go_ZH_CN/blob/master/eBook/examples/chapter_10/pointer_value.go">pointer_value.go</a></p>
