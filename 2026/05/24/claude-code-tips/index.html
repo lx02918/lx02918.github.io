@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f5f1e9">
+<meta name="description" content="省流版： 命令式 prompt 出浅思考，描述式 prompt 出深推理 context 超 60% 不是省钱问题，是注意力衰减问题 走偏了重开比纠正快 2-3 倍 sub agents 真正的价值是隔离上下文，不是并行 /loop 让 Claude 变成异步同事，不是异步工具 最近刷到一…">
+<title>放弃瞎用 Claude Code，就从今天开始！ · Seth的小站</title>
+<link rel="stylesheet" href="/styles.css"><link rel="stylesheet" href="/article.css">
+<script defer src="/site.js"></script>
+</head>
+<body><div class="site-shell"><header class="site-header">
+<a aria-label="Seth 首页" class="wordmark" href="/index.html"><span class="mark">S<span class="mark-dot">.</span></span><span class="wordmark-text">SETH / NOTES</span></a>
+<nav aria-label="主导航" class="main-nav"><a class="active" href="/index.html">首页</a><a href="/blog.html">文章</a><a href="/about.html">关于</a></nav>
+<button aria-label="切换明暗主题" class="theme-toggle" title="切换明暗主题" type="button"><span aria-hidden="true">◐</span></button>
+</header>
+<main id="top">
+<section class="reading-hero reveal"><div class="reading-hero-inner">
+<a class="reading-back" href="/blog.html">← 返回全部文章</a>
+<p class="eyebrow">WRITINGS <span class="eyebrow-line"></span> AI 实践</p>
+<h1>放弃瞎用 Claude Code，就从今天开始！</h1>
+<div class="reading-meta"><time datetime="2026-05-24">2026-05-24</time><span>AI 实践</span><span>第 08 / 61 篇</span></div>
+</div></section>
+<div class="reading-layout">
+<aside class="reading-rail" aria-label="文章目录"><p class="reading-rail-label">IN THIS ARTICLE / 目录</p>
+<nav><a href="#section-1">把它当 junior 同事，不是态度问题</a><a href="#section-2">60% 用 /compact，不是为了省钱</a><a href="#section-3">/compact 保留的是关键决策和未完成事项，是在做注意力的重新聚焦，不是粗暴截断。</a><a href="#section-4">跑偏了直接 ESC 重开，不是耐心问题</a><a href="#section-5">sub agents 的核心是隔离，不是并行</a><a href="#section-6">简单活给 Haiku，不只是省钱</a><a href="#section-7">如果你同时在用 Sonnet 和 Haiku，什么时候完全只用 Sonnet？</a><a href="#section-8">/loop 是让 Claude 变成异步同事</a></nav><a class="reading-rail-back" href="/blog.html">查看全部 61 篇 ↗</a></aside>
+<article class="reading-article"><div id="article-body" class="legacy-body wechat-body"><p>省流版：</p><ul><li>命令式 prompt 出浅思考，描述式 prompt 出深推理</li><li>context 超 60% 不是省钱问题，是注意力衰减问题</li><li>走偏了重开比纠正快 2-3 倍</li><li>sub agents 真正的价值是隔离上下文，不是并行</li><li>/loop 让 Claude 变成异步同事，不是异步工具</li></ul><hr/><p>最近刷到一个讲 Claude Code 32 个技巧的视频，16 分钟塞满干货，我把它认真拆了一遍，发现里面真正关键的点，很多人其实都理解反了。</p><p>今天不讲 32 个，只讲 6 个，但把原理说透。</p><img alt="放弃瞎用 Claude Code，就从今天开始！ · 配图 1" loading="lazy" src="/img/wechat/z87ee8D25OTRLNqwPAFjQw/01.png"/><h2 id="section-1">把它当 junior 同事，不是态度问题</h2><p>很多人看到这条，第一反应是：哦，对它礼貌一点。</p><p>这个理解完全跑偏了。</p><p>LLM 接收命令式 prompt 的时候，触发的是浅层执行模式，直接 pattern match，输出快但思考浅。接收描述式 prompt 的时候，才会展开 chain of thought，输出慢但准确度高一截。</p><p>同一个 bug，「修一下这里」和「这里看起来有点怪，你查查为啥」，出来的代码质量能差一倍。前者它直接改你指的那行，后者它会先理解上下文，可能发现真正的问题根本不在那里。</p><p>记住：你 prompt 里预设的答案越少，激发的推理就越多。</p><h2 id="section-2">60% 用 /compact，不是为了省钱</h2><p>这个阈值被误解最深。</p><p>Stanford 2023 年有篇论文揭示了 lost in the middle 现象。LLM 在长 context 里的注意力是 U 型曲线，开头记得牢，结尾记得牢，中间最容易被忽略。</p><p>60% 这条线不是省钱的红线，是注意力开始衰减的经验线。超过这个点，你前面提过的关键需求会开始被视而不见，模型会犯那种「我明明说过了」的错。</p><p>问题来了，怎么判断该 compact 了？不是看 token 数，是看它有没有开始忘事。一旦它问出「你想做什么」之类的问题，立刻 /compact，再晚一步它就带着错误前提继续往下做。</p><h2 id="section-3">/compact 保留的是关键决策和未完成事项，是在做注意力的重新聚焦，不是粗暴截断。</h2><h2 id="section-4">跑偏了直接 ESC 重开，不是耐心问题</h2><p>遇到 Claude 走偏，很多人第一反应是再 prompt 一下让它修正。</p><p>这个反应是错的。</p><p>被污染的 context 里，你的修正 prompt 自己占 context，它的道歉占 context，它修正后的输出还会被前面错误的推理锚定。人类有 confirmation bias，LLM 也有。被错误锁定之后很难真正跳出来。</p><p>总成本比重开高 2 到 3 倍，最终输出还可能更差。</p><p>建立一个反射：看到走偏，立刻 ESC，重新组织思路，重新 prompt。重开不是失败，是更聪明的资源分配。</p><h2 id="section-5">sub agents 的核心是隔离，不是并行</h2><p>sub agents 并行只是表象，真正的价值是上下文隔离。</p><p>父 agent 是指挥者，看大局，不需要知道细节怎么实现。sub agent 是执行者，可以激进探索，包括各种失败和绕路。父 agent 只拿 sub agent 的最终结论，那些失败的探索不会污染主线。</p><p>最适合开 sub agent 的任务：需要大量探索但只需要少量结论。</p><img alt="放弃瞎用 Claude Code，就从今天开始！ · 配图 2" loading="lazy" src="/img/wechat/z87ee8D25OTRLNqwPAFjQw/02.png"/><p><br/></p><p>比如「在 codebase 里找所有用了某个 deprecated API 的地方」，让 sub agent 把代码翻完，回来交一份清单。父 agent 不需要知道它翻过哪些文件，更不需要被翻过的代码污染主上下文。</p><p>把 context 从一维资源变成树形资源，这才是 sub agents 的本质。</p><h2 id="section-6">简单活给 Haiku，不只是省钱</h2><p>大模型训练时见过太多复杂场景，对简单任务也会本能地加边缘情况处理、加错误处理、加注释文档，用更复杂的设计模式。</p><p>写一个简单的 helper 函数，Sonnet 可能给你 30 行，Haiku 给你 10 行。后者在大多数场景反而更对。</p><p>判断标准就是任务的认知步骤数：1-2 步的活丢 Haiku，5 步以上留 Sonnet，10 步以上才开 ultrathink。</p><h2 id="section-7">如果你同时在用 Sonnet 和 Haiku，什么时候完全只用 Sonnet？</h2><p>答案是：永远不要。过度设计比省下来的钱贵多了。</p><h2 id="section-8">/loop 是让 Claude 变成异步同事</h2><p>/loop 能挂 3 天，很多人以为这是用来写长代码的。</p><p>不是。</p><p>/loop 真正的用法是把 Claude 从同步工具变成异步同事。它在那挂着，定期检查状态，有事叫你。</p><p>好的 /loop 任务：每 10 分钟看一下 CI 是不是过了，没过就分析失败原因。每小时扫一下数据库慢查询。每天看一遍 PR review 队列。</p><p>这些以前是「我得记得去看」的事，现在变成「Claude 看到了再叫我」。</p><img alt="放弃瞎用 Claude Code，就从今天开始！ · 配图 3" loading="lazy" src="/img/wechat/z87ee8D25OTRLNqwPAFjQw/03.png"/><p><br/></p><hr/><p>核心心智模型只有一句话：把 Claude Code 当成一个有限注意力、有限时间、有性格的同事来管理，不要当成无限算力的工具来用。</p><p>心智模型换过来，剩下的技巧都是延伸，你自己也能想出来。</p><p>赶快去试试吧！期待你回来留言反馈！</p><blockquote><p>公众号回复「卡」，可以领取我整理的 Claude Code 提示词模板包，覆盖 /init、sub agents、/loop 常见场景，直接拿去用。</p></blockquote><br/></div>
+<div id="article-end" class="reading-end"><span>END OF ARTICLE</span><a href="#top">回到顶部 ↑</a></div>
+<div class="wechat-source">原载于公众号「凌曦悦」 · <a href="https://mp.weixin.qq.com/s/z87ee8D25OTRLNqwPAFjQw" rel="noopener">查看原文 ↗</a></div>
+<nav class="reading-next" aria-label="相邻文章"><a href="/2026/05/25/claude-code-openspec-superpowers-comet/"><small>上一篇</small><strong>Claude Code 进阶配置：OpenSpec + Superpowers + Comet</strong><span aria-hidden="true">↗</span></a><a href="/2025/08/18/%E4%B8%8D%E6%9B%B4%E6%96%B0%E7%9A%84%E6%97%A5%E5%AD%90%E9%83%BD%E5%9C%A8%E5%B9%B2%E4%BB%80%E4%B9%88/"><small>下一篇</small><strong>不更新的日子都在干什么</strong><span aria-hidden="true">↗</span></a></nav>
+<a class="reading-all" href="/blog.html">← 返回文章列表</a></article></div>
+</main><footer class="site-footer"><a class="wordmark footer-mark" href="/index.html">S<span class="mark-dot">.</span></a><span>一个关于记录与创造的个人空间</span><span>© <span class="year">2026</span> Seth</span><a class="back-top" href="#top">返回顶部 ↑</a></footer></div></body></html>

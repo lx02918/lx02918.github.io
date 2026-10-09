@@ -1,39 +1,40 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f5f1e9">
-  <meta name="description" content="For-range结构 这种构建方法可以应用于数组和切片： 1 2 3 for ix, value := range slice1 { ... } 第一个参数 ix 是数组或切片的索引，第二个参数 value 是该索引位置的值。他们均是仅在 for 循环内的局部变量， ">
-  <title>go学习记录——第六天 · Seth的小站</title>
-  <link rel="stylesheet" href="/styles.css">
-  <link rel="stylesheet" href="/article.css">
-  <script defer src="/site.js"></script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="#f5f1e9" name="theme-color"/>
+<meta content="For-range结构 这种构建方法可以应用于数组和切片： 1 2 3 for ix, value := range slice1 { ... } 第一个参数 ix 是数组或切片的索引，第二个参数 value 是该索引位置的值。他们均是仅在 for 循环内的局部变量， " name="description"/>
+<title>go学习记录——第六天 · Seth的小站</title>
+<link href="/styles.css" rel="stylesheet"/>
+<link href="/article.css" rel="stylesheet"/>
+<script defer="" src="/site.js"></script>
 </head>
 <body>
-  <div class="site-shell">
-    <header class="site-header">
+<div class="site-shell">
+<header class="site-header">
 <a aria-label="Seth 首页" class="wordmark" href="/index.html"><span class="mark">S<span class="mark-dot">.</span></span><span class="wordmark-text">SETH / NOTES</span></a>
 <nav aria-label="主导航" class="main-nav"><a class="active" href="/index.html">首页</a><a href="/blog.html">文章</a><a href="/about.html">关于</a></nav>
 <button aria-label="切换明暗主题" class="theme-toggle" title="切换明暗主题" type="button"><span aria-hidden="true">◐</span></button>
 </header>
-    <main id="top">
-      <section class="reading-hero reveal">
-        <div class="reading-hero-inner">
-          <a class="reading-back" href="/blog.html">← 返回全部文章</a>
-          <p class="eyebrow">WRITINGS <span class="eyebrow-line"></span> 学习记录</p>
-          <h1>go学习记录——第六天</h1>
-          <div class="reading-meta"><time datetime="2024-08-14">2024-08-14</time><span>学习记录</span><span>第 35 / 53 篇</span></div>
-        </div>
-      </section>
-      <div class="reading-layout">
-        <aside class="reading-rail" aria-label="文章目录">
-          <p class="reading-rail-label">IN THIS ARTICLE / 目录</p>
-          <nav><a href="#For-range结构">For-range结构</a><a href="#多维切片下的for-range">多维切片下的for-range</a><a href="#切片重组（reslice）">切片重组（reslice）</a><a href="#切片的复制与追加">切片的复制与追加</a><a href="#字符串、数组和切片的应用">字符串、数组和切片的应用</a><a href="#从字符串生成字节切片">从字符串生成字节切片</a><a href="#获取字符串的某一部分">获取字符串的某一部分</a><a href="#字符串和切片的内存结构">字符串和切片的内存结构</a><a href="#修改字符串中的某个字符">修改字符串中的某个字符</a><a href="#字节数组对比函数">字节数组对比函数</a><a href="#搜索及排序切片和数组">搜索及排序切片和数组</a><a href="#append-函数常见操作">append()函数常见操作</a><a href="#article-end">继续往下阅读 ↓</a></nav>
-          <a class="reading-rail-back" href="/blog.html">查看全部 53 篇 ↗</a>
-        </aside>
-        <article class="reading-article">
-          <div id="article-body" class="legacy-body">
+<main id="top">
+<section class="reading-hero reveal">
+<div class="reading-hero-inner">
+<a class="reading-back" href="/blog.html">← 返回全部文章</a>
+<p class="eyebrow">WRITINGS <span class="eyebrow-line"></span> 学习记录</p>
+<h1>go学习记录——第六天</h1>
+<div class="reading-meta"><time datetime="2024-08-14">2024-08-14</time><span>学习记录</span><span>第 43 / 61 篇</span></div>
+</div>
+</section>
+<div class="reading-layout">
+<aside aria-label="文章目录" class="reading-rail">
+<p class="reading-rail-label">IN THIS ARTICLE / 目录</p>
+<nav><a href="#For-range结构">For-range结构</a><a href="#多维切片下的for-range">多维切片下的for-range</a><a href="#切片重组（reslice）">切片重组（reslice）</a><a href="#切片的复制与追加">切片的复制与追加</a><a href="#字符串、数组和切片的应用">字符串、数组和切片的应用</a><a href="#从字符串生成字节切片">从字符串生成字节切片</a><a href="#获取字符串的某一部分">获取字符串的某一部分</a><a href="#字符串和切片的内存结构">字符串和切片的内存结构</a><a href="#修改字符串中的某个字符">修改字符串中的某个字符</a><a href="#字节数组对比函数">字节数组对比函数</a><a href="#搜索及排序切片和数组">搜索及排序切片和数组</a><a href="#append-函数常见操作">append()函数常见操作</a><a href="#article-end">继续往下阅读 ↓</a></nav>
+<a class="reading-rail-back" href="/blog.html">查看全部 61 篇 ↗</a>
+</aside>
+<article class="reading-article">
+<div class="legacy-body" id="article-body">
 <h1 id="For-range结构"><a class="headerlink" href="#For-range结构" title="For-range结构"></a>For-range结构</h1><p>这种构建方法可以应用于数组和切片：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">for</span> ix, value := <span class="hljs-keyword">range</span> slice1 {<br/>	...<br/>}<br/></code></pre></td></tr></table></figure>
 <p>第一个参数<code>ix</code>是数组或切片的索引，第二个参数<code>value</code>是该索引位置的值。他们均是仅在<code>for</code>循环内的局部变量，<code>value</code>只是<code>slice1</code>某个索引位置的值的一个拷贝，不能用来修改<code>slice1</code>该索引位置的值。</p>
@@ -196,13 +197,13 @@
 <p>上面这个只找到了第一个匹配正则表达式的字符串，要找到全部的用下面这个</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">FindFileDigits</span><span class="hljs-params">(filename <span class="hljs-type">string</span>)</span></span> []<span class="hljs-type">byte</span> {<br/>   fileBytes, _ := ioutil.ReadFile(filename)<br/>   b := digitRegexp.FindAll(fileBytes, <span class="hljs-built_in">len</span>(fileBytes))<br/>   c := <span class="hljs-built_in">make</span>([]<span class="hljs-type">byte</span>, <span class="hljs-number">0</span>)<br/>   <span class="hljs-keyword">for</span> _, bytes := <span class="hljs-keyword">range</span> b {<br/>      c = <span class="hljs-built_in">append</span>(c, bytes...)<br/>   }<br/>   <span class="hljs-keyword">return</span> c<br/>}<br/></code></pre></td></tr></table></figure>
 </div>
-          <div id="article-end" class="reading-end"><span>END OF ARTICLE</span><a href="#top">回到顶部 ↑</a></div>
-          <nav class="reading-next" aria-label="相邻文章"><a href="/2024/08/15/go-study-seventh-day/"><small>上一篇</small><strong>go学习记录——第七天</strong><span aria-hidden="true">↗</span></a><a href="/2024/08/13/go-study-fifth-day/"><small>下一篇</small><strong>go学习记录——第五天</strong><span aria-hidden="true">↗</span></a></nav>
-          <a class="reading-all" href="/blog.html">← 返回文章列表</a>
-        </article>
-      </div>
-    </main>
-    <footer class="site-footer"><a class="wordmark footer-mark" href="/index.html">S<span class="mark-dot">.</span></a><span>一个关于记录与创造的个人空间</span><span>© <span class="year">2026</span> Seth</span><a class="back-top" href="#top">返回顶部 ↑</a></footer>
-  </div>
+<div class="reading-end" id="article-end"><span>END OF ARTICLE</span><a href="#top">回到顶部 ↑</a></div>
+<nav aria-label="相邻文章" class="reading-next"><a href="/2024/08/15/go-study-seventh-day/"><small>上一篇</small><strong>go学习记录——第七天</strong><span aria-hidden="true">↗</span></a><a href="/2024/08/13/go-study-fifth-day/"><small>下一篇</small><strong>go学习记录——第五天</strong><span aria-hidden="true">↗</span></a></nav>
+<a class="reading-all" href="/blog.html">← 返回文章列表</a>
+</article>
+</div>
+</main>
+<footer class="site-footer"><a class="wordmark footer-mark" href="/index.html">S<span class="mark-dot">.</span></a><span>一个关于记录与创造的个人空间</span><span>© <span class="year">2026</span> Seth</span><a class="back-top" href="#top">返回顶部 ↑</a></footer>
+</div>
 </body>
 </html>

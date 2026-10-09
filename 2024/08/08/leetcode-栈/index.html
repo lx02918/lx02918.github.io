@@ -1,39 +1,40 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f5f1e9">
-  <meta name="description" content="20 有效的括号 给定一个只包括 &#x27;(&#x27; ， &#x27;)&#x27; ， &#x27;{&#x27; ， &#x27;}&#x27; ， &#x27;[&#x27; ， &#x27;]&#x27; 的字符串 s ，判断字符串是否有效。 有效字符串需满足： 左括号必须用相同类型的右括号闭合。 左括号必须以正确的顺序闭合。 每个右括号都有一个对应的相同类型的左括号。 ">
-  <title>leetcode刷题记录——栈 · Seth的小站</title>
-  <link rel="stylesheet" href="/styles.css">
-  <link rel="stylesheet" href="/article.css">
-  <script defer src="/site.js"></script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="#f5f1e9" name="theme-color"/>
+<meta content="20 有效的括号 给定一个只包括 '(' ， ')' ， '{' ， '}' ， '[' ， ']' 的字符串 s ，判断字符串是否有效。 有效字符串需满足： 左括号必须用相同类型的右括号闭合。 左括号必须以正确的顺序闭合。 每个右括号都有一个对应的相同类型的左括号。 " name="description"/>
+<title>leetcode刷题记录——栈 · Seth的小站</title>
+<link href="/styles.css" rel="stylesheet"/>
+<link href="/article.css" rel="stylesheet"/>
+<script defer="" src="/site.js"></script>
 </head>
 <body>
-  <div class="site-shell">
-    <header class="site-header">
+<div class="site-shell">
+<header class="site-header">
 <a aria-label="Seth 首页" class="wordmark" href="/index.html"><span class="mark">S<span class="mark-dot">.</span></span><span class="wordmark-text">SETH / NOTES</span></a>
 <nav aria-label="主导航" class="main-nav"><a class="active" href="/index.html">首页</a><a href="/blog.html">文章</a><a href="/about.html">关于</a></nav>
 <button aria-label="切换明暗主题" class="theme-toggle" title="切换明暗主题" type="button"><span aria-hidden="true">◐</span></button>
 </header>
-    <main id="top">
-      <section class="reading-hero reveal">
-        <div class="reading-hero-inner">
-          <a class="reading-back" href="/blog.html">← 返回全部文章</a>
-          <p class="eyebrow">WRITINGS <span class="eyebrow-line"></span> 刷题记录</p>
-          <h1>leetcode刷题记录——栈</h1>
-          <div class="reading-meta"><time datetime="2024-08-08">2024-08-08</time><span>刷题记录</span><span>第 40 / 53 篇</span></div>
-        </div>
-      </section>
-      <div class="reading-layout">
-        <aside class="reading-rail" aria-label="文章目录">
-          <p class="reading-rail-label">IN THIS ARTICLE / 目录</p>
-          <nav><a href="#20-有效的括号">20 有效的括号</a><a href="#思路">思路</a><a href="#代码">代码</a><a href="#时间复杂度">时间复杂度</a><a href="#71-简化路径">71 简化路径</a><a href="#思路-1">思路</a><a href="#代码-1">代码</a><a href="#时间复杂度-1">时间复杂度</a><a href="#155-最小栈">155 最小栈</a><a href="#思路-2">思路</a><a href="#代码-2">代码</a><a href="#时间复杂度-2">时间复杂度</a><a href="#article-end">继续往下阅读 ↓</a></nav>
-          <a class="reading-rail-back" href="/blog.html">查看全部 53 篇 ↗</a>
-        </aside>
-        <article class="reading-article">
-          <div id="article-body" class="legacy-body">
+<main id="top">
+<section class="reading-hero reveal">
+<div class="reading-hero-inner">
+<a class="reading-back" href="/blog.html">← 返回全部文章</a>
+<p class="eyebrow">WRITINGS <span class="eyebrow-line"></span> 刷题记录</p>
+<h1>leetcode刷题记录——栈</h1>
+<div class="reading-meta"><time datetime="2024-08-08">2024-08-08</time><span>刷题记录</span><span>第 48 / 61 篇</span></div>
+</div>
+</section>
+<div class="reading-layout">
+<aside aria-label="文章目录" class="reading-rail">
+<p class="reading-rail-label">IN THIS ARTICLE / 目录</p>
+<nav><a href="#20-有效的括号">20 有效的括号</a><a href="#思路">思路</a><a href="#代码">代码</a><a href="#时间复杂度">时间复杂度</a><a href="#71-简化路径">71 简化路径</a><a href="#思路-1">思路</a><a href="#代码-1">代码</a><a href="#时间复杂度-1">时间复杂度</a><a href="#155-最小栈">155 最小栈</a><a href="#思路-2">思路</a><a href="#代码-2">代码</a><a href="#时间复杂度-2">时间复杂度</a><a href="#article-end">继续往下阅读 ↓</a></nav>
+<a class="reading-rail-back" href="/blog.html">查看全部 61 篇 ↗</a>
+</aside>
+<article class="reading-article">
+<div class="legacy-body" id="article-body">
 <h1 id="20-有效的括号"><a class="headerlink" href="#20-有效的括号" title="20 有效的括号"></a>20 有效的括号</h1><p>给定一个只包括 <code>'('</code>，<code>')'</code>，<code>'{'</code>，<code>'}'</code>，<code>'['</code>，<code>']'</code> 的字符串 <code>s</code> ，判断字符串是否有效。</p>
 <p>有效字符串需满足：</p>
 <ol>
@@ -207,13 +208,13 @@ minStack.getMin();   --&gt; 返回 -2.
 <h2 id="代码-4"><a class="headerlink" href="#代码-4" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/><span class="line">10</span><br/><span class="line">11</span><br/><span class="line">12</span><br/><span class="line">13</span><br/><span class="line">14</span><br/><span class="line">15</span><br/><span class="line">16</span><br/><span class="line">17</span><br/><span class="line">18</span><br/><span class="line">19</span><br/><span class="line">20</span><br/><span class="line">21</span><br/><span class="line">22</span><br/><span class="line">23</span><br/><span class="line">24</span><br/><span class="line">25</span><br/><span class="line">26</span><br/><span class="line">27</span><br/><span class="line">28</span><br/><span class="line">29</span><br/><span class="line">30</span><br/><span class="line">31</span><br/><span class="line">32</span><br/><span class="line">33</span><br/></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br/>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">calculate</span>(<span class="hljs-params">self, s: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-built_in">int</span>:<br/>        stack = []<br/>        num = <span class="hljs-number">0</span><br/>        sign = <span class="hljs-number">1</span>  <span class="hljs-comment"># 1表示加号，-1表示减号</span><br/>        result = <span class="hljs-number">0</span><br/>        <br/>        <span class="hljs-keyword">for</span> char <span class="hljs-keyword">in</span> s:<br/>            <span class="hljs-keyword">if</span> char.isdigit():<br/>                num = num * <span class="hljs-number">10</span> + <span class="hljs-built_in">int</span>(char)<br/>            <span class="hljs-keyword">elif</span> char == <span class="hljs-string">'+'</span>:<br/>                result += sign * num<br/>                num = <span class="hljs-number">0</span><br/>                sign = <span class="hljs-number">1</span><br/>            <span class="hljs-keyword">elif</span> char == <span class="hljs-string">'-'</span>:<br/>                result += sign * num<br/>                num = <span class="hljs-number">0</span><br/>                sign = -<span class="hljs-number">1</span><br/>            <span class="hljs-keyword">elif</span> char == <span class="hljs-string">'('</span>:<br/>                stack.append(result)<br/>                stack.append(sign)<br/>                result = <span class="hljs-number">0</span><br/>                sign = <span class="hljs-number">1</span><br/>            <span class="hljs-keyword">elif</span> char == <span class="hljs-string">')'</span>:<br/>                result += sign * num<br/>                num = <span class="hljs-number">0</span><br/>                result *= stack.pop()  <span class="hljs-comment"># 乘以括号前的符号</span><br/>                result += stack.pop()  <span class="hljs-comment"># 加上括号前的结果</span><br/>        <br/>        <span class="hljs-comment"># 处理最后一个数字</span><br/>        result += sign * num<br/>        <br/>        <span class="hljs-keyword">return</span> result<br/></code></pre></td></tr></table></figure>
 <h2 id="时间复杂度-4"><a class="headerlink" href="#时间复杂度-4" title="时间复杂度"></a>时间复杂度</h2><p>时间复杂度：O(n)，执行时间57ms，消耗内存16.9MB</p>
 </div>
-          <div id="article-end" class="reading-end"><span>END OF ARTICLE</span><a href="#top">回到顶部 ↑</a></div>
-          <nav class="reading-next" aria-label="相邻文章"><a href="/2024/08/09/go-study-third-day/"><small>上一篇</small><strong>go学习记录——第三天</strong><span aria-hidden="true">↗</span></a><a href="/2024/08/08/go-study-second-day/"><small>下一篇</small><strong>go学习记录——第二天</strong><span aria-hidden="true">↗</span></a></nav>
-          <a class="reading-all" href="/blog.html">← 返回文章列表</a>
-        </article>
-      </div>
-    </main>
-    <footer class="site-footer"><a class="wordmark footer-mark" href="/index.html">S<span class="mark-dot">.</span></a><span>一个关于记录与创造的个人空间</span><span>© <span class="year">2026</span> Seth</span><a class="back-top" href="#top">返回顶部 ↑</a></footer>
-  </div>
+<div class="reading-end" id="article-end"><span>END OF ARTICLE</span><a href="#top">回到顶部 ↑</a></div>
+<nav aria-label="相邻文章" class="reading-next"><a href="/2024/08/09/go-study-third-day/"><small>上一篇</small><strong>go学习记录——第三天</strong><span aria-hidden="true">↗</span></a><a href="/2024/08/08/go-study-second-day/"><small>下一篇</small><strong>go学习记录——第二天</strong><span aria-hidden="true">↗</span></a></nav>
+<a class="reading-all" href="/blog.html">← 返回文章列表</a>
+</article>
+</div>
+</main>
+<footer class="site-footer"><a class="wordmark footer-mark" href="/index.html">S<span class="mark-dot">.</span></a><span>一个关于记录与创造的个人空间</span><span>© <span class="year">2026</span> Seth</span><a class="back-top" href="#top">返回顶部 ↑</a></footer>
+</div>
 </body>
 </html>

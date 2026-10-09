@@ -1,39 +1,40 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f5f1e9">
-  <meta name="description" content="108 将有序数组转换为二叉搜索树 Easy 给你一个整数数组 nums ，其中元素已经按 升序 排列，请你将其转换为一棵 平衡 二叉搜索树。 示例 1： 1 2 3 输入：nums = [ -10 , -3 ,0,5,9] 输出：[0, -3 ,9, -10 ,nul">
-  <title>leetcode刷题记录——分治 · Seth的小站</title>
-  <link rel="stylesheet" href="/styles.css">
-  <link rel="stylesheet" href="/article.css">
-  <script defer src="/site.js"></script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="#f5f1e9" name="theme-color"/>
+<meta content="108 将有序数组转换为二叉搜索树 Easy 给你一个整数数组 nums ，其中元素已经按 升序 排列，请你将其转换为一棵 平衡 二叉搜索树。 示例 1： 1 2 3 输入：nums = [ -10 , -3 ,0,5,9] 输出：[0, -3 ,9, -10 ,nul" name="description"/>
+<title>leetcode刷题记录——分治 · Seth的小站</title>
+<link href="/styles.css" rel="stylesheet"/>
+<link href="/article.css" rel="stylesheet"/>
+<script defer="" src="/site.js"></script>
 </head>
 <body>
-  <div class="site-shell">
-    <header class="site-header">
+<div class="site-shell">
+<header class="site-header">
 <a aria-label="Seth 首页" class="wordmark" href="/index.html"><span class="mark">S<span class="mark-dot">.</span></span><span class="wordmark-text">SETH / NOTES</span></a>
 <nav aria-label="主导航" class="main-nav"><a class="active" href="/index.html">首页</a><a href="/blog.html">文章</a><a href="/about.html">关于</a></nav>
 <button aria-label="切换明暗主题" class="theme-toggle" title="切换明暗主题" type="button"><span aria-hidden="true">◐</span></button>
 </header>
-    <main id="top">
-      <section class="reading-hero reveal">
-        <div class="reading-hero-inner">
-          <a class="reading-back" href="/blog.html">← 返回全部文章</a>
-          <p class="eyebrow">WRITINGS <span class="eyebrow-line"></span> 刷题记录</p>
-          <h1>leetcode刷题记录——分治</h1>
-          <div class="reading-meta"><time datetime="2024-09-03">2024-09-03</time><span>刷题记录</span><span>第 25 / 53 篇</span></div>
-        </div>
-      </section>
-      <div class="reading-layout">
-        <aside class="reading-rail" aria-label="文章目录">
-          <p class="reading-rail-label">IN THIS ARTICLE / 目录</p>
-          <nav><a href="#108-将有序数组转换为二叉搜索树-Easy">108 将有序数组转换为二叉搜索树 Easy</a><a href="#思路">思路</a><a href="#代码">代码</a><a href="#时间复杂度">时间复杂度</a><a href="#148-排序链表-Medium">148 排序链表 Medium</a><a href="#思路-1">思路</a><a href="#代码-1">代码</a><a href="#时间复杂度-1">时间复杂度</a><a href="#427-建立四叉树-Medium">427 建立四叉树 Medium</a><a href="#思路-2">思路</a><a href="#代码-2">代码</a><a href="#时间复杂度-2">时间复杂度</a><a href="#article-end">继续往下阅读 ↓</a></nav>
-          <a class="reading-rail-back" href="/blog.html">查看全部 53 篇 ↗</a>
-        </aside>
-        <article class="reading-article">
-          <div id="article-body" class="legacy-body">
+<main id="top">
+<section class="reading-hero reveal">
+<div class="reading-hero-inner">
+<a class="reading-back" href="/blog.html">← 返回全部文章</a>
+<p class="eyebrow">WRITINGS <span class="eyebrow-line"></span> 刷题记录</p>
+<h1>leetcode刷题记录——分治</h1>
+<div class="reading-meta"><time datetime="2024-09-03">2024-09-03</time><span>刷题记录</span><span>第 33 / 61 篇</span></div>
+</div>
+</section>
+<div class="reading-layout">
+<aside aria-label="文章目录" class="reading-rail">
+<p class="reading-rail-label">IN THIS ARTICLE / 目录</p>
+<nav><a href="#108-将有序数组转换为二叉搜索树-Easy">108 将有序数组转换为二叉搜索树 Easy</a><a href="#思路">思路</a><a href="#代码">代码</a><a href="#时间复杂度">时间复杂度</a><a href="#148-排序链表-Medium">148 排序链表 Medium</a><a href="#思路-1">思路</a><a href="#代码-1">代码</a><a href="#时间复杂度-1">时间复杂度</a><a href="#427-建立四叉树-Medium">427 建立四叉树 Medium</a><a href="#思路-2">思路</a><a href="#代码-2">代码</a><a href="#时间复杂度-2">时间复杂度</a><a href="#article-end">继续往下阅读 ↓</a></nav>
+<a class="reading-rail-back" href="/blog.html">查看全部 61 篇 ↗</a>
+</aside>
+<article class="reading-article">
+<div class="legacy-body" id="article-body">
 <h1 id="108-将有序数组转换为二叉搜索树-Easy"><a class="headerlink" href="#108-将有序数组转换为二叉搜索树-Easy" title="108 将有序数组转换为二叉搜索树 Easy"></a>108 <a href="https://leetcode.cn/problems/convert-sorted-array-to-binary-search-tree/" rel="noopener" target="_blank">将有序数组转换为二叉搜索树</a> <font color="#7fffd4" size="4">Easy</font></h1><p>给你一个整数数组 <code>nums</code> ，其中元素已经按 <strong>升序</strong> 排列，请你将其转换为一棵 </p>
 <p>平衡</p>
 <p> 二叉搜索树。</p>
@@ -134,13 +135,13 @@
 <h2 id="代码-3"><a class="headerlink" href="#代码-3" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/><span class="line">10</span><br/><span class="line">11</span><br/><span class="line">12</span><br/><span class="line">13</span><br/><span class="line">14</span><br/><span class="line">15</span><br/><span class="line">16</span><br/><span class="line">17</span><br/><span class="line">18</span><br/><span class="line">19</span><br/><span class="line">20</span><br/><span class="line">21</span><br/><span class="line">22</span><br/><span class="line">23</span><br/><span class="line">24</span><br/><span class="line">25</span><br/></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br/>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">mergeKLists</span>(<span class="hljs-params">self, lists: <span class="hljs-type">List</span>[<span class="hljs-type">Optional</span>[ListNode]]</span>) -&gt; <span class="hljs-type">Optional</span>[ListNode]:<br/>        dummy = ListNode(<span class="hljs-number">0</span>)<br/>        p = dummy<br/>        pq = []<br/>        <br/>        <span class="hljs-comment"># 将每个链表的头节点压入堆中</span><br/>        <span class="hljs-keyword">for</span> head <span class="hljs-keyword">in</span> lists:<br/>            <span class="hljs-keyword">if</span> head:<br/>                heapq.heappush(pq, (head.val, <span class="hljs-built_in">id</span>(head), head))<br/>        <br/>        <span class="hljs-comment"># 当堆不为空时，执行以下操作</span><br/>        <span class="hljs-keyword">while</span> pq:<br/>            <span class="hljs-comment"># 从堆中弹出值最小的节点</span><br/>            node = heapq.heappop(pq)[<span class="hljs-number">2</span>]<br/>            p.<span class="hljs-built_in">next</span> = node<br/>            <br/>            <span class="hljs-comment"># 如果该节点有下一个节点，则将下一个节点压入堆中</span><br/>            <span class="hljs-keyword">if</span> node.<span class="hljs-built_in">next</span>:<br/>                heapq.heappush(pq, (node.<span class="hljs-built_in">next</span>.val, <span class="hljs-built_in">id</span>(node.<span class="hljs-built_in">next</span>), node.<span class="hljs-built_in">next</span>))<br/>            <br/>            p = p.<span class="hljs-built_in">next</span><br/>        <br/>        <span class="hljs-keyword">return</span> dummy.<span class="hljs-built_in">next</span><br/><br/></code></pre></td></tr></table></figure>
 <h2 id="时间复杂度-3"><a class="headerlink" href="#时间复杂度-3" title="时间复杂度"></a>时间复杂度</h2><p>时间复杂度$O(nlogk)$，空间复杂度O(n + k)，执行时间49ms，消耗内存18.8MB</p>
 </div>
-          <div id="article-end" class="reading-end"><span>END OF ARTICLE</span><a href="#top">回到顶部 ↑</a></div>
-          <nav class="reading-next" aria-label="相邻文章"><a href="/2024/09/04/leetcode-Kadane%E7%AE%97%E6%B3%95/"><small>上一篇</small><strong>leetcode刷题记录——Kadane算法</strong><span aria-hidden="true">↗</span></a><a href="/2024/08/29/leetcode-%E5%9B%9E%E6%BA%AF/"><small>下一篇</small><strong>leetcode刷题记录——回溯</strong><span aria-hidden="true">↗</span></a></nav>
-          <a class="reading-all" href="/blog.html">← 返回文章列表</a>
-        </article>
-      </div>
-    </main>
-    <footer class="site-footer"><a class="wordmark footer-mark" href="/index.html">S<span class="mark-dot">.</span></a><span>一个关于记录与创造的个人空间</span><span>© <span class="year">2026</span> Seth</span><a class="back-top" href="#top">返回顶部 ↑</a></footer>
-  </div>
+<div class="reading-end" id="article-end"><span>END OF ARTICLE</span><a href="#top">回到顶部 ↑</a></div>
+<nav aria-label="相邻文章" class="reading-next"><a href="/2024/09/04/leetcode-Kadane%E7%AE%97%E6%B3%95/"><small>上一篇</small><strong>leetcode刷题记录——Kadane算法</strong><span aria-hidden="true">↗</span></a><a href="/2024/08/29/leetcode-%E5%9B%9E%E6%BA%AF/"><small>下一篇</small><strong>leetcode刷题记录——回溯</strong><span aria-hidden="true">↗</span></a></nav>
+<a class="reading-all" href="/blog.html">← 返回文章列表</a>
+</article>
+</div>
+</main>
+<footer class="site-footer"><a class="wordmark footer-mark" href="/index.html">S<span class="mark-dot">.</span></a><span>一个关于记录与创造的个人空间</span><span>© <span class="year">2026</span> Seth</span><a class="back-top" href="#top">返回顶部 ↑</a></footer>
+</div>
 </body>
 </html>

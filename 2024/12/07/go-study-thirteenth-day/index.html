@@ -1,39 +1,40 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f5f1e9">
-  <meta name="description" content="方法 方法是什么 在 Golang 中，结构体就像是类的一种简化形式，那么面向对象的程序员可能会问类的方法在哪里呢？（反正我是不会问，咱不会Java）在 Golang 中有一个概念，它和方法有着同样的名字，并且大体上意思相同： Golang 方法是作用在接受者（rece">
-  <title>go学习记录——第十三天 · Seth的小站</title>
-  <link rel="stylesheet" href="/styles.css">
-  <link rel="stylesheet" href="/article.css">
-  <script defer src="/site.js"></script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="#f5f1e9" name="theme-color"/>
+<meta content="方法 方法是什么 在 Golang 中，结构体就像是类的一种简化形式，那么面向对象的程序员可能会问类的方法在哪里呢？（反正我是不会问，咱不会Java）在 Golang 中有一个概念，它和方法有着同样的名字，并且大体上意思相同： Golang 方法是作用在接受者（rece" name="description"/>
+<title>go学习记录——第十三天 · Seth的小站</title>
+<link href="/styles.css" rel="stylesheet"/>
+<link href="/article.css" rel="stylesheet"/>
+<script defer="" src="/site.js"></script>
 </head>
 <body>
-  <div class="site-shell">
-    <header class="site-header">
+<div class="site-shell">
+<header class="site-header">
 <a aria-label="Seth 首页" class="wordmark" href="/index.html"><span class="mark">S<span class="mark-dot">.</span></span><span class="wordmark-text">SETH / NOTES</span></a>
 <nav aria-label="主导航" class="main-nav"><a class="active" href="/index.html">首页</a><a href="/blog.html">文章</a><a href="/about.html">关于</a></nav>
 <button aria-label="切换明暗主题" class="theme-toggle" title="切换明暗主题" type="button"><span aria-hidden="true">◐</span></button>
 </header>
-    <main id="top">
-      <section class="reading-hero reveal">
-        <div class="reading-hero-inner">
-          <a class="reading-back" href="/blog.html">← 返回全部文章</a>
-          <p class="eyebrow">WRITINGS <span class="eyebrow-line"></span> 学习记录</p>
-          <h1>go学习记录——第十三天</h1>
-          <div class="reading-meta"><time datetime="2024-12-07">2024-12-07</time><span>学习记录</span><span>第 13 / 53 篇</span></div>
-        </div>
-      </section>
-      <div class="reading-layout">
-        <aside class="reading-rail" aria-label="文章目录">
-          <p class="reading-rail-label">IN THIS ARTICLE / 目录</p>
-          <nav><a href="#方法">方法</a><a href="#方法是什么">方法是什么</a><a href="#不可以作为接收者的类型">不可以作为接收者的类型</a><a href="#函数和方法的区别">函数和方法的区别</a><a href="#总结">总结</a><a href="#指针或值作为接收者">指针或值作为接收者</a></nav>
-          <a class="reading-rail-back" href="/blog.html">查看全部 53 篇 ↗</a>
-        </aside>
-        <article class="reading-article">
-          <div id="article-body" class="legacy-body">
+<main id="top">
+<section class="reading-hero reveal">
+<div class="reading-hero-inner">
+<a class="reading-back" href="/blog.html">← 返回全部文章</a>
+<p class="eyebrow">WRITINGS <span class="eyebrow-line"></span> 学习记录</p>
+<h1>go学习记录——第十三天</h1>
+<div class="reading-meta"><time datetime="2024-12-07">2024-12-07</time><span>学习记录</span><span>第 21 / 61 篇</span></div>
+</div>
+</section>
+<div class="reading-layout">
+<aside aria-label="文章目录" class="reading-rail">
+<p class="reading-rail-label">IN THIS ARTICLE / 目录</p>
+<nav><a href="#方法">方法</a><a href="#方法是什么">方法是什么</a><a href="#不可以作为接收者的类型">不可以作为接收者的类型</a><a href="#函数和方法的区别">函数和方法的区别</a><a href="#总结">总结</a><a href="#指针或值作为接收者">指针或值作为接收者</a></nav>
+<a class="reading-rail-back" href="/blog.html">查看全部 61 篇 ↗</a>
+</aside>
+<article class="reading-article">
+<div class="legacy-body" id="article-body">
 <h1 id="方法"><a class="headerlink" href="#方法" title="方法"></a>方法</h1><h2 id="方法是什么"><a class="headerlink" href="#方法是什么" title="方法是什么"></a>方法是什么</h2><p>在 <code>Golang</code> 中，结构体就像是类的一种简化形式，那么面向对象的程序员可能会问类的方法在哪里呢？（反正我是不会问，咱不会Java）在 <code>Golang</code> 中有一个概念，它和方法有着同样的名字，并且大体上意思相同：<code>Golang</code> 方法是作用在接受者（receiver）上的一个函数，接收者是某种类型的变量。因此方法是一种特殊类型的函数。</p>
 <p>接受者类型可以是（几乎）任何类型，不仅仅是结构体类型：任何类型都可以有方法，甚至可以是函数，可以是 <code>int</code> <code>bool</code> <code>string</code> 或 数组的别名类型。但是接收者不能是一个接口类型（参考<a href="https://github.com/unknwon/the-way-to-go_ZH_CN/blob/master/eBook/11.0.md" rel="noopener" target="_blank">第十一章</a>），因为接口是一个抽象定义，但是方法却是具体实现的；如果这样做会引发一个编译错误：<code>invalid receiver type...</code></p>
 <p>最后接收者不能是一个指针类型，但它可以是任何其他允许类型的指针。</p>
@@ -276,13 +277,13 @@
 <p>示例<a href="https://github.com/unknwon/the-way-to-go_ZH_CN/blob/master/eBook/examples/chapter_10/methodset1.go" rel="noopener" target="_blank">methodset1.go</a></p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/><span class="line">10</span><br/><span class="line">11</span><br/><span class="line">12</span><br/><span class="line">13</span><br/><span class="line">14</span><br/><span class="line">15</span><br/><span class="line">16</span><br/><span class="line">17</span><br/><span class="line">18</span><br/><span class="line">19</span><br/><span class="line">20</span><br/><span class="line">21</span><br/><span class="line">22</span><br/><span class="line">23</span><br/></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br/><br/><span class="hljs-keyword">import</span> <span class="hljs-string">"fmt"</span><br/><br/><span class="hljs-keyword">type</span> List []<span class="hljs-type">int</span><br/><br/><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(l List)</span></span> Len() <span class="hljs-type">int</span> {<br/>	<span class="hljs-keyword">return</span> <span class="hljs-built_in">len</span>(l)<br/>}<br/><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(l *List)</span></span> Append(val <span class="hljs-type">int</span>) {<br/>	*l = <span class="hljs-built_in">append</span>(*l, val)<br/>}<br/><br/><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {<br/>	<span class="hljs-comment">// 值</span><br/>	<span class="hljs-keyword">var</span> lst List<br/>	lst.Append(<span class="hljs-number">1</span>)<br/>	fmt.Printf(<span class="hljs-string">"%v (len: %d)\n"</span>, lst, lst.Len()) <span class="hljs-comment">// Output: [1] (len: 1)</span><br/>	<span class="hljs-comment">// 指针</span><br/>	plst := <span class="hljs-built_in">new</span>(List)<br/>	plst.Append(<span class="hljs-number">2</span>)<br/>	fmt.Printf(<span class="hljs-string">"%v (len: %d)"</span>, plst, plst.Len()) <span class="hljs-comment">// Output: &amp;[2] (len: 1)</span><br/>}<br/></code></pre></td></tr></table></figure>
 </div>
-          <div id="article-end" class="reading-end"><span>END OF ARTICLE</span><a href="#top">回到顶部 ↑</a></div>
-          <nav class="reading-next" aria-label="相邻文章"><a href="/2025/01/03/go-study-fourteenth-day/"><small>上一篇</small><strong>go学习记录——第十四天</strong><span aria-hidden="true">↗</span></a><a href="/2024/12/01/go-study-twelfth-day/"><small>下一篇</small><strong>go学习记录——第十二天</strong><span aria-hidden="true">↗</span></a></nav>
-          <a class="reading-all" href="/blog.html">← 返回文章列表</a>
-        </article>
-      </div>
-    </main>
-    <footer class="site-footer"><a class="wordmark footer-mark" href="/index.html">S<span class="mark-dot">.</span></a><span>一个关于记录与创造的个人空间</span><span>© <span class="year">2026</span> Seth</span><a class="back-top" href="#top">返回顶部 ↑</a></footer>
-  </div>
+<div class="reading-end" id="article-end"><span>END OF ARTICLE</span><a href="#top">回到顶部 ↑</a></div>
+<nav aria-label="相邻文章" class="reading-next"><a href="/2025/01/03/go-study-fourteenth-day/"><small>上一篇</small><strong>go学习记录——第十四天</strong><span aria-hidden="true">↗</span></a><a href="/2024/12/01/go-study-twelfth-day/"><small>下一篇</small><strong>go学习记录——第十二天</strong><span aria-hidden="true">↗</span></a></nav>
+<a class="reading-all" href="/blog.html">← 返回文章列表</a>
+</article>
+</div>
+</main>
+<footer class="site-footer"><a class="wordmark footer-mark" href="/index.html">S<span class="mark-dot">.</span></a><span>一个关于记录与创造的个人空间</span><span>© <span class="year">2026</span> Seth</span><a class="back-top" href="#top">返回顶部 ↑</a></footer>
+</div>
 </body>
 </html>

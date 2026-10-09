@@ -1,0 +1,14 @@
+{
+  "slug": "IyKX3G_g3k-TNEgowDKmuQ",
+  "title": "AI 协作范式正在切换——从提示词到循环设计",
+  "date": "2026-06-09",
+  "url": "/2026/06/09/ai-loop-engineering/",
+  "source_url": "https://mp.weixin.qq.com/s/IyKX3G_g3k-TNEgowDKmuQ",
+  "account": "凌曦悦",
+  "description": "循环工程，就是用你设计的系统来取代你自己去提示 Agent。这里的\\x26quot;循环\\x26quot;可以理解为一个递归目标——你定义一个目的，AI 持续迭代直到完成。",
+  "excerpt": "循环工程，就是用你设计的系统来取代你自己去提示 Agent。这里的\"循环\"可以理解为一个递归目标——你定义一个目的，AI 持续迭代直到完成。它大致由五个构建块组成，Claude Code 和 Codex 目前都已具备这五个模块。 我认为，这可能就是我们未来与编程 Agent 协作的方式。不…",
+  "image_paths": [
+    "/img/wechat/IyKX3G_g3k-TNEgowDKmuQ/01.png"
+  ],
+  "text_sha256": "7504c75c7d2ffbe1412edd105207bac52b46fd3eff625e7886ab0133db02e4b5"
+}

@@ -1,39 +1,40 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f5f1e9">
-  <meta name="description" content="今天也继续学习go吧。今天找了下《The Way to Go》这本书的中译本，书作者是Ivo Balbaert。也非常感谢翻译者们的努力，在这里贴上链接 The Way to Go ，也希望大家能支持下翻译者们，给项目加个小星星。 根据对比，这个讲的比较完整，咱就准备根">
-  <title>go学习记录——第三天 · Seth的小站</title>
-  <link rel="stylesheet" href="/styles.css">
-  <link rel="stylesheet" href="/article.css">
-  <script defer src="/site.js"></script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="#f5f1e9" name="theme-color"/>
+<meta content="今天也继续学习go吧。今天找了下《The Way to Go》这本书的中译本，书作者是Ivo Balbaert。也非常感谢翻译者们的努力，在这里贴上链接 The Way to Go ，也希望大家能支持下翻译者们，给项目加个小星星。 根据对比，这个讲的比较完整，咱就准备根" name="description"/>
+<title>go学习记录——第三天 · Seth的小站</title>
+<link href="/styles.css" rel="stylesheet"/>
+<link href="/article.css" rel="stylesheet"/>
+<script defer="" src="/site.js"></script>
 </head>
 <body>
-  <div class="site-shell">
-    <header class="site-header">
+<div class="site-shell">
+<header class="site-header">
 <a aria-label="Seth 首页" class="wordmark" href="/index.html"><span class="mark">S<span class="mark-dot">.</span></span><span class="wordmark-text">SETH / NOTES</span></a>
 <nav aria-label="主导航" class="main-nav"><a class="active" href="/index.html">首页</a><a href="/blog.html">文章</a><a href="/about.html">关于</a></nav>
 <button aria-label="切换明暗主题" class="theme-toggle" title="切换明暗主题" type="button"><span aria-hidden="true">◐</span></button>
 </header>
-    <main id="top">
-      <section class="reading-hero reveal">
-        <div class="reading-hero-inner">
-          <a class="reading-back" href="/blog.html">← 返回全部文章</a>
-          <p class="eyebrow">WRITINGS <span class="eyebrow-line"></span> 学习记录</p>
-          <h1>go学习记录——第三天</h1>
-          <div class="reading-meta"><time datetime="2024-08-09">2024-08-09</time><span>学习记录</span><span>第 39 / 53 篇</span></div>
-        </div>
-      </section>
-      <div class="reading-layout">
-        <aside class="reading-rail" aria-label="文章目录">
-          <p class="reading-rail-label">IN THIS ARTICLE / 目录</p>
-          <nav><a href="#指针">指针</a><a href="#函数">函数</a><a href="#函数返回值">函数返回值</a><a href="#改变外部变量">改变外部变量</a><a href="#传递变长参数">传递变长参数</a><a href="#defer和追踪">defer和追踪</a><a href="#内置函数">内置函数</a><a href="#递归函数">递归函数</a><a href="#闭包的补充">闭包的补充</a><a href="#使用闭包调试">使用闭包调试</a></nav>
-          <a class="reading-rail-back" href="/blog.html">查看全部 53 篇 ↗</a>
-        </aside>
-        <article class="reading-article">
-          <div id="article-body" class="legacy-body">
+<main id="top">
+<section class="reading-hero reveal">
+<div class="reading-hero-inner">
+<a class="reading-back" href="/blog.html">← 返回全部文章</a>
+<p class="eyebrow">WRITINGS <span class="eyebrow-line"></span> 学习记录</p>
+<h1>go学习记录——第三天</h1>
+<div class="reading-meta"><time datetime="2024-08-09">2024-08-09</time><span>学习记录</span><span>第 47 / 61 篇</span></div>
+</div>
+</section>
+<div class="reading-layout">
+<aside aria-label="文章目录" class="reading-rail">
+<p class="reading-rail-label">IN THIS ARTICLE / 目录</p>
+<nav><a href="#指针">指针</a><a href="#函数">函数</a><a href="#函数返回值">函数返回值</a><a href="#改变外部变量">改变外部变量</a><a href="#传递变长参数">传递变长参数</a><a href="#defer和追踪">defer和追踪</a><a href="#内置函数">内置函数</a><a href="#递归函数">递归函数</a><a href="#闭包的补充">闭包的补充</a><a href="#使用闭包调试">使用闭包调试</a></nav>
+<a class="reading-rail-back" href="/blog.html">查看全部 61 篇 ↗</a>
+</aside>
+<article class="reading-article">
+<div class="legacy-body" id="article-body">
 <p>今天也继续学习go吧。今天找了下《The Way to Go》这本书的中译本，书作者是Ivo Balbaert。也非常感谢翻译者们的努力，在这里贴上链接<a href="https://github.com/unknwon/the-way-to-go_ZH_CN.git" rel="noopener" target="_blank">The Way to Go</a>，也希望大家能支持下翻译者们，给项目加个小星星。</p>
 <p>根据对比，这个讲的比较完整，咱就准备根据这个进行学习，后续也会找一些其他资料来学习。早知道就直接在GitHub上找资料来学习了🤣，事实证明GitHub才是好东西。</p>
 <h1 id="指针"><a class="headerlink" href="#指针" title="指针"></a>指针</h1><p>go的指针不同于C的指针，go的指针不能进行算术运算，但是可以通过指针控制特定集合的数据结构、分配的数量及内存的访问模式。</p>
@@ -157,13 +158,13 @@
 <p>这部分还是等后面再深入学吧🤣，咱连很多基础内容都没学呢。</p>
 <p>得嘞，今儿就到这吧，bye~</p>
 </div>
-          <div id="article-end" class="reading-end"><span>END OF ARTICLE</span><a href="#top">回到顶部 ↑</a></div>
-          <nav class="reading-next" aria-label="相邻文章"><a href="/2024/08/09/leetcode-%E9%93%BE%E8%A1%A8/"><small>上一篇</small><strong>leetcode刷题记录——链表</strong><span aria-hidden="true">↗</span></a><a href="/2024/08/08/leetcode-%E6%A0%88/"><small>下一篇</small><strong>leetcode刷题记录——栈</strong><span aria-hidden="true">↗</span></a></nav>
-          <a class="reading-all" href="/blog.html">← 返回文章列表</a>
-        </article>
-      </div>
-    </main>
-    <footer class="site-footer"><a class="wordmark footer-mark" href="/index.html">S<span class="mark-dot">.</span></a><span>一个关于记录与创造的个人空间</span><span>© <span class="year">2026</span> Seth</span><a class="back-top" href="#top">返回顶部 ↑</a></footer>
-  </div>
+<div class="reading-end" id="article-end"><span>END OF ARTICLE</span><a href="#top">回到顶部 ↑</a></div>
+<nav aria-label="相邻文章" class="reading-next"><a href="/2024/08/09/leetcode-%E9%93%BE%E8%A1%A8/"><small>上一篇</small><strong>leetcode刷题记录——链表</strong><span aria-hidden="true">↗</span></a><a href="/2024/08/08/leetcode-%E6%A0%88/"><small>下一篇</small><strong>leetcode刷题记录——栈</strong><span aria-hidden="true">↗</span></a></nav>
+<a class="reading-all" href="/blog.html">← 返回文章列表</a>
+</article>
+</div>
+</main>
+<footer class="site-footer"><a class="wordmark footer-mark" href="/index.html">S<span class="mark-dot">.</span></a><span>一个关于记录与创造的个人空间</span><span>© <span class="year">2026</span> Seth</span><a class="back-top" href="#top">返回顶部 ↑</a></footer>
+</div>
 </body>
 </html>

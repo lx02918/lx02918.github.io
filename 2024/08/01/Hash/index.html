@@ -1,39 +1,40 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f5f1e9">
-  <meta name="description" content="今天来说一下leetcode面试经典150题中哈希表部分的题 383 赎金信 给你两个字符串： ransomNote 和 magazine ，判断 ransomNote 能不能由 magazine 里面的字符构成。 如果可以，返回 true ；否则返回 false 。 ">
-  <title>leetcode刷题记录——Hash · Seth的小站</title>
-  <link rel="stylesheet" href="/styles.css">
-  <link rel="stylesheet" href="/article.css">
-  <script defer src="/site.js"></script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="#f5f1e9" name="theme-color"/>
+<meta content="今天来说一下leetcode面试经典150题中哈希表部分的题 383 赎金信 给你两个字符串： ransomNote 和 magazine ，判断 ransomNote 能不能由 magazine 里面的字符构成。 如果可以，返回 true ；否则返回 false 。 " name="description"/>
+<title>leetcode刷题记录——Hash · Seth的小站</title>
+<link href="/styles.css" rel="stylesheet"/>
+<link href="/article.css" rel="stylesheet"/>
+<script defer="" src="/site.js"></script>
 </head>
 <body>
-  <div class="site-shell">
-    <header class="site-header">
+<div class="site-shell">
+<header class="site-header">
 <a aria-label="Seth 首页" class="wordmark" href="/index.html"><span class="mark">S<span class="mark-dot">.</span></span><span class="wordmark-text">SETH / NOTES</span></a>
 <nav aria-label="主导航" class="main-nav"><a class="active" href="/index.html">首页</a><a href="/blog.html">文章</a><a href="/about.html">关于</a></nav>
 <button aria-label="切换明暗主题" class="theme-toggle" title="切换明暗主题" type="button"><span aria-hidden="true">◐</span></button>
 </header>
-    <main id="top">
-      <section class="reading-hero reveal">
-        <div class="reading-hero-inner">
-          <a class="reading-back" href="/blog.html">← 返回全部文章</a>
-          <p class="eyebrow">WRITINGS <span class="eyebrow-line"></span> 刷题记录</p>
-          <h1>leetcode刷题记录——Hash</h1>
-          <div class="reading-meta"><time datetime="2024-08-01">2024-08-01</time><span>刷题记录</span><span>第 49 / 53 篇</span></div>
-        </div>
-      </section>
-      <div class="reading-layout">
-        <aside class="reading-rail" aria-label="文章目录">
-          <p class="reading-rail-label">IN THIS ARTICLE / 目录</p>
-          <nav><a href="#383-赎金信">383 赎金信</a><a href="#思路">思路</a><a href="#时间复杂度">时间复杂度</a><a href="#205-同构字符串">205 同构字符串</a><a href="#思路-1">思路</a><a href="#时间复杂度-1">时间复杂度</a><a href="#290-单词规律">290 单词规律</a><a href="#思路-2">思路</a><a href="#时间复杂度-2">时间复杂度</a><a href="#242-有效的字母异位词">242 有效的字母异位词</a><a href="#思路-3">思路</a><a href="#第一版">第一版</a><a href="#article-end">继续往下阅读 ↓</a></nav>
-          <a class="reading-rail-back" href="/blog.html">查看全部 53 篇 ↗</a>
-        </aside>
-        <article class="reading-article">
-          <div id="article-body" class="legacy-body">
+<main id="top">
+<section class="reading-hero reveal">
+<div class="reading-hero-inner">
+<a class="reading-back" href="/blog.html">← 返回全部文章</a>
+<p class="eyebrow">WRITINGS <span class="eyebrow-line"></span> 刷题记录</p>
+<h1>leetcode刷题记录——Hash</h1>
+<div class="reading-meta"><time datetime="2024-08-01">2024-08-01</time><span>刷题记录</span><span>第 57 / 61 篇</span></div>
+</div>
+</section>
+<div class="reading-layout">
+<aside aria-label="文章目录" class="reading-rail">
+<p class="reading-rail-label">IN THIS ARTICLE / 目录</p>
+<nav><a href="#383-赎金信">383 赎金信</a><a href="#思路">思路</a><a href="#时间复杂度">时间复杂度</a><a href="#205-同构字符串">205 同构字符串</a><a href="#思路-1">思路</a><a href="#时间复杂度-1">时间复杂度</a><a href="#290-单词规律">290 单词规律</a><a href="#思路-2">思路</a><a href="#时间复杂度-2">时间复杂度</a><a href="#242-有效的字母异位词">242 有效的字母异位词</a><a href="#思路-3">思路</a><a href="#第一版">第一版</a><a href="#article-end">继续往下阅读 ↓</a></nav>
+<a class="reading-rail-back" href="/blog.html">查看全部 61 篇 ↗</a>
+</aside>
+<article class="reading-article">
+<div class="legacy-body" id="article-body">
 <p>今天来说一下leetcode面试经典150题中哈希表部分的题</p>
 <h1 id="383-赎金信"><a class="headerlink" href="#383-赎金信" title="383 赎金信"></a>383 赎金信</h1><p>给你两个字符串：<code>ransomNote</code> 和 <code>magazine</code>，判断 <code>ransomNote</code> 能不能由 <code>magazine</code> 里面的字符构成。</p>
 <p>如果可以，返回 <code>true</code> ；否则返回 <code>false</code> 。</p>
@@ -214,13 +215,13 @@
 <p>根据这个集合给出的题目来看，hash这部分的题目已简单题或中等题考察居多，核心逻辑都是一个——利用hash特有的键值对去进行匹配等操作，所以把握好本质就比较简单了。不过真的不想遇到hash，脑子一转不过来就完犊子。</p>
 <p>最后附上封面的猫猫图片（在这里还是要夸一下iPhone的微距，拍出来真的不错  ）<br/><img alt="hash cover" lazyload="" src="/../img/hash%20blog%20cover.jpg" srcset="/img/loading.gif"/></p>
 </div>
-          <div id="article-end" class="reading-end"><span>END OF ARTICLE</span><a href="#top">回到顶部 ↑</a></div>
-          <nav class="reading-next" aria-label="相邻文章"><a href="/2024/08/01/install-postgreSQL/"><small>上一篇</small><strong>PostgreSQL安装记录及集群初始化失败问题解决</strong><span aria-hidden="true">↗</span></a><a href="/2024/07/30/my-fourth-blog/"><small>下一篇</small><strong>leetcode刷题记录——矩阵</strong><span aria-hidden="true">↗</span></a></nav>
-          <a class="reading-all" href="/blog.html">← 返回文章列表</a>
-        </article>
-      </div>
-    </main>
-    <footer class="site-footer"><a class="wordmark footer-mark" href="/index.html">S<span class="mark-dot">.</span></a><span>一个关于记录与创造的个人空间</span><span>© <span class="year">2026</span> Seth</span><a class="back-top" href="#top">返回顶部 ↑</a></footer>
-  </div>
+<div class="reading-end" id="article-end"><span>END OF ARTICLE</span><a href="#top">回到顶部 ↑</a></div>
+<nav aria-label="相邻文章" class="reading-next"><a href="/2024/08/01/install-postgreSQL/"><small>上一篇</small><strong>PostgreSQL安装记录及集群初始化失败问题解决</strong><span aria-hidden="true">↗</span></a><a href="/2024/07/30/my-fourth-blog/"><small>下一篇</small><strong>leetcode刷题记录——矩阵</strong><span aria-hidden="true">↗</span></a></nav>
+<a class="reading-all" href="/blog.html">← 返回文章列表</a>
+</article>
+</div>
+</main>
+<footer class="site-footer"><a class="wordmark footer-mark" href="/index.html">S<span class="mark-dot">.</span></a><span>一个关于记录与创造的个人空间</span><span>© <span class="year">2026</span> Seth</span><a class="back-top" href="#top">返回顶部 ↑</a></footer>
+</div>
 </body>
 </html>

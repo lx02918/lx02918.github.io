@@ -1,39 +1,40 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f5f1e9">
-  <meta name="description" content="360是我七月初就已经投的公司，同时也是我今年秋招第一个拿到笔试的公司。在考前按照往年的试卷估计题目应该是40道客观题2道编程题。实际结果也如预期一般，30多道的单选题，为数不多的多选题（每个卷子的题型不一样，maybe我这个卷子的少）以及2个编程题。接下来我将尽可能完">
-  <title>360技术综合H卷笔试——编程题记录 · Seth的小站</title>
-  <link rel="stylesheet" href="/styles.css">
-  <link rel="stylesheet" href="/article.css">
-  <script defer src="/site.js"></script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="#f5f1e9" name="theme-color"/>
+<meta content="360是我七月初就已经投的公司，同时也是我今年秋招第一个拿到笔试的公司。在考前按照往年的试卷估计题目应该是40道客观题2道编程题。实际结果也如预期一般，30多道的单选题，为数不多的多选题（每个卷子的题型不一样，maybe我这个卷子的少）以及2个编程题。接下来我将尽可能完" name="description"/>
+<title>360技术综合H卷笔试——编程题记录 · Seth的小站</title>
+<link href="/styles.css" rel="stylesheet"/>
+<link href="/article.css" rel="stylesheet"/>
+<script defer="" src="/site.js"></script>
 </head>
 <body>
-  <div class="site-shell">
-    <header class="site-header">
+<div class="site-shell">
+<header class="site-header">
 <a aria-label="Seth 首页" class="wordmark" href="/index.html"><span class="mark">S<span class="mark-dot">.</span></span><span class="wordmark-text">SETH / NOTES</span></a>
 <nav aria-label="主导航" class="main-nav"><a class="active" href="/index.html">首页</a><a href="/blog.html">文章</a><a href="/about.html">关于</a></nav>
 <button aria-label="切换明暗主题" class="theme-toggle" title="切换明暗主题" type="button"><span aria-hidden="true">◐</span></button>
 </header>
-    <main id="top">
-      <section class="reading-hero reveal">
-        <div class="reading-hero-inner">
-          <a class="reading-back" href="/blog.html">← 返回全部文章</a>
-          <p class="eyebrow">WRITINGS <span class="eyebrow-line"></span> 笔试记录</p>
-          <h1>360技术综合H卷笔试——编程题记录</h1>
-          <div class="reading-meta"><time datetime="2024-07-20">2024-07-20</time><span>笔试记录</span><span>第 53 / 53 篇</span></div>
-        </div>
-      </section>
-      <div class="reading-layout">
-        <aside class="reading-rail" aria-label="文章目录">
-          <p class="reading-rail-label">IN THIS ARTICLE / 目录</p>
-          <nav><a href="#第一题-加密算法">第一题 加密算法</a><a href="#第二题-传染病防控">第二题 传染病防控</a></nav>
-          <a class="reading-rail-back" href="/blog.html">查看全部 53 篇 ↗</a>
-        </aside>
-        <article class="reading-article">
-          <div id="article-body" class="legacy-body">
+<main id="top">
+<section class="reading-hero reveal">
+<div class="reading-hero-inner">
+<a class="reading-back" href="/blog.html">← 返回全部文章</a>
+<p class="eyebrow">WRITINGS <span class="eyebrow-line"></span> 笔试记录</p>
+<h1>360技术综合H卷笔试——编程题记录</h1>
+<div class="reading-meta"><time datetime="2024-07-20">2024-07-20</time><span>笔试记录</span><span>第 61 / 61 篇</span></div>
+</div>
+</section>
+<div class="reading-layout">
+<aside aria-label="文章目录" class="reading-rail">
+<p class="reading-rail-label">IN THIS ARTICLE / 目录</p>
+<nav><a href="#第一题-加密算法">第一题 加密算法</a><a href="#第二题-传染病防控">第二题 传染病防控</a></nav>
+<a class="reading-rail-back" href="/blog.html">查看全部 61 篇 ↗</a>
+</aside>
+<article class="reading-article">
+<div class="legacy-body" id="article-body">
 <p>360是我七月初就已经投的公司，同时也是我今年秋招第一个拿到笔试的公司。在考前按照往年的试卷估计题目应该是40道客观题2道编程题。实际结果也如预期一般，30多道的单选题，为数不多的多选题（每个卷子的题型不一样，maybe我这个卷子的少）以及2个编程题。接下来我将尽可能完整的复刻题目并阐述我自己的做法，同时也会附加我自己的代码，望各位看官满意。</p>
 <h2 id="第一题-加密算法"><a class="headerlink" href="#第一题-加密算法" title="第一题 加密算法"></a><strong>第一题 加密算法</strong></h2><p>有两个人在研究加密算法，一个人提出对只包含小写英文字母的字符串，将 ’a’替换成 ’1’，将 ’b’;替换成 ’2’……，将 ’z’替换成 ’26’。比如一个字符串 ’aabac’（想不起来了，我编的），加密后变成了 ’11213’，但另外一个人提出困难会造成多个结果，就比如 ’11213’也可能是 ’kbm’，会产生多个结果。所以我们要做的就是计算某个加密后的字符串可能对应的原字符串个数，要求取模10^9+7。</p>
 <p>输入：</p>
@@ -93,13 +94,13 @@
 <p>最后附上一张在食堂吃饭的时候拍到的学长，超乖的一只猫咪，就是动作有那么一丝丝不文雅。</p>
 <p><img alt="alt text" lazyload="" src="/../img/first%20blog%20cover.jpg" srcset="/img/loading.gif"/></p>
 </div>
-          <div id="article-end" class="reading-end"><span>END OF ARTICLE</span><a href="#top">回到顶部 ↑</a></div>
-          <nav class="reading-next" aria-label="相邻文章"><a href="/2024/07/20/My-Second-Blog/"><small>上一篇</small><strong>卧推训练过程中发现的一个小问题</strong><span aria-hidden="true">↗</span></a></nav>
-          <a class="reading-all" href="/blog.html">← 返回文章列表</a>
-        </article>
-      </div>
-    </main>
-    <footer class="site-footer"><a class="wordmark footer-mark" href="/index.html">S<span class="mark-dot">.</span></a><span>一个关于记录与创造的个人空间</span><span>© <span class="year">2026</span> Seth</span><a class="back-top" href="#top">返回顶部 ↑</a></footer>
-  </div>
+<div class="reading-end" id="article-end"><span>END OF ARTICLE</span><a href="#top">回到顶部 ↑</a></div>
+<nav aria-label="相邻文章" class="reading-next"><a href="/2024/07/20/My-Second-Blog/"><small>上一篇</small><strong>卧推训练过程中发现的一个小问题</strong><span aria-hidden="true">↗</span></a></nav>
+<a class="reading-all" href="/blog.html">← 返回文章列表</a>
+</article>
+</div>
+</main>
+<footer class="site-footer"><a class="wordmark footer-mark" href="/index.html">S<span class="mark-dot">.</span></a><span>一个关于记录与创造的个人空间</span><span>© <span class="year">2026</span> Seth</span><a class="back-top" href="#top">返回顶部 ↑</a></footer>
+</div>
 </body>
 </html>

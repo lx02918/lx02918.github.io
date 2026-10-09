@@ -1,39 +1,40 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f5f1e9">
-  <meta name="description" content="问题描述 大概交代一下设备的基本参数 Windows11 24H2 Windows专业版 这次主要是我在近期的一次更新后突然出现，版本号是26120.3000，然后这个版本我查了下推送时间是2025-01-24，我更新应该是25或26日。不过主要问题应该理论上和更新无关">
-  <title>Windows11任务栏失灵解决方案 · Seth的小站</title>
-  <link rel="stylesheet" href="/styles.css">
-  <link rel="stylesheet" href="/article.css">
-  <script defer src="/site.js"></script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="#f5f1e9" name="theme-color"/>
+<meta content="问题描述 大概交代一下设备的基本参数 Windows11 24H2 Windows专业版 这次主要是我在近期的一次更新后突然出现，版本号是26120.3000，然后这个版本我查了下推送时间是2025-01-24，我更新应该是25或26日。不过主要问题应该理论上和更新无关" name="description"/>
+<title>Windows11任务栏失灵解决方案 · Seth的小站</title>
+<link href="/styles.css" rel="stylesheet"/>
+<link href="/article.css" rel="stylesheet"/>
+<script defer="" src="/site.js"></script>
 </head>
 <body>
-  <div class="site-shell">
-    <header class="site-header">
+<div class="site-shell">
+<header class="site-header">
 <a aria-label="Seth 首页" class="wordmark" href="/index.html"><span class="mark">S<span class="mark-dot">.</span></span><span class="wordmark-text">SETH / NOTES</span></a>
 <nav aria-label="主导航" class="main-nav"><a class="active" href="/index.html">首页</a><a href="/blog.html">文章</a><a href="/about.html">关于</a></nav>
 <button aria-label="切换明暗主题" class="theme-toggle" title="切换明暗主题" type="button"><span aria-hidden="true">◐</span></button>
 </header>
-    <main id="top">
-      <section class="reading-hero reveal">
-        <div class="reading-hero-inner">
-          <a class="reading-back" href="/blog.html">← 返回全部文章</a>
-          <p class="eyebrow">WRITINGS <span class="eyebrow-line"></span> 问题记录</p>
-          <h1>Windows11任务栏失灵解决方案</h1>
-          <div class="reading-meta"><time datetime="2025-01-31">2025-01-31</time><span>问题记录</span><span>第 10 / 53 篇</span></div>
-        </div>
-      </section>
-      <div class="reading-layout">
-        <aside class="reading-rail" aria-label="文章目录">
-          <p class="reading-rail-label">IN THIS ARTICLE / 目录</p>
-          <nav><a href="#问题描述">问题描述</a><a href="#解决方案">解决方案</a><a href="#解决方案1：重启Windows资源管理器">解决方案1：重启Windows资源管理器</a><a href="#解决方案2：检查任务栏设置">解决方案2：检查任务栏设置</a><a href="#解决方案3：检查键盘快捷键冲突">解决方案3：检查键盘快捷键冲突</a><a href="#解决方案4：修改注册表设置">解决方案4：修改注册表设置</a><a href="#注意">注意</a></nav>
-          <a class="reading-rail-back" href="/blog.html">查看全部 53 篇 ↗</a>
-        </aside>
-        <article class="reading-article">
-          <div id="article-body" class="legacy-body">
+<main id="top">
+<section class="reading-hero reveal">
+<div class="reading-hero-inner">
+<a class="reading-back" href="/blog.html">← 返回全部文章</a>
+<p class="eyebrow">WRITINGS <span class="eyebrow-line"></span> 问题记录</p>
+<h1>Windows11任务栏失灵解决方案</h1>
+<div class="reading-meta"><time datetime="2025-01-31">2025-01-31</time><span>问题记录</span><span>第 18 / 61 篇</span></div>
+</div>
+</section>
+<div class="reading-layout">
+<aside aria-label="文章目录" class="reading-rail">
+<p class="reading-rail-label">IN THIS ARTICLE / 目录</p>
+<nav><a href="#问题描述">问题描述</a><a href="#解决方案">解决方案</a><a href="#解决方案1：重启Windows资源管理器">解决方案1：重启Windows资源管理器</a><a href="#解决方案2：检查任务栏设置">解决方案2：检查任务栏设置</a><a href="#解决方案3：检查键盘快捷键冲突">解决方案3：检查键盘快捷键冲突</a><a href="#解决方案4：修改注册表设置">解决方案4：修改注册表设置</a><a href="#注意">注意</a></nav>
+<a class="reading-rail-back" href="/blog.html">查看全部 61 篇 ↗</a>
+</aside>
+<article class="reading-article">
+<div class="legacy-body" id="article-body">
 <h1 id="问题描述"><a class="headerlink" href="#问题描述" title="问题描述"></a>问题描述</h1><p>大概交代一下设备的基本参数</p>
 <ul>
 <li>Windows11 24H2</li>
@@ -83,13 +84,13 @@
 </ol>
 <p>如果提到的方案都没有解决，建议直接寻找微软支持或相关专业人士帮助。</p>
 </div>
-          <div id="article-end" class="reading-end"><span>END OF ARTICLE</span><a href="#top">回到顶部 ↑</a></div>
-          <nav class="reading-next" aria-label="相邻文章"><a href="/2025/03/05/Fix-iOS-18-4-Beta-2-No-Signal-After-Update/"><small>上一篇</small><strong>Fix iOS 18.4 Beta 2 No Signal After Update</strong><span aria-hidden="true">↗</span></a><a href="/2025/01/05/go-study-fifteenth-day/"><small>下一篇</small><strong>go学习记录——第十五天</strong><span aria-hidden="true">↗</span></a></nav>
-          <a class="reading-all" href="/blog.html">← 返回文章列表</a>
-        </article>
-      </div>
-    </main>
-    <footer class="site-footer"><a class="wordmark footer-mark" href="/index.html">S<span class="mark-dot">.</span></a><span>一个关于记录与创造的个人空间</span><span>© <span class="year">2026</span> Seth</span><a class="back-top" href="#top">返回顶部 ↑</a></footer>
-  </div>
+<div class="reading-end" id="article-end"><span>END OF ARTICLE</span><a href="#top">回到顶部 ↑</a></div>
+<nav aria-label="相邻文章" class="reading-next"><a href="/2025/03/05/Fix-iOS-18-4-Beta-2-No-Signal-After-Update/"><small>上一篇</small><strong>Fix iOS 18.4 Beta 2 No Signal After Update</strong><span aria-hidden="true">↗</span></a><a href="/2025/01/05/go-study-fifteenth-day/"><small>下一篇</small><strong>go学习记录——第十五天</strong><span aria-hidden="true">↗</span></a></nav>
+<a class="reading-all" href="/blog.html">← 返回文章列表</a>
+</article>
+</div>
+</main>
+<footer class="site-footer"><a class="wordmark footer-mark" href="/index.html">S<span class="mark-dot">.</span></a><span>一个关于记录与创造的个人空间</span><span>© <span class="year">2026</span> Seth</span><a class="back-top" href="#top">返回顶部 ↑</a></footer>
+</div>
 </body>
 </html>

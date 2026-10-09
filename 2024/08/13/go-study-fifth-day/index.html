@@ -1,39 +1,40 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f5f1e9">
-  <meta name="description" content="这篇不算完全的记录，要补充一下基本数据结构中关于字符串的包和切片部分的包，顺便补全一下之前说的转义字符和格式化占位符表格。 strings和strcov包 前缀和后缀 HasPrefix() 和 Hassuffix() 用于判断字符串 s 是否以 prefix 开头或者">
-  <title>go学习记录——第五天 · Seth的小站</title>
-  <link rel="stylesheet" href="/styles.css">
-  <link rel="stylesheet" href="/article.css">
-  <script defer src="/site.js"></script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="#f5f1e9" name="theme-color"/>
+<meta content="这篇不算完全的记录，要补充一下基本数据结构中关于字符串的包和切片部分的包，顺便补全一下之前说的转义字符和格式化占位符表格。 strings和strcov包 前缀和后缀 HasPrefix() 和 Hassuffix() 用于判断字符串 s 是否以 prefix 开头或者" name="description"/>
+<title>go学习记录——第五天 · Seth的小站</title>
+<link href="/styles.css" rel="stylesheet"/>
+<link href="/article.css" rel="stylesheet"/>
+<script defer="" src="/site.js"></script>
 </head>
 <body>
-  <div class="site-shell">
-    <header class="site-header">
+<div class="site-shell">
+<header class="site-header">
 <a aria-label="Seth 首页" class="wordmark" href="/index.html"><span class="mark">S<span class="mark-dot">.</span></span><span class="wordmark-text">SETH / NOTES</span></a>
 <nav aria-label="主导航" class="main-nav"><a class="active" href="/index.html">首页</a><a href="/blog.html">文章</a><a href="/about.html">关于</a></nav>
 <button aria-label="切换明暗主题" class="theme-toggle" title="切换明暗主题" type="button"><span aria-hidden="true">◐</span></button>
 </header>
-    <main id="top">
-      <section class="reading-hero reveal">
-        <div class="reading-hero-inner">
-          <a class="reading-back" href="/blog.html">← 返回全部文章</a>
-          <p class="eyebrow">WRITINGS <span class="eyebrow-line"></span> 学习记录</p>
-          <h1>go学习记录——第五天</h1>
-          <div class="reading-meta"><time datetime="2024-08-13">2024-08-13</time><span>学习记录</span><span>第 36 / 53 篇</span></div>
-        </div>
-      </section>
-      <div class="reading-layout">
-        <aside class="reading-rail" aria-label="文章目录">
-          <p class="reading-rail-label">IN THIS ARTICLE / 目录</p>
-          <nav><a href="#strings和strcov包">strings和strcov包</a><a href="#前缀和后缀">前缀和后缀</a><a href="#字符串包含关系">字符串包含关系</a><a href="#判断子字符串或字符在父字符串中出现的位置（索引）">判断子字符串或字符在父字符串中出现的位置（索引）</a><a href="#字符串替换">字符串替换</a><a href="#统计字符串出现次数">统计字符串出现次数</a><a href="#重复字符串">重复字符串</a><a href="#修改字符串的大小写">修改字符串的大小写</a><a href="#修剪字符串">修剪字符串</a><a href="#分割字符串">分割字符串</a><a href="#拼接slice到字符串">拼接slice到字符串</a><a href="#从字符串中读取内容">从字符串中读取内容</a><a href="#article-end">继续往下阅读 ↓</a></nav>
-          <a class="reading-rail-back" href="/blog.html">查看全部 53 篇 ↗</a>
-        </aside>
-        <article class="reading-article">
-          <div id="article-body" class="legacy-body">
+<main id="top">
+<section class="reading-hero reveal">
+<div class="reading-hero-inner">
+<a class="reading-back" href="/blog.html">← 返回全部文章</a>
+<p class="eyebrow">WRITINGS <span class="eyebrow-line"></span> 学习记录</p>
+<h1>go学习记录——第五天</h1>
+<div class="reading-meta"><time datetime="2024-08-13">2024-08-13</time><span>学习记录</span><span>第 44 / 61 篇</span></div>
+</div>
+</section>
+<div class="reading-layout">
+<aside aria-label="文章目录" class="reading-rail">
+<p class="reading-rail-label">IN THIS ARTICLE / 目录</p>
+<nav><a href="#strings和strcov包">strings和strcov包</a><a href="#前缀和后缀">前缀和后缀</a><a href="#字符串包含关系">字符串包含关系</a><a href="#判断子字符串或字符在父字符串中出现的位置（索引）">判断子字符串或字符在父字符串中出现的位置（索引）</a><a href="#字符串替换">字符串替换</a><a href="#统计字符串出现次数">统计字符串出现次数</a><a href="#重复字符串">重复字符串</a><a href="#修改字符串的大小写">修改字符串的大小写</a><a href="#修剪字符串">修剪字符串</a><a href="#分割字符串">分割字符串</a><a href="#拼接slice到字符串">拼接slice到字符串</a><a href="#从字符串中读取内容">从字符串中读取内容</a><a href="#article-end">继续往下阅读 ↓</a></nav>
+<a class="reading-rail-back" href="/blog.html">查看全部 61 篇 ↗</a>
+</aside>
+<article class="reading-article">
+<div class="legacy-body" id="article-body">
 <p>这篇不算完全的记录，要补充一下基本数据结构中关于字符串的包和切片部分的包，顺便补全一下之前说的转义字符和格式化占位符表格。</p>
 <h1 id="strings和strcov包"><a class="headerlink" href="#strings和strcov包" title="strings和strcov包"></a>strings和strcov包</h1><h2 id="前缀和后缀"><a class="headerlink" href="#前缀和后缀" title="前缀和后缀"></a>前缀和后缀</h2><p><code>HasPrefix()</code>和<code>Hassuffix()</code>用于判断字符串<code>s</code>是否以<code>prefix</code>开头或者以<code>suffix</code>结尾。</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/></pre></td><td class="code"><pre><code class="hljs go">strings.HasPrefix(s, prefix <span class="hljs-type">string</span>) <span class="hljs-type">bool</span><br/>strings.HasSuffix(s, suffix <span class="hljs-type">string</span>) <span class="hljs-type">bool</span><br/></code></pre></td></tr></table></figure>
@@ -239,13 +240,13 @@
 </tbody></table>
 <p>今儿就到这吧，再搞下去脑容量不够了🤣</p>
 </div>
-          <div id="article-end" class="reading-end"><span>END OF ARTICLE</span><a href="#top">回到顶部 ↑</a></div>
-          <nav class="reading-next" aria-label="相邻文章"><a href="/2024/08/14/go-study-sixth-day/"><small>上一篇</small><strong>go学习记录——第六天</strong><span aria-hidden="true">↗</span></a><a href="/2024/08/12/go-study-fourth-day/"><small>下一篇</small><strong>go学习记录——第四天</strong><span aria-hidden="true">↗</span></a></nav>
-          <a class="reading-all" href="/blog.html">← 返回文章列表</a>
-        </article>
-      </div>
-    </main>
-    <footer class="site-footer"><a class="wordmark footer-mark" href="/index.html">S<span class="mark-dot">.</span></a><span>一个关于记录与创造的个人空间</span><span>© <span class="year">2026</span> Seth</span><a class="back-top" href="#top">返回顶部 ↑</a></footer>
-  </div>
+<div class="reading-end" id="article-end"><span>END OF ARTICLE</span><a href="#top">回到顶部 ↑</a></div>
+<nav aria-label="相邻文章" class="reading-next"><a href="/2024/08/14/go-study-sixth-day/"><small>上一篇</small><strong>go学习记录——第六天</strong><span aria-hidden="true">↗</span></a><a href="/2024/08/12/go-study-fourth-day/"><small>下一篇</small><strong>go学习记录——第四天</strong><span aria-hidden="true">↗</span></a></nav>
+<a class="reading-all" href="/blog.html">← 返回文章列表</a>
+</article>
+</div>
+</main>
+<footer class="site-footer"><a class="wordmark footer-mark" href="/index.html">S<span class="mark-dot">.</span></a><span>一个关于记录与创造的个人空间</span><span>© <span class="year">2026</span> Seth</span><a class="back-top" href="#top">返回顶部 ↑</a></footer>
+</div>
 </body>
 </html>

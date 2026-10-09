@@ -1,39 +1,40 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f5f1e9">
-  <meta name="description" content="909 蛇形棋 Medium 给你一个大小为 n x n 的整数矩阵 board ，方格按从 1 到 n2 编号，编号遵循 转行交替方式 ，从左下角开始 （即，从 board[n - 1][0] 开始）每一行交替方向。 玩家从棋盘上的方格 1 （总是在最后一行、第一列）">
-  <title>leetcode刷题记录——图的广度优先遍历 · Seth的小站</title>
-  <link rel="stylesheet" href="/styles.css">
-  <link rel="stylesheet" href="/article.css">
-  <script defer src="/site.js"></script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="#f5f1e9" name="theme-color"/>
+<meta content="909 蛇形棋 Medium 给你一个大小为 n x n 的整数矩阵 board ，方格按从 1 到 n2 编号，编号遵循 转行交替方式 ，从左下角开始 （即，从 board[n - 1][0] 开始）每一行交替方向。 玩家从棋盘上的方格 1 （总是在最后一行、第一列）" name="description"/>
+<title>leetcode刷题记录——图的广度优先遍历 · Seth的小站</title>
+<link href="/styles.css" rel="stylesheet"/>
+<link href="/article.css" rel="stylesheet"/>
+<script defer="" src="/site.js"></script>
 </head>
 <body>
-  <div class="site-shell">
-    <header class="site-header">
+<div class="site-shell">
+<header class="site-header">
 <a aria-label="Seth 首页" class="wordmark" href="/index.html"><span class="mark">S<span class="mark-dot">.</span></span><span class="wordmark-text">SETH / NOTES</span></a>
 <nav aria-label="主导航" class="main-nav"><a class="active" href="/index.html">首页</a><a href="/blog.html">文章</a><a href="/about.html">关于</a></nav>
 <button aria-label="切换明暗主题" class="theme-toggle" title="切换明暗主题" type="button"><span aria-hidden="true">◐</span></button>
 </header>
-    <main id="top">
-      <section class="reading-hero reveal">
-        <div class="reading-hero-inner">
-          <a class="reading-back" href="/blog.html">← 返回全部文章</a>
-          <p class="eyebrow">WRITINGS <span class="eyebrow-line"></span> 刷题记录</p>
-          <h1>leetcode刷题记录——图的广度优先遍历</h1>
-          <div class="reading-meta"><time datetime="2024-08-27">2024-08-27</time><span>刷题记录</span><span>第 28 / 53 篇</span></div>
-        </div>
-      </section>
-      <div class="reading-layout">
-        <aside class="reading-rail" aria-label="文章目录">
-          <p class="reading-rail-label">IN THIS ARTICLE / 目录</p>
-          <nav><a href="#909-蛇形棋-Medium">909 蛇形棋 Medium</a><a href="#思路">思路</a><a href="#代码">代码</a><a href="#时间复杂度">时间复杂度</a><a href="#433-最小基因变化-Medium">433 最小基因变化 Medium</a><a href="#思路-1">思路</a><a href="#代码-1">代码</a><a href="#时间复杂度-1">时间复杂度</a><a href="#127-单词接龙-Hard">127 单词接龙 Hard</a><a href="#思路-2">思路</a><a href="#代码-2">代码</a><a href="#时间复杂度-2">时间复杂度</a></nav>
-          <a class="reading-rail-back" href="/blog.html">查看全部 53 篇 ↗</a>
-        </aside>
-        <article class="reading-article">
-          <div id="article-body" class="legacy-body">
+<main id="top">
+<section class="reading-hero reveal">
+<div class="reading-hero-inner">
+<a class="reading-back" href="/blog.html">← 返回全部文章</a>
+<p class="eyebrow">WRITINGS <span class="eyebrow-line"></span> 刷题记录</p>
+<h1>leetcode刷题记录——图的广度优先遍历</h1>
+<div class="reading-meta"><time datetime="2024-08-27">2024-08-27</time><span>刷题记录</span><span>第 36 / 61 篇</span></div>
+</div>
+</section>
+<div class="reading-layout">
+<aside aria-label="文章目录" class="reading-rail">
+<p class="reading-rail-label">IN THIS ARTICLE / 目录</p>
+<nav><a href="#909-蛇形棋-Medium">909 蛇形棋 Medium</a><a href="#思路">思路</a><a href="#代码">代码</a><a href="#时间复杂度">时间复杂度</a><a href="#433-最小基因变化-Medium">433 最小基因变化 Medium</a><a href="#思路-1">思路</a><a href="#代码-1">代码</a><a href="#时间复杂度-1">时间复杂度</a><a href="#127-单词接龙-Hard">127 单词接龙 Hard</a><a href="#思路-2">思路</a><a href="#代码-2">代码</a><a href="#时间复杂度-2">时间复杂度</a></nav>
+<a class="reading-rail-back" href="/blog.html">查看全部 61 篇 ↗</a>
+</aside>
+<article class="reading-article">
+<div class="legacy-body" id="article-body">
 <h1 id="909-蛇形棋-Medium"><a class="headerlink" href="#909-蛇形棋-Medium" title="909 蛇形棋 Medium"></a>909 蛇形棋 <font color="#ff7f50" size="4">Medium</font></h1><p>给你一个大小为 <code>n x n</code> 的整数矩阵 <code>board</code> ，方格按从 <code>1</code> 到 <code>n2</code> 编号，编号遵循 <a href="https://baike.baidu.com/item/%E7%89%9B%E8%80%95%E5%BC%8F%E8%BD%AC%E8%A1%8C%E4%B9%A6%E5%86%99%E6%B3%95/**17195786**" rel="noopener" target="_blank">转行交替方式</a> ，从左下角开始 （即，从 <code>board[n - 1][0]</code> 开始）每一行交替方向。</p>
 <p>玩家从棋盘上的方格 <code>1</code> （总是在最后一行、第一列）开始出发。</p>
 <p>每一回合，玩家需要从当前方格 <code>curr</code> 开始出发，按下述要求前进：</p>
@@ -123,13 +124,13 @@
 <h2 id="代码-2"><a class="headerlink" href="#代码-2" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/><span class="line">10</span><br/><span class="line">11</span><br/><span class="line">12</span><br/><span class="line">13</span><br/><span class="line">14</span><br/><span class="line">15</span><br/><span class="line">16</span><br/><span class="line">17</span><br/><span class="line">18</span><br/><span class="line">19</span><br/><span class="line">20</span><br/><span class="line">21</span><br/><span class="line">22</span><br/></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br/>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">ladderLength</span>(<span class="hljs-params">self, beginWord: <span class="hljs-built_in">str</span>, endWord: <span class="hljs-built_in">str</span>, wordList: <span class="hljs-type">List</span>[<span class="hljs-built_in">str</span>]</span>) -&gt; <span class="hljs-built_in">int</span>:<br/>        <span class="hljs-keyword">if</span> endWord <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> wordList:<br/>            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span><br/>        word = <span class="hljs-built_in">set</span>(wordList)<br/>        queue = deque([beginWord])<br/>        step = <span class="hljs-number">1</span><br/>        <span class="hljs-keyword">while</span> queue:<br/>            <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(queue)):<br/>                gene = queue.popleft()<br/>                <span class="hljs-keyword">if</span> gene == endWord:<br/>                    <span class="hljs-keyword">return</span> step<br/>                <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(gene)):<br/>                    <span class="hljs-keyword">for</span> c <span class="hljs-keyword">in</span> <span class="hljs-string">'abcdefghijklmnopqrstuvwxyz'</span>:<br/>                        <span class="hljs-keyword">if</span> c == gene[i]:<br/>                            <span class="hljs-keyword">continue</span><br/>                        new_gene = gene[ : i] + c + gene[i + <span class="hljs-number">1</span>:]<br/>                        <span class="hljs-keyword">if</span> new_gene <span class="hljs-keyword">in</span> word:<br/>                            queue.append(new_gene)<br/>                            word.remove(new_gene)<br/>            step += <span class="hljs-number">1</span><br/>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span><br/></code></pre></td></tr></table></figure>
 <h2 id="时间复杂度-2"><a class="headerlink" href="#时间复杂度-2" title="时间复杂度"></a>时间复杂度</h2><p>时间复杂度O(n²)，空间复杂度O(n²)，执行时间373ms，消耗内存17.1MB</p>
 </div>
-          <div id="article-end" class="reading-end"><span>END OF ARTICLE</span><a href="#top">回到顶部 ↑</a></div>
-          <nav class="reading-next" aria-label="相邻文章"><a href="/2024/08/28/leetcode-%E5%AD%97%E5%85%B8%E6%A0%91/"><small>上一篇</small><strong>leetcode刷题记录——字典树</strong><span aria-hidden="true">↗</span></a><a href="/2024/08/26/%E4%BA%AC%E4%B8%9C%E7%AC%94%E8%AF%95/"><small>下一篇</small><strong>京东笔试——算法工程师第三批</strong><span aria-hidden="true">↗</span></a></nav>
-          <a class="reading-all" href="/blog.html">← 返回文章列表</a>
-        </article>
-      </div>
-    </main>
-    <footer class="site-footer"><a class="wordmark footer-mark" href="/index.html">S<span class="mark-dot">.</span></a><span>一个关于记录与创造的个人空间</span><span>© <span class="year">2026</span> Seth</span><a class="back-top" href="#top">返回顶部 ↑</a></footer>
-  </div>
+<div class="reading-end" id="article-end"><span>END OF ARTICLE</span><a href="#top">回到顶部 ↑</a></div>
+<nav aria-label="相邻文章" class="reading-next"><a href="/2024/08/28/leetcode-%E5%AD%97%E5%85%B8%E6%A0%91/"><small>上一篇</small><strong>leetcode刷题记录——字典树</strong><span aria-hidden="true">↗</span></a><a href="/2024/08/26/%E4%BA%AC%E4%B8%9C%E7%AC%94%E8%AF%95/"><small>下一篇</small><strong>京东笔试——算法工程师第三批</strong><span aria-hidden="true">↗</span></a></nav>
+<a class="reading-all" href="/blog.html">← 返回文章列表</a>
+</article>
+</div>
+</main>
+<footer class="site-footer"><a class="wordmark footer-mark" href="/index.html">S<span class="mark-dot">.</span></a><span>一个关于记录与创造的个人空间</span><span>© <span class="year">2026</span> Seth</span><a class="back-top" href="#top">返回顶部 ↑</a></footer>
+</div>
 </body>
 </html>

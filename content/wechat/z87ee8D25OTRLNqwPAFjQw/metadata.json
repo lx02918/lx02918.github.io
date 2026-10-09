@@ -1,0 +1,16 @@
+{
+  "slug": "z87ee8D25OTRLNqwPAFjQw",
+  "title": "放弃瞎用 Claude Code，就从今天开始！",
+  "date": "2026-05-24",
+  "url": "/2026/05/24/claude-code-tips/",
+  "source_url": "https://mp.weixin.qq.com/s/z87ee8D25OTRLNqwPAFjQw",
+  "account": "凌曦悦",
+  "description": "省流版： 命令式 prompt 出浅思考，描述式 prompt 出深推理 context 超 60% 不是省钱问题，是注意力衰减问题 走偏了重开比纠正快 2-3 倍 sub agents 真正的价值是隔离上下文，不是并行 /loop 让 Claude 变成异步同事，不是异步工具 最近刷到一…",
+  "excerpt": "省流版： 命令式 prompt 出浅思考，描述式 prompt 出深推理 context 超 60% 不是省钱问题，是注意力衰减问题 走偏了重开比纠正快 2-3 倍 sub agents 真正的价值是隔离上下文，不是并行 /loop 让 Claude 变成异步同事，不是异步工具 最近刷到一…",
+  "image_paths": [
+    "/img/wechat/z87ee8D25OTRLNqwPAFjQw/01.png",
+    "/img/wechat/z87ee8D25OTRLNqwPAFjQw/02.png",
+    "/img/wechat/z87ee8D25OTRLNqwPAFjQw/03.png"
+  ],
+  "text_sha256": "47881c3a095cbae54733d71cc2d3f94269aba533ab6b83cb2c294bdf3c93d4a1"
+}

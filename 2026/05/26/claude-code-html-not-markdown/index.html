@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f5f1e9">
+<meta name="description" content="今天我想邀请大家做一件事：以后用 Claude Code 时，把输出格式从 Markdown 改成 HTML。">
+<title>同样是用 Claude Code，我现在劝你放弃 Markdown 换 HTML · Seth的小站</title>
+<link rel="stylesheet" href="/styles.css"><link rel="stylesheet" href="/article.css">
+<script defer src="/site.js"></script>
+</head>
+<body><div class="site-shell"><header class="site-header">
+<a aria-label="Seth 首页" class="wordmark" href="/index.html"><span class="mark">S<span class="mark-dot">.</span></span><span class="wordmark-text">SETH / NOTES</span></a>
+<nav aria-label="主导航" class="main-nav"><a class="active" href="/index.html">首页</a><a href="/blog.html">文章</a><a href="/about.html">关于</a></nav>
+<button aria-label="切换明暗主题" class="theme-toggle" title="切换明暗主题" type="button"><span aria-hidden="true">◐</span></button>
+</header>
+<main id="top">
+<section class="reading-hero reveal"><div class="reading-hero-inner">
+<a class="reading-back" href="/blog.html">← 返回全部文章</a>
+<p class="eyebrow">WRITINGS <span class="eyebrow-line"></span> AI 实践</p>
+<h1>同样是用 Claude Code，我现在劝你放弃 Markdown 换 HTML</h1>
+<div class="reading-meta"><time datetime="2026-05-26">2026-05-26</time><span>AI 实践</span><span>第 05 / 61 篇</span></div>
+</div></section>
+<div class="reading-layout">
+<aside class="reading-rail" aria-label="文章目录"><p class="reading-rail-label">IN THIS ARTICLE / 目录</p>
+<nav><a href="#section-1">为什么是现在？</a><a href="#section-2">HTML 到底强在哪？</a><a href="#section-3">Token 成本会不会变高？</a><a href="#section-4">我是怎么用这个方法的呢？</a><a href="#section-5">五个场景，照着用就行</a><a href="#section-6">Simon Willison 的亲测结果</a></nav><a class="reading-rail-back" href="/blog.html">查看全部 61 篇 ↗</a></aside>
+<article class="reading-article"><div id="article-body" class="legacy-body wechat-body"><img alt="同样是用 Claude Code，我现在劝你放弃 Markdown 换 HTML · 配图 1" loading="lazy" src="/img/wechat/xztoXhVv9RyD2ZNnkTPfCA/01.png"/><p><br/></p><p>今天我想邀请大家做一件事：以后用 Claude Code 时，把输出格式从 Markdown 改成 HTML。</p><p>就这一个改变，你和 AI 协作的效率会直接上一个台阶。</p><p>省流版：</p><p>     · 信息密度远高于 Markdown，表格、SVG、交互控件全能嵌进去 </p><p>     · 超 100 行的 Markdown 几乎读不下去，HTML 有视觉层级，读起来流畅 · HTML 文件上传发链接，同事直接打开，比 .md 附件方便多了 </p><p>     · 支持滑块等交互控件，实时调参再导出，这是 Markdown 做不到的 </p><p>     · Claude Code 能吃进 Slack、git 历史、本地文件系统，HTML 才配得上这些上下文</p><h2 id="section-1">为什么是现在？</h2><p>Anthropic 官方 Claude Code 团队成员 Thariq Shihipar 上个月刚发了一篇文章，专门讲这件事。发布当天获得 1350 万次浏览。</p><p>同一天，Django 联合创始人、全球最活跃的 LLM 独立研究者之一 Simon Willison 也做了评论，并亲自测试验证了这个方法。两位在同一天给出同样的结论，这个信号不容忽视。</p><h2 id="section-2">HTML 到底强在哪？</h2><p>Markdown 的天花板就是纯文本格式。它能做标题、加粗、代码块，仅此而已。但 HTML 能做的事情要丰富得多。</p><p>用 SVG 可以直接画流程图和架构图。用 CSS 做视觉分层和颜色区分。用 table 呈现多维对比数据。用 JavaScript 做可点击的交互控件，甚至内嵌实时调节滑块。用 canvas 呈现空间布局数据。</p><p>同样是一份技术调研报告，Markdown 版本是一墙文字，HTML 版本是一个可以点击、可以导航、可以折叠展开、还能直接发链接的网页。这不是同一个量级的东西。</p><p>作者 Thariq 坦言，超过 100 行的 Markdown 他几乎读不下去。换成 HTML 之后，同样的信息量，他能一次读完。</p><h2 id="section-3">Token 成本会不会变高？</h2><p>这个问题很多人会问。答案是：不会有实质影响。在现在的百万级 Token 上下文窗口里，HTML 和 Markdown 的 Token 差异可以忽略不计。可读性的提升远比这点开销值得。</p><p>Thariq 自己已经几乎完全放弃了 Markdown。他说自己站在 HTML 最大主义的极端。</p><img alt="同样是用 Claude Code，我现在劝你放弃 Markdown 换 HTML · 配图 2" loading="lazy" src="/img/wechat/xztoXhVv9RyD2ZNnkTPfCA/02.png"/><p><br/></p><h2 id="section-4">我是怎么用这个方法的呢？</h2><p>以前每次让 Claude Code 做技术调研，收到的是一大堆 Markdown，看到一半就没耐心了，信息密度太低，视觉上毫无节奏。</p><p>后来我只改了一句话，在提示词里加上：生成一个 HTML 文件。结果完全不一样了。有 Tab 页切换，有 SVG 流程图，有可折叠的代码块，整个报告一次能读完，还能直接发链接给同事。</p><p>Thariq 在 Anthropic 内部就是这么做的。他为了写关于 Prompt Caching 演进历程的文章，让 Claude 读完整个 git 历史，生成了一份深度研究 HTML 文件。所有的变更脉络、关键决策，全部视觉化呈现在一个页面里，清晰到不需要任何额外解释。</p><h2 id="section-5">五个场景，照着用就行</h2><p>写技术规划时，不要再写单一的 Markdown 计划文件了。让 Claude Code 生成一组 HTML 文件：先做多种方案的探索页，再深入展开某一方向，做出 mockup 和数据流图，最后输出实施计划。下次开新 Session 时，把这些文件一起传进去让 Claude 执行。</p><p>提示词可以这样写：制作一个 HTML 文件，包含详细的实施计划，要有 mockup、数据流图和关键代码片段，方便我审阅。</p><p>做代码审查时，让 Claude Code 生成 HTML 版本的 diff，内联注释，按严重程度用颜色标注，附上视觉流程图。复杂的 PR，一眼就能看清楚问题在哪里。提示词很简单：帮我审查这个 PR，生成一个 HTML artifact，描述它的内容。</p><p>做研究报告时，把 Slack 记录、代码库、git 历史一起喂给 Claude Code，让它输出带 SVG 图解的分析页面。信息来源越丰富，HTML 输出的价值就越高，因为它能把这些异构数据整合成一个可读的整体。</p><p>做设计原型时，HTML 本身就是画布。可以做动画，可以做组件，甚至可以内嵌实时调节滑块，调好参数之后直接导出给提示词。这是 Markdown 根本没有的能力。</p><p>还有一种用法是自定义编辑界面。跨列拖拽工单、带实时预览的 System Prompt 调节器、功能开关的可视化配置页面，这些都可以用 HTML 定制成一次性工具，用完即弃，但效率极高。</p><h2 id="section-6">Simon Willison 的亲测结果</h2><p>Simon Willison 看完 Thariq 的文章之后，当天就去做了测试。他拿了一段真实的 Linux 安全漏洞代码（一段混淆过的 Python 概念验证），让大模型生成 HTML 解释，要求是：详细解释代码，展开混淆部分，深入讲清楚它做了什么、怎么做到的，用 HTML 输出，排版精良，充分利用 HTML、CSS 和 JavaScript 的能力，让解释尽可能丰富、有交互性、清晰易懂。</p><p>生成的 HTML 页面有高层级摘要、分步骤拆解、模式分析表格、高亮的安全警告标注。他的评价是：效果相当不错，唯一的遗憾是应该更多强调漏洞本身，而不是围绕它的 Python 测试框架。</p><p>这个实验说明什么？HTML 输出格式不只适合 Claude，对任何大模型都有效。这是一个方法论，不是产品绑定。</p><img alt="同样是用 Claude Code，我现在劝你放弃 Markdown 换 HTML · 配图 3" loading="lazy" src="/img/wechat/xztoXhVv9RyD2ZNnkTPfCA/03.png"/><p><br/></p><p>如果你同时在用 Markdown 和 HTML，什么时候考虑完全切换？现在就可以。提示词里多加五个字：生成一个 HTML 文件。</p><p>如果过段时间有更好的方式出现，我会告诉你们的。</p><p>赶快去试试吧！期待你回来留言反馈！</p><br/></div>
+<div id="article-end" class="reading-end"><span>END OF ARTICLE</span><a href="#top">回到顶部 ↑</a></div>
+<div class="wechat-source">原载于公众号「凌曦悦」 · <a href="https://mp.weixin.qq.com/s/xztoXhVv9RyD2ZNnkTPfCA" rel="noopener">查看原文 ↗</a></div>
+<nav class="reading-next" aria-label="相邻文章"><a href="/2026/05/28/claude-agent-teams/"><small>上一篇</small><strong>7步构建Claude Agent团队：从单人对话到并行工作团队</strong><span aria-hidden="true">↗</span></a><a href="/2026/05/26/anthropic-cowork-agent/"><small>下一篇</small><strong>六个月，Anthropic 悄悄造了一台会自己工作的机器</strong><span aria-hidden="true">↗</span></a></nav>
+<a class="reading-all" href="/blog.html">← 返回文章列表</a></article></div>
+</main><footer class="site-footer"><a class="wordmark footer-mark" href="/index.html">S<span class="mark-dot">.</span></a><span>一个关于记录与创造的个人空间</span><span>© <span class="year">2026</span> Seth</span><a class="back-top" href="#top">返回顶部 ↑</a></footer></div></body></html>

@@ -1,39 +1,40 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f5f1e9">
-  <meta name="description" content="17 电话号码的字母组合 Medium 给定一个仅包含数字 2-9 的字符串，返回所有它能表示的字母组合。答案可以按 任意顺序 返回。 给出数字到字母的映射如下（与电话按键相同）。注意 1 不对应任何字母。 示例 1： 1 2 输入： digits = &quot;23&quot; 输出：">
-  <title>leetcode刷题记录——回溯 · Seth的小站</title>
-  <link rel="stylesheet" href="/styles.css">
-  <link rel="stylesheet" href="/article.css">
-  <script defer src="/site.js"></script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="#f5f1e9" name="theme-color"/>
+<meta content='17 电话号码的字母组合 Medium 给定一个仅包含数字 2-9 的字符串，返回所有它能表示的字母组合。答案可以按 任意顺序 返回。 给出数字到字母的映射如下（与电话按键相同）。注意 1 不对应任何字母。 示例 1： 1 2 输入： digits = "23" 输出：' name="description"/>
+<title>leetcode刷题记录——回溯 · Seth的小站</title>
+<link href="/styles.css" rel="stylesheet"/>
+<link href="/article.css" rel="stylesheet"/>
+<script defer="" src="/site.js"></script>
 </head>
 <body>
-  <div class="site-shell">
-    <header class="site-header">
+<div class="site-shell">
+<header class="site-header">
 <a aria-label="Seth 首页" class="wordmark" href="/index.html"><span class="mark">S<span class="mark-dot">.</span></span><span class="wordmark-text">SETH / NOTES</span></a>
 <nav aria-label="主导航" class="main-nav"><a class="active" href="/index.html">首页</a><a href="/blog.html">文章</a><a href="/about.html">关于</a></nav>
 <button aria-label="切换明暗主题" class="theme-toggle" title="切换明暗主题" type="button"><span aria-hidden="true">◐</span></button>
 </header>
-    <main id="top">
-      <section class="reading-hero reveal">
-        <div class="reading-hero-inner">
-          <a class="reading-back" href="/blog.html">← 返回全部文章</a>
-          <p class="eyebrow">WRITINGS <span class="eyebrow-line"></span> 刷题记录</p>
-          <h1>leetcode刷题记录——回溯</h1>
-          <div class="reading-meta"><time datetime="2024-08-29">2024-08-29</time><span>刷题记录</span><span>第 26 / 53 篇</span></div>
-        </div>
-      </section>
-      <div class="reading-layout">
-        <aside class="reading-rail" aria-label="文章目录">
-          <p class="reading-rail-label">IN THIS ARTICLE / 目录</p>
-          <nav><a href="#17-电话号码的字母组合-Medium">17 电话号码的字母组合 Medium</a><a href="#思路">思路</a><a href="#代码">代码</a><a href="#时间复杂度">时间复杂度</a><a href="#77-组合-Medium">77 组合 Medium</a><a href="#思路-1">思路</a><a href="#代码-1">代码</a><a href="#时间复杂度-1">时间复杂度</a><a href="#46-全排列-Medium">46 全排列 Medium</a><a href="#思路-2">思路</a><a href="#代码-2">代码</a><a href="#时间复杂度-2">时间复杂度</a><a href="#article-end">继续往下阅读 ↓</a></nav>
-          <a class="reading-rail-back" href="/blog.html">查看全部 53 篇 ↗</a>
-        </aside>
-        <article class="reading-article">
-          <div id="article-body" class="legacy-body">
+<main id="top">
+<section class="reading-hero reveal">
+<div class="reading-hero-inner">
+<a class="reading-back" href="/blog.html">← 返回全部文章</a>
+<p class="eyebrow">WRITINGS <span class="eyebrow-line"></span> 刷题记录</p>
+<h1>leetcode刷题记录——回溯</h1>
+<div class="reading-meta"><time datetime="2024-08-29">2024-08-29</time><span>刷题记录</span><span>第 34 / 61 篇</span></div>
+</div>
+</section>
+<div class="reading-layout">
+<aside aria-label="文章目录" class="reading-rail">
+<p class="reading-rail-label">IN THIS ARTICLE / 目录</p>
+<nav><a href="#17-电话号码的字母组合-Medium">17 电话号码的字母组合 Medium</a><a href="#思路">思路</a><a href="#代码">代码</a><a href="#时间复杂度">时间复杂度</a><a href="#77-组合-Medium">77 组合 Medium</a><a href="#思路-1">思路</a><a href="#代码-1">代码</a><a href="#时间复杂度-1">时间复杂度</a><a href="#46-全排列-Medium">46 全排列 Medium</a><a href="#思路-2">思路</a><a href="#代码-2">代码</a><a href="#时间复杂度-2">时间复杂度</a><a href="#article-end">继续往下阅读 ↓</a></nav>
+<a class="reading-rail-back" href="/blog.html">查看全部 61 篇 ↗</a>
+</aside>
+<article class="reading-article">
+<div class="legacy-body" id="article-body">
 <h1 id="17-电话号码的字母组合-Medium"><a class="headerlink" href="#17-电话号码的字母组合-Medium" title="17 电话号码的字母组合 Medium"></a>17 电话号码的字母组合 <font color="#ff7f50" size="4">Medium</font></h1><p>给定一个仅包含数字 <code>2-9</code> 的字符串，返回所有它能表示的字母组合。答案可以按 <strong>任意顺序</strong> 返回。</p>
 <p>给出数字到字母的映射如下（与电话按键相同）。注意 1 不对应任何字母。</p>
 <p><img alt="img" lazyload="" src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2021/11/09/200px-telephone-keypad2svg.png" srcset="/img/loading.gif"/></p>
@@ -154,13 +155,13 @@
 <h2 id="时间复杂度-6"><a class="headerlink" href="#时间复杂度-6" title="时间复杂度"></a>时间复杂度</h2><p>时间复杂度$ O(m * n * 4^L)$，空间复杂度O(L)，执行时间3876ms，消耗内存16.4MB</p>
 <h1 id="模板"><a class="headerlink" href="#模板" title="模板"></a>模板</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/><span class="line">10</span><br/></pre></td><td class="code"><pre><code class="hljs python">result = []<br/><span class="hljs-keyword">def</span> <span class="hljs-title function_">backtrack</span>(<span class="hljs-params">路径, 选择列表</span>):<br/>    <span class="hljs-keyword">if</span> 满足结束条件:<br/>        result.add(路径)<br/>        <span class="hljs-keyword">return</span><br/>    <br/>    <span class="hljs-keyword">for</span> 选择 <span class="hljs-keyword">in</span> 选择列表:<br/>        做选择<br/>        backtrack(路径, 选择列表)<br/>        撤销选择<br/></code></pre></td></tr></table></figure>
 </div>
-          <div id="article-end" class="reading-end"><span>END OF ARTICLE</span><a href="#top">回到顶部 ↑</a></div>
-          <nav class="reading-next" aria-label="相邻文章"><a href="/2024/09/03/leetcode-%E5%88%86%E6%B2%BB/"><small>上一篇</small><strong>leetcode刷题记录——分治</strong><span aria-hidden="true">↗</span></a><a href="/2024/08/28/leetcode-%E5%AD%97%E5%85%B8%E6%A0%91/"><small>下一篇</small><strong>leetcode刷题记录——字典树</strong><span aria-hidden="true">↗</span></a></nav>
-          <a class="reading-all" href="/blog.html">← 返回文章列表</a>
-        </article>
-      </div>
-    </main>
-    <footer class="site-footer"><a class="wordmark footer-mark" href="/index.html">S<span class="mark-dot">.</span></a><span>一个关于记录与创造的个人空间</span><span>© <span class="year">2026</span> Seth</span><a class="back-top" href="#top">返回顶部 ↑</a></footer>
-  </div>
+<div class="reading-end" id="article-end"><span>END OF ARTICLE</span><a href="#top">回到顶部 ↑</a></div>
+<nav aria-label="相邻文章" class="reading-next"><a href="/2024/09/03/leetcode-%E5%88%86%E6%B2%BB/"><small>上一篇</small><strong>leetcode刷题记录——分治</strong><span aria-hidden="true">↗</span></a><a href="/2024/08/28/leetcode-%E5%AD%97%E5%85%B8%E6%A0%91/"><small>下一篇</small><strong>leetcode刷题记录——字典树</strong><span aria-hidden="true">↗</span></a></nav>
+<a class="reading-all" href="/blog.html">← 返回文章列表</a>
+</article>
+</div>
+</main>
+<footer class="site-footer"><a class="wordmark footer-mark" href="/index.html">S<span class="mark-dot">.</span></a><span>一个关于记录与创造的个人空间</span><span>© <span class="year">2026</span> Seth</span><a class="back-top" href="#top">返回顶部 ↑</a></footer>
+</div>
 </body>
 </html>

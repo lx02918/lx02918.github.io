@@ -1,39 +1,40 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f5f1e9">
-  <meta name="description" content="这篇Blog将分享我在做leetcode面试经典150题中矩阵部分几道题的做题思路和代码。 36 有效的数组 请你判断一个 9 x 9 的数独是否有效。只需要 根据以下规则 ，验证已经填入的数字是否有效即可。 数字 1-9 在每一行只能出现一次。 数字 1-9 在每一列">
-  <title>leetcode刷题记录——矩阵 · Seth的小站</title>
-  <link rel="stylesheet" href="/styles.css">
-  <link rel="stylesheet" href="/article.css">
-  <script defer src="/site.js"></script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="#f5f1e9" name="theme-color"/>
+<meta content="这篇Blog将分享我在做leetcode面试经典150题中矩阵部分几道题的做题思路和代码。 36 有效的数组 请你判断一个 9 x 9 的数独是否有效。只需要 根据以下规则 ，验证已经填入的数字是否有效即可。 数字 1-9 在每一行只能出现一次。 数字 1-9 在每一列" name="description"/>
+<title>leetcode刷题记录——矩阵 · Seth的小站</title>
+<link href="/styles.css" rel="stylesheet"/>
+<link href="/article.css" rel="stylesheet"/>
+<script defer="" src="/site.js"></script>
 </head>
 <body>
-  <div class="site-shell">
-    <header class="site-header">
+<div class="site-shell">
+<header class="site-header">
 <a aria-label="Seth 首页" class="wordmark" href="/index.html"><span class="mark">S<span class="mark-dot">.</span></span><span class="wordmark-text">SETH / NOTES</span></a>
 <nav aria-label="主导航" class="main-nav"><a class="active" href="/index.html">首页</a><a href="/blog.html">文章</a><a href="/about.html">关于</a></nav>
 <button aria-label="切换明暗主题" class="theme-toggle" title="切换明暗主题" type="button"><span aria-hidden="true">◐</span></button>
 </header>
-    <main id="top">
-      <section class="reading-hero reveal">
-        <div class="reading-hero-inner">
-          <a class="reading-back" href="/blog.html">← 返回全部文章</a>
-          <p class="eyebrow">WRITINGS <span class="eyebrow-line"></span> 刷题记录</p>
-          <h1>leetcode刷题记录——矩阵</h1>
-          <div class="reading-meta"><time datetime="2024-07-30">2024-07-30</time><span>刷题记录</span><span>第 50 / 53 篇</span></div>
-        </div>
-      </section>
-      <div class="reading-layout">
-        <aside class="reading-rail" aria-label="文章目录">
-          <p class="reading-rail-label">IN THIS ARTICLE / 目录</p>
-          <nav><a href="#36-有效的数组">36 有效的数组</a><a href="#思路">思路</a><a href="#时间复杂度">时间复杂度</a><a href="#54-螺旋矩阵">54 螺旋矩阵</a><a href="#思路-1">思路</a><a href="#时间复杂度-1">时间复杂度</a><a href="#48-旋转图像">48 旋转图像</a><a href="#思路-2">思路</a><a href="#时间复杂度-2">时间复杂度</a><a href="#73-矩阵置零">73 矩阵置零</a><a href="#思路：">思路：</a><a href="#时间复杂度-3">时间复杂度</a><a href="#article-end">继续往下阅读 ↓</a></nav>
-          <a class="reading-rail-back" href="/blog.html">查看全部 53 篇 ↗</a>
-        </aside>
-        <article class="reading-article">
-          <div id="article-body" class="legacy-body">
+<main id="top">
+<section class="reading-hero reveal">
+<div class="reading-hero-inner">
+<a class="reading-back" href="/blog.html">← 返回全部文章</a>
+<p class="eyebrow">WRITINGS <span class="eyebrow-line"></span> 刷题记录</p>
+<h1>leetcode刷题记录——矩阵</h1>
+<div class="reading-meta"><time datetime="2024-07-30">2024-07-30</time><span>刷题记录</span><span>第 58 / 61 篇</span></div>
+</div>
+</section>
+<div class="reading-layout">
+<aside aria-label="文章目录" class="reading-rail">
+<p class="reading-rail-label">IN THIS ARTICLE / 目录</p>
+<nav><a href="#36-有效的数组">36 有效的数组</a><a href="#思路">思路</a><a href="#时间复杂度">时间复杂度</a><a href="#54-螺旋矩阵">54 螺旋矩阵</a><a href="#思路-1">思路</a><a href="#时间复杂度-1">时间复杂度</a><a href="#48-旋转图像">48 旋转图像</a><a href="#思路-2">思路</a><a href="#时间复杂度-2">时间复杂度</a><a href="#73-矩阵置零">73 矩阵置零</a><a href="#思路：">思路：</a><a href="#时间复杂度-3">时间复杂度</a><a href="#article-end">继续往下阅读 ↓</a></nav>
+<a class="reading-rail-back" href="/blog.html">查看全部 61 篇 ↗</a>
+</aside>
+<article class="reading-article">
+<div class="legacy-body" id="article-body">
 <p>这篇Blog将分享我在做leetcode面试经典150题中矩阵部分几道题的做题思路和代码。</p>
 <h1 id="36-有效的数组"><a class="headerlink" href="#36-有效的数组" title="36 有效的数组"></a>36 有效的数组</h1><p>请你判断一个 <code>9 x 9</code> 的数独是否有效。只需要 根据以下规则 ，验证已经填入的数字是否有效即可。</p>
 <p>数字 <code>1-9</code> 在每一行只能出现一次。<br/>数字 <code>1-9</code> 在每一列只能出现一次。<br/>数字 <code>1-9</code> 在每一个以粗实线分隔的 <code>3x3</code> 宫内只能出现一次。（请参考示例图）</p>
@@ -152,13 +153,13 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/><span class="line">10</span><br/><span class="line">11</span><br/><span class="line">12</span><br/><span class="line">13</span><br/><span class="line">14</span><br/><span class="line">15</span><br/><span class="line">16</span><br/><span class="line">17</span><br/><span class="line">18</span><br/><span class="line">19</span><br/><span class="line">20</span><br/><span class="line">21</span><br/><span class="line">22</span><br/><span class="line">23</span><br/><span class="line">24</span><br/><span class="line">25</span><br/><span class="line">26</span><br/><span class="line">27</span><br/><span class="line">28</span><br/><span class="line">29</span><br/><span class="line">30</span><br/></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br/>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">gameOfLife</span>(<span class="hljs-params">self, board: <span class="hljs-type">List</span>[<span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>]]</span>) -&gt; <span class="hljs-literal">None</span>:<br/>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> board <span class="hljs-keyword">or</span> <span class="hljs-keyword">not</span> board[<span class="hljs-number">0</span>]:<br/>            <span class="hljs-keyword">return</span><br/>    <br/>        m, n = <span class="hljs-built_in">len</span>(board), <span class="hljs-built_in">len</span>(board[<span class="hljs-number">0</span>])<br/>        directions = [(-<span class="hljs-number">1</span>, -<span class="hljs-number">1</span>), (-<span class="hljs-number">1</span>, <span class="hljs-number">0</span>), (-<span class="hljs-number">1</span>, <span class="hljs-number">1</span>), (<span class="hljs-number">0</span>, -<span class="hljs-number">1</span>), (<span class="hljs-number">0</span>, <span class="hljs-number">1</span>), (<span class="hljs-number">1</span>, -<span class="hljs-number">1</span>), (<span class="hljs-number">1</span>, <span class="hljs-number">0</span>), (<span class="hljs-number">1</span>, <span class="hljs-number">1</span>)]<br/>        <br/>        <span class="hljs-keyword">def</span> <span class="hljs-title function_">count_live_neighbors</span>(<span class="hljs-params">x, y</span>):<br/>            count = <span class="hljs-number">0</span><br/>            <span class="hljs-keyword">for</span> dx, dy <span class="hljs-keyword">in</span> directions:<br/>                nx, ny = x + dx, y + dy<br/>                <span class="hljs-keyword">if</span> <span class="hljs-number">0</span> &lt;= nx &lt; m <span class="hljs-keyword">and</span> <span class="hljs-number">0</span> &lt;= ny &lt; n <span class="hljs-keyword">and</span> <span class="hljs-built_in">abs</span>(board[nx][ny]) == <span class="hljs-number">1</span>:<br/>                    count += <span class="hljs-number">1</span><br/>            <span class="hljs-keyword">return</span> count<br/>        <br/>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(m):<br/>            <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n):<br/>                live_neighbors = count_live_neighbors(i, j)<br/>                <br/>                <span class="hljs-keyword">if</span> board[i][j] == <span class="hljs-number">1</span> <span class="hljs-keyword">and</span> (live_neighbors &lt; <span class="hljs-number">2</span> <span class="hljs-keyword">or</span> live_neighbors &gt; <span class="hljs-number">3</span>):<br/>                    board[i][j] = -<span class="hljs-number">1</span><br/>                <span class="hljs-keyword">if</span> board[i][j] == <span class="hljs-number">0</span> <span class="hljs-keyword">and</span> live_neighbors == <span class="hljs-number">3</span>:<br/>                    board[i][j] = <span class="hljs-number">2</span><br/>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(m):<br/>            <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n):<br/>                <span class="hljs-keyword">if</span> board[i][j] == -<span class="hljs-number">1</span>:<br/>                    board[i][j] = <span class="hljs-number">0</span><br/>                <span class="hljs-keyword">elif</span> board[i][j] == <span class="hljs-number">2</span>:<br/>                    board[i][j] = <span class="hljs-number">1</span><br/></code></pre></td></tr></table></figure>
 <h2 id="时间复杂度-4"><a class="headerlink" href="#时间复杂度-4" title="时间复杂度"></a>时间复杂度</h2><p>时间复杂度$O(m * n)$，执行时间36ms，消耗内存16.5MB</p>
 </div>
-          <div id="article-end" class="reading-end"><span>END OF ARTICLE</span><a href="#top">回到顶部 ↑</a></div>
-          <nav class="reading-next" aria-label="相邻文章"><a href="/2024/08/01/Hash/"><small>上一篇</small><strong>leetcode刷题记录——Hash</strong><span aria-hidden="true">↗</span></a><a href="/2024/07/21/my-third-post/"><small>下一篇</small><strong>Leetcode刷题——滑动窗口</strong><span aria-hidden="true">↗</span></a></nav>
-          <a class="reading-all" href="/blog.html">← 返回文章列表</a>
-        </article>
-      </div>
-    </main>
-    <footer class="site-footer"><a class="wordmark footer-mark" href="/index.html">S<span class="mark-dot">.</span></a><span>一个关于记录与创造的个人空间</span><span>© <span class="year">2026</span> Seth</span><a class="back-top" href="#top">返回顶部 ↑</a></footer>
-  </div>
+<div class="reading-end" id="article-end"><span>END OF ARTICLE</span><a href="#top">回到顶部 ↑</a></div>
+<nav aria-label="相邻文章" class="reading-next"><a href="/2024/08/01/Hash/"><small>上一篇</small><strong>leetcode刷题记录——Hash</strong><span aria-hidden="true">↗</span></a><a href="/2024/07/21/my-third-post/"><small>下一篇</small><strong>Leetcode刷题——滑动窗口</strong><span aria-hidden="true">↗</span></a></nav>
+<a class="reading-all" href="/blog.html">← 返回文章列表</a>
+</article>
+</div>
+</main>
+<footer class="site-footer"><a class="wordmark footer-mark" href="/index.html">S<span class="mark-dot">.</span></a><span>一个关于记录与创造的个人空间</span><span>© <span class="year">2026</span> Seth</span><a class="back-top" href="#top">返回顶部 ↑</a></footer>
+</div>
 </body>
 </html>

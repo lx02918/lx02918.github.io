@@ -1,39 +1,40 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f5f1e9">
-  <meta name="description" content="view view是PostgreSQL中非常重要的概念，它可以将多个表的关系组合在一起，并提供一个统一的视图，使得用户可以访问到所需要的数据。 view并不是一个真正的表，只是一个通过查询语句定义的虚拟表，因此，它并不占用磁盘空间，也不存储数据。 可以包含一个表中的所">
-  <title>PostgreSQL学习记录——第四天 · Seth的小站</title>
-  <link rel="stylesheet" href="/styles.css">
-  <link rel="stylesheet" href="/article.css">
-  <script defer src="/site.js"></script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="#f5f1e9" name="theme-color"/>
+<meta content="view view是PostgreSQL中非常重要的概念，它可以将多个表的关系组合在一起，并提供一个统一的视图，使得用户可以访问到所需要的数据。 view并不是一个真正的表，只是一个通过查询语句定义的虚拟表，因此，它并不占用磁盘空间，也不存储数据。 可以包含一个表中的所" name="description"/>
+<title>PostgreSQL学习记录——第四天 · Seth的小站</title>
+<link href="/styles.css" rel="stylesheet"/>
+<link href="/article.css" rel="stylesheet"/>
+<script defer="" src="/site.js"></script>
 </head>
 <body>
-  <div class="site-shell">
-    <header class="site-header">
+<div class="site-shell">
+<header class="site-header">
 <a aria-label="Seth 首页" class="wordmark" href="/index.html"><span class="mark">S<span class="mark-dot">.</span></span><span class="wordmark-text">SETH / NOTES</span></a>
 <nav aria-label="主导航" class="main-nav"><a class="active" href="/index.html">首页</a><a href="/blog.html">文章</a><a href="/about.html">关于</a></nav>
 <button aria-label="切换明暗主题" class="theme-toggle" title="切换明暗主题" type="button"><span aria-hidden="true">◐</span></button>
 </header>
-    <main id="top">
-      <section class="reading-hero reveal">
-        <div class="reading-hero-inner">
-          <a class="reading-back" href="/blog.html">← 返回全部文章</a>
-          <p class="eyebrow">WRITINGS <span class="eyebrow-line"></span> 学习记录</p>
-          <h1>PostgreSQL学习记录——第四天</h1>
-          <div class="reading-meta"><time datetime="2024-08-07">2024-08-07</time><span>学习记录</span><span>第 42 / 53 篇</span></div>
-        </div>
-      </section>
-      <div class="reading-layout">
-        <aside class="reading-rail" aria-label="文章目录">
-          <p class="reading-rail-label">IN THIS ARTICLE / 目录</p>
-          <nav><a href="#view">view</a><a href="#创建view">创建view</a><a href="#删除view">删除view</a><a href="#事务">事务</a><a href="#BEGIN-TRANSACTION">BEGIN TRANSACTION</a><a href="#COMMIT">COMMIT</a><a href="#ROLLBACK">ROLLBACK</a><a href="#锁">锁</a><a href="#子查询">子查询</a><a href="#权限">权限</a><a href="#GRANT">GRANT</a><a href="#REVOKE">REVOKE</a></nav>
-          <a class="reading-rail-back" href="/blog.html">查看全部 53 篇 ↗</a>
-        </aside>
-        <article class="reading-article">
-          <div id="article-body" class="legacy-body">
+<main id="top">
+<section class="reading-hero reveal">
+<div class="reading-hero-inner">
+<a class="reading-back" href="/blog.html">← 返回全部文章</a>
+<p class="eyebrow">WRITINGS <span class="eyebrow-line"></span> 学习记录</p>
+<h1>PostgreSQL学习记录——第四天</h1>
+<div class="reading-meta"><time datetime="2024-08-07">2024-08-07</time><span>学习记录</span><span>第 50 / 61 篇</span></div>
+</div>
+</section>
+<div class="reading-layout">
+<aside aria-label="文章目录" class="reading-rail">
+<p class="reading-rail-label">IN THIS ARTICLE / 目录</p>
+<nav><a href="#view">view</a><a href="#创建view">创建view</a><a href="#删除view">删除view</a><a href="#事务">事务</a><a href="#BEGIN-TRANSACTION">BEGIN TRANSACTION</a><a href="#COMMIT">COMMIT</a><a href="#ROLLBACK">ROLLBACK</a><a href="#锁">锁</a><a href="#子查询">子查询</a><a href="#权限">权限</a><a href="#GRANT">GRANT</a><a href="#REVOKE">REVOKE</a></nav>
+<a class="reading-rail-back" href="/blog.html">查看全部 61 篇 ↗</a>
+</aside>
+<article class="reading-article">
+<div class="legacy-body" id="article-body">
 <h1 id="view"><a class="headerlink" href="#view" title="view"></a>view</h1><p>view是PostgreSQL中非常重要的概念，它可以将多个表的关系组合在一起，并提供一个统一的视图，使得用户可以访问到所需要的数据。</p>
 <p>view并不是一个真正的表，只是一个通过查询语句定义的虚拟表，因此，它并不占用磁盘空间，也不存储数据。</p>
 <p>可以包含一个表中的所有行也可以是指定的一个或多个表选定行</p>
@@ -144,13 +145,13 @@
 <p>REVOKE命令的语法和GRANT命令的语法基本相同，只不过是将GRANT命令变成了REVOKE命令。</p>
 <p>好咯，到这里基本的和稍微进阶一点的操作就都学完了。接下来准备开始学习GO语言和前端三件套了💖。</p>
 </div>
-          <div id="article-end" class="reading-end"><span>END OF ARTICLE</span><a href="#top">回到顶部 ↑</a></div>
-          <nav class="reading-next" aria-label="相邻文章"><a href="/2024/08/08/go-study-second-day/"><small>上一篇</small><strong>go学习记录——第二天</strong><span aria-hidden="true">↗</span></a><a href="/2024/08/07/go-study-first-day/"><small>下一篇</small><strong>go学习记录——第一天</strong><span aria-hidden="true">↗</span></a></nav>
-          <a class="reading-all" href="/blog.html">← 返回文章列表</a>
-        </article>
-      </div>
-    </main>
-    <footer class="site-footer"><a class="wordmark footer-mark" href="/index.html">S<span class="mark-dot">.</span></a><span>一个关于记录与创造的个人空间</span><span>© <span class="year">2026</span> Seth</span><a class="back-top" href="#top">返回顶部 ↑</a></footer>
-  </div>
+<div class="reading-end" id="article-end"><span>END OF ARTICLE</span><a href="#top">回到顶部 ↑</a></div>
+<nav aria-label="相邻文章" class="reading-next"><a href="/2024/08/08/go-study-second-day/"><small>上一篇</small><strong>go学习记录——第二天</strong><span aria-hidden="true">↗</span></a><a href="/2024/08/07/go-study-first-day/"><small>下一篇</small><strong>go学习记录——第一天</strong><span aria-hidden="true">↗</span></a></nav>
+<a class="reading-all" href="/blog.html">← 返回文章列表</a>
+</article>
+</div>
+</main>
+<footer class="site-footer"><a class="wordmark footer-mark" href="/index.html">S<span class="mark-dot">.</span></a><span>一个关于记录与创造的个人空间</span><span>© <span class="year">2026</span> Seth</span><a class="back-top" href="#top">返回顶部 ↑</a></footer>
+</div>
 </body>
 </html>

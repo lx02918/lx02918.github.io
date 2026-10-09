@@ -1,39 +1,40 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f5f1e9">
-  <meta name="description" content="使用工厂方法创建结构体实例 结构体工厂 Golang 不支持面向对象编程语言中那样的构造子方法，但是可以很容易的在Go中实现“构造子工厂”方法。为了方便通常会为类型定义一个工厂，按惯例，工厂的名字以 new... 或 New... 开头。假设定义了如下的 File 结构">
-  <title>go学习记录——第十二天 · Seth的小站</title>
-  <link rel="stylesheet" href="/styles.css">
-  <link rel="stylesheet" href="/article.css">
-  <script defer src="/site.js"></script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="#f5f1e9" name="theme-color"/>
+<meta content="使用工厂方法创建结构体实例 结构体工厂 Golang 不支持面向对象编程语言中那样的构造子方法，但是可以很容易的在Go中实现“构造子工厂”方法。为了方便通常会为类型定义一个工厂，按惯例，工厂的名字以 new... 或 New... 开头。假设定义了如下的 File 结构" name="description"/>
+<title>go学习记录——第十二天 · Seth的小站</title>
+<link href="/styles.css" rel="stylesheet"/>
+<link href="/article.css" rel="stylesheet"/>
+<script defer="" src="/site.js"></script>
 </head>
 <body>
-  <div class="site-shell">
-    <header class="site-header">
+<div class="site-shell">
+<header class="site-header">
 <a aria-label="Seth 首页" class="wordmark" href="/index.html"><span class="mark">S<span class="mark-dot">.</span></span><span class="wordmark-text">SETH / NOTES</span></a>
 <nav aria-label="主导航" class="main-nav"><a class="active" href="/index.html">首页</a><a href="/blog.html">文章</a><a href="/about.html">关于</a></nav>
 <button aria-label="切换明暗主题" class="theme-toggle" title="切换明暗主题" type="button"><span aria-hidden="true">◐</span></button>
 </header>
-    <main id="top">
-      <section class="reading-hero reveal">
-        <div class="reading-hero-inner">
-          <a class="reading-back" href="/blog.html">← 返回全部文章</a>
-          <p class="eyebrow">WRITINGS <span class="eyebrow-line"></span> 学习记录</p>
-          <h1>go学习记录——第十二天</h1>
-          <div class="reading-meta"><time datetime="2024-12-01">2024-12-01</time><span>学习记录</span><span>第 14 / 53 篇</span></div>
-        </div>
-      </section>
-      <div class="reading-layout">
-        <aside class="reading-rail" aria-label="文章目录">
-          <p class="reading-rail-label">IN THIS ARTICLE / 目录</p>
-          <nav><a href="#使用工厂方法创建结构体实例">使用工厂方法创建结构体实例</a><a href="#结构体工厂">结构体工厂</a><a href="#如何强制使用工厂方法">如何强制使用工厂方法</a><a href="#map-和-struct-vs-new-和-make">map 和 struct vs new() 和 make()</a><a href="#使用自定义包中的结构体">使用自定义包中的结构体</a><a href="#带标签的结构体">带标签的结构体</a><a href="#匿名字段和内嵌结构体">匿名字段和内嵌结构体</a><a href="#定义">定义</a><a href="#内嵌结构体">内嵌结构体</a><a href="#命名冲突">命名冲突</a></nav>
-          <a class="reading-rail-back" href="/blog.html">查看全部 53 篇 ↗</a>
-        </aside>
-        <article class="reading-article">
-          <div id="article-body" class="legacy-body">
+<main id="top">
+<section class="reading-hero reveal">
+<div class="reading-hero-inner">
+<a class="reading-back" href="/blog.html">← 返回全部文章</a>
+<p class="eyebrow">WRITINGS <span class="eyebrow-line"></span> 学习记录</p>
+<h1>go学习记录——第十二天</h1>
+<div class="reading-meta"><time datetime="2024-12-01">2024-12-01</time><span>学习记录</span><span>第 22 / 61 篇</span></div>
+</div>
+</section>
+<div class="reading-layout">
+<aside aria-label="文章目录" class="reading-rail">
+<p class="reading-rail-label">IN THIS ARTICLE / 目录</p>
+<nav><a href="#使用工厂方法创建结构体实例">使用工厂方法创建结构体实例</a><a href="#结构体工厂">结构体工厂</a><a href="#如何强制使用工厂方法">如何强制使用工厂方法</a><a href="#map-和-struct-vs-new-和-make">map 和 struct vs new() 和 make()</a><a href="#使用自定义包中的结构体">使用自定义包中的结构体</a><a href="#带标签的结构体">带标签的结构体</a><a href="#匿名字段和内嵌结构体">匿名字段和内嵌结构体</a><a href="#定义">定义</a><a href="#内嵌结构体">内嵌结构体</a><a href="#命名冲突">命名冲突</a></nav>
+<a class="reading-rail-back" href="/blog.html">查看全部 61 篇 ↗</a>
+</aside>
+<article class="reading-article">
+<div class="legacy-body" id="article-body">
 <h1 id="使用工厂方法创建结构体实例"><a class="headerlink" href="#使用工厂方法创建结构体实例" title="使用工厂方法创建结构体实例"></a>使用工厂方法创建结构体实例</h1><h2 id="结构体工厂"><a class="headerlink" href="#结构体工厂" title="结构体工厂"></a>结构体工厂</h2><p><code>Golang</code>不支持面向对象编程语言中那样的构造子方法，但是可以很容易的在Go中实现“构造子工厂”方法。为了方便通常会为类型定义一个工厂，按惯例，工厂的名字以<code>new...</code>或<code>New...</code>开头。假设定义了如下的<code>File</code>结构体实例。</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> File <span class="hljs-keyword">struct</span> {<br/>    fd <span class="hljs-type">int</span> <span class="hljs-comment">// 文件描述符</span><br/>    name <span class="hljs-type">string</span> <span class="hljs-comment">// 文件名</span><br/>}<br/></code></pre></td></tr></table></figure>
 <p>下面是这个结构体类型对应的工厂方法，它返回一个指向结构体实例的指针：</p>
@@ -116,13 +117,13 @@
 <p>使用 <code>d.b</code>是没问题的，但是它是 <code>float32</code> 而不是 <code>B</code>的 <code>b</code> 。如果想要内层的 <code>b</code> 可以通过 <code>d.B.b</code>得到</p>
 <p>我捋一下，如果我们像第一个例子那样直接访问重名的变量，会导致编译器无法分清在哪个具体的结构体里的变量。而第二个例子里我们虽然D结构体里也有和B里一样的重名变量，但是我们直接用 <code>d.b</code> 是没办法取到 <code>B.d</code> 的，因为我们明确说明是需要取 D 里面的而不是B里面的，我们要取 <code>B.b</code> 则必须d直接取 <code>B.b</code> （好绕啊，反正意思就是那么个意思）</p>
 </div>
-          <div id="article-end" class="reading-end"><span>END OF ARTICLE</span><a href="#top">回到顶部 ↑</a></div>
-          <nav class="reading-next" aria-label="相邻文章"><a href="/2024/12/07/go-study-thirteenth-day/"><small>上一篇</small><strong>go学习记录——第十三天</strong><span aria-hidden="true">↗</span></a><a href="/2024/11/29/go-study-eleventh-day/"><small>下一篇</small><strong>go学习记录——第十一天</strong><span aria-hidden="true">↗</span></a></nav>
-          <a class="reading-all" href="/blog.html">← 返回文章列表</a>
-        </article>
-      </div>
-    </main>
-    <footer class="site-footer"><a class="wordmark footer-mark" href="/index.html">S<span class="mark-dot">.</span></a><span>一个关于记录与创造的个人空间</span><span>© <span class="year">2026</span> Seth</span><a class="back-top" href="#top">返回顶部 ↑</a></footer>
-  </div>
+<div class="reading-end" id="article-end"><span>END OF ARTICLE</span><a href="#top">回到顶部 ↑</a></div>
+<nav aria-label="相邻文章" class="reading-next"><a href="/2024/12/07/go-study-thirteenth-day/"><small>上一篇</small><strong>go学习记录——第十三天</strong><span aria-hidden="true">↗</span></a><a href="/2024/11/29/go-study-eleventh-day/"><small>下一篇</small><strong>go学习记录——第十一天</strong><span aria-hidden="true">↗</span></a></nav>
+<a class="reading-all" href="/blog.html">← 返回文章列表</a>
+</article>
+</div>
+</main>
+<footer class="site-footer"><a class="wordmark footer-mark" href="/index.html">S<span class="mark-dot">.</span></a><span>一个关于记录与创造的个人空间</span><span>© <span class="year">2026</span> Seth</span><a class="back-top" href="#top">返回顶部 ↑</a></footer>
+</div>
 </body>
 </html>

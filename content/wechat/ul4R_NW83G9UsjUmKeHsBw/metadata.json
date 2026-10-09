@@ -1,0 +1,16 @@
+{
+  "slug": "ul4R_NW83G9UsjUmKeHsBw",
+  "title": "7步构建Claude Agent团队：从单人对话到并行工作团队",
+  "date": "2026-05-28",
+  "url": "/2026/05/28/claude-agent-teams/",
+  "source_url": "https://mp.weixin.qq.com/s/ul4R_NW83G9UsjUmKeHsBw",
+  "account": "凌曦悦",
+  "description": "你写代码，然后review，然后测试，然后写PR，然后更新文档。每天的任务，一个接一个地排队。",
+  "excerpt": "你写代码，然后review，然后测试，然后写PR，然后更新文档。每天的任务，一个接一个地排队。 其实可以让5件事同时跑——一个agent负责一个任务，你专注于下一个功能。 以下是7步搭建方法 👇 第一步：理解3个层级 搭团队之前，先搞清楚有什么可用的。Claude Code内置三种agen…",
+  "image_paths": [
+    "/img/wechat/ul4R_NW83G9UsjUmKeHsBw/01.jpg",
+    "/img/wechat/ul4R_NW83G9UsjUmKeHsBw/02.jpg",
+    "/img/wechat/ul4R_NW83G9UsjUmKeHsBw/03.jpg"
+  ],
+  "text_sha256": "f680287d8edaa884b90457dc2e14a4f2d2973adddcca25cd275fc62de3e1e5f5"
+}

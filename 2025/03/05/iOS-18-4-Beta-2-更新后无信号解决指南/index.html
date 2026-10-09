@@ -1,39 +1,40 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f5f1e9">
-  <meta name="description" content="写在前面 针对iOS18.4 RC版本的请看最后的补充说明。 系统和手机介绍 系统：iOS18.4 beta2（iOS18 Developer Beta） 手机：iPhone14 pro（双SIM卡） 问题描述 在更新iOS18.4 beta1之后我就发现手机出现了无服">
-  <title>iOS 18.4 Beta 2 更新后无信号解决指南 · Seth的小站</title>
-  <link rel="stylesheet" href="/styles.css">
-  <link rel="stylesheet" href="/article.css">
-  <script defer src="/site.js"></script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="#f5f1e9" name="theme-color"/>
+<meta content="写在前面 针对iOS18.4 RC版本的请看最后的补充说明。 系统和手机介绍 系统：iOS18.4 beta2（iOS18 Developer Beta） 手机：iPhone14 pro（双SIM卡） 问题描述 在更新iOS18.4 beta1之后我就发现手机出现了无服" name="description"/>
+<title>iOS 18.4 Beta 2 更新后无信号解决指南 · Seth的小站</title>
+<link href="/styles.css" rel="stylesheet"/>
+<link href="/article.css" rel="stylesheet"/>
+<script defer="" src="/site.js"></script>
 </head>
 <body>
-  <div class="site-shell">
-    <header class="site-header">
+<div class="site-shell">
+<header class="site-header">
 <a aria-label="Seth 首页" class="wordmark" href="/index.html"><span class="mark">S<span class="mark-dot">.</span></span><span class="wordmark-text">SETH / NOTES</span></a>
 <nav aria-label="主导航" class="main-nav"><a class="active" href="/index.html">首页</a><a href="/blog.html">文章</a><a href="/about.html">关于</a></nav>
 <button aria-label="切换明暗主题" class="theme-toggle" title="切换明暗主题" type="button"><span aria-hidden="true">◐</span></button>
 </header>
-    <main id="top">
-      <section class="reading-hero reveal">
-        <div class="reading-hero-inner">
-          <a class="reading-back" href="/blog.html">← 返回全部文章</a>
-          <p class="eyebrow">WRITINGS <span class="eyebrow-line"></span> 问题记录</p>
-          <h1>iOS 18.4 Beta 2 更新后无信号解决指南</h1>
-          <div class="reading-meta"><time datetime="2025-03-05">2025-03-05</time><span>问题记录</span><span>第 08 / 53 篇</span></div>
-        </div>
-      </section>
-      <div class="reading-layout">
-        <aside class="reading-rail" aria-label="文章目录">
-          <p class="reading-rail-label">IN THIS ARTICLE / 目录</p>
-          <nav><a href="#写在前面">写在前面</a><a href="#系统和手机介绍">系统和手机介绍</a><a href="#问题描述">问题描述</a><a href="#问题背景">问题背景</a><a href="#触发条件">触发条件</a><a href="#解决方案">解决方案</a><a href="#方案1-等待手机完成更新后重启">方案1 等待手机 完成更新 后重启</a><a href="#方案2-打开飞行模式">方案2 打开飞行模式</a><a href="#方案3-拔卡">方案3 拔卡</a><a href="#方案4-恢复网络设置">方案4 恢复网络设置</a><a href="#方案5-更新IPCC文件">方案5 更新IPCC文件</a><a href="#方案6-刷机（降级）">方案6 刷机（降级）</a><a href="#article-end">继续往下阅读 ↓</a></nav>
-          <a class="reading-rail-back" href="/blog.html">查看全部 53 篇 ↗</a>
-        </aside>
-        <article class="reading-article">
-          <div id="article-body" class="legacy-body">
+<main id="top">
+<section class="reading-hero reveal">
+<div class="reading-hero-inner">
+<a class="reading-back" href="/blog.html">← 返回全部文章</a>
+<p class="eyebrow">WRITINGS <span class="eyebrow-line"></span> 问题记录</p>
+<h1>iOS 18.4 Beta 2 更新后无信号解决指南</h1>
+<div class="reading-meta"><time datetime="2025-03-05">2025-03-05</time><span>问题记录</span><span>第 16 / 61 篇</span></div>
+</div>
+</section>
+<div class="reading-layout">
+<aside aria-label="文章目录" class="reading-rail">
+<p class="reading-rail-label">IN THIS ARTICLE / 目录</p>
+<nav><a href="#写在前面">写在前面</a><a href="#系统和手机介绍">系统和手机介绍</a><a href="#问题描述">问题描述</a><a href="#问题背景">问题背景</a><a href="#触发条件">触发条件</a><a href="#解决方案">解决方案</a><a href="#方案1-等待手机完成更新后重启">方案1 等待手机 完成更新 后重启</a><a href="#方案2-打开飞行模式">方案2 打开飞行模式</a><a href="#方案3-拔卡">方案3 拔卡</a><a href="#方案4-恢复网络设置">方案4 恢复网络设置</a><a href="#方案5-更新IPCC文件">方案5 更新IPCC文件</a><a href="#方案6-刷机（降级）">方案6 刷机（降级）</a><a href="#article-end">继续往下阅读 ↓</a></nav>
+<a class="reading-rail-back" href="/blog.html">查看全部 61 篇 ↗</a>
+</aside>
+<article class="reading-article">
+<div class="legacy-body" id="article-body">
 <h1 id="写在前面"><a class="headerlink" href="#写在前面" title="写在前面"></a>写在前面</h1><p>针对iOS18.4 RC版本的请看最后的补充说明。</p>
 <h1 id="系统和手机介绍"><a class="headerlink" href="#系统和手机介绍" title="系统和手机介绍"></a>系统和手机介绍</h1><p>系统：iOS18.4 beta2（iOS18 Developer Beta）</p>
 <p>手机：iPhone14 pro（双SIM卡）</p>
@@ -57,13 +58,13 @@
 <h1 id="后记"><a class="headerlink" href="#后记" title="后记"></a>后记</h1><p>这里其实就是给各位同学提供一个比较完备的，我能够了解到和我能接触到的所有方案的一个介绍，具体操作其实还是需要大家去了解对应的操作流程，我这边不做任何的操作讲解（后续有需要我可能会做）。但是这次的iOS18.4 我尽可能是不推荐大家直接去更新的，尤其是低版本手机，16系列可以更新，因为目前来看16系列出问题的还是比较少的，但是14系列和15系列暂时不要更新，哪怕是为了AI，等四月份正式版本出了之后再更新，届时Apple对该问题的修复应该也会出炉。</p>
 <h1 id="补充说明"><a class="headerlink" href="#补充说明" title="补充说明"></a>补充说明</h1><p>经过我的测试，iOS18.4 RC版本推出后还是会出现一样的问题，建议遇到的持有双卡的将卡槽取出后进行主副卡调换，换卡后能够一定程度上保证一张卡正常使用。在正常后切记关闭VPN，关闭后打开飞行模式十秒以上，然后继续等待，一段时间后就会正常恢复。这里需要注意的是我们在更新18.4 RC版本后IPCC文件会自动更新为最新的63.0版本，所以前文提到的去更新IPCC文件方案作废。</p>
 </div>
-          <div id="article-end" class="reading-end"><span>END OF ARTICLE</span><a href="#top">回到顶部 ↑</a></div>
-          <nav class="reading-next" aria-label="相邻文章"><a href="/2025/03/06/go-study-sixteenth-day/"><small>上一篇</small><strong>go学习记录——第十六天</strong><span aria-hidden="true">↗</span></a><a href="/2025/03/05/Fix-iOS-18-4-Beta-2-No-Signal-After-Update/"><small>下一篇</small><strong>Fix iOS 18.4 Beta 2 No Signal After Update</strong><span aria-hidden="true">↗</span></a></nav>
-          <a class="reading-all" href="/blog.html">← 返回文章列表</a>
-        </article>
-      </div>
-    </main>
-    <footer class="site-footer"><a class="wordmark footer-mark" href="/index.html">S<span class="mark-dot">.</span></a><span>一个关于记录与创造的个人空间</span><span>© <span class="year">2026</span> Seth</span><a class="back-top" href="#top">返回顶部 ↑</a></footer>
-  </div>
+<div class="reading-end" id="article-end"><span>END OF ARTICLE</span><a href="#top">回到顶部 ↑</a></div>
+<nav aria-label="相邻文章" class="reading-next"><a href="/2025/03/06/go-study-sixteenth-day/"><small>上一篇</small><strong>go学习记录——第十六天</strong><span aria-hidden="true">↗</span></a><a href="/2025/03/05/Fix-iOS-18-4-Beta-2-No-Signal-After-Update/"><small>下一篇</small><strong>Fix iOS 18.4 Beta 2 No Signal After Update</strong><span aria-hidden="true">↗</span></a></nav>
+<a class="reading-all" href="/blog.html">← 返回文章列表</a>
+</article>
+</div>
+</main>
+<footer class="site-footer"><a class="wordmark footer-mark" href="/index.html">S<span class="mark-dot">.</span></a><span>一个关于记录与创造的个人空间</span><span>© <span class="year">2026</span> Seth</span><a class="back-top" href="#top">返回顶部 ↑</a></footer>
+</div>
 </body>
 </html>

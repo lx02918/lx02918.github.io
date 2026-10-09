@@ -1,39 +1,40 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f5f1e9">
-  <meta name="description" content="柱状图中最大矩形 对应leetcode84，属于 hard 这里需要说明一下这道题第一反应会和最大容器和接雨水有点像，会考虑到双指针，但是题目实际上用到的是单调栈和哨兵 原题目 给定 n 个非负整数，用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 1 。 求">
-  <title>西山居笔试——游戏AI算法A卷 · Seth的小站</title>
-  <link rel="stylesheet" href="/styles.css">
-  <link rel="stylesheet" href="/article.css">
-  <script defer src="/site.js"></script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="#f5f1e9" name="theme-color"/>
+<meta content="柱状图中最大矩形 对应leetcode84，属于 hard 这里需要说明一下这道题第一反应会和最大容器和接雨水有点像，会考虑到双指针，但是题目实际上用到的是单调栈和哨兵 原题目 给定 n 个非负整数，用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 1 。 求" name="description"/>
+<title>西山居笔试——游戏AI算法A卷 · Seth的小站</title>
+<link href="/styles.css" rel="stylesheet"/>
+<link href="/article.css" rel="stylesheet"/>
+<script defer="" src="/site.js"></script>
 </head>
 <body>
-  <div class="site-shell">
-    <header class="site-header">
+<div class="site-shell">
+<header class="site-header">
 <a aria-label="Seth 首页" class="wordmark" href="/index.html"><span class="mark">S<span class="mark-dot">.</span></span><span class="wordmark-text">SETH / NOTES</span></a>
 <nav aria-label="主导航" class="main-nav"><a class="active" href="/index.html">首页</a><a href="/blog.html">文章</a><a href="/about.html">关于</a></nav>
 <button aria-label="切换明暗主题" class="theme-toggle" title="切换明暗主题" type="button"><span aria-hidden="true">◐</span></button>
 </header>
-    <main id="top">
-      <section class="reading-hero reveal">
-        <div class="reading-hero-inner">
-          <a class="reading-back" href="/blog.html">← 返回全部文章</a>
-          <p class="eyebrow">WRITINGS <span class="eyebrow-line"></span> 笔试记录</p>
-          <h1>西山居笔试——游戏AI算法A卷</h1>
-          <div class="reading-meta"><time datetime="2024-09-23">2024-09-23</time><span>笔试记录</span><span>第 20 / 53 篇</span></div>
-        </div>
-      </section>
-      <div class="reading-layout">
-        <aside class="reading-rail" aria-label="文章目录">
-          <p class="reading-rail-label">IN THIS ARTICLE / 目录</p>
-          <nav><a href="#柱状图中最大矩形">柱状图中最大矩形</a><a href="#原题目">原题目</a><a href="#考试题目">考试题目</a><a href="#思路">思路</a><a href="#代码">代码</a><a href="#时间复杂度">时间复杂度</a><a href="#压缩字符串Ⅱ">压缩字符串Ⅱ</a><a href="#原题目-1">原题目</a><a href="#考试题目-1">考试题目</a><a href="#思路-1">思路</a><a href="#代码-1">代码</a><a href="#leetcode官方答案代码">leetcode官方答案代码</a><a href="#article-end">继续往下阅读 ↓</a></nav>
-          <a class="reading-rail-back" href="/blog.html">查看全部 53 篇 ↗</a>
-        </aside>
-        <article class="reading-article">
-          <div id="article-body" class="legacy-body">
+<main id="top">
+<section class="reading-hero reveal">
+<div class="reading-hero-inner">
+<a class="reading-back" href="/blog.html">← 返回全部文章</a>
+<p class="eyebrow">WRITINGS <span class="eyebrow-line"></span> 笔试记录</p>
+<h1>西山居笔试——游戏AI算法A卷</h1>
+<div class="reading-meta"><time datetime="2024-09-23">2024-09-23</time><span>笔试记录</span><span>第 28 / 61 篇</span></div>
+</div>
+</section>
+<div class="reading-layout">
+<aside aria-label="文章目录" class="reading-rail">
+<p class="reading-rail-label">IN THIS ARTICLE / 目录</p>
+<nav><a href="#柱状图中最大矩形">柱状图中最大矩形</a><a href="#原题目">原题目</a><a href="#考试题目">考试题目</a><a href="#思路">思路</a><a href="#代码">代码</a><a href="#时间复杂度">时间复杂度</a><a href="#压缩字符串Ⅱ">压缩字符串Ⅱ</a><a href="#原题目-1">原题目</a><a href="#考试题目-1">考试题目</a><a href="#思路-1">思路</a><a href="#代码-1">代码</a><a href="#leetcode官方答案代码">leetcode官方答案代码</a><a href="#article-end">继续往下阅读 ↓</a></nav>
+<a class="reading-rail-back" href="/blog.html">查看全部 61 篇 ↗</a>
+</aside>
+<article class="reading-article">
+<div class="legacy-body" id="article-body">
 <h1 id="柱状图中最大矩形"><a class="headerlink" href="#柱状图中最大矩形" title="柱状图中最大矩形"></a>柱状图中最大矩形</h1><p>对应leetcode84，属于<code>hard</code></p>
 <p>这里需要说明一下这道题第一反应会和最大容器和接雨水有点像，会考虑到双指针，但是题目实际上用到的是单调栈和哨兵</p>
 <h2 id="原题目"><a class="headerlink" href="#原题目" title="原题目"></a>原题目</h2><p>给定 <em>n</em> 个非负整数，用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 1 。</p>
@@ -139,13 +140,13 @@
 <h2 id="时间复杂度-1"><a class="headerlink" href="#时间复杂度-1" title="时间复杂度"></a>时间复杂度</h2><p>时间复杂度O(n * k)，空间复杂度O(n * k)</p>
 <p>编程两道题就说到这里，如果有同学第二题写出来的一定一定要评论一下，讲讲思路。这题我考场上是真没搞明白😭</p>
 </div>
-          <div id="article-end" class="reading-end"><span>END OF ARTICLE</span><a href="#top">回到顶部 ↑</a></div>
-          <nav class="reading-next" aria-label="相邻文章"><a href="/2024/09/28/%E7%BD%91%E6%98%93%E7%AC%94%E8%AF%95/"><small>上一篇</small><strong>网易笔试——算法卷</strong><span aria-hidden="true">↗</span></a><a href="/2024/09/11/leetcode-%E5%A0%86/"><small>下一篇</small><strong>leetcode刷题记录——堆</strong><span aria-hidden="true">↗</span></a></nav>
-          <a class="reading-all" href="/blog.html">← 返回文章列表</a>
-        </article>
-      </div>
-    </main>
-    <footer class="site-footer"><a class="wordmark footer-mark" href="/index.html">S<span class="mark-dot">.</span></a><span>一个关于记录与创造的个人空间</span><span>© <span class="year">2026</span> Seth</span><a class="back-top" href="#top">返回顶部 ↑</a></footer>
-  </div>
+<div class="reading-end" id="article-end"><span>END OF ARTICLE</span><a href="#top">回到顶部 ↑</a></div>
+<nav aria-label="相邻文章" class="reading-next"><a href="/2024/09/28/%E7%BD%91%E6%98%93%E7%AC%94%E8%AF%95/"><small>上一篇</small><strong>网易笔试——算法卷</strong><span aria-hidden="true">↗</span></a><a href="/2024/09/11/leetcode-%E5%A0%86/"><small>下一篇</small><strong>leetcode刷题记录——堆</strong><span aria-hidden="true">↗</span></a></nav>
+<a class="reading-all" href="/blog.html">← 返回文章列表</a>
+</article>
+</div>
+</main>
+<footer class="site-footer"><a class="wordmark footer-mark" href="/index.html">S<span class="mark-dot">.</span></a><span>一个关于记录与创造的个人空间</span><span>© <span class="year">2026</span> Seth</span><a class="back-top" href="#top">返回顶部 ↑</a></footer>
+</div>
 </body>
 </html>

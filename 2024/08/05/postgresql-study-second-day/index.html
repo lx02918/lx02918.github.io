@@ -1,39 +1,40 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f5f1e9">
-  <meta name="description" content="今天准备继续学PG的高级操作，至于为什么过了一个周末才有开始学，那当然是因为上班时间拿来学习周末时间拿来玩啦~ 今天差不多就是约束、JOIN、UNION、别名、索引、触发器、事务、锁这些，gogogo。 约束 在观感上感觉和MySQL的差不多，但是在查询相关资料后发现还">
-  <title>PostgreSQL学习记录——第二天 · Seth的小站</title>
-  <link rel="stylesheet" href="/styles.css">
-  <link rel="stylesheet" href="/article.css">
-  <script defer src="/site.js"></script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="#f5f1e9" name="theme-color"/>
+<meta content="今天准备继续学PG的高级操作，至于为什么过了一个周末才有开始学，那当然是因为上班时间拿来学习周末时间拿来玩啦~ 今天差不多就是约束、JOIN、UNION、别名、索引、触发器、事务、锁这些，gogogo。 约束 在观感上感觉和MySQL的差不多，但是在查询相关资料后发现还" name="description"/>
+<title>PostgreSQL学习记录——第二天 · Seth的小站</title>
+<link href="/styles.css" rel="stylesheet"/>
+<link href="/article.css" rel="stylesheet"/>
+<script defer="" src="/site.js"></script>
 </head>
 <body>
-  <div class="site-shell">
-    <header class="site-header">
+<div class="site-shell">
+<header class="site-header">
 <a aria-label="Seth 首页" class="wordmark" href="/index.html"><span class="mark">S<span class="mark-dot">.</span></span><span class="wordmark-text">SETH / NOTES</span></a>
 <nav aria-label="主导航" class="main-nav"><a class="active" href="/index.html">首页</a><a href="/blog.html">文章</a><a href="/about.html">关于</a></nav>
 <button aria-label="切换明暗主题" class="theme-toggle" title="切换明暗主题" type="button"><span aria-hidden="true">◐</span></button>
 </header>
-    <main id="top">
-      <section class="reading-hero reveal">
-        <div class="reading-hero-inner">
-          <a class="reading-back" href="/blog.html">← 返回全部文章</a>
-          <p class="eyebrow">WRITINGS <span class="eyebrow-line"></span> 学习记录</p>
-          <h1>PostgreSQL学习记录——第二天</h1>
-          <div class="reading-meta"><time datetime="2024-08-05">2024-08-05</time><span>学习记录</span><span>第 45 / 53 篇</span></div>
-        </div>
-      </section>
-      <div class="reading-layout">
-        <aside class="reading-rail" aria-label="文章目录">
-          <p class="reading-rail-label">IN THIS ARTICLE / 目录</p>
-          <nav><a href="#约束">约束</a><a href="#和MySQL区别">和MySQL区别</a><a href="#PG常见约束">PG常见约束</a><a href="#NOT-NULL">NOT NULL</a><a href="#UNIQUE">UNIQUE</a><a href="#PRIMARY-KEY">PRIMARY KEY</a><a href="#FOREIGN-KEY">FOREIGN KEY</a><a href="#CHECK">CHECK</a><a href="#EXCLUSION">EXCLUSION</a><a href="#删除约束">删除约束</a><a href="#JOIN">JOIN</a><a href="#常见JOIN类型">常见JOIN类型</a><a href="#article-end">继续往下阅读 ↓</a></nav>
-          <a class="reading-rail-back" href="/blog.html">查看全部 53 篇 ↗</a>
-        </aside>
-        <article class="reading-article">
-          <div id="article-body" class="legacy-body">
+<main id="top">
+<section class="reading-hero reveal">
+<div class="reading-hero-inner">
+<a class="reading-back" href="/blog.html">← 返回全部文章</a>
+<p class="eyebrow">WRITINGS <span class="eyebrow-line"></span> 学习记录</p>
+<h1>PostgreSQL学习记录——第二天</h1>
+<div class="reading-meta"><time datetime="2024-08-05">2024-08-05</time><span>学习记录</span><span>第 53 / 61 篇</span></div>
+</div>
+</section>
+<div class="reading-layout">
+<aside aria-label="文章目录" class="reading-rail">
+<p class="reading-rail-label">IN THIS ARTICLE / 目录</p>
+<nav><a href="#约束">约束</a><a href="#和MySQL区别">和MySQL区别</a><a href="#PG常见约束">PG常见约束</a><a href="#NOT-NULL">NOT NULL</a><a href="#UNIQUE">UNIQUE</a><a href="#PRIMARY-KEY">PRIMARY KEY</a><a href="#FOREIGN-KEY">FOREIGN KEY</a><a href="#CHECK">CHECK</a><a href="#EXCLUSION">EXCLUSION</a><a href="#删除约束">删除约束</a><a href="#JOIN">JOIN</a><a href="#常见JOIN类型">常见JOIN类型</a><a href="#article-end">继续往下阅读 ↓</a></nav>
+<a class="reading-rail-back" href="/blog.html">查看全部 61 篇 ↗</a>
+</aside>
+<article class="reading-article">
+<div class="legacy-body" id="article-body">
 <p>今天准备继续学PG的高级操作，至于为什么过了一个周末才有开始学，那当然是因为上班时间拿来学习周末时间拿来玩啦~</p>
 <p>今天差不多就是约束、JOIN、UNION、别名、索引、触发器、事务、锁这些，gogogo。</p>
 <h1 id="约束"><a class="headerlink" href="#约束" title="约束"></a>约束</h1><p>在观感上感觉和MySQL的差不多，但是在查询相关资料后发现还是有些许区别。</p>
@@ -129,13 +130,13 @@
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> column1 [, column2 ]<br/><span class="hljs-keyword">FROM</span> table1 [, table2 ]<br/>[<span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">condition</span>]<br/><br/><span class="hljs-keyword">UNION</span> <span class="hljs-keyword">ALL</span><br/><br/><span class="hljs-keyword">SELECT</span> column1 [, column2 ]<br/><span class="hljs-keyword">FROM</span> table1 [, table2 ]<br/>[<span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">condition</span>]<br/></code></pre></td></tr></table></figure>
 <p>好咯，今天就先学到这里吧~该去刷leetcode了，万恶的leetcode😒</p>
 </div>
-          <div id="article-end" class="reading-end"><span>END OF ARTICLE</span><a href="#top">回到顶部 ↑</a></div>
-          <nav class="reading-next" aria-label="相邻文章"><a href="/2024/08/06/postgresql-study-third-day/"><small>上一篇</small><strong>PostgreSQL学习记录——第三天</strong><span aria-hidden="true">↗</span></a><a href="/2024/08/05/leetcode_%E5%8C%BA%E9%97%B4/"><small>下一篇</small><strong>leetcode刷题记录——区间</strong><span aria-hidden="true">↗</span></a></nav>
-          <a class="reading-all" href="/blog.html">← 返回文章列表</a>
-        </article>
-      </div>
-    </main>
-    <footer class="site-footer"><a class="wordmark footer-mark" href="/index.html">S<span class="mark-dot">.</span></a><span>一个关于记录与创造的个人空间</span><span>© <span class="year">2026</span> Seth</span><a class="back-top" href="#top">返回顶部 ↑</a></footer>
-  </div>
+<div class="reading-end" id="article-end"><span>END OF ARTICLE</span><a href="#top">回到顶部 ↑</a></div>
+<nav aria-label="相邻文章" class="reading-next"><a href="/2024/08/06/postgresql-study-third-day/"><small>上一篇</small><strong>PostgreSQL学习记录——第三天</strong><span aria-hidden="true">↗</span></a><a href="/2024/08/05/leetcode_%E5%8C%BA%E9%97%B4/"><small>下一篇</small><strong>leetcode刷题记录——区间</strong><span aria-hidden="true">↗</span></a></nav>
+<a class="reading-all" href="/blog.html">← 返回文章列表</a>
+</article>
+</div>
+</main>
+<footer class="site-footer"><a class="wordmark footer-mark" href="/index.html">S<span class="mark-dot">.</span></a><span>一个关于记录与创造的个人空间</span><span>© <span class="year">2026</span> Seth</span><a class="back-top" href="#top">返回顶部 ↑</a></footer>
+</div>
 </body>
 </html>

@@ -1,39 +1,40 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f5f1e9">
-  <meta name="description" content="今儿继续学go吧。 数组 这个一看到第一反应就是python的，感觉go就是受到了python的影响。 声明和初始化 从定义上看和python的差不多，相同的唯一类型的一组、已编号、长度固定、可通过索引来进行修改 声明格式如下 1 var identifier [ le">
-  <title>go学习记录——第四天 · Seth的小站</title>
-  <link rel="stylesheet" href="/styles.css">
-  <link rel="stylesheet" href="/article.css">
-  <script defer src="/site.js"></script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="#f5f1e9" name="theme-color"/>
+<meta content="今儿继续学go吧。 数组 这个一看到第一反应就是python的，感觉go就是受到了python的影响。 声明和初始化 从定义上看和python的差不多，相同的唯一类型的一组、已编号、长度固定、可通过索引来进行修改 声明格式如下 1 var identifier [ le" name="description"/>
+<title>go学习记录——第四天 · Seth的小站</title>
+<link href="/styles.css" rel="stylesheet"/>
+<link href="/article.css" rel="stylesheet"/>
+<script defer="" src="/site.js"></script>
 </head>
 <body>
-  <div class="site-shell">
-    <header class="site-header">
+<div class="site-shell">
+<header class="site-header">
 <a aria-label="Seth 首页" class="wordmark" href="/index.html"><span class="mark">S<span class="mark-dot">.</span></span><span class="wordmark-text">SETH / NOTES</span></a>
 <nav aria-label="主导航" class="main-nav"><a class="active" href="/index.html">首页</a><a href="/blog.html">文章</a><a href="/about.html">关于</a></nav>
 <button aria-label="切换明暗主题" class="theme-toggle" title="切换明暗主题" type="button"><span aria-hidden="true">◐</span></button>
 </header>
-    <main id="top">
-      <section class="reading-hero reveal">
-        <div class="reading-hero-inner">
-          <a class="reading-back" href="/blog.html">← 返回全部文章</a>
-          <p class="eyebrow">WRITINGS <span class="eyebrow-line"></span> 学习记录</p>
-          <h1>go学习记录——第四天</h1>
-          <div class="reading-meta"><time datetime="2024-08-12">2024-08-12</time><span>学习记录</span><span>第 37 / 53 篇</span></div>
-        </div>
-      </section>
-      <div class="reading-layout">
-        <aside class="reading-rail" aria-label="文章目录">
-          <p class="reading-rail-label">IN THIS ARTICLE / 目录</p>
-          <nav><a href="#数组">数组</a><a href="#声明和初始化">声明和初始化</a><a href="#数组常量">数组常量</a><a href="#多维数组">多维数组</a><a href="#将数组传给函数">将数组传给函数</a><a href="#切片">切片</a><a href="#声明和初始化-1">声明和初始化</a><a href="#将切片传递给函数">将切片传递给函数</a><a href="#用make-创建一个切片">用make()创建一个切片</a><a href="#new-和make-的区别">new()和make()的区别</a><a href="#多维切片">多维切片</a></nav>
-          <a class="reading-rail-back" href="/blog.html">查看全部 53 篇 ↗</a>
-        </aside>
-        <article class="reading-article">
-          <div id="article-body" class="legacy-body">
+<main id="top">
+<section class="reading-hero reveal">
+<div class="reading-hero-inner">
+<a class="reading-back" href="/blog.html">← 返回全部文章</a>
+<p class="eyebrow">WRITINGS <span class="eyebrow-line"></span> 学习记录</p>
+<h1>go学习记录——第四天</h1>
+<div class="reading-meta"><time datetime="2024-08-12">2024-08-12</time><span>学习记录</span><span>第 45 / 61 篇</span></div>
+</div>
+</section>
+<div class="reading-layout">
+<aside aria-label="文章目录" class="reading-rail">
+<p class="reading-rail-label">IN THIS ARTICLE / 目录</p>
+<nav><a href="#数组">数组</a><a href="#声明和初始化">声明和初始化</a><a href="#数组常量">数组常量</a><a href="#多维数组">多维数组</a><a href="#将数组传给函数">将数组传给函数</a><a href="#切片">切片</a><a href="#声明和初始化-1">声明和初始化</a><a href="#将切片传递给函数">将切片传递给函数</a><a href="#用make-创建一个切片">用make()创建一个切片</a><a href="#new-和make-的区别">new()和make()的区别</a><a href="#多维切片">多维切片</a></nav>
+<a class="reading-rail-back" href="/blog.html">查看全部 61 篇 ↗</a>
+</aside>
+<article class="reading-article">
+<div class="legacy-body" id="article-body">
 <p>今儿继续学go吧。</p>
 <h1 id="数组"><a class="headerlink" href="#数组" title="数组"></a>数组</h1><p>这个一看到第一反应就是python的，感觉go就是受到了python的影响。</p>
 <h2 id="声明和初始化"><a class="headerlink" href="#声明和初始化" title="声明和初始化"></a>声明和初始化</h2><p>从定义上看和python的差不多，相同的唯一类型的一组、已编号、长度固定、可通过索引来进行修改</p>
@@ -148,13 +149,13 @@
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/></pre></td><td class="code"><pre><code class="hljs GO"><span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-built_in">len</span>(matrix); i++ {<br/>    <span class="hljs-keyword">for</span> j := <span class="hljs-number">0</span>; j &lt; <span class="hljs-built_in">len</span>(matrix[i]); j++ {<br/>        fmt.Printf(<span class="hljs-string">"%d "</span>, matrix[i][j])<br/>    }<br/>    fmt.Println()<br/>}<br/></code></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/></pre></td><td class="code"><pre><code class="hljs PYTHON">matrix = [<br/>    [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>],<br/>    [<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>]<br/>]<br/><br/><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(matrix)):<br/>    <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(matrix[i])):<br/>        <span class="hljs-built_in">print</span>(matrix[i][j], end=<span class="hljs-string">' '</span>)<br/>    <span class="hljs-built_in">print</span>()<br/></code></pre></td></tr></table></figure>
 </div>
-          <div id="article-end" class="reading-end"><span>END OF ARTICLE</span><a href="#top">回到顶部 ↑</a></div>
-          <nav class="reading-next" aria-label="相邻文章"><a href="/2024/08/13/go-study-fifth-day/"><small>上一篇</small><strong>go学习记录——第五天</strong><span aria-hidden="true">↗</span></a><a href="/2024/08/09/leetcode-%E9%93%BE%E8%A1%A8/"><small>下一篇</small><strong>leetcode刷题记录——链表</strong><span aria-hidden="true">↗</span></a></nav>
-          <a class="reading-all" href="/blog.html">← 返回文章列表</a>
-        </article>
-      </div>
-    </main>
-    <footer class="site-footer"><a class="wordmark footer-mark" href="/index.html">S<span class="mark-dot">.</span></a><span>一个关于记录与创造的个人空间</span><span>© <span class="year">2026</span> Seth</span><a class="back-top" href="#top">返回顶部 ↑</a></footer>
-  </div>
+<div class="reading-end" id="article-end"><span>END OF ARTICLE</span><a href="#top">回到顶部 ↑</a></div>
+<nav aria-label="相邻文章" class="reading-next"><a href="/2024/08/13/go-study-fifth-day/"><small>上一篇</small><strong>go学习记录——第五天</strong><span aria-hidden="true">↗</span></a><a href="/2024/08/09/leetcode-%E9%93%BE%E8%A1%A8/"><small>下一篇</small><strong>leetcode刷题记录——链表</strong><span aria-hidden="true">↗</span></a></nav>
+<a class="reading-all" href="/blog.html">← 返回文章列表</a>
+</article>
+</div>
+</main>
+<footer class="site-footer"><a class="wordmark footer-mark" href="/index.html">S<span class="mark-dot">.</span></a><span>一个关于记录与创造的个人空间</span><span>© <span class="year">2026</span> Seth</span><a class="back-top" href="#top">返回顶部 ↑</a></footer>
+</div>
 </body>
 </html>

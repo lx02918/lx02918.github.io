@@ -1,39 +1,40 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f5f1e9">
-  <meta name="description" content="第一题 爬山 首先俺们的Bob在一个风和日丽的日子选择去登珠峰，我们需要在n个特殊的日子（人话就是n天时间内）在大本营找到合适的时间去登山。但是需要知道补给只能维持k天，所以Bob最多只能待k天时间，所以他可能会在不适合爬山的日子撤回到低海拔地区。下撤是需要考虑移动次数">
-  <title>小米笔试 · Seth的小站</title>
-  <link rel="stylesheet" href="/styles.css">
-  <link rel="stylesheet" href="/article.css">
-  <script defer src="/site.js"></script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="#f5f1e9" name="theme-color"/>
+<meta content="第一题 爬山 首先俺们的Bob在一个风和日丽的日子选择去登珠峰，我们需要在n个特殊的日子（人话就是n天时间内）在大本营找到合适的时间去登山。但是需要知道补给只能维持k天，所以Bob最多只能待k天时间，所以他可能会在不适合爬山的日子撤回到低海拔地区。下撤是需要考虑移动次数" name="description"/>
+<title>小米笔试 · Seth的小站</title>
+<link href="/styles.css" rel="stylesheet"/>
+<link href="/article.css" rel="stylesheet"/>
+<script defer="" src="/site.js"></script>
 </head>
 <body>
-  <div class="site-shell">
-    <header class="site-header">
+<div class="site-shell">
+<header class="site-header">
 <a aria-label="Seth 首页" class="wordmark" href="/index.html"><span class="mark">S<span class="mark-dot">.</span></span><span class="wordmark-text">SETH / NOTES</span></a>
 <nav aria-label="主导航" class="main-nav"><a class="active" href="/index.html">首页</a><a href="/blog.html">文章</a><a href="/about.html">关于</a></nav>
 <button aria-label="切换明暗主题" class="theme-toggle" title="切换明暗主题" type="button"><span aria-hidden="true">◐</span></button>
 </header>
-    <main id="top">
-      <section class="reading-hero reveal">
-        <div class="reading-hero-inner">
-          <a class="reading-back" href="/blog.html">← 返回全部文章</a>
-          <p class="eyebrow">WRITINGS <span class="eyebrow-line"></span> 笔试记录</p>
-          <h1>小米笔试</h1>
-          <div class="reading-meta"><time datetime="2025-03-12">2025-03-12</time><span>笔试记录</span><span>第 04 / 53 篇</span></div>
-        </div>
-      </section>
-      <div class="reading-layout">
-        <aside class="reading-rail" aria-label="文章目录">
-          <p class="reading-rail-label">IN THIS ARTICLE / 目录</p>
-          <nav><a href="#第一题-爬山">第一题 爬山</a><a href="#思路">思路</a><a href="#代码逻辑">代码逻辑</a><a href="#代码">代码</a><a href="#第二题-买车">第二题 买车</a><a href="#思路-1">思路</a><a href="#代码解析">代码解析</a><a href="#注意">注意</a><a href="#代码-1">代码</a></nav>
-          <a class="reading-rail-back" href="/blog.html">查看全部 53 篇 ↗</a>
-        </aside>
-        <article class="reading-article">
-          <div id="article-body" class="legacy-body">
+<main id="top">
+<section class="reading-hero reveal">
+<div class="reading-hero-inner">
+<a class="reading-back" href="/blog.html">← 返回全部文章</a>
+<p class="eyebrow">WRITINGS <span class="eyebrow-line"></span> 笔试记录</p>
+<h1>小米笔试</h1>
+<div class="reading-meta"><time datetime="2025-03-12">2025-03-12</time><span>笔试记录</span><span>第 12 / 61 篇</span></div>
+</div>
+</section>
+<div class="reading-layout">
+<aside aria-label="文章目录" class="reading-rail">
+<p class="reading-rail-label">IN THIS ARTICLE / 目录</p>
+<nav><a href="#第一题-爬山">第一题 爬山</a><a href="#思路">思路</a><a href="#代码逻辑">代码逻辑</a><a href="#代码">代码</a><a href="#第二题-买车">第二题 买车</a><a href="#思路-1">思路</a><a href="#代码解析">代码解析</a><a href="#注意">注意</a><a href="#代码-1">代码</a></nav>
+<a class="reading-rail-back" href="/blog.html">查看全部 61 篇 ↗</a>
+</aside>
+<article class="reading-article">
+<div class="legacy-body" id="article-body">
 <h1 id="第一题-爬山"><a class="headerlink" href="#第一题-爬山" title="第一题 爬山"></a>第一题 爬山</h1><p>首先俺们的Bob在一个风和日丽的日子选择去登珠峰，我们需要在n个特殊的日子（人话就是n天时间内）在大本营找到合适的时间去登山。但是需要知道补给只能维持k天，所以Bob最多只能待k天时间，所以他可能会在不适合爬山的日子撤回到低海拔地区。下撤是需要考虑移动次数的。</p>
 <p>所以我们需要算的就是他在低海拔出发低海拔结束，在不错过n个日子且在大本营生活天数不超过k天的前提下最少的移动次数是多少。</p>
 <h2 id="思路"><a class="headerlink" href="#思路" title="思路"></a>思路</h2><p>首先我们将输入进行拆分，举个例子，[2,3,4,7,8]五天时间，我们拆分为[2,3,4]和[7.8]两个区间，每个连续区间内他都只需要进入一次大本营，离开一次，所以我们区间数（最开始统计到的连续区间）p就是至少需要移动的一半。</p>
@@ -68,13 +69,13 @@
 <h2 id="注意"><a class="headerlink" href="#注意" title="注意"></a>注意</h2><p>这里我最后没有完全做对，但思路是这个，最后我是超时了只有70%。如果有直接做对的可以评论下。</p>
 <h2 id="代码-1"><a class="headerlink" href="#代码-1" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/><span class="line">10</span><br/><span class="line">11</span><br/><span class="line">12</span><br/><span class="line">13</span><br/><span class="line">14</span><br/><span class="line">15</span><br/><span class="line">16</span><br/><span class="line">17</span><br/><span class="line">18</span><br/><span class="line">19</span><br/><span class="line">20</span><br/><span class="line">21</span><br/><span class="line">22</span><br/><span class="line">23</span><br/><span class="line">24</span><br/><span class="line">25</span><br/><span class="line">26</span><br/><span class="line">27</span><br/><span class="line">28</span><br/><span class="line">29</span><br/><span class="line">30</span><br/><span class="line">31</span><br/><span class="line">32</span><br/><span class="line">33</span><br/><span class="line">34</span><br/><span class="line">35</span><br/><span class="line">36</span><br/><span class="line">37</span><br/><span class="line">38</span><br/><span class="line">39</span><br/><span class="line">40</span><br/><span class="line">41</span><br/><span class="line">42</span><br/><span class="line">43</span><br/></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">main</span>():<br/>    X, Y, n = <span class="hljs-built_in">map</span>(<span class="hljs-built_in">int</span>, <span class="hljs-built_in">input</span>().split())<br/>    inf = <span class="hljs-built_in">float</span>(<span class="hljs-string">'inf'</span>)<br/>    dp = [[inf <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(Y + <span class="hljs-number">1</span>)] <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(X + <span class="hljs-number">1</span>)]<br/>    dp[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>] = <span class="hljs-number">0</span><br/>    all_configs = []<br/>    <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n):<br/>        line = <span class="hljs-built_in">list</span>(<span class="hljs-built_in">map</span>(<span class="hljs-built_in">int</span>, <span class="hljs-built_in">input</span>().split()))<br/>        base_cost, base_x, base_y, k = line<br/>        <span class="hljs-keyword">if</span> base_x &gt; <span class="hljs-number">0</span> <span class="hljs-keyword">and</span> base_y &gt; <span class="hljs-number">0</span>:<br/>            all_configs.append((base_cost, base_x, base_y))<br/><br/>        <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(k):<br/>            m_opt, x_opt, y_opt = <span class="hljs-built_in">map</span>(<span class="hljs-built_in">int</span>, <span class="hljs-built_in">input</span>().split())<br/>            total_cost = base_cost + m_opt<br/>            total_x = base_x + x_opt<br/>            total_y = base_y + y_opt<br/><br/>            <span class="hljs-keyword">if</span> total_x &gt; <span class="hljs-number">0</span> <span class="hljs-keyword">and</span> total_y &gt; <span class="hljs-number">0</span>:<br/>                all_configs.append((total_cost, total_x, total_y))<br/>    <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(X + <span class="hljs-number">1</span>):<br/>        <span class="hljs-keyword">for</span> y <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(Y + <span class="hljs-number">1</span>):<br/>            <span class="hljs-keyword">if</span> dp[x][y] == inf:<br/>                <span class="hljs-keyword">continue</span><br/>            <span class="hljs-keyword">for</span> cost, cap_x, cap_y <span class="hljs-keyword">in</span> all_configs:<br/>                curr_x = x<br/>                curr_y = y<br/>                curr_cost = dp[x][y]<br/>                <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br/>                    next_x = <span class="hljs-built_in">min</span>(X, curr_x + cap_x)<br/>                    next_y = <span class="hljs-built_in">min</span>(Y, curr_y + cap_y)<br/>                    <span class="hljs-keyword">if</span> next_x == curr_x <span class="hljs-keyword">and</span> next_y == curr_y:<br/>                        <span class="hljs-keyword">break</span><br/>                    curr_cost += cost<br/>                    dp[next_x][next_y] = <span class="hljs-built_in">min</span>(dp[next_x][next_y], curr_cost)<br/>                    curr_x = next_x<br/>                    curr_y = next_y<br/>                    <span class="hljs-keyword">if</span> curr_x == X <span class="hljs-keyword">and</span> curr_y == Y:<br/>                        <span class="hljs-keyword">break</span><br/>    result = dp[X][Y]<br/>    <span class="hljs-built_in">print</span>(result <span class="hljs-keyword">if</span> result!= inf <span class="hljs-keyword">else</span> -<span class="hljs-number">1</span>)<br/><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">'__main__'</span>:<br/>    main()<br/></code></pre></td></tr></table></figure>
 </div>
-          <div id="article-end" class="reading-end"><span>END OF ARTICLE</span><a href="#top">回到顶部 ↑</a></div>
-          <nav class="reading-next" aria-label="相邻文章"><a href="/2025/03/18/NetEase-test/"><small>上一篇</small><strong>网易笔试</strong><span aria-hidden="true">↗</span></a><a href="/2025/03/11/obsidian-web-clipper-safari-ai-knowledge-base/"><small>下一篇</small><strong>Web 网页剪裁、iPhone Safari Web Clipper 和 AI 问答（AI 知识库）</strong><span aria-hidden="true">↗</span></a></nav>
-          <a class="reading-all" href="/blog.html">← 返回文章列表</a>
-        </article>
-      </div>
-    </main>
-    <footer class="site-footer"><a class="wordmark footer-mark" href="/index.html">S<span class="mark-dot">.</span></a><span>一个关于记录与创造的个人空间</span><span>© <span class="year">2026</span> Seth</span><a class="back-top" href="#top">返回顶部 ↑</a></footer>
-  </div>
+<div class="reading-end" id="article-end"><span>END OF ARTICLE</span><a href="#top">回到顶部 ↑</a></div>
+<nav aria-label="相邻文章" class="reading-next"><a href="/2025/03/18/NetEase-test/"><small>上一篇</small><strong>网易笔试</strong><span aria-hidden="true">↗</span></a><a href="/2025/03/11/obsidian-web-clipper-safari-ai-knowledge-base/"><small>下一篇</small><strong>Web 网页剪裁、iPhone Safari Web Clipper 和 AI 问答（AI 知识库）</strong><span aria-hidden="true">↗</span></a></nav>
+<a class="reading-all" href="/blog.html">← 返回文章列表</a>
+</article>
+</div>
+</main>
+<footer class="site-footer"><a class="wordmark footer-mark" href="/index.html">S<span class="mark-dot">.</span></a><span>一个关于记录与创造的个人空间</span><span>© <span class="year">2026</span> Seth</span><a class="back-top" href="#top">返回顶部 ↑</a></footer>
+</div>
 </body>
 </html>

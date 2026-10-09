@@ -1,0 +1,12 @@
+{
+  "slug": "3KJY25V4HAaQL1iJGu5Y0A",
+  "title": "一些Agentic Engineering 技巧",
+  "date": "2026-06-04",
+  "url": "/2026/06/04/agentic-engineering-tips/",
+  "source_url": "https://mp.weixin.qq.com/s/3KJY25V4HAaQL1iJGu5Y0A",
+  "account": "凌曦悦",
+  "description": "从规划到执行，Agent 改变的不仅是工作流程，更是心态——你从执行者变成决策者。本文分享如何用 Claude Code、Codex 等打造 Agentic 工作循环，让多个 Agent 并行工作，而你只需提供判断和品味。",
+  "excerpt": "1. 一有想法，立刻建 CE plan.md 这仍然是第一法则，也是最重要的事情。 一有想法，就是 /ce-plan 做计划。不是\"让我想想\"，不是\"让我开始写代码\"，而是每次都用 /ce-plan 。它也支持图片，所以任何你能截取的东西都可以作为起点： 疯狂的产品想法： /ce-plan…",
+  "image_paths": [],
+  "text_sha256": "ec2b8a0c825ccad4bca5a6212af5c2f68613f040fab9ee086015fada2301ccb9"
+}

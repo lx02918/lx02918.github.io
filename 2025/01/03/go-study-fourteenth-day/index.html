@@ -1,39 +1,40 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f5f1e9">
-  <meta name="description" content="方法和未导出字段 考虑 person2.go 中的 person 包：类型 Person 被明确的导出了，但是它的字段没有被导出。例如在 use_person2.go 中 p.firstName 就是错误的。该如何在另一个程序中修改或只读取一个 Person 的名字呢？">
-  <title>go学习记录——第十四天 · Seth的小站</title>
-  <link rel="stylesheet" href="/styles.css">
-  <link rel="stylesheet" href="/article.css">
-  <script defer src="/site.js"></script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="#f5f1e9" name="theme-color"/>
+<meta content="方法和未导出字段 考虑 person2.go 中的 person 包：类型 Person 被明确的导出了，但是它的字段没有被导出。例如在 use_person2.go 中 p.firstName 就是错误的。该如何在另一个程序中修改或只读取一个 Person 的名字呢？" name="description"/>
+<title>go学习记录——第十四天 · Seth的小站</title>
+<link href="/styles.css" rel="stylesheet"/>
+<link href="/article.css" rel="stylesheet"/>
+<script defer="" src="/site.js"></script>
 </head>
 <body>
-  <div class="site-shell">
-    <header class="site-header">
+<div class="site-shell">
+<header class="site-header">
 <a aria-label="Seth 首页" class="wordmark" href="/index.html"><span class="mark">S<span class="mark-dot">.</span></span><span class="wordmark-text">SETH / NOTES</span></a>
 <nav aria-label="主导航" class="main-nav"><a class="active" href="/index.html">首页</a><a href="/blog.html">文章</a><a href="/about.html">关于</a></nav>
 <button aria-label="切换明暗主题" class="theme-toggle" title="切换明暗主题" type="button"><span aria-hidden="true">◐</span></button>
 </header>
-    <main id="top">
-      <section class="reading-hero reveal">
-        <div class="reading-hero-inner">
-          <a class="reading-back" href="/blog.html">← 返回全部文章</a>
-          <p class="eyebrow">WRITINGS <span class="eyebrow-line"></span> 学习记录</p>
-          <h1>go学习记录——第十四天</h1>
-          <div class="reading-meta"><time datetime="2025-01-03">2025-01-03</time><span>学习记录</span><span>第 12 / 53 篇</span></div>
-        </div>
-      </section>
-      <div class="reading-layout">
-        <aside class="reading-rail" aria-label="文章目录">
-          <p class="reading-rail-label">IN THIS ARTICLE / 目录</p>
-          <nav><a href="#方法和未导出字段">方法和未导出字段</a><a href="#并发访问对象">并发访问对象</a><a href="#内嵌类型的方法和继承">内嵌类型的方法和继承</a><a href="#如何在类型中嵌入功能">如何在类型中嵌入功能</a><a href="#多重继承">多重继承</a><a href="#通用方法和方法命名">通用方法和方法命名</a><a href="#和其他面向对象语言比较-Go-的类型和方法">和其他面向对象语言比较 Go 的类型和方法</a><a href="#总结">总结</a><a href="#类型的-String-方法和格式化描述符">类型的 String() 方法和格式化描述符</a><a href="#垃圾回收和和SetFinalizer">垃圾回收和和SetFinalizer</a></nav>
-          <a class="reading-rail-back" href="/blog.html">查看全部 53 篇 ↗</a>
-        </aside>
-        <article class="reading-article">
-          <div id="article-body" class="legacy-body">
+<main id="top">
+<section class="reading-hero reveal">
+<div class="reading-hero-inner">
+<a class="reading-back" href="/blog.html">← 返回全部文章</a>
+<p class="eyebrow">WRITINGS <span class="eyebrow-line"></span> 学习记录</p>
+<h1>go学习记录——第十四天</h1>
+<div class="reading-meta"><time datetime="2025-01-03">2025-01-03</time><span>学习记录</span><span>第 20 / 61 篇</span></div>
+</div>
+</section>
+<div class="reading-layout">
+<aside aria-label="文章目录" class="reading-rail">
+<p class="reading-rail-label">IN THIS ARTICLE / 目录</p>
+<nav><a href="#方法和未导出字段">方法和未导出字段</a><a href="#并发访问对象">并发访问对象</a><a href="#内嵌类型的方法和继承">内嵌类型的方法和继承</a><a href="#如何在类型中嵌入功能">如何在类型中嵌入功能</a><a href="#多重继承">多重继承</a><a href="#通用方法和方法命名">通用方法和方法命名</a><a href="#和其他面向对象语言比较-Go-的类型和方法">和其他面向对象语言比较 Go 的类型和方法</a><a href="#总结">总结</a><a href="#类型的-String-方法和格式化描述符">类型的 String() 方法和格式化描述符</a><a href="#垃圾回收和和SetFinalizer">垃圾回收和和SetFinalizer</a></nav>
+<a class="reading-rail-back" href="/blog.html">查看全部 61 篇 ↗</a>
+</aside>
+<article class="reading-article">
+<div class="legacy-body" id="article-body">
 <h1 id="方法和未导出字段"><a class="headerlink" href="#方法和未导出字段" title="方法和未导出字段"></a>方法和未导出字段</h1><p>考虑 <code>person2.go</code> 中的 <code>person</code> 包：类型 <code>Person</code> 被明确的导出了，但是它的字段没有被导出。例如在 <code>use_person2.go</code> 中 <code>p.firstName</code> 就是错误的。该如何在另一个程序中修改或只读取一个 <code>Person</code> 的名字呢？</p>
 <p>这可以通过面向对象语言中一个众所周知的技术来完成：提供 <code>getter()</code> 和 <code>setter()</code> 方法。对于 <code>setter()</code> 方法使用 <code>Set...</code> 前缀，对于 <code>getter()</code> 方法只使用成员名。</p>
 <p>示例<a href="https://github.com/unknwon/the-way-to-go_ZH_CN/blob/master/eBook/examples/chapter_10/person2.go" rel="noopener" target="_blank">person2.go</a></p>
@@ -110,13 +111,13 @@
 <p><code>func(obj *typeObj)</code> 需要一个 <code>typeObj</code> 类型的指针参数 <code>obj</code> ，特殊操作会在它上面执行，<code>func</code> 也可以是一个匿名函数。</p>
 <p>在对象被 <code>GC</code> 进程选中并从内存中移除以前，<code>SetFinalizer</code> 都不会执行，即使程序正常结束或发生错误。</p>
 </div>
-          <div id="article-end" class="reading-end"><span>END OF ARTICLE</span><a href="#top">回到顶部 ↑</a></div>
-          <nav class="reading-next" aria-label="相邻文章"><a href="/2025/01/05/go-study-fifteenth-day/"><small>上一篇</small><strong>go学习记录——第十五天</strong><span aria-hidden="true">↗</span></a><a href="/2024/12/07/go-study-thirteenth-day/"><small>下一篇</small><strong>go学习记录——第十三天</strong><span aria-hidden="true">↗</span></a></nav>
-          <a class="reading-all" href="/blog.html">← 返回文章列表</a>
-        </article>
-      </div>
-    </main>
-    <footer class="site-footer"><a class="wordmark footer-mark" href="/index.html">S<span class="mark-dot">.</span></a><span>一个关于记录与创造的个人空间</span><span>© <span class="year">2026</span> Seth</span><a class="back-top" href="#top">返回顶部 ↑</a></footer>
-  </div>
+<div class="reading-end" id="article-end"><span>END OF ARTICLE</span><a href="#top">回到顶部 ↑</a></div>
+<nav aria-label="相邻文章" class="reading-next"><a href="/2025/01/05/go-study-fifteenth-day/"><small>上一篇</small><strong>go学习记录——第十五天</strong><span aria-hidden="true">↗</span></a><a href="/2024/12/07/go-study-thirteenth-day/"><small>下一篇</small><strong>go学习记录——第十三天</strong><span aria-hidden="true">↗</span></a></nav>
+<a class="reading-all" href="/blog.html">← 返回文章列表</a>
+</article>
+</div>
+</main>
+<footer class="site-footer"><a class="wordmark footer-mark" href="/index.html">S<span class="mark-dot">.</span></a><span>一个关于记录与创造的个人空间</span><span>© <span class="year">2026</span> Seth</span><a class="back-top" href="#top">返回顶部 ↑</a></footer>
+</div>
 </body>
 </html>

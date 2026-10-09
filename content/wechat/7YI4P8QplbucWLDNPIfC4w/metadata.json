@@ -1,0 +1,12 @@
+{
+  "slug": "7YI4P8QplbucWLDNPIfC4w",
+  "title": "Claude Code 进阶配置：OpenSpec + Superpowers + Comet",
+  "date": "2026-05-25",
+  "url": "/2026/05/25/claude-code-openspec-superpowers-comet/",
+  "source_url": "https://mp.weixin.qq.com/s/7YI4P8QplbucWLDNPIfC4w",
+  "account": "凌曦悦",
+  "description": "用 Claude Code 做项目，AI 总是跑偏、跳过测试、需求全靠聊天记录？这篇文章介绍三个开源工具组合拳：OpenSpec 管需求文档化、Superpowers 强制工程纪律、Comet 一键串联全流程，从安装到实际工作流手把手讲清楚。",
+  "excerpt": "今天我想邀请所有 Claude Code 用户认真思考一件事：你有没有遇到过这种情况？ 打开 CC，说一句「加个登录功能」，AI 噼里啪啦写了一大堆。能跑，但你要的是 JWT，它给你实现了 session。再改，context 窗口满了，AI 开始失忆，你的需求只活在聊天记录里。 这不是模…",
+  "image_paths": [],
+  "text_sha256": "39ae05b0d9f1714dc7e09bf4d3413ef8dc1a8100c98fcc36ca817e4f9189b87e"
+}
