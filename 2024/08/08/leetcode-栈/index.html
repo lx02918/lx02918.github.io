@@ -10,6 +10,9 @@
 <link href="/styles.css" rel="stylesheet"/>
 <link href="/article.css" rel="stylesheet"/>
 <script defer="" src="/site.js"></script>
+<link rel="stylesheet" href="/vendor/waline/waline.min.css"/>
+<link rel="stylesheet" href="/comments.css"/>
+<script defer src="/comments.js"></script>
 </head>
 <body>
 <div class="site-shell">
@@ -211,6 +214,14 @@ minStack.getMin();   --&gt; 返回 -2.
 <div class="reading-end" id="article-end"><span>END OF ARTICLE</span><a href="#top">回到顶部 ↑</a></div>
 <nav aria-label="相邻文章" class="reading-next"><a href="/2024/08/09/go-study-third-day/"><small>上一篇</small><strong>go学习记录——第三天</strong><span aria-hidden="true">↗</span></a><a href="/2024/08/08/go-study-second-day/"><small>下一篇</small><strong>go学习记录——第二天</strong><span aria-hidden="true">↗</span></a></nav>
 <a class="reading-all" href="/blog.html">← 返回文章列表</a>
+<section class="reading-comments" aria-labelledby="comments-title">
+<p class="eyebrow">CONVERSATION / 留言</p>
+<h2 id="comments-title">留言与讨论</h2>
+<p class="reading-comments-intro">欢迎留下想法，评论由 Waline 提供。</p>
+<div id="waline"></div>
+<p class="comments-status" role="status">评论正在加载…</p>
+<noscript>请启用 JavaScript 查看和发表留言。</noscript>
+</section>
 </article>
 </div>
 </main>

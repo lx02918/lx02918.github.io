@@ -1,0 +1,8 @@
+.reading-comments{margin-top:68px;padding-top:46px;border-top:1px solid var(--line)}
+.reading-comments .eyebrow{margin:0 0 15px;color:var(--accent);font-size:11px;font-weight:700;letter-spacing:.15em}
+.reading-comments h2{margin:0 0 12px;font-family:var(--font-serif);font-size:clamp(32px,4vw,48px);font-weight:500;letter-spacing:-.04em}
+.reading-comments-intro{margin:0 0 32px;color:var(--muted);font-size:14px;line-height:1.7}
+.reading-comments #waline{--waline-theme-color:var(--accent);--waline-active-color:var(--accent);--waline-color:var(--ink);--waline-bgcolor:var(--bg);--waline-bgcolor-light:var(--paper);--waline-bgcolor-hover:var(--paper);--waline-border-color:var(--line);--waline-info-bgcolor:var(--paper);--waline-info-color:var(--muted);font-family:var(--font-sans)}
+.reading-comments .comments-status{color:var(--muted);font-size:13px}
+.reading-comments .comments-status[hidden]{display:none}
+@media(max-width:650px){.reading-comments{margin-top:48px;padding-top:36px}.reading-comments-intro{margin-bottom:24px}}
