@@ -210,5 +210,3 @@ your-project/
 **快速参考：**
 
 <table><thead><tr><th>工具</th><th>安装命令</th><th>GitHub</th></tr></thead><tbody><tr><td>Superpowers</td><td><code>/plugin install superpowers@claude-plugins-official</code></td><td>obra/superpowers</td></tr><tr><td>OpenSpec</td><td><code>npm install -g @fission-ai/openspec</code></td><td>Fission-AI/OpenSpec</td></tr><tr><td>Comet（含前两者）</td><td><code>npm install -g @rpamis/comet &amp;&amp; comet init</code></td><td>rpamis/comet</td></tr></tbody></table>
-
-赶快去试试吧！期待你回来留言反馈！

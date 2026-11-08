@@ -179,7 +179,7 @@ Anthropic 花了 18 个月教 Claude 怎么思考，又花了 6 个月教 Claude
 
 ---
 
-以上是原帖全文翻译。如果你想深入了解某个具体功能，欢迎留言。
+以上是原帖全文翻译。
 
 原帖作者：Guri Singh @heygurisingh 原帖链接：
 
